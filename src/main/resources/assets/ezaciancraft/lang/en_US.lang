@@ -1,0 +1,26 @@
+#tab
+itemGroup.ezacianCraft=EzacianCraft
+itemGroup.ezacianCraftResources=EzacianCraft Resources
+
+#items
+##resources
+item.shadowVoidMetal.0.name=Shadow Void Metal Ingot
+item.shadowVoidMetal.1.name=Shadow Void Metal Nugget
+
+##tools
+item.voidZephyrSword.name=The Sword of the Void Zephyr
+item.voidCorePickaxe.name=Void Pickaxe of the Core
+item.voidStreamAxe.name=Void Axe of the Stream
+item.voidTerraShatterShovel.name=Void Shovel of the EarthMover
+item.voidGrowthHoe.name=Void Hoe of the Growth
+
+#blocks
+##resource
+tile.shadowVoidMetalOre.name=Shadow Void Metal Ore
+tile.shadowVoidMetalBlock.name=Shadow Void Metal Block
+
+##te's
+tile.alchemicalMixer.name=Alchemical Mixer
+tile.etherealAccelerator.name=Ethereal Accelerator
+
+#other
