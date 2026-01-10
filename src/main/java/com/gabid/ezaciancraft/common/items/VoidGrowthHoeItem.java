@@ -1,29 +1,21 @@
 package com.gabid.ezaciancraft.common.items;
 
 import com.gabid.ezaciancraft.api.EzacianToolMaterials;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.ItemAxe;
-import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.IWarpingGear;
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.blocks.BlockCustomPlant;
-import thaumcraft.common.config.ConfigBlocks;
-import thaumcraft.common.items.equipment.ItemElementalAxe;
 import thaumcraft.common.items.equipment.ItemElementalHoe;
-import thaumcraft.common.lib.utils.Utils;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_GROWTH_HOE;
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
 
 public class VoidGrowthHoeItem extends ItemElementalHoe implements IWarpingGear, IRepairable {

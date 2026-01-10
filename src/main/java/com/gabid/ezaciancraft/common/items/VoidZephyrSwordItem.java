@@ -1,7 +1,6 @@
 package com.gabid.ezaciancraft.common.items;
 
 import com.gabid.ezaciancraft.api.EzacianToolMaterials;
-import com.google.common.collect.Multimap;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -12,11 +11,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import thaumcraft.api.IWarpingGear;
-import thaumcraft.common.items.equipment.ItemElementalPickaxe;
 import thaumcraft.common.items.equipment.ItemElementalSword;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_CORE_PICKAXE;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_ZEPHYR_SWORD;
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
 

@@ -1,14 +1,11 @@
 package com.gabid.ezaciancraft.registry;
 
-import com.gabid.ezaciancraft.api.common.items.MetalResourceItem;
 import com.gabid.ezaciancraft.common.items.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_SHADOW_VOID_METAL;
-import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
 
 public class EzacianCraftItems {
 
@@ -16,7 +13,6 @@ public class EzacianCraftItems {
     public static Item ezaciancraftTabIconItem;
 
     //resources
-    public static Item shadowVoidMetal;
 
     //tools
     public static Item voidZephyrSword;

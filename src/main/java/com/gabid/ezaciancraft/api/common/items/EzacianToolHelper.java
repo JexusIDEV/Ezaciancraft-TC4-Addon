@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
@@ -47,6 +48,7 @@ public class EzacianToolHelper {
 
     public static void removeBlocksInIteration(EntityPlayer player, World world, int x, int y, int z, int xs, int ys, int zs, int xe, int ye, int ze, Block block, Material[] materialsListing, boolean silk, int fortune) {
         float blockHardness = (block == null) ? 1.0f : block.getBlockHardness(world, x, y, z);
+        ItemStack heldItemTool = player.getHeldItem();
         for (int x1 = xs; x1 < xe; x1++) {
             for (int y1 = ys; y1 < ye; y1++) {
                 for (int z1 = zs; z1 < ze; z1++) {
@@ -64,6 +66,7 @@ public class EzacianToolHelper {
             return;
 
         Block blk = world.getBlock(x, y, z);
+        ItemStack heldItemTool = player.getHeldItem();
 
         if (block != null && blk != block)
             return;
@@ -80,6 +83,9 @@ public class EzacianToolHelper {
                 }
                 blk.harvestBlock(world, player, x, y, z, localMeta);
                 blk.onBlockHarvested(world, x, y, z, localMeta, player);
+                if((heldItemTool.isItemStackDamageable() || heldItemTool.getItemDamage() > 0)  && heldItemTool.getItem() instanceof ItemTool) {
+                    heldItemTool.damageItem(1, player);
+                }
             } else {
                 world.setBlockToAir(x, y, z);
             }

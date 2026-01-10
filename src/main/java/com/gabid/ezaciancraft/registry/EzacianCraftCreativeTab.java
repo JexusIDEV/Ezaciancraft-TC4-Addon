@@ -1,10 +1,8 @@
 package com.gabid.ezaciancraft.registry;
 
-import com.gabid.ezaciancraft.api.EzacianCraftGeneralLang;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_EZACIANCRAFT_CREATIVE_TAB;

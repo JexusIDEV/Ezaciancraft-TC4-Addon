@@ -4,6 +4,7 @@ itemGroup.ezacianCraftResources=EzacianCraft Resources
 
 #items
 ##resources
+### ~void
 item.shadowVoidMetal.0.name=Shadow Void Metal Ingot
 item.shadowVoidMetal.1.name=Shadow Void Metal Nugget
 
@@ -16,8 +17,11 @@ item.voidGrowthHoe.name=Void Hoe of the Growth
 
 #blocks
 ##resource
+### ~void
 tile.shadowVoidMetalOre.name=Shadow Void Metal Ore
 tile.shadowVoidMetalBlock.name=Shadow Void Metal Block
+tile.voidSeedOre.name=Void Seed Ore
+tile.voidMetalBlock.name=Void Metal Block
 
 ##te's
 tile.alchemicalMixer.name=Alchemical Mixer

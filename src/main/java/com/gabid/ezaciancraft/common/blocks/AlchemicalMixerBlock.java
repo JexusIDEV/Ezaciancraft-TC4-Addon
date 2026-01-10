@@ -8,15 +8,13 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import thaumcraft.api.aspects.Aspect;
-
-import java.util.Objects;
 
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ALCHEMICAL_MIXER;
 import static thaumcraft.common.Thaumcraft.MODID;
@@ -66,14 +64,14 @@ public class AlchemicalMixerBlock extends BlockContainer {
     }
 
     @Override
-    public int damageDropped(int meta) {
-        return meta;
-    }
-
-    /*@Override
     public boolean hasComparatorInputOverride() {
         return true;
-    }*/
+    }
+
+    @Override
+    public int getComparatorInputOverride(World level, int x, int y, int z, int side) {
+        return super.getComparatorInputOverride(level, x, y, z, side);
+    }
 
     @Override
     public void onBlockAdded(World level, int x, int y, int z) {
