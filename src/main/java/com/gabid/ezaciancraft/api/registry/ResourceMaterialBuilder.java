@@ -121,7 +121,7 @@ public class ResourceMaterialBuilder {
             return this;
         }
 
-        public Builder createResourceBlock(MetalResourceItem newItem) {
+        public Builder createResourceItem(MetalResourceItem newItem) {
             this.resourceMetal = newItem;
             return this;
         }

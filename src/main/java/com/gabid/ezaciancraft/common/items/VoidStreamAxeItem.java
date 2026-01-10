@@ -13,10 +13,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.ItemAxe;
-import net.minecraft.item.ItemPickaxe;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
@@ -135,6 +132,9 @@ public class VoidStreamAxeItem extends ItemElementalAxe implements IWarpingGear,
                 if (Utils.isWoodLog(world, x, y, z)) {
                     while (blck != Blocks.air) {
                         BlockUtils.breakFurthestBlock(world, x, y, z, blck, player);
+                        if((stack.isItemStackDamageable() || stack.getItemDamage() > 0) && stack.getItem() instanceof ItemTool) {
+                            stack.damageItem(1, player);
+                        }
                         blck = world.getBlock(x, y, z);
                     }
 

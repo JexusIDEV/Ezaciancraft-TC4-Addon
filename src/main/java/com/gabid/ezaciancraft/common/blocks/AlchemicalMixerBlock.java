@@ -1,9 +1,5 @@
 package com.gabid.ezaciancraft.common.blocks;
 
-import codechicken.lib.raytracer.IndexedCuboid6;
-import codechicken.lib.raytracer.RayTracer;
-import codechicken.lib.vec.BlockCoord;
-import codechicken.lib.vec.Vector3;
 import com.gabid.ezaciancraft.common.blocks.tileentity.AlchemicalMixerTileEntity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -14,13 +10,11 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import thaumcraft.common.blocks.BlockTube;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ALCHEMICAL_MIXER;
 import static thaumcraft.common.Thaumcraft.MODID;
@@ -28,7 +22,6 @@ import static thaumcraft.common.Thaumcraft.MODID;
 public class AlchemicalMixerBlock extends BlockContainer {
 
     public IIcon alchemicalMixerIcon = null;
-    private RayTracer rayTracer = new RayTracer();
 
     public AlchemicalMixerBlock() {
         super(Material.iron);
@@ -68,11 +61,6 @@ public class AlchemicalMixerBlock extends BlockContainer {
     @Override
     public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
         return true;
-    }
-
-    @Override
-    public int damageDropped(int meta) {
-        return meta;
     }
 
     @Override

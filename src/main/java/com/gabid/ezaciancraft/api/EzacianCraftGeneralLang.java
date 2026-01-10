@@ -8,9 +8,12 @@ public class EzacianCraftGeneralLang {
 
     //items
     //*resources
+    //** ~void
     public static String UNLOCALE_SHADOW_VOID_METAL = "shadowVoidMetal";
     public static String UNLOCALE_SHADOW_VOID_METAL_BLOCK = "shadowVoidMetalBlock";
     public static String UNLOCALE_SHADOW_VOID_METAL_ORE = "shadowVoidMetalOre"; //the material is unnatural, but, anyway...
+    public static String UNLOCALE_VOID_SEED_ORE = "voidSeedOre";
+    public static String UNLOCALE_VOID_METAL_BLOCK = "voidMetalBlock";
 
     //*wand stuff
     public static String UNLOCALE_SHADOW_VOID_INERT_WAND_CAP = "shadowVoidMetalInertWandCap";
