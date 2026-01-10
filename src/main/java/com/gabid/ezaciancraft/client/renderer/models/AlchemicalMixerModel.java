@@ -2,7 +2,6 @@ package com.gabid.ezaciancraft.client.renderer.models;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;
 
 public class AlchemicalMixerModel extends ModelBase {
@@ -12,6 +11,7 @@ public class AlchemicalMixerModel extends ModelBase {
     //fields
     public ModelRenderer Container;
     public ModelRenderer PipeOutput;
+    public ModelRenderer PipeOutputConnected;
     public ModelRenderer PipeInputA;
     public ModelRenderer PipeInputB;
     public ModelRenderer Deco1;
@@ -38,7 +38,11 @@ public class AlchemicalMixerModel extends ModelBase {
         PipeOutput.addBox(0F, 0F, 0F, 4, 2, 4, 0F);
         PipeOutput.setRotationPoint(-2F, 8F, -2F);
         this.setModelRotationAngles(this.PipeOutput, 0f,0f,0f);
-        PipeOutput.mirror = false;
+        PipeOutputConnected = new ModelRenderer(this, 48, 7);
+        PipeOutputConnected.addBox(0F, 0F, 0F, 2, 6, 2, 0F);
+        PipeOutputConnected.setRotationPoint(-1F, 2F, -1F);
+        this.setModelRotationAngles(this.PipeOutputConnected, 0f,0f,0f);
+        PipeOutputConnected.mirror = false;
         PipeInputA = new ModelRenderer(this, 33, 9);
         PipeInputA.addBox(0F, 0F, 0F, 3, 4, 4, 0F);
         PipeInputA.setRotationPoint(5F, 14F, -2F);
@@ -135,5 +139,9 @@ public class AlchemicalMixerModel extends ModelBase {
         this.Deco1.render(scaleModelRender);
         this.Deco2.render(scaleModelRender);
         this.Deco3.render(scaleModelRender);
+    }
+
+    public void renderConnected() {
+        this.PipeOutputConnected.render(scaleModelRender);
     }
 }

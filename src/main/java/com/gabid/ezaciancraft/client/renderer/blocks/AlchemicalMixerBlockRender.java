@@ -17,11 +17,9 @@ public class AlchemicalMixerBlockRender implements ISimpleBlockRenderingHandler 
 
     @Override
     public void renderInventoryBlock(Block block, int metadata, int modelId, RenderBlocks renderer) {
-        try {
-            GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-            TileEntityRendererDispatcher.instance.renderTileEntityAt(new AlchemicalMixerTileEntity(), 0.0, 0.0, 0.0, 0.0F);
-            GL11.glEnable(32826);
-        } catch (IllegalStateException e) {}
+        GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
+        TileEntityRendererDispatcher.instance.renderTileEntityAt(new AlchemicalMixerTileEntity(), 0.0F, 0.0F, 0.0F, 0.0F);
+        GL11.glEnable(32826);
     }
 
     @Override

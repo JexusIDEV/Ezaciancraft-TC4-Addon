@@ -1,5 +1,9 @@
 package com.gabid.ezaciancraft.common.blocks;
 
+import codechicken.lib.raytracer.IndexedCuboid6;
+import codechicken.lib.raytracer.RayTracer;
+import codechicken.lib.vec.BlockCoord;
+import codechicken.lib.vec.Vector3;
 import com.gabid.ezaciancraft.common.blocks.tileentity.AlchemicalMixerTileEntity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -8,15 +12,15 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import thaumcraft.api.aspects.Aspect;
+import thaumcraft.common.blocks.BlockTube;
 
-import java.util.Objects;
+import java.util.LinkedList;
+import java.util.List;
 
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ALCHEMICAL_MIXER;
 import static thaumcraft.common.Thaumcraft.MODID;
@@ -24,6 +28,7 @@ import static thaumcraft.common.Thaumcraft.MODID;
 public class AlchemicalMixerBlock extends BlockContainer {
 
     public IIcon alchemicalMixerIcon = null;
+    private RayTracer rayTracer = new RayTracer();
 
     public AlchemicalMixerBlock() {
         super(Material.iron);
@@ -70,10 +75,15 @@ public class AlchemicalMixerBlock extends BlockContainer {
         return meta;
     }
 
-    /*@Override
+    @Override
     public boolean hasComparatorInputOverride() {
         return true;
-    }*/
+    }
+
+    @Override
+    public int getComparatorInputOverride(World level, int x, int y, int z, int side) {
+        return super.getComparatorInputOverride(level, x, y, z, side);
+    }
 
     @Override
     public void onBlockAdded(World level, int x, int y, int z) {

@@ -4,14 +4,17 @@ import com.gabid.ezaciancraft.api.aspects.AspectHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import thaumcraft.api.ThaumcraftApi;
+import org.lwjgl.util.vector.Vector3f;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.aspects.IEssentiaTransport;
-import thaumcraft.common.blocks.BlockJar;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.*;
 
@@ -20,18 +23,24 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
     public Aspect aspectInput1 = null;
     public Aspect aspectInput2 = null;
     public Aspect aspectOutput = null;
+    public int maxAspectCapacity = 3;
+    public Aspect currentAspectForColor = null;
 
-    public int metaFacing = 3;
+    public List<Vector3f> colors;
+
+    public int metaFacing = 3; //mostly used for rendering, changes when placed
     public ForgeDirection facing = null;
 
     private int ticks = 0;
     private int aspectProcessingTime = 0;
     public float rotationSpeed = 0f;
-    public int whiskerRotation = 0;
-
-    public boolean isFirstRun = true;
+    public float whiskerRotation = 0f;
 
     public AlchemicalMixerTileEntity() {
+        colors = new ArrayList<>(3);
+        colors.add(new Vector3f(1f, 1f, 1f));
+        colors.add(new Vector3f(0f, 0f, 0f));
+        colors.add(new Vector3f(1f, 1f, 1f));
     }
 
     @Override
@@ -88,7 +97,7 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
         return false;
     }
 
-    private int getSuctionInInputPipes(ForgeDirection forgeDirection) {
+    private int getSuctionAmountInPipes(ForgeDirection forgeDirection) {
         //I hate my existence :(
         if(!this.isGettingRedstonePower()) {
             if (this.metaFacing == 2 || this.metaFacing == 3) {
@@ -109,6 +118,12 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
                 } else if (forgeDirection == ForgeDirection.UNKNOWN) {
                     return 0;
                 }
+            }
+
+            if(forgeDirection == ForgeDirection.DOWN) {
+                return 16;
+            } else {
+                return 0;
             }
         }
 
@@ -146,7 +161,7 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
 
     @Override
     public int getSuctionAmount(ForgeDirection forgeDirection) {
-        return this.getSuctionInInputPipes(forgeDirection);
+        return this.getSuctionAmountInPipes(forgeDirection);
     }
 
     @Override
@@ -177,7 +192,7 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
 
     @Override
     public int getEssentiaAmount(ForgeDirection forgeDirection) {
-        return 0;
+        return this.aspectOutput != null ? 1 : 0;
     }
 
     @Override
@@ -272,8 +287,9 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
     @Override
     public void updateEntity() {
         if(!this.worldObj.isRemote) {
+            ++this.ticks;
             if(!this.isGettingRedstonePower()) {
-                if (++this.ticks % 5 == 0) {
+                if (this.ticks % 5 == 0) {
                     if (this.aspectInput1 == null || this.aspectInput2 == null) {
                         this.drawEssentiaFromInputPipes();
                     }
@@ -309,6 +325,43 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
             if ((this.aspectInput1 == null || this.aspectInput2 == null || this.isGettingRedstonePower()) && this.rotationSpeed > 0.0F) {
                 this.rotationSpeed -= 0.5F;
             }
+
+            int pr = (int)this.whiskerRotation;
+            this.whiskerRotation += this.rotationSpeed;
+            if (this.whiskerRotation % 180.0F <= 20.0F && pr % 180 >= 160 && this.rotationSpeed > 0.0F) {
+                this.worldObj.playSound((double)this.xCoord + 0.5, (double)this.yCoord + 0.5, (double)this.zCoord + 0.5, "thaumcraft:pump", 1.0F, 1.0F, false);
+            }
+
+            int currentAspects = this.getAspects().visSize();
+            if(currentAspects > 0) {
+                if (this.ticks % 20 == 0 && this.getAspects().size() > 0) {
+                    this.currentAspectForColor = this.getAspects().getAspects()[this.ticks / 20 % this.getAspects().size()];
+                    Color color = new Color(this.currentAspectForColor.getColor());
+                    this.colors.get(0).x = color.getRed() / 255f;
+                    this.colors.get(0).y = color.getGreen() / 255f;
+                    this.colors.get(0).z = color.getBlue() / 255f;
+                    this.colors.get(1).x = (this.colors.get(2).x - this.colors.get(0).x) / 20f;
+                    this.colors.get(1).y = (this.colors.get(2).y - this.colors.get(0).y) / 20f;
+                    this.colors.get(1).z = (this.colors.get(2).z - this.colors.get(0).z) / 20f;
+                }
+
+                if (this.currentAspectForColor == null) {
+                    this.colors.get(0).x = this.colors.get(0).y = this.colors.get(0).z = 1.0F;
+                    this.colors.get(1).x = this.colors.get(1).y = this.colors.get(1).z = 0.0F;
+                } else {
+                    this.colors.get(2).x -= this.colors.get(1).x;
+                    this.colors.get(2).y -= this.colors.get(1).y;
+                    this.colors.get(2).z -= this.colors.get(1).z;
+                }
+
+                System.out.println("red: " + this.colors.get(2).x);
+                System.out.println("green: " + this.colors.get(2).y);
+                System.out.println("blue: " + this.colors.get(2).z);
+            }
+        }
+
+        if(this.ticks < 0 || this.ticks == Integer.MAX_VALUE) {
+            this.ticks = 0;
         }
 
         super.updateEntity();
@@ -466,5 +519,10 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
 
     private boolean isGettingRedstonePower() {
         return this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord,this.yCoord,this.zCoord);
+    }
+
+    public boolean isSideConnected(ForgeDirection direction) {
+        TileEntity connectableTE = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, direction);
+        return connectableTE != null && connectableTE instanceof IEssentiaTransport;
     }
 }

@@ -4,9 +4,4 @@ public enum EzacianToolMode {
     SINGLE(),
     AREA(),
     COLUMN();
-
-    @Override
-    public String toString() {
-        return values().toString();
-    }
 }
