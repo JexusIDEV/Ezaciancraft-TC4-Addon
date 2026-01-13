@@ -37,6 +37,8 @@ public class EzacianCraftBlocks {
         voidSeedOre = new BlockOre();
         voidSeedOre.setBlockName(UNLOCALE_VOID_SEED_ORE);
         voidSeedOre.setBlockTextureName(new ResourceLocation(MODID, UNLOCALE_VOID_SEED_ORE).toString());
+        voidSeedOre.setHardness(3.5f);
+        voidSeedOre.setResistance(5f);
         voidSeedOre.setCreativeTab(EZACIANCRAFT_RESOURCES_TAB);
         GameRegistry.registerBlock(voidSeedOre, voidSeedOre.getUnlocalizedName());
 

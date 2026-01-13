@@ -12,7 +12,7 @@ item.shadowVoidMetal.1.name=Shadow Void Metal Nugget
 item.voidZephyrSword.name=The Sword of the Void Zephyr
 item.voidCorePickaxe.name=Void Pickaxe of the Core
 item.voidStreamAxe.name=Void Axe of the Stream
-item.voidTerraShatterShovel.name=Void Shovel of the EarthMover
+item.voidTerraShatterShovel.name=Void Shovel of the Earthmover
 item.voidGrowthHoe.name=Void Hoe of the Growth
 
 #blocks
@@ -26,5 +26,17 @@ tile.voidMetalBlock.name=Void Metal Block
 ##te's
 tile.alchemicalMixer.name=Alchemical Mixer
 tile.etherealAccelerator.name=Ethereal Accelerator
+
+#research and related
+##category title
+tc.research_category.EZACIANCRAFT=Ezaciancraft
+
+##research titles and text
+tc.research_name.GETTING_STARTED=Getting Started
+tc.research_text.GETTING_STARTED=Alien Magic?
+
+##research pages
+ezaciancraft.research_page.GETTING_STARTED.1=a<BR><BR>g
+ezaciancraft.research_page.GETTING_STARTED.2=b
 
 #other

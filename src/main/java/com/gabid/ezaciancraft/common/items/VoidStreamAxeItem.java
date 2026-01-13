@@ -19,9 +19,11 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.IWarpingGear;
+import thaumcraft.common.blocks.BlockJar;
 import thaumcraft.common.items.equipment.ItemElementalAxe;
 import thaumcraft.common.lib.utils.BlockUtils;
 import thaumcraft.common.lib.utils.Utils;
@@ -31,6 +33,8 @@ import java.util.List;
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
 import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.TOOL_MODE;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.*;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianToolModeTranslation;
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
 
 public class VoidStreamAxeItem extends ItemElementalAxe implements IWarpingGear, IRepairable, IEzacianTool {
@@ -82,23 +86,28 @@ public class VoidStreamAxeItem extends ItemElementalAxe implements IWarpingGear,
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List tooltips, boolean flag) {
         super.addInformation(stack, player, tooltips, flag);
-
         int toolModeData = this.getMode(stack);
-        String info = "Single";
-
+        String info = "";
         switch (toolModeData) {
             case 0:
-                info = "Single";
+                info = ezacianToolModeSingleTranslation;
                 break;
             case 1:
-                info = "Area";
+                info = ezacianToolModeAreaTranslation;
                 break;
             case 2:
-                info = "Tree";
+                info = ezacianToolModeTreeTranslation;
                 break;
         }
+        tooltips.add(ezacianToolModeTranslation+": " + info);
+    }
 
-        tooltips.add("Mode: " + info);
+    @Override
+    public float getDigSpeed(ItemStack stack, Block block, int meta) {
+        if(block instanceof BlockJar && !ForgeHooks.isToolEffective(stack, block, meta)) {
+            return this.efficiencyOnProperMaterial;
+        }
+        return super.getDigSpeed(stack, block, meta);
     }
 
     @Override

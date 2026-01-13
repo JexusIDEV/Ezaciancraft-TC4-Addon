@@ -76,6 +76,9 @@ dependencies {
     runtimeOnly("codechicken:CodeChickenCore:1.7.10-1.0.7.48:dev")
     runtimeOnly("codechicken:NotEnoughItems:1.7.10-1.0.5.120:universal")
 
+    //thaum nei
+    implementation("curse.maven:thaumcraft-nei-plugin-225095:2241913")
+
     //i want to suffer
     implementation("curse.maven:avaritia-233785:2519595")
     implementation("curse.maven:howling-moon-236149:2326149")

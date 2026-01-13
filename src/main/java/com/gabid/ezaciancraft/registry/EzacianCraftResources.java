@@ -7,7 +7,7 @@ import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_SHADOW
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_RESOURCES_TAB;
 
 public class EzacianCraftResources {
-    public static ResourceMaterialBuilder shadowVoidResources = ResourceMaterialBuilder.createAFullSet(UNLOCALE_SHADOW_VOID_METAL, 1f, 0.25f, MapColor.blackColor, EZACIANCRAFT_RESOURCES_TAB);
+    public static ResourceMaterialBuilder shadowVoidMetalResources = ResourceMaterialBuilder.createAFullSet(UNLOCALE_SHADOW_VOID_METAL, 1f, 0.25f, MapColor.blackColor, EZACIANCRAFT_RESOURCES_TAB);
 
     public static void setupResources() {
 

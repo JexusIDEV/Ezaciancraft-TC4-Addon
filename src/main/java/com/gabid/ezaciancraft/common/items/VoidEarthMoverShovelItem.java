@@ -13,23 +13,35 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import thaumcraft.api.BlockCoordinates;
+import thaumcraft.api.IArchitect;
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.IWarpingGear;
+import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.items.equipment.ItemElementalShovel;
+import thaumcraft.common.lib.utils.InventoryUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
 import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.TOOL_MODE;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.*;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianToolModeTranslation;
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
+import static thaumcraft.common.items.equipment.ItemElementalShovel.getOrientation;
 
 //adapting from original class, due for the own area destroy and putting blocks - conflict within the thaumic tinkerer's idea
 
@@ -92,23 +104,20 @@ public class VoidEarthMoverShovelItem extends ItemSpade implements IWarpingGear,
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List tooltips, boolean flag) {
         super.addInformation(stack, player, tooltips, flag);
-
         int toolModeData = this.getMode(stack);
-        String info = "Single";
-
+        String info = "";
         switch (toolModeData) {
             case 0:
-                info = "Single";
+                info = ezacianToolModeSingleTranslation;
                 break;
             case 1:
-                info = "Area";
+                info = ezacianToolModeAreaTranslation;
                 break;
             case 2:
-                info = "Column";
+                info = ezacianToolModeColumnTranslation;
                 break;
         }
-
-        tooltips.add("Mode: " + info);
+        tooltips.add(ezacianToolModeTranslation+": " + info);
     }
 
     @Override
@@ -177,5 +186,102 @@ public class VoidEarthMoverShovelItem extends ItemSpade implements IWarpingGear,
             NBTHelper.setDefaultContainerNBT(stack, TOOL_MODE, 0);
         }
         return stack.getTagCompound().getInteger(TOOL_MODE);
+    }
+
+    @Override
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
+        int xm = ForgeDirection.getOrientation(side).offsetX;
+        int ym = ForgeDirection.getOrientation(side).offsetY;
+        int zm = ForgeDirection.getOrientation(side).offsetZ;
+        Block bi = world.getBlock(x, y, z);
+        int md = world.getBlockMetadata(x, y, z);
+        TileEntity te = world.getTileEntity(x, y, z);
+        if (te == null) {
+            for (int aa = -1; aa <= 1; ++aa) {
+                for (int bb = -1; bb <= 1; ++bb) {
+                    int xx = 0;
+                    int yy = 0;
+                    int zz = 0;
+                    byte o = getOrientation(stack);
+                    int l;
+                    if (o == 1) {
+                        yy = bb;
+                        if (side <= 1) {
+                            l = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5) & 3;
+                            if (l != 0 && l != 2) {
+                                zz = aa;
+                            } else {
+                                xx = aa;
+                            }
+                        } else if (side <= 3) {
+                            zz = aa;
+                        } else {
+                            xx = aa;
+                        }
+                    } else if (o == 2) {
+                        if (side <= 1) {
+                            l = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5) & 3;
+                            yy = bb;
+                            if (l != 0 && l != 2) {
+                                zz = aa;
+                            } else {
+                                xx = aa;
+                            }
+                        } else {
+                            zz = bb;
+                            xx = aa;
+                        }
+                    } else if (side <= 1) {
+                        xx = aa;
+                        zz = bb;
+                    } else if (side <= 3) {
+                        xx = aa;
+                        yy = bb;
+                    } else {
+                        zz = aa;
+                        yy = bb;
+                    }
+
+                    Block b2 = world.getBlock(x + xx + xm, y + yy + ym, z + zz + zm);
+                    if (world.isAirBlock(x + xx + xm, y + yy + ym, z + zz + zm) || b2 == Blocks.vine || b2 == Blocks.tallgrass || b2.getMaterial() == Material.water || b2 == Blocks.lava || b2.isReplaceable(world, x + xx + xm, y + yy + ym, z + zz + zm)) {
+                        if (!player.capabilities.isCreativeMode && !InventoryUtils.consumeInventoryItem(player, Item.getItemFromBlock(bi), md)) {
+                            if (bi == Blocks.grass && (player.capabilities.isCreativeMode || InventoryUtils.consumeInventoryItem(player, Item.getItemFromBlock(Blocks.dirt), 0))) {
+                                world.playSound((double) (x + xx + xm), (double) (y + yy + ym), (double) (z + zz + zm), bi.stepSound.func_150496_b(), 0.6F, 0.9F + world.rand.nextFloat() * 0.2F, false);
+                                world.setBlock(x + xx + xm, y + yy + ym, z + zz + zm, Blocks.dirt, 0, 3);
+                                stack.damageItem(1, player);
+                                Thaumcraft.proxy.blockSparkle(world, x + xx + xm, y + yy + ym, z + zz + zm, 3, 4);
+                                player.swingItem();
+                            }
+                        } else {
+                            world.playSound((double) (x + xx + xm), (double) (y + yy + ym), (double) (z + zz + zm), bi.stepSound.func_150496_b(), 0.6F, 0.9F + world.rand.nextFloat() * 0.2F, false);
+                            world.setBlock(x + xx + xm, y + yy + ym, z + zz + zm, bi, md, 3);
+                            stack.damageItem(1, player);
+                            Thaumcraft.proxy.blockSparkle(world, x + xx + xm, y + yy + ym, z + zz + zm, 8401408, 4);
+                            player.swingItem();
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean showAxis(ItemStack stack, World world, EntityPlayer player, int side, IArchitect.EnumAxis axis) {
+        return false;
+    }
+
+    public static byte getOrientation(ItemStack stack) {
+        return stack.hasTagCompound() && stack.getTagCompound().hasKey("or") ? stack.getTagCompound().getByte("or") : 0;
+    }
+
+    public static void setOrientation(ItemStack stack, byte o) {
+        if (!stack.hasTagCompound()) {
+            stack.setTagCompound(new NBTTagCompound());
+        }
+
+        if (stack.hasTagCompound()) {
+            stack.getTagCompound().setByte("or", (byte)(o % 3));
+        }
+
     }
 }

@@ -28,4 +28,9 @@ public class EzacianServerProxy extends EzacianCommonProxy {
     public WorldClient getClientLevel() {
         return null;
     }
+
+    @Override
+    public void registerDisplayClientStuff() {
+
+    }
 }
