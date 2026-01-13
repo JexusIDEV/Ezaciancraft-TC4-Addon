@@ -318,18 +318,26 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
                 }
             }
         } else {
-            if (this.aspectInput1 != null && this.aspectInput2 != null && !this.isGettingRedstonePower() && this.rotationSpeed < 20.0F) {
-                this.rotationSpeed += 2.0F;
+            if(this.aspectInput1 != null && this.aspectInput2 != null) {
+                if(AspectHelper.compoundExists(this.aspectInput1, this.aspectInput2)) {
+                    if (!this.isGettingRedstonePower() && this.rotationSpeed < 20.0F) {
+                        this.rotationSpeed += 2.0F;
+                    }
+                } else {
+                    return;
+                }
+            } else {
+                if(this.rotationSpeed > 0.0F && !this.isGettingRedstonePower()) {
+                    this.rotationSpeed -= 0.5F;
+                } else if(this.isGettingRedstonePower() && this.rotationSpeed <= 0f) {
+                    this.rotationSpeed = 0F;
+                }
             }
 
-            if ((this.aspectInput1 == null || this.aspectInput2 == null || this.isGettingRedstonePower()) && this.rotationSpeed > 0.0F) {
-                this.rotationSpeed -= 0.5F;
-            }
-
-            int pr = (int)this.whiskerRotation;
+            int pr = (int) this.whiskerRotation;
             this.whiskerRotation += this.rotationSpeed;
             if (this.whiskerRotation % 180.0F <= 20.0F && pr % 180 >= 160 && this.rotationSpeed > 0.0F) {
-                this.worldObj.playSound((double)this.xCoord + 0.5, (double)this.yCoord + 0.5, (double)this.zCoord + 0.5, "thaumcraft:pump", 1.0F, 1.0F, false);
+                this.worldObj.playSound((double) this.xCoord + 0.5, (double) this.yCoord + 0.5, (double) this.zCoord + 0.5, "thaumcraft:pump", 1.0F, 1.0F, false);
             }
 
             int currentAspects = this.getAspects().visSize();
@@ -353,10 +361,6 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
                     this.colors.get(2).y -= this.colors.get(1).y;
                     this.colors.get(2).z -= this.colors.get(1).z;
                 }
-
-                System.out.println("red: " + this.colors.get(2).x);
-                System.out.println("green: " + this.colors.get(2).y);
-                System.out.println("blue: " + this.colors.get(2).z);
             }
         }
 

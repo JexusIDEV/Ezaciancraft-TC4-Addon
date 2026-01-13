@@ -20,6 +20,8 @@ import thaumcraft.common.config.ConfigBlocks;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ALCHEMICAL_MIXER;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_LIGHTING;
 
 @SideOnly(Side.CLIENT)
 public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer {
@@ -54,7 +56,6 @@ public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer
         GL11.glPushMatrix();
         GL11.glTranslated(x+0.5, y-0.5, z+0.5);
         GL11.glRotatef(0f, 0f, 1f, 0f);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.renderStoredEssentia(te);
         bindTexture(texturePath);
         this.model.renderDeco();
@@ -87,10 +88,10 @@ public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer
     private void renderStoredEssentia(AlchemicalMixerTileEntity te) {
         if(this.field_147501_a.field_147553_e != null && te.currentAspectForColor != null && te.getAspects().visSize() != 0) {
             GL11.glPushMatrix();
-            GL11.glEnable(3042);
+            GL11.glEnable(GL_BLEND);
             GL11.glBlendFunc(770, 771);
             RenderBlocks renderBlocks = new RenderBlocks();
-            GL11.glDisable(2896);
+            GL11.glDisable(GL_LIGHTING);
             int currentStored = te.getAspects().visSize();
             float levelStored = (float) currentStored / te.maxAspectCapacity;
             Tessellator tessellator = Tessellator.instance;
@@ -107,8 +108,8 @@ public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer
             renderBlocks.renderFaceXNeg(ConfigBlocks.blockEssentiaReservoir, 0.0, 0.5, 0.0, icon);
             renderBlocks.renderFaceXPos(ConfigBlocks.blockEssentiaReservoir, 0.0, 0.5, 0.0, icon);
             tessellator.draw();
-            GL11.glEnable(2896);
-            GL11.glDisable(3042);
+            GL11.glEnable(GL_LIGHTING);
+            GL11.glDisable(GL_BLEND);
             GL11.glPopMatrix();
         }
     }

@@ -13,6 +13,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import thaumcraft.api.ThaumcraftApiHelper;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 
@@ -34,7 +35,7 @@ import static com.gabid.ezaciancraft.CoreMod.MODID;
 //obtained from thaumic tinkerer: https://github.com/Thaumic-Tinkerer/ThaumicTinkerer/blob/1.7.10/src/main/java/thaumic/tinkerer/common/item/kami/tool/ToolHandler.java
     //some stuff has been removed, because doesn't mix well with my ideas in my mod...
 public class EzacianToolHelper {
-    public static Material[] materialsPick = new Material[]{ Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil };
+    public static Material[] materialsPick = new Material[]{ Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil};
     public static Material[] materialsShovel = new Material[]{ Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
     public static Material[] materialsAxe = new Material[]{ Material.coral, Material.leaves, Material.plants, Material.wood };
 

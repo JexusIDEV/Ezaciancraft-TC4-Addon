@@ -18,5 +18,5 @@ public abstract class EzacianCommonProxy {
 
     public abstract WorldClient getClientLevel();
 
-
+    public abstract void registerDisplayClientStuff();
 }

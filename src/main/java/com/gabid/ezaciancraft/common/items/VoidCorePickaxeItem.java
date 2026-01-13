@@ -4,6 +4,7 @@ import com.gabid.ezaciancraft.api.EzacianToolMaterials;
 import com.gabid.ezaciancraft.api.common.items.EzacianToolHelper;
 import com.gabid.ezaciancraft.api.common.items.IEzacianTool;
 import com.gabid.ezaciancraft.lib.nbt.NBTHelper;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,8 +19,10 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.IWarpingGear;
+import thaumcraft.common.blocks.BlockJar;
 import thaumcraft.common.items.equipment.ItemElementalPickaxe;
 
 import java.util.List;
@@ -27,6 +30,7 @@ import java.util.List;
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_CORE_PICKAXE;
 import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.TOOL_MODE;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.*;
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
 
 public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpingGear, IEzacianTool {
@@ -83,23 +87,28 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List tooltips, boolean flag) {
         super.addInformation(stack, player, tooltips, flag);
-
         int toolModeData = this.getMode(stack);
-        String info = "Single";
-
+        String info = "";
         switch (toolModeData) {
             case 0:
-                info = "Single";
+                info = ezacianToolModeSingleTranslation;
                 break;
             case 1:
-                info = "Area";
+                info = ezacianToolModeAreaTranslation;
                 break;
             case 2:
-                info = "Column";
+                info = ezacianToolModeColumnTranslation;
                 break;
         }
+        tooltips.add(ezacianToolModeTranslation+": " + info);
+    }
 
-        tooltips.add("Mode: " + info);
+    @Override
+    public float getDigSpeed(ItemStack stack, Block block, int meta) {
+        if(block instanceof BlockJar && !ForgeHooks.isToolEffective(stack, block, meta)) {
+            return this.efficiencyOnProperMaterial;
+        }
+        return super.getDigSpeed(stack, block, meta);
     }
 
     @Override
@@ -116,6 +125,7 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
         ForgeDirection direction = ForgeDirection.getOrientation(block.sideHit);
         int fortune = EnchantmentHelper.getFortuneModifier(player);
         boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
+
         switch (this.getMode(itemstack)) {
             case 0:
                 break;

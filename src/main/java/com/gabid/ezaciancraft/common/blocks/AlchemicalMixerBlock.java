@@ -17,6 +17,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ALCHEMICAL_MIXER;
+import static com.gabid.ezaciancraft.registry.EzacianCraftTypeRenders.ALCHEMICAL_MIXER_RENDER_ID;
 import static thaumcraft.common.Thaumcraft.MODID;
 
 public class AlchemicalMixerBlock extends BlockContainer {
@@ -44,7 +45,7 @@ public class AlchemicalMixerBlock extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return -1;
+        return ALCHEMICAL_MIXER_RENDER_ID;
     }
 
     @Override
@@ -70,7 +71,18 @@ public class AlchemicalMixerBlock extends BlockContainer {
 
     @Override
     public int getComparatorInputOverride(World level, int x, int y, int z, int side) {
-        return super.getComparatorInputOverride(level, x, y, z, side);
+        TileEntity te = level.getTileEntity(x,y,z);
+        if(te instanceof AlchemicalMixerTileEntity) {
+            AlchemicalMixerTileEntity alchemicalTE = (AlchemicalMixerTileEntity) te;
+            int stored = alchemicalTE.getAspects().size();
+            if(stored > 0) {
+                return (int) stored * 5;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
     }
 
     @Override

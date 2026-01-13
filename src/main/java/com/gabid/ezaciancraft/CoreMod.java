@@ -2,10 +2,7 @@ package com.gabid.ezaciancraft;
 
 import com.gabid.ezaciancraft.common.network.EzacianNetworkHandler;
 import com.gabid.ezaciancraft.proxy.EzacianCommonProxy;
-import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
-import com.gabid.ezaciancraft.registry.EzacianCraftItems;
-import com.gabid.ezaciancraft.registry.EzacianCraftResources;
-import com.gabid.ezaciancraft.registry.EzacianCraftTileEntities;
+import com.gabid.ezaciancraft.registry.*;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -33,21 +30,28 @@ public class CoreMod
     {
         EzacianCraftItems.setupItemsRegistry();
         EzacianCraftBlocks.setupBlocksRegistry();
-        EzacianCraftTileEntities.setupTileEntities();
         EzacianCraftResources.setupResources();
+        EzacianCraftTileEntities.setupTileEntities();
+
         proxy.preInit(event);
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+        proxy.registerDisplayClientStuff();
         EzacianNetworkHandler.initNetwork();
+        EzacianCraftRecipes.setupRecipes();
+
         proxy.init(event);
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
+        EzacianCraftResearches.registerAllResearches();
+        EzacianCraftAspectTagRegistry.initObjectAspects();
+
         proxy.postInit(event);
     }
 }
