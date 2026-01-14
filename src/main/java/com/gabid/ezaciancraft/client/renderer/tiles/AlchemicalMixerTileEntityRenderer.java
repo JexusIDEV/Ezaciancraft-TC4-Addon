@@ -2,6 +2,7 @@ package com.gabid.ezaciancraft.client.renderer.tiles;
 
 import com.gabid.ezaciancraft.client.renderer.models.AlchemicalMixerModel;
 import com.gabid.ezaciancraft.common.blocks.tileentity.AlchemicalMixerTileEntity;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.RenderBlocks;

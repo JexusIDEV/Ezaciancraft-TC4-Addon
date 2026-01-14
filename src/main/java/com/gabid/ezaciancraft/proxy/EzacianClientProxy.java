@@ -1,22 +1,19 @@
 package com.gabid.ezaciancraft.proxy;
 
 import com.gabid.ezaciancraft.client.event.EzacianCraftKeybinds;
-import com.gabid.ezaciancraft.client.renderer.blocks.AlchemicalMixerBlockRender;
+import com.gabid.ezaciancraft.client.renderer.items.blocks.AlchemicalMixerBlockRender;
 import com.gabid.ezaciancraft.client.renderer.tiles.AlchemicalMixerTileEntityRenderer;
 import com.gabid.ezaciancraft.common.blocks.tileentity.AlchemicalMixerTileEntity;
-import com.gabid.ezaciancraft.registry.EzacianCraftTileEntities;
+import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
 import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.player.EntityPlayer;
-
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ALCHEMICAL_MIXER;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.MinecraftForgeClient;
 
 public class EzacianClientProxy extends EzacianCommonProxy {
 
@@ -26,8 +23,6 @@ public class EzacianClientProxy extends EzacianCommonProxy {
 
     @Override
     public void init(FMLInitializationEvent event) {
-
-
         EzacianCraftKeybinds.registerKeybinds();
     }
 
@@ -54,7 +49,7 @@ public class EzacianClientProxy extends EzacianCommonProxy {
     }
 
     private void registerCustomItemRenders() {
-
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(EzacianCraftBlocks.alchemicalMixer), new AlchemicalMixerBlockRender());
     }
 
     private void registerCustomEntityRenders() {
@@ -62,7 +57,6 @@ public class EzacianClientProxy extends EzacianCommonProxy {
     }
 
     private void registerBlockRenderer() {
-        RenderingRegistry.registerBlockHandler(new AlchemicalMixerBlockRender());
     }
 
     private void registerTileEntitiesRenders() {

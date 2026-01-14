@@ -9,8 +9,8 @@
     "updateUrl": "",
     "authorList": ["GAB_ID"],
     "credits": "anatawa12, Azanor, FML (Forge) Team",
-    "logoFile": "",
+    "logoFile": "ezacianCraftLogo.png",
     "screenshots": [],
-    "dependencies": []
+    "dependencies": ["Thaumcraft"]
   }
 ]
