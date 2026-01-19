@@ -5,7 +5,6 @@ import com.pengu.util.ForgeDirectionHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import thaumcraft.api.aspects.Aspect;
 
 import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.EA_ACCELERATION_SPEED;
 

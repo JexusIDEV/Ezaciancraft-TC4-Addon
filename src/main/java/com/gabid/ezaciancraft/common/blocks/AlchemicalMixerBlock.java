@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -76,7 +77,7 @@ public class AlchemicalMixerBlock extends BlockContainer {
             AlchemicalMixerTileEntity alchemicalTE = (AlchemicalMixerTileEntity) te;
             int stored = alchemicalTE.getAspects().size();
             if(stored > 0) {
-                return (int) stored * 5;
+                return stored * 5;
             } else {
                 return 0;
             }
@@ -114,5 +115,19 @@ public class AlchemicalMixerBlock extends BlockContainer {
                 ((AlchemicalMixerTileEntity) te).metaFacing = 4;
             }
         }
+    }
+
+    //magic numbers? nahhhhh
+
+    @Override
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World p_149633_1_, int p_149633_2_, int p_149633_3_, int p_149633_4_) {
+        this.setBlockBounds(0.185f,0.125f,0.185f,0.815f,0.875f,0.815f);
+        return super.getSelectedBoundingBoxFromPool(p_149633_1_, p_149633_2_, p_149633_3_, p_149633_4_);
+    }
+
+    @Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
+        this.setBlockBounds(0.185f,0.125f,0.185f,0.815f,0.875f,0.815f);
+        return super.getCollisionBoundingBoxFromPool(p_149668_1_, p_149668_2_, p_149668_3_, p_149668_4_);
     }
 }

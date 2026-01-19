@@ -49,7 +49,7 @@ public class EtherealAcceleratorBlock extends BlockContainer {
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new EtherealAcceleratorTE(16);
+        return new EtherealAcceleratorTE(4);
     }
 
     @Override
