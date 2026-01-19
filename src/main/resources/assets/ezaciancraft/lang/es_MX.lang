@@ -11,11 +11,18 @@ item.shadowVoidMetal.1.name=Pepita de Metal Vacío Ensombrecido
 item.ezacianWandCap.0.name=Cubierta de Metal Vacío Ensombrecido Inerte
 item.ezacianWandCap.1.name=Cubierta de Metal Vacío Ensombrecido Cargado
 
-#####wandName
+#### wand-staff rods
+item.ezacianWandRod.0.name=Núcleo de Vara Primal Avanzada
+item.ezacianWandRod.1.name=Núcleo de Bastón Primal Avanzado
+
+#####wandCapName
 item.Wand.shadow_void_metal.cap=Cubierta de Metal Vacío Ensombrecido
 
+####wandRodName
+item.Wand.advanced_primal.rod=Primal Avanzado
+
 ##tools
-item.voidZephyrSword.name=La Espada del Vacío de Zephyr
+item.voidZephyrSword.name=La Espada del Vacío de Céfiro
 item.voidCorePickaxe.name=El Pico del Núcleo del Vacío
 item.voidStreamAxe.name=La Hacha del Torrente del Vacío
 item.voidTerraShatterShovel.name=La Pala del Excavador del Vacío
@@ -54,7 +61,7 @@ tc.research_text.ALCHEMICAL_MIXER=Mezclando Escencia ¡Yummy!
 tc.research_name.TAINT_LANDS=Las Tierras Corruptas
 tc.research_text.TAINT_LANDS=Simplemente Corrupto...
 
-tc.research_name.VOID_SEED_ORE_CONVERSION=Conversión de Mineral de Semilla del Vacío
+tc.research_name.VOID_SEED_ORE_CONVERSION=Conversión de Mineral de Semillas del Vacío
 tc.research_text.VOID_SEED_ORE_CONVERSION=Convirtiendo materiales raros, en cosas raras...
 
 tc.research_name.SHADOW_VOID_METAL=Metal Vacío Ensombrecido
@@ -63,11 +70,17 @@ tc.research_text.SHADOW_VOID_METAL=Oscureciendo el mismo vacío...
 tc.research_name.ELEMENTAL_VOID_TOOLS=Herramientas Elementales del Vacío
 tc.research_text.ELEMENTAL_VOID_TOOLS=¡Más Poderoso que nunca!
 
-tc.research_name.ELEMENTAL_VOID_SWORD=La Espada del Vacío de Zephyr
-tc.research_text.ELEMENTAL_VOID_SWORD=Creo que Zephyr no estaría contento...
+tc.research_name.ELEMENTAL_VOID_SWORD=La Espada del Vacío de Céfiro
+tc.research_text.ELEMENTAL_VOID_SWORD=Creo que Céfiro no estaría contento...
 
 tc.research_name.CAP_shadow_void_metal=Cubiertos de Varita de Metal Vacío Ensombrecido
 tc.research_text.CAP_shadow_void_metal=¡Más descuento que el mismo vacío!
+
+tc.research_name.ROD_advanced_primal=Núcleo de Vara Primigenia Avanzada
+tc.research_text.ROD_advanced_primal=¡¿Quíen necesita Nodos?!
+
+tc.research_name.ROD_advanced_primal_staff=Núcleo de Bastón Primigenio Avanzado
+tc.research_text.ROD_advanced_primal_staff=Sabes bien que no tienes llenadera...
 
 ##research pages
 ezaciancraft.research_page.GETTING_STARTED.1=Después de haber quedado aburrido por mucho tiempo en que campo investigar en el §lTaumonomicon§r.<BR>Encuentras con una entrada particular que se relaciona con una cultura completamente desconocida y que pareciera no pertenecer exactamente a los Humanos (Steves), la cual vienen del espacio y un planeta notablemente lejano llamado: §l“CRIPTUS”§r.<BR>La escritura definitivamente es §lpropia§r, pero tienes la suerte de encontrar un alfabeto que parece que §o§lalguien§r de forma remota te la escribió para ti.<LINE>
@@ -75,7 +88,7 @@ ezaciancraft.research_page.GETTING_STARTED.2=<IMG>ezaciancraft:textures/research
 
 ezaciancraft.research_page.MAGIC_AT_PHYSIC_WORLD.1=§lNota: ESTO ES LORE QUE PRESENTA EL MOD, SI NO ESTAS INTERESADO EN ESTA ENTRADA, PUEDES OMITIRLA POR COMPLETO SIN NINGÚN PROBLEMA.§r<BR><LINE><BR>Al empezar a traducir e investigar, te das cuenta de que los “Ezacianos” fueron los primeros magos en la existencia, y en base a la explicación del Taumonomicon, pero mucho más detallada y explicada por los Ezacianos y parte mía, dice así:<BR><LINE>
 ezaciancraft.research_page.MAGIC_AT_PHYSIC_WORLD.2=El constructo mágico está construido en base a una capa de la existencia, el cual esta enlazada con la realidad actual, esto da entender que la magia esta contactada con la cuántica en la capa física, los cuales estos se manifiestan como una manera de ver ciencia extraña.<BR>Sin embargo, estas capas no están siempre en sincronía, lo que hace que casi nada tenga magia u ocurrencias sobrenaturales en otros sitios. Los ezacianos lo que hicieron es crear este alfabeto-lenguaje que sirve también para el casteo de hechizos, así como escritura principal de toda la especie.
-ezaciancraft.research_page.MAGIC_AT_PHYSIC_WORLD.3=Todo con el fin de poder sincronizar estas dos capas correctamente y mantenerlo en un orden estable.<BR><LINE><BR>En cuanto a la energía Vis, sabes que está conformada por los cuatro elementos y dos regidores de la existencia. Ejemplo, los Nodos son una manifestación asíncrona funcional de la misma vis y sus compuestos, no genera terreno 100% mágico, pero provee acceso a este recurso mágico para tus necesidades, por eso existen por todas partes y absorben y interpretan la vis en par a su terreno y bioma.<BR>Gracias a este contacto parcial, es porque puedes hacer magia, y los ezacianos lo sabían muy bien…
+ezaciancraft.research_page.MAGIC_AT_PHYSIC_WORLD.3=Todo con el fin de poder sincronizar estas dos capas correctamente y mantenerlo en un orden estable.<BR><LINE><BR>En cuanto a la energía Vis, sabes que está conformada por los cuatro elementos y dos regidores de la existencia. Ejemplo, los Nodos son una manifestación asíncrona funcional de la misma vis y sus compuestos, no genera terreno 100% mágico, pero provee acceso a este recurso para tus necesidades, por algo existen por todas partes y absorben e interpretan la vis en par a su terreno y bioma.<BR>Gracias a este contacto parcial, es porque puedes hacer magia, y los ezacianos lo sabían muy bien…
 ezaciancraft.research_page.MAGIC_AT_PHYSIC_WORLD.4=La esencia se puede decir que es la manifestación de la vis en su forma abstracta como líquido, el cual debe ser manejado por sus tuberías o jarrones correspondientes para que no se alteren con el ambiente de la capa física. Esto con el poder de la vis de Agua con estos artefactos y el poder del Orden.
 ezaciancraft.research_page.MAGIC_AT_PHYSIC_WORLD.5=dd
 
@@ -98,9 +111,13 @@ ezaciancraft.research_page.SHADOW_VOID_METAL.2=DD
 ezaciancraft.research_page.ELEMENTAL_VOID_TOOLS.1=Gracias al descubrimiento del Metal §lVacío Ensombrecido§r y la §lPerla Primordial§r, te das cuenta de que con esos materiales podrías crear algo simplemente §oinexpugnable§r.<BR>Y es la creación de la versión §lmejorada y oscurecida§r de las §lHerramientas Elementales§r, estas cuentan con modos que permiten una §lversatilidad§r mas completa como herramientas, y también la §lrecuperación del daño§r que posee el Metal Vacío original. También estas siguen conservando su §l§ofuncionalidad original§r, como si nada §ohubiese cambiado§r… §cRevisar hasta el final, para los modos...§r§0
 ezaciancraft.research_page.ELEMENTAL_VOID_TOOLS.2=     §l§nModos de Herramienta§r<BR>§l§n§2(1) Modo Verde (Individual)§r§0<BR>Este modo solo rompe de bloque por bloque Individual.<BR>§l§n§c(2) Modo Rojo (Área)§r§0<BR>Este modo rompe bloques en un Área de 5x5, dejando centro poco arriba de la cabeza del Taumaturgo.<BR>§l§n§9(3) Modo Azul (Línea-Árbol)§r§0<BR>Este modo rompe bloques en Línea recta por longitud de 10, en la dirección que se este viendo o cara del bloque. Si es un hacha, en este caso será el modo de Árbol, el cual puede romper uno completo en un solo bloque.<BR>
 
-ezaciancraft.research_page.ELEMENTAL_VOID_SWORD.1=bb
+ezaciancraft.research_page.ELEMENTAL_VOID_SWORD.1=Después de haber obtenido un poco de “Metal Vacío Ensombrecido”, decides ver la espada elemental que tienes guardada en alguna parte, te das cuenta de que tal vez podrías combinar el poder elemental del viento con la oscuridad misma de la “Espada Carmesí” y así obtener un arma más poderosa que la versión original.
 
-ezaciancraft.research_page.SHADOW_VOID_METAL_WAND_CAPS.1=a
+ezaciancraft.research_page.CAP_shadow_void_metal.1=Al Conseguir “Metal Vacío Ensombrecido”, te das cuenta de que podrías usar el material para evitar más el costo de la vis cuando quieres crear algo con mucha vis, sabes que este material tiene mejor flujo mágico que el original, pero es mejor infusionar los dos para mejores resultados…<BR>Este cubierto te da un descuento de: 15% de vis total.
+
+ezaciancraft.research_page.ROD_advanced_primal.1=Gracias al Metal Vacío, Metal Vacío Ensombrecido y la Perla Primordial, has concretado algo que podría dejar pasmado a cualquier taumaturgo.<BR>Has creado la versión mejorada de la Varita-Bastón Primal, que creías que ya estaba en su pináculo de la perfección, pero la misma magia oscura y vacía te demostró lo contrario.
+ezaciancraft.research_page.ROD_advanced_primal.2=Este bastón sigue conservando la capacidad de regenerar la vis de la varita, pero lo regenera hasta un 75% de su capacidad y además de tener una capacidad base de 250 de Vis en total, un poco más que la original, además adecuada para usarse en la Mesa Arcana. ¿A caso crees que esto no debería ser celebrado? ¿No?
+ezaciancraft.research_page.ROD_advanced_primal_staff.1=Con tu investigación anterior, obviamente querías crear la versión mejorada de este mismo como era el bastón original, te das cuenta de que solo era añadir unas cuantas cosas más para lograrlo.<BR>Este bastón puede guardar hasta 500 de Vis base y sigue conservando su propiedad original de regenerarse hasta el 75% de su capacidad.
 
 #other
 desc.ezacianTool.mode=Modo

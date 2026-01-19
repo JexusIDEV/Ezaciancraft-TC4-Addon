@@ -10,12 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import thaumcraft.api.ThaumcraftApiHelper;
-
-import static com.gabid.ezaciancraft.CoreMod.MODID;
 
 /**
  * This class was created by <Vazkii>. It's distributed as
@@ -49,7 +45,6 @@ public class EzacianToolHelper {
 
     public static void removeBlocksInIteration(EntityPlayer player, World world, int x, int y, int z, int xs, int ys, int zs, int xe, int ye, int ze, Block block, Material[] materialsListing, boolean silk, int fortune) {
         float blockHardness = (block == null) ? 1.0f : block.getBlockHardness(world, x, y, z);
-        ItemStack heldItemTool = player.getHeldItem();
         for (int x1 = xs; x1 < xe; x1++) {
             for (int y1 = ys; y1 < ye; y1++) {
                 for (int z1 = zs; z1 < ze; z1++) {

@@ -7,6 +7,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.aspects.Aspect;
 
+import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.EA_ACCELERATION_SPEED;
+
 public class EtherealAcceleratorTE extends TileEntity {
 
     private int accelerationSpeed;
@@ -42,13 +44,13 @@ public class EtherealAcceleratorTE extends TileEntity {
 
     @Override
     public void writeToNBT(NBTTagCompound nbttagcompound) {
-        nbttagcompound.setInteger("accEASpeed", this.accelerationSpeed);
+        nbttagcompound.setInteger(EA_ACCELERATION_SPEED, this.accelerationSpeed);
         super.writeToNBT(nbttagcompound);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound nbttagcompound) {
-        this.accelerationSpeed = nbttagcompound.getInteger("accEASpeed");
+        this.accelerationSpeed = nbttagcompound.getInteger(EA_ACCELERATION_SPEED);
         super.readFromNBT(nbttagcompound);
     }
 

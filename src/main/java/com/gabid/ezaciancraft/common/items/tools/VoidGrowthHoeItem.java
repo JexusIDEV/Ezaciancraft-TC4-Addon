@@ -1,4 +1,4 @@
-package com.gabid.ezaciancraft.common.items;
+package com.gabid.ezaciancraft.common.items.tools;
 
 import com.gabid.ezaciancraft.api.EzacianToolMaterials;
 import net.minecraft.client.renderer.texture.IIconRegister;

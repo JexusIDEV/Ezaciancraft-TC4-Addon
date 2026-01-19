@@ -11,6 +11,7 @@ import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigItems;
 
 import java.util.HashMap;
 
@@ -111,7 +112,7 @@ public class EzacianCraftResearches {
                         .add(TAINT, 1)
                         .add(CRAFT, 1)
                 ,
-                taintResearchesColumnPos, taintResearchesRowPos+2, 0,
+                taintResearchesColumnPos, taintResearchesRowPos+2, 2,
                 new ItemStack(EzacianCraftBlocks.voidSeedOre, 1, 1)
         )).setPages(
                 ResearchUtils.createPageTranslation("VOID_SEED_ORE_CONVERSION", 1),
@@ -152,7 +153,7 @@ public class EzacianCraftResearches {
                         .add(MINE, 1)
                         .add(CRAFT, 1)
                 ,
-                shadowVoidMetalColumnPos-2, shadowVoidMetalRowPos-2, 3,
+                shadowVoidMetalColumnPos-3, shadowVoidMetalRowPos-1, 3,
                 new ItemStack(EzacianCraftItems.voidCorePickaxe, 1, 0)
         )).setPages(
                 ResearchUtils.createPageTranslation("ELEMENTAL_VOID_TOOLS", 1),
@@ -172,13 +173,14 @@ public class EzacianCraftResearches {
                         .add(AURA, 1)
                         .add(ELDRITCH, 1)
                         .add(FLIGHT, 1)
+                        .add(AIR, 1)
                         .add(DEATH, 1)
                 ,
-                shadowVoidMetalColumnPos, shadowVoidMetalRowPos-2, 3,
+                shadowVoidMetalColumnPos-3, shadowVoidMetalRowPos-2, 3,
                 new ItemStack(EzacianCraftItems.voidZephyrSword, 1, 0)
         )).setPages(
-                ResearchUtils.createPageTranslation("ELEMENTAL_VOID_SWORD", 1)//,
-                //new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_VOID_ZEPHYR_SWORD))
+                ResearchUtils.createPageTranslation("ELEMENTAL_VOID_SWORD", 1),
+                new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_VOID_ZEPHYR_SWORD))
         ).setConcealed().setParents("ELEMENTALSWORD", "SHADOW_VOID_METAL", "PRIMPEARL").registerResearchItem());
         ThaumcraftApi.addWarpToResearch("ELEMENTAL_VOID_SWORD", 3);
 
@@ -193,11 +195,50 @@ public class EzacianCraftResearches {
                         .add(VOID,1)
                         .add(TAINT,1)
                 ,
-                shadowVoidMetalColumnPos-2, shadowVoidMetalRowPos, 3,
-                EzacianCraftItems.WAND_CAP_SHADOW_VOID_METAL.getItem()
+                shadowVoidMetalColumnPos-3, shadowVoidMetalRowPos+1, 3,
+                new ItemStack(EzacianCraftItems.baseWandCap, 1, 0)
         )).setPages(
-                ResearchUtils.createPageTranslation("CAP_shadow_void_metal", 1)
+                ResearchUtils.createPageTranslationNoUpper("CAP_shadow_void_metal", 1),
+                new ResearchPage((InfusionRecipe) recipes.get("shadowVoidMetalCap")),
+                new ResearchPage((InfusionRecipe) recipes.get("shadowVoidMetalCapCharged"))
         ).setConcealed().setParents("SHADOW_VOID_METAL", "CAP_void").registerResearchItem());
         ThaumcraftApi.addWarpToResearch("CAP_shadow_void_metal", 2);
+
+        ResearchCategories.addResearch((new ResearchItem("ROD_advanced_primal",
+                EZACIANCRAFT_CATEGORY_ID,
+                new AspectList()
+                        .add(ORDER, 4)
+                        .add(ENTROPY, 4)
+                        .add(AIR, 4)
+                        .add(FIRE, 4)
+                        .add(WATER, 4)
+                        .add(EARTH, 4)
+                        .add(MAGIC, 4)
+                        .add(TOOL, 4)
+                        .add(TAINT, 2)
+                ,
+                shadowVoidMetalColumnPos-3, shadowVoidMetalRowPos+2, 3,
+                new ItemStack(EzacianCraftItems.baseWandRod, 1, 0)
+        )).setPages(
+                ResearchUtils.createPageTranslationNoUpper("ROD_advanced_primal", 1),
+                ResearchUtils.createPageTranslationNoUpper("ROD_advanced_primal", 2),
+                new ResearchPage((InfusionRecipe) recipes.get("advancedPrimalWand"))
+        ).setConcealed().setParents("SHADOW_VOID_METAL", "PRIMPEARL", "ROD_primal_staff").registerResearchItem());
+        ThaumcraftApi.addWarpToResearch("ROD_advanced_primal", 4);
+
+        ResearchCategories.addResearch((new ResearchItem("ROD_advanced_primal_staff",
+                EZACIANCRAFT_CATEGORY_ID,
+                new AspectList()
+                        .add(AURA, 4)
+                        .add(MAGIC, 4)
+                        .add(TOOL, 2)
+                ,
+                shadowVoidMetalColumnPos-4, shadowVoidMetalRowPos+2, 3,
+                new ItemStack(EzacianCraftItems.baseWandRod, 1, 1)
+        )).setPages(
+                ResearchUtils.createPageTranslationNoUpper("ROD_advanced_primal_staff", 1),
+                new ResearchPage((InfusionRecipe) recipes.get("advancedPrimalStaff"))
+        ).setConcealed().setSecondary().setParents("ROD_advanced_primal").registerResearchItem());
+        ThaumcraftApi.addWarpToResearch("ROD_advanced_primal_staff", 6);
     }
 }

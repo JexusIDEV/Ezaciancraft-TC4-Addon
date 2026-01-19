@@ -1,10 +1,10 @@
 package com.gabid.ezaciancraft.registry;
 
+import com.pengu.thaumcraft.additions.TA;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -68,7 +68,6 @@ public class EzacianCraftRecipes {
     }
 
     private static void registerArcaneWorkbenchRecipes() {
-
     }
 
     private static void registerCauldronRecipes() {
@@ -219,6 +218,131 @@ public class EzacianCraftRecipes {
                                 new ItemStack(ConfigItems.itemHoeElemental, 1, 0),
                                 new ItemStack(ConfigBlocks.blockCrystal, 1, 4),
                                 new ItemStack(ConfigBlocks.blockCrystal, 1, 5)
+                        }
+                ));
+
+        //zephyr void
+        EzacianCraftResearches.recipes.put(UNLOCALE_VOID_ZEPHYR_SWORD,
+                ThaumcraftApi.addInfusionCraftingRecipe(
+                        "ELEMENTAL_VOID_SWORD",
+                        new ItemStack(EzacianCraftItems.voidZephyrSword, 1, 0),
+                        10,
+                        new AspectList()
+                                .add(WEAPON, 20)
+                                .add(TAINT, 8)
+                                .add(AURA, 4)
+                                .add(MAGIC, 8)
+                                .add(ELDRITCH, 16)
+                                .add(FLIGHT, 24)
+                                .add(AIR, 24)
+                                .add(UNDEAD, 24)
+                                .add(DEATH, 16)
+                        ,
+                        new ItemStack(ConfigItems.itemSwordCrimson, 1, 0),
+                        new ItemStack[]{
+                                new ItemStack(ConfigItems.itemEldritchObject, 1, 3),
+                                new ItemStack(ConfigBlocks.blockCrystal, 1, 0),
+                                new ItemStack(Items.feather, 1, 0),
+                                new ItemStack(ConfigItems.itemSwordElemental, 1, 0),
+                                new ItemStack(ConfigItems.itemResource, 1, 16),
+                                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0)
+                        }
+                ));
+
+        //shadow void metal caps
+        EzacianCraftResearches.recipes.put("shadowVoidMetalCap",
+                ThaumcraftApi.addInfusionCraftingRecipe(
+                        "CAP_shadow_void_metal",
+                        new ItemStack(EzacianCraftItems.baseWandCap, 1, 0),
+                        10,
+                        new AspectList()
+                                .add(MAGIC, 32)
+                                .add(ELDRITCH, 32)
+                                .add(DARKNESS, 32)
+                                .add(TAINT, 16)
+                                .add(METAL, 64)
+                                .add(TOOL, 16)
+                        ,
+                        new ItemStack(ConfigItems.itemWandCap, 1, 6),
+                        new ItemStack[]{
+                                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
+                                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 1),
+                                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 1)
+                        }
+                ));
+
+        EzacianCraftResearches.recipes.put("shadowVoidMetalCapCharged",
+                ThaumcraftApi.addInfusionCraftingRecipe(
+                        "CAP_shadow_void_metal",
+                        new ItemStack(EzacianCraftItems.baseWandCap, 1, 1),
+                        10,
+                        new AspectList()
+                                .add(MAGIC, 64)
+                                .add(ELDRITCH, 64)
+                                .add(DARKNESS, 64)
+                                .add(VOID, 64)
+                                .add(TAINT, 32)
+                                .add(AURA, 64)
+                                .add(ENERGY, 48)
+                        ,
+                        new ItemStack(EzacianCraftItems.baseWandCap, 1, 0),
+                        new ItemStack[]{
+                                new ItemStack(ConfigItems.itemResource, 1, 14),
+                                new ItemStack(ConfigItems.itemResource, 1, 14),
+                                new ItemStack(ConfigItems.itemResource, 1, 14),
+                                new ItemStack(ConfigItems.itemResource, 1, 14),
+                                new ItemStack(ConfigItems.itemResource, 1, 14),
+                                new ItemStack(ConfigItems.itemResource, 1, 14),
+                        }
+                ));
+
+        EzacianCraftResearches.recipes.put("advancedPrimalWand",
+                ThaumcraftApi.addInfusionCraftingRecipe(
+                        "ROD_advanced_primal",
+                        new ItemStack(EzacianCraftItems.baseWandRod, 1, 0),
+                        16,
+                        new AspectList()
+                                .add(ORDER, 64)
+                                .add(ENTROPY, 72)
+                                .add(AIR, 64)
+                                .add(FIRE, 64)
+                                .add(WATER, 64)
+                                .add(EARTH, 64)
+                                .add(AURA, 64)
+                                .add(MAGIC, 64)
+                                .add(TOOL, 64)
+                                .add(TAINT, 32)
+                                .add(ELDRITCH, 32)
+                                .add(VOID, 32)
+                                .add(DARKNESS, 32)
+                        ,
+                        new ItemStack(ConfigItems.itemWandRod, 1, 100),
+                        new ItemStack[]{
+                                new ItemStack(ConfigItems.itemEldritchObject, 1, 3),
+                                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
+                                new ItemStack(ConfigBlocks.blockCrystal, 1, 6),
+                                new ItemStack(ConfigItems.itemResource, 1, 15),
+                        }
+                ));
+
+        EzacianCraftResearches.recipes.put("advancedPrimalStaff",
+                ThaumcraftApi.addInfusionCraftingRecipe(
+                        "ROD_advanced_primal_staff",
+                        new ItemStack(EzacianCraftItems.baseWandRod, 1, 1),
+                        20,
+                        new AspectList()
+                                .add(AURA, 64)
+                                .add(MAGIC, 64)
+                                .add(TOOL, 64)
+                        ,
+                        new ItemStack(ConfigItems.itemResource, 1, 15),
+                        new ItemStack[]{
+                                new ItemStack(EzacianCraftItems.baseWandRod, 1, 0),
+                                new ItemStack(ConfigBlocks.blockCrystal, 1, 6),
+                                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
+                                new ItemStack(EzacianCraftItems.baseWandRod, 1, 0),
+                                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
+                                new ItemStack(ConfigBlocks.blockCrystal, 1, 6),
                         }
                 ));
     }

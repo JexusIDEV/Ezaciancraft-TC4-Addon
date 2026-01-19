@@ -28,8 +28,8 @@ public class CoreMod
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        EzacianCraftItems.setupItemsRegistry();
         EzacianCraftBlocks.setupBlocksRegistry();
+        EzacianCraftItems.setupItemsRegistry();
         EzacianCraftResources.setupResources();
         EzacianCraftTileEntities.setupTileEntities();
 

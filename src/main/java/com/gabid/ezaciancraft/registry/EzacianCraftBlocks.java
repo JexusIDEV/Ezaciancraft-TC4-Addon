@@ -10,8 +10,10 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.util.ResourceLocation;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
-import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.*;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_METAL_BLOCK;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_SEED_ORE;
+import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_RESOURCES_TAB;
+import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
 
 public class EzacianCraftBlocks {
 
@@ -22,6 +24,7 @@ public class EzacianCraftBlocks {
     //extra void resources
     public static Block voidSeedOre;
     public static Block voidMetalBlock;
+
 
     public static void setupBlocksRegistry() {
         //TE stuff

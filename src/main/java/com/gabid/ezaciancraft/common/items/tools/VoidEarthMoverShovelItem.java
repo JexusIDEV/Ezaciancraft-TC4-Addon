@@ -1,4 +1,4 @@
-package com.gabid.ezaciancraft.common.items;
+package com.gabid.ezaciancraft.common.items.tools;
 
 import com.gabid.ezaciancraft.api.EzacianToolMaterials;
 import com.gabid.ezaciancraft.api.common.items.EzacianToolHelper;
@@ -23,15 +23,12 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import thaumcraft.api.BlockCoordinates;
 import thaumcraft.api.IArchitect;
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.items.equipment.ItemElementalShovel;
 import thaumcraft.common.lib.utils.InventoryUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -41,7 +38,6 @@ import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.TOOL_MODE;
 import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.*;
 import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianToolModeTranslation;
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
-import static thaumcraft.common.items.equipment.ItemElementalShovel.getOrientation;
 
 //adapting from original class, due for the own area destroy and putting blocks - conflict within the thaumic tinkerer's idea
 

@@ -1,4 +1,4 @@
-package com.gabid.ezaciancraft.common.items;
+package com.gabid.ezaciancraft.common.items.tools;
 
 import com.gabid.ezaciancraft.api.EzacianToolMaterials;
 import com.gabid.ezaciancraft.api.common.items.EzacianToolHelper;
@@ -7,51 +7,50 @@ import com.gabid.ezaciancraft.lib.nbt.NBTHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.*;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.ForgeDirection;
+import thaumcraft.api.IRepairable;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.common.blocks.BlockJar;
-import thaumcraft.common.items.equipment.ItemElementalPickaxe;
+import thaumcraft.common.items.equipment.ItemElementalAxe;
+import thaumcraft.common.lib.utils.BlockUtils;
+import thaumcraft.common.lib.utils.Utils;
 
 import java.util.List;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_CORE_PICKAXE;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
 import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.TOOL_MODE;
 import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.*;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianToolModeTranslation;
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
 
-public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpingGear, IEzacianTool {
+public class VoidStreamAxeItem extends ItemElementalAxe implements IWarpingGear, IRepairable, IEzacianTool {
     public IIcon[] icons = new IIcon[3];
 
-    public VoidCorePickaxeItem() {
+    public VoidStreamAxeItem() {
         super(EzacianToolMaterials.toolMatVoidElemental);
-        this.setUnlocalizedName(UNLOCALE_VOID_CORE_PICKAXE);
+        this.setUnlocalizedName(UNLOCALE_VOID_STREAM_AXE);
         this.setCreativeTab(EZACIANCRAFT_TAB);
     }
 
     @Override
-    public void getSubItems(Item item, CreativeTabs tabs, List items) {
-        items.add(NBTHelper.setDefaultContainerNBT(new ItemStack(item, 1), TOOL_MODE, 0));
-    }
-
-    @Override
     public void registerIcons(IIconRegister register) {
-        this.icons[0] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_VOID_CORE_PICKAXE+"Single").toString());
-        this.icons[1] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_VOID_CORE_PICKAXE+"Area").toString());
-        this.icons[2] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_VOID_CORE_PICKAXE+"Column").toString());
+        this.icons[0] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_VOID_STREAM_AXE+"Single").toString());
+        this.icons[1] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_VOID_STREAM_AXE+"Area").toString());
+        this.icons[2] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_VOID_STREAM_AXE+"Column").toString());
     }
 
     @Override
@@ -97,7 +96,7 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
                 info = ezacianToolModeAreaTranslation;
                 break;
             case 2:
-                info = ezacianToolModeColumnTranslation;
+                info = ezacianToolModeTreeTranslation;
                 break;
         }
         tooltips.add(ezacianToolModeTranslation+": " + info);
@@ -112,10 +111,10 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
     }
 
     @Override
-    public boolean onBlockStartBreak(ItemStack itemstack, int x, int y, int z, EntityPlayer player) {
+    public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player) {
         World world = player.worldObj;
         Material mat = world.getBlock(x, y, z).getMaterial();
-        if (!EzacianToolHelper.isRightMaterial(mat, EzacianToolHelper.materialsPick))
+        if (!EzacianToolHelper.isRightMaterial(mat, EzacianToolHelper.materialsAxe))
             return false;
 
         MovingObjectPosition block = EzacianToolHelper.raytraceFromEntity(world, player, true, 4.5);
@@ -126,7 +125,7 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
         int fortune = EnchantmentHelper.getFortuneModifier(player);
         boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
 
-        switch (this.getMode(itemstack)) {
+        switch (this.getMode(stack)) {
             case 0:
                 break;
             case 1: {
@@ -134,16 +133,27 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
                 boolean doY = direction.offsetY == 0;
                 boolean doZ = direction.offsetZ == 0;
 
-                EzacianToolHelper.removeBlocksInIteration(player, world, x, y, z, doX ? -2 : 0, doY ? -1 : 0, doZ ? -2 : 0, doX ? 3 : 1, doY ? 4 : 1, doZ ? 3 : 1, null, EzacianToolHelper.materialsPick, silk, fortune);
-
+                EzacianToolHelper.removeBlocksInIteration(player, world, x, y, z, doX ? -2 : 0, doY ? -1 : 0, doZ ? -2 : 0, doX ? 3 : 1, doY ? 4 : 1, doZ ? 3 : 1, null, EzacianToolHelper.materialsAxe, silk, fortune);
                 break;
             }
             case 2: {
-                int xo = -direction.offsetX;
-                int yo = -direction.offsetY;
-                int zo = -direction.offsetZ;
+                Block blck = world.getBlock(x, y, z);
+                if (Utils.isWoodLog(world, x, y, z)) {
+                    while (blck != Blocks.air) {
+                        BlockUtils.breakFurthestBlock(world, x, y, z, blck, player);
+                        if((stack.isItemStackDamageable() || stack.getItemDamage() > 0) && stack.getItem() instanceof ItemTool) {
+                            stack.damageItem(1, player);
+                        }
+                        blck = world.getBlock(x, y, z);
+                    }
 
-                EzacianToolHelper.removeBlocksInIteration(player, world, x, y, z, xo >= 0 ? 0 : -10, yo >= 0 ? 0 : -10, zo >= 0 ? 0 : -10, xo > 0 ? 10 : 1, yo > 0 ? 10 : 1, zo > 0 ? 10 : 1, null, EzacianToolHelper.materialsPick, silk, fortune);
+                    List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - 5, y - 1, z - 5, x + 5, y + 64, z + 5));
+                    for (EntityItem item : items) {
+                        item.setPosition(x + 0.5, y + 0.5, z + 0.5);
+                        item.ticksExisted += 20;
+                    }
+                }
+
                 break;
             }
         }
