@@ -140,6 +140,23 @@ public class EzacianCraftResearches {
         ).setParents("VOIDMETAL", "VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS").registerResearchItem());
         ThaumcraftApi.addWarpToResearch("SHADOW_VOID_METAL", 5);
 
+        ResearchCategories.addResearch((new ResearchItem("SHADOW_VOID_METAL_JAR",
+                EZACIANCRAFT_CATEGORY_ID,
+                new AspectList()
+                        .add(WATER, 1)
+                        .add(ELDRITCH, 1)
+                        .add(DARKNESS, 1)
+                        .add(VOID, 1)
+                        .add(TAINT, 1)
+                        .add(MAGIC, 1)
+                ,
+                shadowVoidMetalColumnPos, shadowVoidMetalRowPos+2, 3,
+                new ItemStack(EzacianCraftBlocks.shadowVoidMetalJar, 1, 0)
+        )).setPages(
+                ResearchUtils.createPageTranslation("SHADOW_VOID_METAL_JAR", 1)
+        ).setConcealed().setSecondary().setParents("JARLABEL", "JARVOID", "SHADOW_VOID_METAL").registerResearchItem());
+        ThaumcraftApi.addWarpToResearch("SHADOW_VOID_METAL_JAR", 1);
+
         ResearchCategories.addResearch((new ResearchItem("ELEMENTAL_VOID_TOOLS",
                 EZACIANCRAFT_CATEGORY_ID,
                 new AspectList()

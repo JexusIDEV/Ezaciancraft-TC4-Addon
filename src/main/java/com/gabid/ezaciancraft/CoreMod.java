@@ -3,15 +3,13 @@ package com.gabid.ezaciancraft;
 import com.gabid.ezaciancraft.common.network.EzacianNetworkHandler;
 import com.gabid.ezaciancraft.proxy.EzacianCommonProxy;
 import com.gabid.ezaciancraft.registry.*;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.registry.GameData;
-import net.minecraft.client.main.Main;
-import tv.twitch.Core;
+import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = CoreMod.MODID, version = CoreMod.VERSION, dependencies = CoreMod.DEPENDENCIES)
 public class CoreMod
@@ -26,19 +24,18 @@ public class CoreMod
     public static EzacianCommonProxy proxy;
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
+    public void preInit(FMLPreInitializationEvent event) {
         EzacianCraftBlocks.setupBlocksRegistry();
         EzacianCraftItems.setupItemsRegistry();
         EzacianCraftResources.setupResources();
         EzacianCraftTileEntities.setupTileEntities();
+        EzacianCraftAspects.initAspects();
 
         proxy.preInit(event);
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
+    public void init(FMLInitializationEvent event) {
         proxy.registerDisplayClientStuff();
         EzacianNetworkHandler.initNetwork();
         EzacianCraftRecipes.setupRecipes();
@@ -47,11 +44,15 @@ public class CoreMod
     }
 
     @EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
+    public void postInit(FMLPostInitializationEvent event) {
         EzacianCraftResearches.registerAllResearches();
         EzacianCraftAspectTagRegistry.initObjectAspects();
 
         proxy.postInit(event);
+    }
+
+    @EventHandler
+    public void processIMC(FMLInterModComms iMCEvents) {
+
     }
 }

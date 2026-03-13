@@ -88,6 +88,8 @@ dependencies {
     implementation("curse.maven:howling-moon-236149:2326149")
     implementation("curse.maven:thaumic-additions-232564:2417787")
     implementation("curse.maven:thaumic-tinkerer-75598:2232793")
+    implementation("curse.maven:automagy-222153:2285272")
+    //implementation("curse.maven:kekztech-350844:2954805")
 
     //nuh nuh
 }

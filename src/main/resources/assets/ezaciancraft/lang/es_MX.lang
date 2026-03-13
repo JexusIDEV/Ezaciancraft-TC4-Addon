@@ -7,6 +7,11 @@ itemGroup.ezacianCraftResources=Recursos de EzacianCraft
 ### ~void
 item.shadowVoidMetal.0.name=Lingote de Metal Vacío Ensombrecido
 item.shadowVoidMetal.1.name=Pepita de Metal Vacío Ensombrecido
+
+### ~crudeCrystalyium
+item.crudeCrystalyium.0.name=Lingote de Cristalio Crudo
+item.crudeCrystalyium.1.name=Pepita de Cristalio Crudo
+
 #### wand and caps
 item.ezacianWandCap.0.name=Cubierta de Metal Vacío Ensombrecido Inerte
 item.ezacianWandCap.1.name=Cubierta de Metal Vacío Ensombrecido Cargado
@@ -36,9 +41,24 @@ tile.shadowVoidMetalBlock.name=Bloque de Metal Vacío Ensombrecido
 tile.voidSeedOre.name=Mineral de Semillas del Vacío
 tile.voidMetalBlock.name=Bloque de Metal Vacío
 
+### ~crudeCrystalyium
+tile.crudeCrystalyiumOre.name=Mineral de Cristalio Crudo
+tile.crudeCrystalyiumBlock.name=Bloque de Cristalio Crudo
+
 ##te's
 tile.alchemicalMixer.name=Mezclador Alquímico
 tile.etherealAccelerator.name=Acelerador Etéreo
+
+###jar's
+tile.crystalyiumJar.0.name=Tarro Reforzado de Cristalio
+tile.crystalyiumJar.3.name=Tarro de Cristalio Singular
+item.tile.crystalyiumJar.name=Tarro de Cristalio con Esencia
+item.tile.crystalyiumJar.void.name=Tarro de Cristalio Singular con Esencia
+
+tile.shadowVoidMetalJar.0.name=Tarro Reforzado de Metal Vacío Ensombrecido
+tile.shadowVoidMetalJar.3.name=Tarro de Metal Vacío Ensombrecido Singular
+item.tile.shadowVoidMetalJar.name=Tarro de Metal Vacío Ensombrecido con Esencia
+item.tile.shadowVoidMetalJar.void.name=Tarro de Metal Vacío Ensombrecido Singular con Esencia
 
 #research and related
 ##category title
@@ -105,8 +125,8 @@ ezaciancraft.research_page.TAINT_LANDS.2=<IMG>ezaciancraft:textures/research/tai
 
 ezaciancraft.research_page.VOID_SEED_ORE_CONVERSION.1=Después de obtener e investigar este mineral tan §oextraño§r, encontrado en las profundidades de los biomas §l§5"Taint"§r§0 y haber visto y entendido la §l§5“Relevación Eldritch”§0§r, te das cuenta de que son §l§5“Minerales de Semillas del Vacío"§r§0, como una anomalía del mismo bioma en sus oscuridades y profundidades.<BR>La única manera que viste en como procesarlo para tu investigación fue el usar tu caldero con un poquito de conceptos de procesamiento entrópico para obtener las semillas...
 
-ezaciancraft.research_page.SHADOW_VOID_METAL.1=aa
-ezaciancraft.research_page.SHADOW_VOID_METAL.2=DD
+ezaciancraft.research_page.SHADOW_VOID_METAL.1=Las sombras, tu mente, la realidad; te decían sobre que puedes ir mas allá de la comprensión de la magia tradicional, el mismo vacío y oscuridad evocaba la epifanía de crear un material para nada común y con propiedades impensables, ¿como es posible que la misma oscuridad pueda albergar una conexión mágica congruente?<BR>¡Si ni siquiera el material original puede! Y de ahí; te das cuenta, el poder de la sombra podría contaminar más el mismo vacío para generar un campo funcional con magia con la tecnología del vacío y la corrupción como tal. Sí, esa era la respuesta…
+ezaciancraft.research_page.SHADOW_VOID_METAL.2=El Metal vacío ensombrecido, es un material que replica las propiedades del metal vacío original, con la diferencia de que este puede albergar magia de forma más estable a diferencia del original. Su contacto con la misma sombra y vacío hace que el material pueda potenciar la magia de las herramientas normales y otros artefactos.<BR>Sin embargo, esto hace que la corrupción y la magia presente hace que este hace propenso a propagar el Warp del usuario a niveles alarmantes, por lo que es propenso a volverse loco con el uso prolongado.<BR>Aun así, sabes que estas satisfecho con una creación hecha para el mismo Eldritch y Realidad misma…
 
 ezaciancraft.research_page.ELEMENTAL_VOID_TOOLS.1=Gracias al descubrimiento del Metal §lVacío Ensombrecido§r y la §lPerla Primordial§r, te das cuenta de que con esos materiales podrías crear algo simplemente §oinexpugnable§r.<BR>Y es la creación de la versión §lmejorada y oscurecida§r de las §lHerramientas Elementales§r, estas cuentan con modos que permiten una §lversatilidad§r mas completa como herramientas, y también la §lrecuperación del daño§r que posee el Metal Vacío original. También estas siguen conservando su §l§ofuncionalidad original§r, como si nada §ohubiese cambiado§r… §cRevisar hasta el final, para los modos...§r§0
 ezaciancraft.research_page.ELEMENTAL_VOID_TOOLS.2=     §l§nModos de Herramienta§r<BR>§l§n§2(1) Modo Verde (Individual)§r§0<BR>Este modo solo rompe de bloque por bloque Individual.<BR>§l§n§c(2) Modo Rojo (Área)§r§0<BR>Este modo rompe bloques en un Área de 5x5, dejando centro poco arriba de la cabeza del Taumaturgo.<BR>§l§n§9(3) Modo Azul (Línea-Árbol)§r§0<BR>Este modo rompe bloques en Línea recta por longitud de 10, en la dirección que se este viendo o cara del bloque. Si es un hacha, en este caso será el modo de Árbol, el cual puede romper uno completo en un solo bloque.<BR>

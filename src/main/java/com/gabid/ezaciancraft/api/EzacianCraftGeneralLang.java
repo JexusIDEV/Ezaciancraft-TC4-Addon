@@ -15,6 +15,9 @@ public class EzacianCraftGeneralLang {
     public static String UNLOCALE_VOID_SEED_ORE = "voidSeedOre";
     public static String UNLOCALE_VOID_METAL_BLOCK = "voidMetalBlock";
 
+    //** ~cristalyium
+    public static String UNLOCALE_CRUDE_CRYSTALYIUM = "crudeCrystalyium";
+
     //*wand stuff
     public static String UNLOCALE_SHADOW_VOID_INERT_WAND_CAP = "shadowVoidMetalInertWandCap";
     public static String UNLOCALE_SHADOW_VOID_CHARGED_WAND_CAP = "shadowVoidMetalChargedWandCap";
@@ -29,5 +32,10 @@ public class EzacianCraftGeneralLang {
     //blocks
     public static String UNLOCALE_ALCHEMICAL_MIXER = "alchemicalMixer";
     public static String UNLOCALE_ETHEREAL_ACCELERATOR = "etherealAccelerator";
+    public static String UNLOCALE_CRYSTALYIUM_JAR = "crystalyiumJar";
+    public static String UNLOCALE_SHADOW_VOID_METAL_JAR = "shadowVoidMetalJar";
+
+    //*meta-tile blocks
+    public static String UNLOCALE_CUSTOM_BASE_JAR = "customBaseJar";
 
 }

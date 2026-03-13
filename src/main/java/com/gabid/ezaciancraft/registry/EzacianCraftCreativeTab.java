@@ -23,6 +23,7 @@ public class EzacianCraftCreativeTab {
             return ezaciancraftTabIconItem;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public void displayAllReleventItems(List list) {
             ItemStack wand = new ItemStack(ConfigItems.itemWandCasting, 1, 50);

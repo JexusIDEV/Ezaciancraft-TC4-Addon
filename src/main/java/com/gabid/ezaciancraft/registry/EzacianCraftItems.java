@@ -1,6 +1,7 @@
 package com.gabid.ezaciancraft.registry;
 
 import com.gabid.ezaciancraft.api.aspects.CustomWandRodPrimalUpdate;
+import com.gabid.ezaciancraft.api.common.items.EzacianCustomItemJarFilled;
 import com.gabid.ezaciancraft.common.items.ItemEzacianWandCap;
 import com.gabid.ezaciancraft.common.items.ItemEzacianWandStaffRod;
 import com.gabid.ezaciancraft.common.items.tools.VoidCorePickaxeItem;
@@ -15,9 +16,9 @@ import net.minecraft.util.ResourceLocation;
 import thaumcraft.api.wands.StaffRod;
 import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
-import thaumcraft.common.items.wands.WandRodPrimalOnUpdate;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
 
 public class EzacianCraftItems {
 
@@ -25,6 +26,10 @@ public class EzacianCraftItems {
     public static Item ezaciancraftTabIconItem;
 
     //resources
+
+    //*Other
+    public static EzacianCustomItemJarFilled itemFilledJarCrystalyium;
+    public static EzacianCustomItemJarFilled itemFilledJarShadowVoidMetal;
 
     //*tools
     public static Item voidZephyrSword;
@@ -49,6 +54,12 @@ public class EzacianCraftItems {
         GameRegistry.registerItem(ezaciancraftTabIconItem, ezaciancraftTabIconItem.getUnlocalizedName(), MODID);
 
         //resources
+
+        //other
+        itemFilledJarCrystalyium = new EzacianCustomItemJarFilled(EzacianCraftBlocks.crystalyiumJar);
+        GameRegistry.registerItem(itemFilledJarCrystalyium, UNLOCALE_CRYSTALYIUM_JAR, MODID);
+        itemFilledJarShadowVoidMetal = new EzacianCustomItemJarFilled(EzacianCraftBlocks.shadowVoidMetalJar);
+        GameRegistry.registerItem(itemFilledJarShadowVoidMetal, UNLOCALE_SHADOW_VOID_METAL_JAR, MODID);
 
         //tools
         voidZephyrSword = new VoidZephyrSwordItem();
