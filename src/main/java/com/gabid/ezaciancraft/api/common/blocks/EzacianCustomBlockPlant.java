@@ -39,8 +39,8 @@ public class EzacianCustomBlockPlant extends BlockBush implements IGrowable {
 
     @Override
     public void registerBlockIcons(IIconRegister register) {
-        for (int i=0 ; i < this.plantNames.length; i++) {
-            this.plantIcons[i] = register.registerIcon(new ResourceLocation(MODID, this.blockBaseName+"_"+this.plantNames[i] + "Plant").toString());
+        for (int i = 0; i < this.plantNames.length; i++) {
+            this.plantIcons[i] = register.registerIcon(new ResourceLocation(MODID, this.blockBaseName + "_" + this.plantNames[i] + "Plant").toString());
         }
     }
 
@@ -51,7 +51,7 @@ public class EzacianCustomBlockPlant extends BlockBush implements IGrowable {
 
     @Override
     public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
-        for(int i=0; i < this.plantNames.length; i++) {
+        for (int i = 0; i < this.plantNames.length; i++) {
             ItemStack plantToAdd = new ItemStack(this, 1, i);
             list.add(plantToAdd);
         }
@@ -59,7 +59,7 @@ public class EzacianCustomBlockPlant extends BlockBush implements IGrowable {
 
     @Override
     public int getDamageValue(World world, int x, int y, int z) {
-        return world.getBlockMetadata(x,y,z);
+        return world.getBlockMetadata(x, y, z);
     }
 
     @Override

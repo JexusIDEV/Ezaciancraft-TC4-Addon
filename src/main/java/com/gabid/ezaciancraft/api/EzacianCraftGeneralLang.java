@@ -5,6 +5,7 @@ public class EzacianCraftGeneralLang {
     //creative tab
     public static String UNLOCALE_EZACIANCRAFT_CREATIVE_TAB = "ezacianCraft";
     public static String UNLOCALE_EZACIANCRAFT_RESOURCES_CREATIVE_TAB = "ezacianCraftResources";
+    public static String UNLOCALE_EZACIANCRAFT_DECORATIVES_CREATIVE_TAB = "ezacianCraftDecoratives";
 
     //items
     //*resources
@@ -28,9 +29,16 @@ public class EzacianCraftGeneralLang {
     public static String UNLOCALE_VOID_STREAM_AXE = "voidStreamAxe";
     public static String UNLOCALE_VOID_TERRA_SHATTER_SHOVEL = "voidTerraShatterShovel";
     public static String UNLOCALE_VOID_GROWTH_HOE = "voidGrowthHoe";
+    public static String UNLOCALE_STAFF_OF_PRIMAL_RECONSTRUCTOR = "voidStaffOfPrimalReconstructor";
 
     //blocks
+
+    public static String UNLOCALE_EZACIAN_STONE_DECORATIVE = "ezacianStoneDecorative";
+
     public static String UNLOCALE_ALCHEMICAL_MIXER = "alchemicalMixer";
+    public static String UNLOCALE_SHADOW_ALCHEMY_FURNACE = "shadowAlchemyFurnace";
+    public static String UNLOCALE_EXTENDED_ARCANE_WORKBENCH = "extendedArcaneWorkbench";
+    public static String UNLOCALE_WIRELESS_ESSENTIA_INTERFACE = "wirelessEssentiaInterface";
     public static String UNLOCALE_ETHEREAL_ACCELERATOR = "etherealAccelerator";
     public static String UNLOCALE_CRYSTALYIUM_JAR = "crystalyiumJar";
     public static String UNLOCALE_SHADOW_VOID_METAL_JAR = "shadowVoidMetalJar";

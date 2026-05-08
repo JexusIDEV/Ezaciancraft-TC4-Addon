@@ -1,0 +1,12 @@
+# Blender 5.1.0 MTL File: 'wireless essentia interface.blend'
+# www.blender.org
+
+newmtl Tex
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd ezaciancraft/textures/models/base_tex.png
+map_d ezaciancraft/textures/models/base_tex.png

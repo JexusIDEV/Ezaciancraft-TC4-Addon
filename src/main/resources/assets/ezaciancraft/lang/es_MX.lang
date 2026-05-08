@@ -7,10 +7,12 @@ itemGroup.ezacianCraftResources=Recursos de EzacianCraft
 ### ~void
 item.shadowVoidMetal.0.name=Lingote de Metal Vacío Ensombrecido
 item.shadowVoidMetal.1.name=Pepita de Metal Vacío Ensombrecido
+item.shadowVoidMetal.2.name=Racimo de Metal Vacío Ensombrecido
 
 ### ~crudeCrystalyium
 item.crudeCrystalyium.0.name=Lingote de Cristalio Crudo
 item.crudeCrystalyium.1.name=Pepita de Cristalio Crudo
+item.crudeCrystalyium.2.name=Racimo de Cristalio Crudo
 
 #### wand and caps
 item.ezacianWandCap.0.name=Cubierta de Metal Vacío Ensombrecido Inerte
@@ -33,6 +35,8 @@ item.voidStreamAxe.name=La Hacha del Torrente del Vacío
 item.voidTerraShatterShovel.name=La Pala del Excavador del Vacío
 item.voidGrowthHoe.name=Azada de Crecimiento del Vacío
 
+item.voidStaffOfPrimalReconstructor.name=Bastón Primigenio de la Reconstrucción
+
 #blocks
 ##resource
 ### ~void
@@ -45,8 +49,15 @@ tile.voidMetalBlock.name=Bloque de Metal Vacío
 tile.crudeCrystalyiumOre.name=Mineral de Cristalio Crudo
 tile.crudeCrystalyiumBlock.name=Bloque de Cristalio Crudo
 
+### ~stone decoratives
+tile.ezacianStoneDecorative.0.name=Piedra Arcana Cincelada - Ezaciana
+
 ##te's
 tile.alchemicalMixer.name=Mezclador Alquímico
+tile.shadowAlchemyFurnace.name=Horno Alquímico de Metal Vacío Ensombrecido
+tile.extendedArcaneWorkbench.name=Mesa de Trabajo Arcana Extendida
+tile.wirelessEssentiaInterface.0.name=Interfaz Inalámbrica de Salida de Escencia
+tile.wirelessEssentiaInterface.1.name=Interfaz Inalámbrica de Entrada de Escencia
 tile.etherealAccelerator.name=Acelerador Etéreo
 
 ###jar's
@@ -71,6 +82,9 @@ tc.research_text.GETTING_STARTED=¿Magia Alienígena?
 tc.research_name.MAGIC_AT_PHYSIC_WORLD=La Magia en el mundo Físico Ezaciano y General
 tc.research_text.MAGIC_AT_PHYSIC_WORLD=Entendiendo los órigenés
 
+tc.research_name.DECORATIVE_BLOCKS=Bloques Decorativos
+tc.research_text.DECORATIVE_BLOCKS=Para una base más bonita :)
+
 tc.research_name.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS=Vacío Magico y Revelaciones Enegrecidas...
 tc.research_text.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS=¿A donde estoy yendo?
 
@@ -78,20 +92,32 @@ tc.research_text.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS=¿A donde estoy yendo?
 tc.research_name.ALCHEMICAL_MIXER=El Mezclador Alquímico
 tc.research_text.ALCHEMICAL_MIXER=Mezclando Escencia ¡Yummy!
 
+tc.research_name.ADVANCED_ARCANE_WORKBENCH=Mesa Arcana Extendida
+tc.research_text.ADVANCED_ARCANE_WORKBENCH=¡El poder del bastón!
+
 tc.research_name.TAINT_LANDS=Las Tierras Corruptas
 tc.research_text.TAINT_LANDS=Simplemente Corrupto...
 
 tc.research_name.VOID_SEED_ORE_CONVERSION=Conversión de Mineral de Semillas del Vacío
 tc.research_text.VOID_SEED_ORE_CONVERSION=Convirtiendo materiales raros, en cosas raras...
 
+tc.research_name.SHADOW_VOID_METAL_ORE=Mena de Metal Vacío Ensombrecido
+tc.research_text.SHADOW_VOID_METAL_ORE=Simplemente inédito...
+
 tc.research_name.SHADOW_VOID_METAL=Metal Vacío Ensombrecido
 tc.research_text.SHADOW_VOID_METAL=Oscureciendo el mismo vacío...
+
+tc.research_name.SHADOW_VOID_METAL_JAR=Tarros de Metal Vacío Ensombrecido
+tc.research_text.SHADOW_VOID_METAL_JAR=Un corazón escencial sin hueco...
 
 tc.research_name.ELEMENTAL_VOID_TOOLS=Herramientas Elementales del Vacío
 tc.research_text.ELEMENTAL_VOID_TOOLS=¡Más Poderoso que nunca!
 
 tc.research_name.ELEMENTAL_VOID_SWORD=La Espada del Vacío de Céfiro
 tc.research_text.ELEMENTAL_VOID_SWORD=Creo que Céfiro no estaría contento...
+
+tc.research_name.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION=El Bastón Primigenio
+tc.research_text.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION=La herramienta perfecta...
 
 tc.research_name.CAP_shadow_void_metal=Cubiertos de Varita de Metal Vacío Ensombrecido
 tc.research_text.CAP_shadow_void_metal=¡Más descuento que el mismo vacío!
@@ -102,6 +128,15 @@ tc.research_text.ROD_advanced_primal=¡¿Quíen necesita Nodos?!
 tc.research_name.ROD_advanced_primal_staff=Núcleo de Bastón Primigenio Avanzado
 tc.research_text.ROD_advanced_primal_staff=Sabes bien que no tienes llenadera...
 
+tc.research_name.CRYSTALYIUM=Cristalio
+tc.research_text.CRYSTALYIUM=¿Qué es esto?
+
+tc.research_name.CRYSTALYIUM_JAR=Tarros de Cristalio
+tc.research_text.CRYSTALYIUM_JAR=Casi como un Reservoir...
+
+tc.research_name.SHADOW_ALCHEMY_FURNACE=Horno Alquímico de Metal Vacío Ensombrecido
+tc.research_text.SHADOW_ALCHEMY_FURNACE=¡Mejor que el avanzado!
+
 ##research pages
 ezaciancraft.research_page.GETTING_STARTED.1=Después de haber quedado aburrido por mucho tiempo en que campo investigar en el §lTaumonomicon§r.<BR>Encuentras con una entrada particular que se relaciona con una cultura completamente desconocida y que pareciera no pertenecer exactamente a los Humanos (Steves), la cual vienen del espacio y un planeta notablemente lejano llamado: §l“CRIPTUS”§r.<BR>La escritura definitivamente es §lpropia§r, pero tienes la suerte de encontrar un alfabeto que parece que §o§lalguien§r de forma remota te la escribió para ti.<LINE>
 ezaciancraft.research_page.GETTING_STARTED.2=<IMG>ezaciancraft:textures/research/ezacianLangNoteResearch.png:0:0:256:136:.65</IMG><LINE><BR>Quien haya sido, parece que lo que busca es que §linvestigues este campo§r; ¿Con que intenciones? ¡No lo sabes! §o§l¿Pero en que se puede perder en investigar algo en lo que no pueda ser aburrido?
@@ -110,28 +145,50 @@ ezaciancraft.research_page.MAGIC_AT_PHYSIC_WORLD.1=§lNota: ESTO ES LORE QUE PRE
 ezaciancraft.research_page.MAGIC_AT_PHYSIC_WORLD.2=El constructo mágico está construido en base a una capa de la existencia, el cual esta enlazada con la realidad actual, esto da entender que la magia esta contactada con la cuántica en la capa física, los cuales estos se manifiestan como una manera de ver ciencia extraña.<BR>Sin embargo, estas capas no están siempre en sincronía, lo que hace que casi nada tenga magia u ocurrencias sobrenaturales en otros sitios. Los ezacianos lo que hicieron es crear este alfabeto-lenguaje que sirve también para el casteo de hechizos, así como escritura principal de toda la especie.
 ezaciancraft.research_page.MAGIC_AT_PHYSIC_WORLD.3=Todo con el fin de poder sincronizar estas dos capas correctamente y mantenerlo en un orden estable.<BR><LINE><BR>En cuanto a la energía Vis, sabes que está conformada por los cuatro elementos y dos regidores de la existencia. Ejemplo, los Nodos son una manifestación asíncrona funcional de la misma vis y sus compuestos, no genera terreno 100% mágico, pero provee acceso a este recurso para tus necesidades, por algo existen por todas partes y absorben e interpretan la vis en par a su terreno y bioma.<BR>Gracias a este contacto parcial, es porque puedes hacer magia, y los ezacianos lo sabían muy bien…
 ezaciancraft.research_page.MAGIC_AT_PHYSIC_WORLD.4=La esencia se puede decir que es la manifestación de la vis en su forma abstracta como líquido, el cual debe ser manejado por sus tuberías o jarrones correspondientes para que no se alteren con el ambiente de la capa física. Esto con el poder de la vis de Agua con estos artefactos y el poder del Orden.
-ezaciancraft.research_page.MAGIC_AT_PHYSIC_WORLD.5=dd
+ezaciancraft.research_page.MAGIC_AT_PHYSIC_WORLD.5=dea
 
-ezaciancraft.research_page.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS.1=Muy
-ezaciancraft.research_page.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS.2=Os----
-ezaciancraft.research_page.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS.3=--curo
+ezaciancraft.research_page.DECORATIVE_BLOCKS.1=Esta entrada muestra todas las recetas posibles para crear bloques decorativos del mod, algunas recetas requieren de algo de progresión y parcial spoiler para poderse craftear, pero por lo menos con esto vas a tener algo bonito o diseños interesantes con que decorar tu base.
+
+ezaciancraft.research_page.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS.1=§lMe acabo de percatar de las cosas perturbadoras que este mundo aloja respecto a la magia...<BR>Simplemente no lo puedo creer…
+ezaciancraft.research_page.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS.2=§lEste mundo está construido bajo el eldritch, por más que quieras escapar, ellos y el vacío siempre te van a alcanzar...<BR>Supongo que uno siempre se va a corromper a lo largo del tiempo si me sigo exponiendo a estas cosas, pero; qué más da si al final las cosas son así…
+ezaciancraft.research_page.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS.3=§lNo? Tengo que seguir con este camino que orilla a mi mente ser papilla, pero si quiero ser mas poderoso y congruente, no queda que utilizar las profundidades perturbadas de la realidad si quiero conseguirlo, es lo que queda…
 
 ezaciancraft.research_page.ALCHEMICAL_MIXER.1=Después de quedar harto por culpa de las §l§nesencias raras§r o complicadas de conseguir de tu alrededor, decides irte por una investigación y campo que se relaciona con el centrifugador: §l“El Mezclador Alquímico”§r.<BR>Este aparato hace lo contrario que el §l“Centrifugador Alquímico”§r, es capaz de mezclar esencias conocidas en su compuesto próximo; tanto las §l§nesencias primigenias y compuestas§r por igual.<BR>§c§oSi quieres saber su uso, por favor continua en la siguiente página.§r§0<LINE>
 ezaciancraft.research_page.ALCHEMICAL_MIXER.2=La manera en cómo funciona es: En sus §llaterales§r están las entradas de la máquina, las cuales se conectan con tuberías §l(de cualquier tipo)§r; aquí es donde se §lintroducen§r las esencias a mezclar, en la que si estas §lya han absorbido uno de esencia§r y se intenta §lmeter más del mismo u otro en el mismo lado, no se introducirá§r, pero si se introduce el mismo en el otro lado estando libre, §lsi será aceptado§r.<BR>Empezara a realizar la §lreceta§r cuando tenga las §lescencias compatibles§r y esperar un poco.<BR>§lLa parte inferior§r es donde la §lesencia compuesta§r procesada sale, este acepta tanto §ljarrones§r o §ltuberías§r como salida.
 ezaciancraft.research_page.ALCHEMICAL_MIXER.3=También la maquina es capaz de sacar señal de §4Redstone§0§r para el §l§0comparador§r cuando este tiene§l contenidos§r y también es §lsensible a las conexiones§r de §4Redstone§0§r, que controlan el §lfuncionamiento§r de la máquina y su §lprocesamiento§r.<BR>Ayudando a que esta pueda ser manejada con §lautomatización básica y avanzada§r…
 
-ezaciancraft.research_page.TAINT_LANDS.1=Mientras explorabas el mundo, te encontraste con una tierra con una pinta notablemente corrupta, después de investigarlo, te das cuenta que este sitio esta conformado y siendo construido por dichas energías.<BR>¡Definitivamente! De esto hablaba el libro sobre las consecuencias y efectos del Warp en el mundo físico.<BR>Aún así parece que este lugar podría tener mucho que ofrecer, escribes los descubrimientos en otra parte, pero puede que este sitio te pueda revelar algunos secretos que tal vez entenderás mas a futuro…
+ezaciancraft.research_page.SHADOW_ALCHEMY_FURNACE.1=De alguna manera, conseguiste con tus conocimientos del horno original y el avanzado; Te atreviste a crear una amalgamación de estos dos y tener lo mejor de los dos mundos, ¡ser compacto pero poderoso!<BR>El Horno Alquimico de M. V. E. es la combinación de ambos, tiene una capacidad mucho mas incrementada que el horno normal y tambien poder tener más presión con la cantidad de alambiques que puede manejar; ¡Que hasta este punto son 8!
+ezaciancraft.research_page.SHADOW_ALCHEMY_FURNACE.2=Pero tambien tiene algo aun mas fascinante, si usas los "Fuelles Arcanos" alrededor del horno, incrementara la tasa de procesado del material sin perder el calor del combustible.<BR>Es simplemente una hermosa y absuradamente potente creación...
+
+ezaciancraft.research_page.ADVANCED_ARCANE_WORKBENCH.1=Con suficiente vis y algunos materiale particulares que conseguiste recopilar con el tiempo como catalizadores, has podido crear algo magnifico.<BR>Una versión mejorada de la mesa arcana con la posibilidad de aceptar bastones en los crafteos mágicos arcanos que la mesa original no podia aguantar; La mesa provee tambien de un descuento inicial que se complementa a las de las varitas (WIP) que hace el gasto menos de vis y un uso mas eficiente de esta.
+ezaciancraft.research_page.ADVANCED_ARCANE_WORKBENCH.2=      §l§nFORMAR MULTIBLOQUE§r<LINE> Para formar el multibloque, solo sigue la receta y patrón que muestra la pagina anterior y tener la cantidad de vis esperada en tu varita y solo haz click en el centro con esta y el multibloque se formará, su uso es simplemente hacer clic en cualquier bloque del mismo formado para acceder a su inventario.
+
+ezaciancraft.research_page.CRYSTALYIUM.1=Parece que te acabas de encontrar con un material muy extraño, con unas propiedades tan raras pero interesantes, como el hecho de este material contiene una cantidad de energia física-magica abismal y que tambien este tiene propiedades de autoreplicación, puede que este material te pueda ser muy util mas adelante para componentes de alto calibre y inestabilidad...
+
+ezaciancraft.research_page.CRYSTALYIUM_JAR.1=Con el nuevo material acabaste de crear un jarrón simil al reservoir... ¿256? Es lo que puede alamacenar de escencia de un solo tipo esté jarrón, veremos si en un futuro se puede mejorar a mas capacidad, por lo menos es estable y funciona igual que un tarro normal...
+
+ezaciancraft.research_page.TAINT_LANDS.1=Mientras explorabas el mundo, te encontraste con una tierra con una pinta notablemente corrupta, después de investigarlo, te das cuenta que este sitio esta conformado y siendo construido por dichas energías.<BR>¡Definitivamente! De esto hablaba el libro sobre las consecuencias y efectos del Flux en el mundo físico.<BR>Aún así parece que este lugar podría tener mucho que ofrecer, escribes los descubrimientos en otra parte, pero puede que este sitio te pueda revelar algunos secretos que tal vez entenderás mas a futuro…
 ezaciancraft.research_page.TAINT_LANDS.2=<IMG>ezaciancraft:textures/research/taintStuffResearch.png:0:0:124:124:.8</IMG><BR>¡Definitivamente Perturbador!
 
 ezaciancraft.research_page.VOID_SEED_ORE_CONVERSION.1=Después de obtener e investigar este mineral tan §oextraño§r, encontrado en las profundidades de los biomas §l§5"Taint"§r§0 y haber visto y entendido la §l§5“Relevación Eldritch”§0§r, te das cuenta de que son §l§5“Minerales de Semillas del Vacío"§r§0, como una anomalía del mismo bioma en sus oscuridades y profundidades.<BR>La única manera que viste en como procesarlo para tu investigación fue el usar tu caldero con un poquito de conceptos de procesamiento entrópico para obtener las semillas...
 
+ezaciancraft.research_page.SHADOW_VOID_METAL_ORE.1=Al final, tu nuevo material parece que puede ser encontrado en las profundidades de las Tierras Taint, definitivamente la manera en como se forma es a partir de la magia corrompida del sitio, por lo menos entendiste como procesarlo y tener una manera alterna de tener este material tan peculiar...
+
 ezaciancraft.research_page.SHADOW_VOID_METAL.1=Las sombras, tu mente, la realidad; te decían sobre que puedes ir mas allá de la comprensión de la magia tradicional, el mismo vacío y oscuridad evocaba la epifanía de crear un material para nada común y con propiedades impensables, ¿como es posible que la misma oscuridad pueda albergar una conexión mágica congruente?<BR>¡Si ni siquiera el material original puede! Y de ahí; te das cuenta, el poder de la sombra podría contaminar más el mismo vacío para generar un campo funcional con magia con la tecnología del vacío y la corrupción como tal. Sí, esa era la respuesta…
 ezaciancraft.research_page.SHADOW_VOID_METAL.2=El Metal vacío ensombrecido, es un material que replica las propiedades del metal vacío original, con la diferencia de que este puede albergar magia de forma más estable a diferencia del original. Su contacto con la misma sombra y vacío hace que el material pueda potenciar la magia de las herramientas normales y otros artefactos.<BR>Sin embargo, esto hace que la corrupción y la magia presente hace que este hace propenso a propagar el Warp del usuario a niveles alarmantes, por lo que es propenso a volverse loco con el uso prolongado.<BR>Aun así, sabes que estas satisfecho con una creación hecha para el mismo Eldritch y Realidad misma…
 
-ezaciancraft.research_page.ELEMENTAL_VOID_TOOLS.1=Gracias al descubrimiento del Metal §lVacío Ensombrecido§r y la §lPerla Primordial§r, te das cuenta de que con esos materiales podrías crear algo simplemente §oinexpugnable§r.<BR>Y es la creación de la versión §lmejorada y oscurecida§r de las §lHerramientas Elementales§r, estas cuentan con modos que permiten una §lversatilidad§r mas completa como herramientas, y también la §lrecuperación del daño§r que posee el Metal Vacío original. También estas siguen conservando su §l§ofuncionalidad original§r, como si nada §ohubiese cambiado§r… §cRevisar hasta el final, para los modos...§r§0
+ezaciancraft.research_page.SHADOW_VOID_METAL_JAR.1=Al final, lo del reservoir no acabo siendo la gran cosa y el jarrón de cristalio insuficiente; §o¿256? es muy poco para mi,§r con este nuevo material que retiene muy bien la magia, pensaste en una menera de poder crear un jarrón que pueda almacenar una cantidad aterradora de escencia en un solo tarro, y afortunadamente fue todo un exito.<BR>Este tarro es capaz de almacenar §l1024§r de §l§nescencia en total§r de §l§nun solo tipo§r. No se sabe porque tener tanto, pero ahi lo tienes...<BR>Su función sigue siendo igual a la de un tarro reforzado normal.
+
+ezaciancraft.research_page.ELEMENTAL_VOID_TOOLS.1=Gracias al descubrimiento del §lMetal Vacío Ensombrecido§r y la §lPerla Primordial§r, te das cuenta de que con esos materiales podrías crear algo simplemente §oinexpugnable§r.<BR>Y es la creación de la versión §lmejorada y oscurecida§r de las §lHerramientas Elementales§r, estas cuentan con modos que permiten una §lversatilidad§r mas completa como herramientas, y también la §lrecuperación del daño§r que posee el Metal Vacío original. También estas siguen conservando su §l§ofuncionalidad original§r, como si nada §ohubiese cambiado§r… §cRevisar hasta el final, para los modos...§r§0
 ezaciancraft.research_page.ELEMENTAL_VOID_TOOLS.2=     §l§nModos de Herramienta§r<BR>§l§n§2(1) Modo Verde (Individual)§r§0<BR>Este modo solo rompe de bloque por bloque Individual.<BR>§l§n§c(2) Modo Rojo (Área)§r§0<BR>Este modo rompe bloques en un Área de 5x5, dejando centro poco arriba de la cabeza del Taumaturgo.<BR>§l§n§9(3) Modo Azul (Línea-Árbol)§r§0<BR>Este modo rompe bloques en Línea recta por longitud de 10, en la dirección que se este viendo o cara del bloque. Si es un hacha, en este caso será el modo de Árbol, el cual puede romper uno completo en un solo bloque.<BR>
 
 ezaciancraft.research_page.ELEMENTAL_VOID_SWORD.1=Después de haber obtenido un poco de “Metal Vacío Ensombrecido”, decides ver la espada elemental que tienes guardada en alguna parte, te das cuenta de que tal vez podrías combinar el poder elemental del viento con la oscuridad misma de la “Espada Carmesí” y así obtener un arma más poderosa que la versión original.
+
+ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.1=Después de estar pensado y generando algunos oscuros, por fin conseguiste una idea simplemente inexpugnable al igual que la varia que decidiste reconstruir...<BR>Mezclando todas las herramientas y el Triturador primigenio y algunas esencias, has hecho una abominación bella.<BR>El Bastón de la Reconstrucción.<BR>Una versión extendida y multiherramienta de todas las herramientas del vacío que has creado, algo tan poderoso que no te hará falta cambiarla para cualquier cosa.
+ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.2=A diferencia de la Trituradora Primigenia este bastón pudo recuperar todo lo que perdió, por no decir que hasta tiene más que las herramientas originales, este bastón tiene 3 configuraciones para su uso que se explicara a más detalle en las siguientes páginas:
+ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.3=        §l§nComportamientos§r<BR>Dictamina que efecto o función va a efectuar de su herramienta original el cual se puede cambiar con la tecla asignada en la configuración:<BR>Observador Minero: Revela la posición de los minerales más cercanos con el clic.<BR>Magneto Torrencial: Al usar clic, genera magnetismo hacia el jugador con los ítems cercanos.<BR>Colocador Terrestial: Permite colocar bloques de un mismo tipo en área. (Sensible a ÁdE)
+ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.4=Plantador Crecedor: Aplica Fertilizante a las plantas o suelo con el clic, pero usando shift puede arar la tierra en área. (Sensible a ÁdE)<BR>Céfiro: Permite el generar un pequeño tornado que te hace levitar y también alejar a los mobs con este al hacer clic constante. (WIP-Roto, empuja muy raro...)
+ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.5=        §l§nSub-Modo y AdÉ§r<BR>El Sub-Modo Es el que determina el comportamiento principal que debe aplicar al romper bloques, tiene dos modos:<BR>Área: Responsable de romper bloques en área con la configuración de ÁdE establecida, el cual se puede cambiar con la tecla asignada en la configuración.<BR>Vena: Permite romper bloques específicos interconectados: los cuales son Madera y Minerales.<BR>El ÁdE es el que determina en que area debe hacer acción con la información anterior, al igual que se menciono antes, se puede incrementar con su tecla asignada en la configuración.
 
 ezaciancraft.research_page.CAP_shadow_void_metal.1=Al Conseguir “Metal Vacío Ensombrecido”, te das cuenta de que podrías usar el material para evitar más el costo de la vis cuando quieres crear algo con mucha vis, sabes que este material tiene mejor flujo mágico que el original, pero es mejor infusionar los dos para mejores resultados…<BR>Este cubierto te da un descuento de: 15% de vis total.
 
@@ -139,9 +196,44 @@ ezaciancraft.research_page.ROD_advanced_primal.1=Gracias al Metal Vacío, Metal 
 ezaciancraft.research_page.ROD_advanced_primal.2=Este bastón sigue conservando la capacidad de regenerar la vis de la varita, pero lo regenera hasta un 75% de su capacidad y además de tener una capacidad base de 250 de Vis en total, un poco más que la original, además adecuada para usarse en la Mesa Arcana. ¿A caso crees que esto no debería ser celebrado? ¿No?
 ezaciancraft.research_page.ROD_advanced_primal_staff.1=Con tu investigación anterior, obviamente querías crear la versión mejorada de este mismo como era el bastón original, te das cuenta de que solo era añadir unas cuantas cosas más para lograrlo.<BR>Este bastón puede guardar hasta 500 de Vis base y sigue conservando su propiedad original de regenerarse hasta el 75% de su capacidad.
 
+#container and screens
+##Shadow V.M. Alchemy Furnace
+container.shadowAlchemyFurnace.title=Horno Alquímico M. V. E.
+gui.shadowAlchemyFurnace.visCapacity=Almacendado: 
+gui.shadowAlchemyFurnace.burnProgress=Quemado: 
+gui.shadowAlchemyFurnace.cookProgress=Progreso: 
+## extended ARCAne workbench
+container.extendedArcaneWorkbench.title=Mesa de Trabajo Arcana Extendida
+
+#Aspects Description
+tc.aspect.spazio=Espacio, Volumen
+tc.aspect.tempus=Tiempo
+tc.aspect.replicatio=Replicar, Duplicar
+tc.aspect.lupinus=Hombre Creatura, Licantropía
+
 #other
+##ezacianBaseTools
 desc.ezacianTool.mode=Modo
 desc.ezacianTool.mode.0=Individual
 desc.ezacianTool.mode.1=Área
 desc.ezacianTool.mode.2=Línea
 desc.ezacianTool.mode.3=Árbol
+
+##ezacianPrimalTools
+desc.primalEzacianTool.behaviour=Comportamiento: 
+
+desc.primalEzacianTool.behaviour.0=Observador Minero
+desc.primalEzacianTool.behaviour.1=Magneto Torrencial
+desc.primalEzacianTool.behaviour.2=Colocador Terrestial
+desc.primalEzacianTool.behaviour.3=Plantador Crecedor
+desc.primalEzacianTool.behaviour.4=Céfiro
+
+desc.primalEzacianTool.subMode=Sub-Modo: 
+
+desc.primalEzacianTool.subMode.0=Área
+desc.primalEzacianTool.subMode.1=Vena
+
+desc.primalEzacianTool.aoe=ÁdE: 
+
+#Meta Basic Keys
+baseText.Vis=Vis

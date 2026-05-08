@@ -1,11 +1,9 @@
 package com.gabid.ezaciancraft.registry;
 
 import com.gabid.ezaciancraft.api.common.blocks.EzacianCustomBlockJar;
+import com.gabid.ezaciancraft.api.common.items.BasicNamedItemBlockWithMetadata;
 import com.gabid.ezaciancraft.api.common.items.EzacianCustomItemBlockJar;
-import com.gabid.ezaciancraft.common.blocks.AlchemicalMixerBlock;
-import com.gabid.ezaciancraft.common.blocks.BlockCrystalyiumJar;
-import com.gabid.ezaciancraft.common.blocks.BlockShadowVoidMetalJar;
-import com.gabid.ezaciancraft.common.blocks.EtherealAcceleratorBlock;
+import com.gabid.ezaciancraft.common.blocks.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCompressed;
@@ -13,18 +11,22 @@ import net.minecraft.block.BlockOre;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.common.blocks.BlockJarItem;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_METAL_BLOCK;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_SEED_ORE;
-import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_RESOURCES_TAB;
-import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
+import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.*;
 
 public class EzacianCraftBlocks {
 
+    //basic blocks
+    public static Block ezacianStoneDecorativeBlocks;
+
     //functional block TE's
     public static Block alchemicalMixer;
+    public static Block shadowAlchemyFurnace;
+    public static Block wirelessEssentiaInterface;
+    public static Block extendedArcaneWorkbench;
     public static Block etherealAccelerator;
 
     //extra void resources
@@ -35,14 +37,31 @@ public class EzacianCraftBlocks {
     public static EzacianCustomBlockJar shadowVoidMetalJar;
 
     public static void setupBlocksRegistry() {
+        //basicBlocks
+        ezacianStoneDecorativeBlocks = new BlockStoneDecoratives();
+        ezacianStoneDecorativeBlocks.setCreativeTab(EZACIANCRAFT_DECORATIVES_TAB);
+        GameRegistry.registerBlock(ezacianStoneDecorativeBlocks, BasicNamedItemBlockWithMetadata.class, ezacianStoneDecorativeBlocks.getUnlocalizedName());
+
         //TE stuff
-        alchemicalMixer = new AlchemicalMixerBlock();
+        alchemicalMixer = new BlockAlchemicalMixer();
         alchemicalMixer.setCreativeTab(EZACIANCRAFT_TAB);
         GameRegistry.registerBlock(alchemicalMixer, alchemicalMixer.getUnlocalizedName());
 
-        etherealAccelerator = new EtherealAcceleratorBlock();
+        shadowAlchemyFurnace = new BlockShadowAlchemyFurnace();
+        shadowAlchemyFurnace.setCreativeTab(EZACIANCRAFT_TAB);
+        GameRegistry.registerBlock(shadowAlchemyFurnace, ItemBlock.class, shadowAlchemyFurnace.getUnlocalizedName());
+
+        //wirelessEssentiaInterface = new BlockWirelessEssentiaInterface();
+        //wirelessEssentiaInterface.setCreativeTab(EZACIANCRAFT_TAB);
+        //GameRegistry.registerBlock(wirelessEssentiaInterface, ItemBlockWirelessEssentiaInterface.class, wirelessEssentiaInterface.getUnlocalizedName());
+
+        /*etherealAccelerator = new EtherealAcceleratorBlock();
         etherealAccelerator.setCreativeTab(EZACIANCRAFT_TAB);
-        GameRegistry.registerBlock(etherealAccelerator, etherealAccelerator.getUnlocalizedName());
+        GameRegistry.registerBlock(etherealAccelerator, etherealAccelerator.getUnlocalizedName());*/
+
+        extendedArcaneWorkbench = new BlockExtendedArcaneWorkbench();
+        extendedArcaneWorkbench.setCreativeTab(EZACIANCRAFT_TAB);
+        GameRegistry.registerBlock(extendedArcaneWorkbench, ItemBlock.class, extendedArcaneWorkbench.getUnlocalizedName());
 
         crystalyiumJar = new BlockCrystalyiumJar();
         GameRegistry.registerBlock(crystalyiumJar, EzacianCustomItemBlockJar.class, crystalyiumJar.getUnlocalizedName());

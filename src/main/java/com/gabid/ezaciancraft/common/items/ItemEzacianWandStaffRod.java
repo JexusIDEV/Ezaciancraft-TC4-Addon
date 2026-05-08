@@ -41,7 +41,7 @@ public class ItemEzacianWandStaffRod extends ItemWandRod {
 
     @Override
     public EnumRarity getRarity(ItemStack stack) {
-        if(stack.getItemDamage() < 2) {
+        if (stack.getItemDamage() < 2) {
             return EnumRarity.epic;
         }
         return super.getRarity(stack);

@@ -1,10 +1,7 @@
 package com.gabid.ezaciancraft.api.common.blocks.tileentity;
 
-import com.gabid.ezaciancraft.lib.EzacianMathHelper;
+import com.gabid.ezaciancraft.lib.math.EzacianMathHelper;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.ThaumcraftApiHelper;
@@ -49,7 +46,7 @@ public class EzacianCustomJarFillableTE extends EzacianCustomJarBaseTE implement
         this.aspect = Aspect.getAspect(nbttagcompound.getString("Aspect"));
         this.aspectFilter = Aspect.getAspect(nbttagcompound.getString("AspectFilter"));
         this.amount = nbttagcompound.getInteger("Amount");
-        if(this.maxAmount > 0) {
+        if (this.maxAmount > 0) {
             this.maxAmount = nbttagcompound.getInteger("MaxAmount");
         }
         this.facing = nbttagcompound.getByte("facing");
@@ -67,7 +64,7 @@ public class EzacianCustomJarFillableTE extends EzacianCustomJarBaseTE implement
             nbttagcompound.setString("AspectFilter", this.aspectFilter.getTag());
         }
         nbttagcompound.setInteger("Amount", this.amount);
-        if(this.maxAmount > 0) {
+        if (this.maxAmount > 0) {
             nbttagcompound.setInteger("MaxAmount", this.maxAmount);
         }
         nbttagcompound.setByte("facing", (byte) this.facing);
@@ -214,7 +211,7 @@ public class EzacianCustomJarFillableTE extends EzacianCustomJarBaseTE implement
     protected void fillJar() {
         TileEntity te = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.UP);
         if (te != null) {
-            IEssentiaTransport ic = (IEssentiaTransport)te;
+            IEssentiaTransport ic = (IEssentiaTransport) te;
             if (!ic.canOutputTo(ForgeDirection.DOWN)) {
                 return;
             }
@@ -239,7 +236,7 @@ public class EzacianCustomJarFillableTE extends EzacianCustomJarBaseTE implement
     }
 
     public void setMaxAmount(int newMaxAmount) {
-        if(EzacianMathHelper.isPowOfTwo(newMaxAmount)) {
+        if (EzacianMathHelper.isPowOfTwo(newMaxAmount)) {
             this.maxAmount = newMaxAmount;
         } else {
             throw new IllegalStateException("The new Max Amount must be a value of a pow of two...");

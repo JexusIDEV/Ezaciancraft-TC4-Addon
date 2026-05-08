@@ -9,26 +9,26 @@ import thaumcraft.api.TileThaumcraft;
 
 import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.EA_ACCELERATION_SPEED;
 
-public class EtherealAcceleratorTE extends TileThaumcraft {
+public class TileEntityEtherealAccelerator extends TileThaumcraft {
 
     private int accelerationSpeed = 1;
 
-    public EtherealAcceleratorTE() {
+    public TileEntityEtherealAccelerator() {
     }
 
     private void accelerateTEs() {
-        if(this.worldObj.isRemote) return;
+        if (this.worldObj.isRemote) return;
         ForgeDirection[] directions = ForgeDirection.VALID_DIRECTIONS;
         int detectedDirs = directions.length;
 
-        for(int i = 0; i < detectedDirs; ++i) {
-            ForgeDirection dir  = directions[i];
+        for (int i = 0; i < detectedDirs; ++i) {
+            ForgeDirection dir = directions[i];
             int x = this.xCoord + ForgeDirectionHelper.getForgeDirectionXApplyed(dir);
             int y = this.yCoord + ForgeDirectionHelper.getForgeDirectionYApplyed(dir);
             int z = this.zCoord + ForgeDirectionHelper.getForgeDirectionZApplyed(dir);
-            TileEntity te = this.worldObj.getTileEntity(x, y, z) != null && !(this.worldObj.getTileEntity(x, y, z) instanceof EtherealAcceleratorTE || this.worldObj.getTileEntity(x, y, z) instanceof TileTileBooster) ? this.worldObj.getTileEntity(x, y, z) : null;
+            TileEntity te = this.worldObj.getTileEntity(x, y, z) != null && !(this.worldObj.getTileEntity(x, y, z) instanceof TileEntityEtherealAccelerator || this.worldObj.getTileEntity(x, y, z) instanceof TileTileBooster) ? this.worldObj.getTileEntity(x, y, z) : null;
             if (te != null && te.canUpdate()) {
-                for(int h = 0; h < this.accelerationSpeed; ++i) {
+                for (int h = 0; h < this.accelerationSpeed; ++i) {
                     te.updateEntity();
                 }
             }

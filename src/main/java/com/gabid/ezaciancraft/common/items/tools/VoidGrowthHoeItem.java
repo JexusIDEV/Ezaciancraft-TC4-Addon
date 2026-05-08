@@ -49,8 +49,8 @@ public class VoidGrowthHoeItem extends ItemElementalHoe implements IWarpingGear,
 
     @Override
     public void onUpdate(ItemStack stack, World level, Entity player, int a, boolean b) {
-        if(stack.isItemDamaged() && player != null && player.ticksExisted % 10 == 0 && player instanceof EntityLivingBase) {
-            stack.damageItem(-1, (EntityLivingBase) player);
+        if (stack.isItemDamaged() && player != null && player.ticksExisted % 10 == 0 && player instanceof EntityLivingBase) {
+            stack.damageItem(-level.rand.nextInt(3), (EntityLivingBase) player);
         }
         super.onUpdate(stack, level, player, a, b);
     }

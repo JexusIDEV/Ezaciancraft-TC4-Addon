@@ -1,9 +1,12 @@
 package com.gabid.ezaciancraft.common.items.weapons;
 
 import com.gabid.ezaciancraft.api.EzacianToolMaterials;
+import com.google.common.collect.Multimap;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
@@ -57,7 +60,7 @@ public class VoidZephyrSwordItem extends ItemElementalSword implements IWarpingG
 
     @Override
     public void onUpdate(ItemStack stack, World level, Entity player, int a, boolean b) {
-        if(stack.isItemDamaged() && player != null && player.ticksExisted % 10 == 0 && player instanceof EntityLivingBase) {
+        if (stack.isItemDamaged() && player != null && player.ticksExisted % 10 == 0 && player instanceof EntityLivingBase) {
             stack.damageItem(-1, (EntityLivingBase) player);
         }
         super.onUpdate(stack, level, player, a, b);
@@ -78,5 +81,13 @@ public class VoidZephyrSwordItem extends ItemElementalSword implements IWarpingG
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean p_77624_4_) {
         list.add(EnumChatFormatting.GOLD + StatCollector.translateToLocal("enchantment.special.sapless"));
         super.addInformation(stack, player, list, p_77624_4_);
+    }
+
+    @Override
+    public Multimap getAttributeModifiers(ItemStack stack) {
+        Multimap multimap = super.getItemAttributeModifiers();
+        multimap.clear();
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", 12, 0));
+        return multimap;
     }
 }

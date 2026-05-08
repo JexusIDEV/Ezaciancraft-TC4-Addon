@@ -8,7 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -49,9 +48,9 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
 
     @Override
     public void registerIcons(IIconRegister register) {
-        this.icons[0] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_VOID_CORE_PICKAXE+"Single").toString());
-        this.icons[1] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_VOID_CORE_PICKAXE+"Area").toString());
-        this.icons[2] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_VOID_CORE_PICKAXE+"Column").toString());
+        this.icons[0] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_VOID_CORE_PICKAXE + "Single").toString());
+        this.icons[1] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_VOID_CORE_PICKAXE + "Area").toString());
+        this.icons[2] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_VOID_CORE_PICKAXE + "Column").toString());
     }
 
     @Override
@@ -78,7 +77,7 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
 
     @Override
     public void onUpdate(ItemStack stack, World level, Entity player, int a, boolean b) {
-        if(stack.isItemDamaged() && player != null && player.ticksExisted % 10 == 0 && player instanceof EntityLivingBase) {
+        if (stack.isItemDamaged() && player != null && player.ticksExisted % 10 == 0 && player instanceof EntityLivingBase) {
             stack.damageItem(-1, (EntityLivingBase) player);
         }
         super.onUpdate(stack, level, player, a, b);
@@ -100,12 +99,12 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
                 info = ezacianToolModeColumnTranslation;
                 break;
         }
-        tooltips.add(ezacianToolModeTranslation+": " + info);
+        tooltips.add(ezacianToolModeTranslation + ": " + info);
     }
 
     @Override
     public float getDigSpeed(ItemStack stack, Block block, int meta) {
-        if(block instanceof BlockJar && !ForgeHooks.isToolEffective(stack, block, meta)) {
+        if (block instanceof BlockJar && !ForgeHooks.isToolEffective(stack, block, meta)) {
             return this.efficiencyOnProperMaterial;
         }
         return super.getDigSpeed(stack, block, meta);
@@ -115,7 +114,7 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
     public boolean onBlockStartBreak(ItemStack itemstack, int x, int y, int z, EntityPlayer player) {
         World world = player.worldObj;
         Material mat = world.getBlock(x, y, z).getMaterial();
-        if (!EzacianToolHelper.isRightMaterial(mat, EzacianToolHelper.materialsPick))
+        if (EzacianToolHelper.isRightMaterial(mat, EzacianToolHelper.materialsPick))
             return false;
 
         MovingObjectPosition block = EzacianToolHelper.raytraceFromEntity(world, player, true, 4.5);
@@ -123,19 +122,16 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
             return false;
 
         ForgeDirection direction = ForgeDirection.getOrientation(block.sideHit);
-        int fortune = EnchantmentHelper.getFortuneModifier(player);
-        boolean silk = EnchantmentHelper.getSilkTouchModifier(player);
 
         switch (this.getMode(itemstack)) {
             case 0:
-                break;
+                return super.onBlockStartBreak(itemstack, x, y, z, player);
             case 1: {
-                boolean doX = direction.offsetX == 0;
-                boolean doY = direction.offsetY == 0;
-                boolean doZ = direction.offsetZ == 0;
-
-                EzacianToolHelper.removeBlocksInIteration(player, world, x, y, z, doX ? -2 : 0, doY ? -1 : 0, doZ ? -2 : 0, doX ? 3 : 1, doY ? 4 : 1, doZ ? 3 : 1, null, EzacianToolHelper.materialsPick, silk, fortune);
-
+                if (player.isSneaking()) {
+                    return super.onBlockStartBreak(itemstack, x, y, z, player);
+                } else {
+                    EzacianToolHelper.removeAOEBlocks(itemstack, player, world, x, y, z, 2);
+                }
                 break;
             }
             case 2: {
@@ -143,7 +139,7 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
                 int yo = -direction.offsetY;
                 int zo = -direction.offsetZ;
 
-                EzacianToolHelper.removeBlocksInIteration(player, world, x, y, z, xo >= 0 ? 0 : -10, yo >= 0 ? 0 : -10, zo >= 0 ? 0 : -10, xo > 0 ? 10 : 1, yo > 0 ? 10 : 1, zo > 0 ? 10 : 1, null, EzacianToolHelper.materialsPick, silk, fortune);
+                EzacianToolHelper.removeBlocksInIteration(player, world, x, y, z, xo >= 0 ? 0 : -10, yo >= 0 ? 0 : -10, zo >= 0 ? 0 : -10, xo > 0 ? 10 : 1, yo > 0 ? 10 : 1, zo > 0 ? 10 : 1);
                 break;
             }
         }
@@ -152,11 +148,11 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
 
     @Override
     public void setMode(ItemStack stack, int mode) {
-        if(!NBTHelper.containerNBTIsNotNull(stack)) {
+        if (!NBTHelper.containerNBTIsNotNull(stack)) {
             NBTHelper.setDefaultContainerNBT(stack, TOOL_MODE, 0);
         }
 
-        if(mode >-1 && mode < 3) {
+        if (mode > -1 && mode < 3) {
             stack.getTagCompound().setInteger(TOOL_MODE, mode);
         } else {
             stack.getTagCompound().setInteger(TOOL_MODE, 0);
@@ -165,7 +161,7 @@ public class VoidCorePickaxeItem extends ItemElementalPickaxe implements IWarpin
 
     @Override
     public void changeMode(ItemStack stack) {
-        if(!NBTHelper.containerNBTIsNotNull(stack)) {
+        if (!NBTHelper.containerNBTIsNotNull(stack)) {
             NBTHelper.setDefaultContainerNBT(stack, TOOL_MODE, 0);
         }
         int current = stack.getTagCompound().getInteger(TOOL_MODE);

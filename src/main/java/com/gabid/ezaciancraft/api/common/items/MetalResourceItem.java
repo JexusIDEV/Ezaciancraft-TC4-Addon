@@ -15,7 +15,7 @@ import static com.gabid.ezaciancraft.CoreMod.MODID;
 
 public class MetalResourceItem extends Item {
 
-    public IIcon[] metalIcons = new IIcon[2];
+    public IIcon[] metalIcons = new IIcon[3];
     public String baseName;
 
     public MetalResourceItem(String name, CreativeTabs tabToRegister) {
@@ -31,7 +31,8 @@ public class MetalResourceItem extends Item {
     @Override
     public void registerIcons(IIconRegister register) {
         this.metalIcons[0] = register.registerIcon(new ResourceLocation(MODID, this.baseName).toString());
-        this.metalIcons[1] = register.registerIcon(new ResourceLocation(MODID, this.baseName+"Nugget").toString());
+        this.metalIcons[1] = register.registerIcon(new ResourceLocation(MODID, this.baseName + "Nugget").toString());
+        this.metalIcons[2] = register.registerIcon(new ResourceLocation(MODID, this.baseName + "Cluster").toString());
     }
 
     @Override
@@ -44,6 +45,7 @@ public class MetalResourceItem extends Item {
     public void getSubItems(Item item, CreativeTabs tab, List list) {
         list.add(new ItemStack(this, 1, 0));
         list.add(new ItemStack(this, 1, 1));
+        list.add(new ItemStack(this, 1, 2));
     }
 
     @Override

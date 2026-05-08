@@ -28,8 +28,8 @@ public class PacketUpdateEzacianModeTool extends EzacianBasePacket<PacketUpdateE
     @Override
     public void handleServerSidePacket(PacketUpdateEzacianModeTool message, EntityPlayer player) {
         ItemStack ezacianToolStack = player.getHeldItem();
-        if(ezacianToolStack != null && ezacianToolStack.getItem() instanceof IEzacianTool) {
-            if(NBTHelper.containerNBTIsNotNull(ezacianToolStack)) {
+        if (ezacianToolStack != null && ezacianToolStack.getItem() instanceof IEzacianTool) {
+            if (NBTHelper.containerNBTIsNotNull(ezacianToolStack)) {
                 ezacianToolStack.getTagCompound().setInteger(TOOL_MODE, message.toolMode);
                 player.worldObj.playSoundAtEntity(player, "thaumcraft:cameraticks", 0.3f, 1f);
             } else {

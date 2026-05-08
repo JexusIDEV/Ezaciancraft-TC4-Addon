@@ -4,10 +4,8 @@ import com.gabid.ezaciancraft.api.aspects.CustomWandRodPrimalUpdate;
 import com.gabid.ezaciancraft.api.common.items.EzacianCustomItemJarFilled;
 import com.gabid.ezaciancraft.common.items.ItemEzacianWandCap;
 import com.gabid.ezaciancraft.common.items.ItemEzacianWandStaffRod;
-import com.gabid.ezaciancraft.common.items.tools.VoidCorePickaxeItem;
-import com.gabid.ezaciancraft.common.items.tools.VoidEarthMoverShovelItem;
-import com.gabid.ezaciancraft.common.items.tools.VoidGrowthHoeItem;
-import com.gabid.ezaciancraft.common.items.tools.VoidStreamAxeItem;
+import com.gabid.ezaciancraft.common.items.debug.ItemDebugger;
+import com.gabid.ezaciancraft.common.items.tools.*;
 import com.gabid.ezaciancraft.common.items.weapons.VoidZephyrSwordItem;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
@@ -18,12 +16,14 @@ import thaumcraft.api.wands.WandCap;
 import thaumcraft.api.wands.WandRod;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_CRYSTALYIUM_JAR;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_SHADOW_VOID_METAL_JAR;
 
 public class EzacianCraftItems {
 
     //debug - extra
     public static Item ezaciancraftTabIconItem;
+    public static Item researchUnlocker;
 
     //resources
 
@@ -37,6 +37,7 @@ public class EzacianCraftItems {
     public static Item voidStreamAxe;
     public static Item voidTerraShatterShovel;
     public static Item voidGrowthHoe;
+    public static Item voidStaffOfPrimalReconstructor;
 
     //*wand caps and staffs etc
     public static ItemEzacianWandCap baseWandCap;
@@ -52,6 +53,9 @@ public class EzacianCraftItems {
         ezaciancraftTabIconItem.setMaxStackSize(1);
         ezaciancraftTabIconItem.setTextureName(new ResourceLocation(MODID, "ezacianSymbol").toString());
         GameRegistry.registerItem(ezaciancraftTabIconItem, ezaciancraftTabIconItem.getUnlocalizedName(), MODID);
+
+        researchUnlocker = new ItemDebugger();
+        GameRegistry.registerItem(researchUnlocker, researchUnlocker.getUnlocalizedName(), MODID);
 
         //resources
 
@@ -76,6 +80,9 @@ public class EzacianCraftItems {
 
         voidGrowthHoe = new VoidGrowthHoeItem();
         GameRegistry.registerItem(voidGrowthHoe, voidGrowthHoe.getUnlocalizedName(), MODID);
+
+        voidStaffOfPrimalReconstructor = new VoidStaffOfPrimalReconstructorItem();
+        GameRegistry.registerItem(voidStaffOfPrimalReconstructor, voidStaffOfPrimalReconstructor.getUnlocalizedName(), MODID);
 
         //wand caps and staffs etc
 

@@ -1,9 +1,6 @@
 package com.gabid.ezaciancraft.api.common.blocks.tileentity;
 
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
-import thaumcraft.common.tiles.TileJarFillable;
-import thaumcraft.common.tiles.TileJarFillableVoid;
 
 public class EzacianCustomJarFillableVoidTE extends EzacianCustomJarFillableTE {
 

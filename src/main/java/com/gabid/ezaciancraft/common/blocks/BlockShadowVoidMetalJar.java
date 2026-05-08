@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_CRYSTALYIUM_JAR;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_SHADOW_VOID_METAL_JAR;
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
 

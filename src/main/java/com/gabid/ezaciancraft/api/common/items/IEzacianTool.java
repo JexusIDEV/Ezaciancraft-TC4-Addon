@@ -4,6 +4,8 @@ import net.minecraft.item.ItemStack;
 
 public interface IEzacianTool {
     void setMode(ItemStack stack, int mode);
+
     void changeMode(ItemStack stack);
+
     int getMode(ItemStack stack);
 }

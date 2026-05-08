@@ -1,6 +1,7 @@
 package com.gabid.ezaciancraft.common.network;
 
 import com.gabid.ezaciancraft.common.network.client.PacketUpdateEzacianModeTool;
+import com.gabid.ezaciancraft.common.network.client.PacketUpdateEzacianPrimalModeTool;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -14,9 +15,10 @@ public class EzacianNetworkHandler {
     private static int id = 0;
 
     public static void initNetwork() {
-        INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(MODID+"_network");
+        INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(MODID + "_network");
 
         registerPacket(PacketUpdateEzacianModeTool.class, PacketUpdateEzacianModeTool.class, Side.SERVER);
+        registerPacket(PacketUpdateEzacianPrimalModeTool.class, PacketUpdateEzacianPrimalModeTool.class, Side.SERVER);
     }
 
     private static void registerPacket(Class messageHandler, Class requestMessageType, Side theSide) {

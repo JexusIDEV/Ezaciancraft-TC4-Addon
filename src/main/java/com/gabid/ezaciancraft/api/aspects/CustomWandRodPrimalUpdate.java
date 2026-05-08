@@ -25,15 +25,15 @@ public class CustomWandRodPrimalUpdate implements IWandRodOnUpdate {
 
     public CustomWandRodPrimalUpdate(float _maxAspectsPercentage, int _ticksToUpdateAspects) {
         this.maxAspectsPercentage = _maxAspectsPercentage;
-        this.ticksToUpdateAspects =_ticksToUpdateAspects;
+        this.ticksToUpdateAspects = _ticksToUpdateAspects;
         this.aspect = null;
         this.primals = Aspect.getPrimalAspects();
     }
 
     public void onUpdate(ItemStack itemstack, EntityPlayer player) {
         if (this.aspect != null) {
-            if (player.ticksExisted % this.ticksToUpdateOneAspect == 0 && ((ItemWandCasting)itemstack.getItem()).getVis(itemstack, this.aspect) < ((ItemWandCasting)itemstack.getItem()).getMaxVis(itemstack) * this.maxAspectsPercentage) {
-                ((ItemWandCasting)itemstack.getItem()).addVis(itemstack, this.aspect, 1, true);
+            if (player.ticksExisted % this.ticksToUpdateOneAspect == 0 && ((ItemWandCasting) itemstack.getItem()).getVis(itemstack, this.aspect) < ((ItemWandCasting) itemstack.getItem()).getMaxVis(itemstack) * this.maxAspectsPercentage) {
+                ((ItemWandCasting) itemstack.getItem()).addVis(itemstack, this.aspect, 1, true);
             }
         } else if (player.ticksExisted % this.ticksToUpdateAspects == 0) {
             ArrayList<Aspect> aspects = new ArrayList<>();
@@ -45,7 +45,7 @@ public class CustomWandRodPrimalUpdate implements IWandRodOnUpdate {
             }
 
             if (!aspects.isEmpty()) {
-                ((ItemWandCasting)itemstack.getItem()).addVis(itemstack, aspects.get(player.worldObj.rand.nextInt(aspects.size())), 1, true);
+                ((ItemWandCasting) itemstack.getItem()).addVis(itemstack, aspects.get(player.worldObj.rand.nextInt(aspects.size())), 1, true);
             }
         }
 

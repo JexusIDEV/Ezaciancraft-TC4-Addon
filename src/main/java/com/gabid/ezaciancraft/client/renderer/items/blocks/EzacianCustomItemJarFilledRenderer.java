@@ -30,7 +30,7 @@ public class EzacianCustomItemJarFilledRenderer implements IItemRenderer {
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         if (item.getItem() instanceof EzacianCustomItemJarFilled) {
-            EzacianCustomItemJarFilled jarItem = (EzacianCustomItemJarFilled)item.getItem();
+            EzacianCustomItemJarFilled jarItem = (EzacianCustomItemJarFilled) item.getItem();
             if (type == ItemRenderType.ENTITY) {
                 GL11.glScalef(0.5f, 0.5f, 0.5f);
                 GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
@@ -40,7 +40,7 @@ public class EzacianCustomItemJarFilledRenderer implements IItemRenderer {
                 GL11.glScalef(0.75f, 0.75f, 0.75f);
                 GL11.glTranslatef(-1.325F, -0.725F, 0.375F);
 
-            } else if(type == ItemRenderType.INVENTORY) {
+            } else if (type == ItemRenderType.INVENTORY) {
                 GL11.glTranslatef(0.5F, 0.325F, 0.5F);
             }
 
@@ -58,7 +58,7 @@ public class EzacianCustomItemJarFilledRenderer implements IItemRenderer {
                 jarTE.aspect = aspects.getAspects()[0];
             }
 
-            if(item.stackTagCompound != null) {
+            if (item.stackTagCompound != null) {
                 String tf = item.getTagCompound().getString("AspectFilter");
                 if (tf != null) {
                     jarTE.aspectFilter = Aspect.getAspect(tf);

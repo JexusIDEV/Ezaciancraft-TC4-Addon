@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.blocks.BlockJar;
@@ -18,7 +17,7 @@ public class EzacianCustomJarFillableTER extends TileEntitySpecialRenderer {
     public void renderTileEntityAt(EzacianCustomJarFillableTE tile, double x, double y, double z, float f) {
         GL11.glPushMatrix();
         GL11.glDisable(2884);
-        GL11.glTranslatef((float)x + 0.5F, (float)y + 0.01F, (float)z + 0.5F);
+        GL11.glTranslatef((float) x + 0.5F, (float) y + 0.01F, (float) z + 0.5F);
         GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         if ((tile).amount > 0) {
@@ -38,7 +37,7 @@ public class EzacianCustomJarFillableTER extends TileEntitySpecialRenderer {
                     GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             }
 
-            float rot = (float)(((tile).aspectFilter.getTag().hashCode() + tile.xCoord + (tile).facing) % 4 - 2);
+            float rot = (float) (((tile).aspectFilter.getTag().hashCode() + tile.xCoord + (tile).facing) % 4 - 2);
             GL11.glPushMatrix();
             GL11.glTranslatef(0.0F, -0.4F, 0.315F);
             if (Config.crooked) {
@@ -71,9 +70,9 @@ public class EzacianCustomJarFillableTER extends TileEntitySpecialRenderer {
             GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
             RenderBlocks renderBlocks = new RenderBlocks();
             GL11.glDisable(2896);
-            float level = (float)te.amount / (float)te.maxAmount * 0.625F;
+            float level = (float) te.amount / (float) te.maxAmount * 0.625F;
             Tessellator t = Tessellator.instance;
-            renderBlocks.setRenderBounds(0.25, 0.0625, 0.25, 0.75, 0.0625 + (double)level, 0.75);
+            renderBlocks.setRenderBounds(0.25, 0.0625, 0.25, 0.75, 0.0625 + (double) level, 0.75);
             t.startDrawingQuads();
 
             if (te.aspect != null) {
@@ -86,7 +85,7 @@ public class EzacianCustomJarFillableTER extends TileEntitySpecialRenderer {
             }
 
             t.setBrightness(bright);
-            IIcon icon = ((BlockJar)ConfigBlocks.blockJar).iconLiquid;
+            IIcon icon = ((BlockJar) ConfigBlocks.blockJar).iconLiquid;
             this.field_147501_a.field_147553_e.bindTexture(TextureMap.locationBlocksTexture);
             renderBlocks.renderFaceYNeg(ConfigBlocks.blockJar, -0.5, 0.0, -0.5, icon);
             renderBlocks.renderFaceYPos(ConfigBlocks.blockJar, -0.5, 0.0, -0.5, icon);
@@ -104,6 +103,6 @@ public class EzacianCustomJarFillableTER extends TileEntitySpecialRenderer {
 
     @Override
     public void renderTileEntityAt(TileEntity te, double a, double b, double c, float d) {
-        this.renderTileEntityAt((EzacianCustomJarFillableTE)te, a, b, c, d);
+        this.renderTileEntityAt((EzacianCustomJarFillableTE) te, a, b, c, d);
     }
 }

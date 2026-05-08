@@ -2,9 +2,9 @@ package com.gabid.ezaciancraft.registry;
 
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
+import static com.gabid.ezaciancraft.registry.EzacianCraftAspects.REPLICATIO;
 import static thaumcraft.api.aspects.Aspect.*;
 
 public class EzacianCraftAspectTagRegistry {
@@ -18,22 +18,73 @@ public class EzacianCraftAspectTagRegistry {
                 .add(DARKNESS, 1)
                 .add(VOID, 1)
         );
+
         //shadow void
+        ThaumcraftApi.registerObjectTag(new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceOreBlock(), 1, 0), new AspectList()
+                .add(TAINT, 3)
+                .add(MAGIC, 3)
+                .add(METAL, 2)
+                .add(DARKNESS, 2)
+                .add(ELDRITCH, 1)
+                .add(VOID, 1)
+                .add(EARTH, 3)
+        );
         ThaumcraftApi.registerObjectTag(new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0), new AspectList()
-                        .add(TAINT, 3)
-                        .add(MAGIC, 3)
-                        .add(METAL, 2)
-                        .add(DARKNESS, 2)
-                        .add(ELDRITCH, 1)
-                        .add(VOID, 1)
-                );
+                .add(TAINT, 3)
+                .add(MAGIC, 3)
+                .add(METAL, 2)
+                .add(DARKNESS, 2)
+                .add(ELDRITCH, 1)
+                .add(VOID, 1)
+        );
+        ThaumcraftApi.registerObjectTag(new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 2), new AspectList()
+                .add(TAINT, 3)
+                .add(MAGIC, 3)
+                .add(METAL, 6)
+                .add(ORDER, 2)
+                .add(DARKNESS, 2)
+                .add(ELDRITCH, 1)
+                .add(VOID, 1)
+        );
         ThaumcraftApi.registerObjectTag(new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceBlock(), 1, 0), new AspectList()
-                .add(TAINT, 3*9)
-                .add(MAGIC, 3*9)
-                .add(METAL, 2*9)
-                .add(DARKNESS, 2*9)
-                .add(ELDRITCH, 1*9)
-                .add(VOID, 1*9)
+                .add(TAINT, 3 * 9)
+                .add(MAGIC, 3 * 9)
+                .add(METAL, 2 * 9)
+                .add(DARKNESS, 2 * 9)
+                .add(ELDRITCH, 9)
+                .add(VOID, 9)
+        );
+
+        //CRYSTALYIUM
+        ThaumcraftApi.registerObjectTag(new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceOreBlock(), 1, 0), new AspectList()
+                .add(REPLICATIO, 4)
+                .add(MAGIC, 4)
+                .add(ENTROPY, 4)
+                .add(METAL, 1)
+                .add(EXCHANGE, 2 * 9)
+                .add(EARTH, 3)
+        );
+        ThaumcraftApi.registerObjectTag(new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 0), new AspectList()
+                .add(REPLICATIO, 4)
+                .add(MAGIC, 4)
+                .add(ENTROPY, 4)
+                .add(METAL, 1)
+                .add(EXCHANGE, 2)
+        );
+        ThaumcraftApi.registerObjectTag(new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 2), new AspectList()
+                .add(REPLICATIO, 4)
+                .add(MAGIC, 4)
+                .add(ENTROPY, 4)
+                .add(METAL, 4)
+                .add(ORDER, 2)
+                .add(EXCHANGE, 2)
+        );
+        ThaumcraftApi.registerObjectTag(new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceBlock(), 1, 0), new AspectList()
+                .add(REPLICATIO, 4 * 9)
+                .add(EXCHANGE, 2 * 9)
+                .add(MAGIC, 4 * 9)
+                .add(ENTROPY, 4 * 9)
+                .add(METAL, 9)
         );
 
     }

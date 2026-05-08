@@ -1,8 +1,7 @@
 package com.gabid.ezaciancraft.client.renderer.tiles;
 
 import com.gabid.ezaciancraft.client.renderer.models.AlchemicalMixerModel;
-import com.gabid.ezaciancraft.common.blocks.tileentity.AlchemicalMixerTileEntity;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAlchemicalMixer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -27,17 +26,17 @@ import static org.lwjgl.opengl.GL11.GL_LIGHTING;
 @SideOnly(Side.CLIENT)
 public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer {
 
-    private final ResourceLocation texturePath = new ResourceLocation(MODID, "textures/blocks/"+UNLOCALE_ALCHEMICAL_MIXER+"Atlas.png");
+    private final ResourceLocation texturePath = new ResourceLocation(MODID, "textures/blocks/" + UNLOCALE_ALCHEMICAL_MIXER + "Atlas.png");
     public AlchemicalMixerModel model = new AlchemicalMixerModel();
 
     public AlchemicalMixerTileEntityRenderer() {
     }
 
-    private void renderAlchemicalMixerTE(AlchemicalMixerTileEntity te, double x, double y, double z, float ticks) {
+    private void renderAlchemicalMixerTE(TileEntityAlchemicalMixer te, double x, double y, double z, float ticks) {
         int teDirection = te.metaFacing;
 
         GL11.glPushMatrix();
-        GL11.glTranslated(x+0.5, y-0.5, z+0.5);
+        GL11.glTranslated(x + 0.5, y - 0.5, z + 0.5);
         GL11.glRotatef(0f, 0f, 1f, 0f);
         this.rotateBlockByOrientation(teDirection);
         bindTexture(texturePath);
@@ -46,7 +45,7 @@ public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
 
         GL11.glPushMatrix();
-        GL11.glTranslated(x+0.5, y+-.5, z+0.5);
+        GL11.glTranslated(x + 0.5, y + -.5, z + 0.5);
         this.rotateBlockByOrientation(teDirection);
         GL11.glTranslated(0, 1, 0);
         GL11.glRotatef(te.whiskerRotation, 0f, 0f, 1f);
@@ -55,7 +54,7 @@ public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
 
         GL11.glPushMatrix();
-        GL11.glTranslated(x+0.5, y-0.5, z+0.5);
+        GL11.glTranslated(x + 0.5, y - 0.5, z + 0.5);
         GL11.glRotatef(0f, 0f, 1f, 0f);
         this.renderStoredEssentia(te);
         bindTexture(texturePath);
@@ -83,11 +82,11 @@ public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float ticks) {
-        renderAlchemicalMixerTE((AlchemicalMixerTileEntity) te, x, y, z, ticks);
+        renderAlchemicalMixerTE((TileEntityAlchemicalMixer) te, x, y, z, ticks);
     }
 
-    private void renderStoredEssentia(AlchemicalMixerTileEntity te) {
-        if(this.field_147501_a.field_147553_e != null && te.currentAspectForColor != null && te.getAspects().visSize() != 0) {
+    private void renderStoredEssentia(TileEntityAlchemicalMixer te) {
+        if (this.field_147501_a.field_147553_e != null && te.currentAspectForColor != null && te.getAspects().visSize() != 0) {
             GL11.glPushMatrix();
             GL11.glEnable(GL_BLEND);
             GL11.glBlendFunc(770, 771);
@@ -115,10 +114,10 @@ public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer
         }
     }
 
-    private void renderIsDownConnected(AlchemicalMixerTileEntity te) {
-        if(te.getWorldObj() != null) {
+    private void renderIsDownConnected(TileEntityAlchemicalMixer te) {
+        if (te.getWorldObj() != null) {
             TileEntity down = ThaumcraftApiHelper.getConnectableTile(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord, ForgeDirection.DOWN);
-            if(down instanceof IEssentiaTransport) {
+            if (down instanceof IEssentiaTransport) {
                 if (down.getBlockType() instanceof BlockJar) {
                     this.model.renderConnected();
                 }

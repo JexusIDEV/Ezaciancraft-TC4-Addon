@@ -31,8 +31,7 @@ public class EzacianCustomItemBlockPlant extends ItemBlock {
     }
 
     @Override
-    public int getMetadata(int meta)
-    {
+    public int getMetadata(int meta) {
         return meta;
     }
 

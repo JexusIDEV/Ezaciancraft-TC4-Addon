@@ -8,7 +8,10 @@ import net.minecraft.block.BlockOre;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.StringUtils;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 
@@ -20,7 +23,7 @@ public class ResourceMaterialBuilder {
     protected final Block resourceBlock;
 
     protected final Item resourceMetal; //uses my own class "MetalResourceItem"
-    
+
     private final float extraHardness;
     private final float extraResistance;
     private final MapColor metalAndOreColor;
@@ -34,16 +37,16 @@ public class ResourceMaterialBuilder {
         this.tabToRegister = builder.tabToRegister;
 
         this.resourceOreBlock = builder.resourceOreBlock != null ? builder.resourceOreBlock : new BlockOre();
-        this.resourceOreBlock.setBlockName(builder.resourceBaseName+"Ore");
-        this.resourceOreBlock.setBlockTextureName(new ResourceLocation(MODID, builder.resourceBaseName+"Ore").toString());
+        this.resourceOreBlock.setBlockName(builder.resourceBaseName + "Ore");
+        this.resourceOreBlock.setBlockTextureName(new ResourceLocation(MODID, builder.resourceBaseName + "Ore").toString());
         this.resourceOreBlock.setHardness(3f + builder.extraHardness);
         this.resourceOreBlock.setResistance(5f + builder.extraResistance);
         this.resourceOreBlock.setCreativeTab(builder.tabToRegister);
         GameRegistry.registerBlock(this.resourceOreBlock, this.resourceOreBlock.getUnlocalizedName());
 
         this.resourceBlock = builder.resourceBlock != null ? builder.resourceBlock : new BlockCompressed(builder.metalAndOreColor);
-        this.resourceBlock.setBlockName(builder.resourceBaseName+"Block");
-        this.resourceBlock.setBlockTextureName(new ResourceLocation(MODID, builder.resourceBaseName+"Block").toString());
+        this.resourceBlock.setBlockName(builder.resourceBaseName + "Block");
+        this.resourceBlock.setBlockTextureName(new ResourceLocation(MODID, builder.resourceBaseName + "Block").toString());
         this.resourceBlock.setHardness(5f + builder.extraHardness);
         this.resourceBlock.setResistance(10f + builder.extraResistance);
         this.resourceBlock.setStepSound(Block.soundTypeMetal);
@@ -52,6 +55,17 @@ public class ResourceMaterialBuilder {
 
         this.resourceMetal = builder.resourceMetal != null ? builder.resourceMetal : new MetalResourceItem(builder.resourceBaseName, builder.tabToRegister);
         GameRegistry.registerItem(this.resourceMetal, this.resourceMetal.getUnlocalizedName());
+
+        //tag registry
+        OreDictionary.registerOre(this.resourceBaseName, new ItemStack(this.resourceMetal, 1, 0));
+        OreDictionary.registerOre("nugget" + StringUtils.capitalize(this.resourceBaseName), new ItemStack(this.resourceMetal, 1, 1));
+        OreDictionary.registerOre("cluster" + StringUtils.capitalize(this.resourceBaseName), new ItemStack(this.resourceMetal, 1, 2));
+        OreDictionary.registerOre("ore" + StringUtils.capitalize(this.resourceBaseName), this.resourceOreBlock);
+        OreDictionary.registerOre("block" + StringUtils.capitalize(this.resourceBaseName), this.resourceBlock);
+    }
+
+    public static ResourceMaterialBuilder createAFullSet(String _resourceBaseName, float _extraHardness, float _extraResistance, MapColor _metalAndOreColor, CreativeTabs tabToRegister) {
+        return new ResourceMaterialBuilder(new Builder(_resourceBaseName, _extraHardness, _extraResistance, _metalAndOreColor, tabToRegister));
     }
 
     public String getResourceBaseName() {
@@ -86,22 +100,15 @@ public class ResourceMaterialBuilder {
         return this.tabToRegister;
     }
 
-    public static ResourceMaterialBuilder createAFullSet(String _resourceBaseName, float _extraHardness, float _extraResistance, MapColor _metalAndOreColor, CreativeTabs tabToRegister) {
-        return new ResourceMaterialBuilder(new Builder(_resourceBaseName, _extraHardness, _extraResistance, _metalAndOreColor, tabToRegister));
-    }
-
     public static class Builder {
         protected final String resourceBaseName;
-
-        protected Block resourceOreBlock;
-        protected Block resourceBlock;
-
-        protected Item resourceMetal; //uses my own class "MetalResourceItem"
-
         private final float extraHardness;
         private final float extraResistance;
         private final MapColor metalAndOreColor;
         private final CreativeTabs tabToRegister;
+        protected Block resourceOreBlock;
+        protected Block resourceBlock;
+        protected Item resourceMetal; //uses my own class "MetalResourceItem"
 
         public Builder(String _resourceBaseName, float _extraHardness, float _extraResistance, MapColor _metalAndOreColor, CreativeTabs _tabToRegister) {
             this.resourceBaseName = _resourceBaseName;

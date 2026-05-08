@@ -65,7 +65,7 @@ public class EzacianCustomItemJarFilled extends ItemJarFilled {
             if (this.placeBlockAt(stack, player, world, x, y, z, side, a, b, c, data)) {
                 TileEntity te = world.getTileEntity(x, y, z);
                 if (te instanceof EzacianCustomJarFillableTE && stack.hasTagCompound()) {
-                    EzacianCustomJarFillableTE jarTE = (EzacianCustomJarFillableTE)te;
+                    EzacianCustomJarFillableTE jarTE = (EzacianCustomJarFillableTE) te;
                     AspectList aspects = this.getAspects(stack);
                     if (aspects != null && aspects.size() == 1) {
                         jarTE.amount = aspects.getAmount(aspects.getAspects()[0]);
@@ -77,7 +77,7 @@ public class EzacianCustomItemJarFilled extends ItemJarFilled {
                         jarTE.aspectFilter = Aspect.getAspect(aspectFilter);
                     }
                 }
-                world.playSoundEffect(((float)x + 0.5F), ((float)y + 0.5F), ((float)z + 0.5F), metaBlock.stepSound.func_150496_b(), (metaBlock.stepSound.getVolume() + 1.0F) / 2.0F, metaBlock.stepSound.frequency * 0.8F);
+                world.playSoundEffect(((float) x + 0.5F), ((float) y + 0.5F), ((float) z + 0.5F), metaBlock.stepSound.func_150496_b(), (metaBlock.stepSound.getVolume() + 1.0F) / 2.0F, metaBlock.stepSound.frequency * 0.8F);
                 --stack.stackSize;
             }
             return true;

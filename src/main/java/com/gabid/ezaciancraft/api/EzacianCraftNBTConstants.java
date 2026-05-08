@@ -15,4 +15,8 @@ public class EzacianCraftNBTConstants {
 
     //void tools
     public static final String TOOL_MODE = "toolMode";
+
+    public static final String PRIMAL_TOOL_BEHAVIOUR = "toolBehaviour";
+    public static final String PRIMAL_TOOL_SUB_MODE = "toolSubMode";
+    public static final String PRIMAL_TOOL_AOE = "toolAOE";
 }

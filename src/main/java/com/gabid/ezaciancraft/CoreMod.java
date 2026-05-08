@@ -1,19 +1,25 @@
 package com.gabid.ezaciancraft;
 
+import com.gabid.ezaciancraft.common.event.ThaumcraftMultiblockEvent;
 import com.gabid.ezaciancraft.common.network.EzacianNetworkHandler;
+import com.gabid.ezaciancraft.common.world.EzacianCraftWorldGen;
 import com.gabid.ezaciancraft.proxy.EzacianCommonProxy;
 import com.gabid.ezaciancraft.registry.*;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameData;
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.item.ItemStack;
 
 @Mod(modid = CoreMod.MODID, version = CoreMod.VERSION, dependencies = CoreMod.DEPENDENCIES)
-public class CoreMod
-{
+public class CoreMod {
     public static final String MODID = "ezaciancraft";
     public static final String VERSION = "1.0";
     public static final String DEPENDENCIES = "required-after:Thaumcraft@[4.2.3.5,);after:Baubles@[1.0.1.10,);";
@@ -22,6 +28,17 @@ public class CoreMod
     public static CoreMod instance;
     @SidedProxy(modId = MODID, clientSide = "com.gabid.ezaciancraft.proxy.EzacianClientProxy", serverSide = "com.gabid.ezaciancraft.proxy.EzacianServerProxy")
     public static EzacianCommonProxy proxy;
+    public static ThaumcraftMultiblockEvent thaumcraftMultiblockEvent = new ThaumcraftMultiblockEvent();
+
+    //https://github.com/mekanism/Mekanism/blob/1.7.10/src/main/java/mekanism/common/util/MekanismUtils.java#L1496
+    public static String getModIdFromItemStack(ItemStack stack) {
+        try {
+            ModContainer mod = GameData.findModOwner(GameData.getItemRegistry().getNameForObject(stack.getItem()));
+            return mod == null ? "Minecraft" : mod.getName();
+        } catch (Exception e) {
+            return "null";
+        }
+    }
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -30,6 +47,9 @@ public class CoreMod
         EzacianCraftResources.setupResources();
         EzacianCraftTileEntities.setupTileEntities();
         EzacianCraftAspects.initAspects();
+        GameRegistry.registerWorldGenerator(new EzacianCraftWorldGen(), 0);
+
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, new EzacianCraftGUIContainerEvent());
 
         proxy.preInit(event);
     }

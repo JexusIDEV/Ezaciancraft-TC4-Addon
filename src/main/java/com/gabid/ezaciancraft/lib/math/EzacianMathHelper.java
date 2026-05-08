@@ -1,4 +1,4 @@
-package com.gabid.ezaciancraft.lib;
+package com.gabid.ezaciancraft.lib.math;
 
 public class EzacianMathHelper {
     public static boolean isPowOfTwo(int value) {

@@ -1,6 +1,6 @@
 package com.gabid.ezaciancraft.common.blocks;
 
-import com.gabid.ezaciancraft.common.blocks.tileentity.AlchemicalMixerTileEntity;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAlchemicalMixer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -21,11 +21,11 @@ import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ALCHEM
 import static com.gabid.ezaciancraft.registry.EzacianCraftTypeRenders.ALCHEMICAL_MIXER_RENDER_ID;
 import static thaumcraft.common.Thaumcraft.MODID;
 
-public class AlchemicalMixerBlock extends BlockContainer {
+public class BlockAlchemicalMixer extends BlockContainer {
 
-    public IIcon alchemicalMixerIcon = null;
+    public IIcon alchemicalMixerIcon;
 
-    public AlchemicalMixerBlock() {
+    public BlockAlchemicalMixer() {
         super(Material.iron);
         this.setBlockName(UNLOCALE_ALCHEMICAL_MIXER);
         this.setHardness(4f);
@@ -72,11 +72,11 @@ public class AlchemicalMixerBlock extends BlockContainer {
 
     @Override
     public int getComparatorInputOverride(World level, int x, int y, int z, int side) {
-        TileEntity te = level.getTileEntity(x,y,z);
-        if(te instanceof AlchemicalMixerTileEntity) {
-            AlchemicalMixerTileEntity alchemicalTE = (AlchemicalMixerTileEntity) te;
+        TileEntity te = level.getTileEntity(x, y, z);
+        if (te instanceof TileEntityAlchemicalMixer) {
+            TileEntityAlchemicalMixer alchemicalTE = (TileEntityAlchemicalMixer) te;
             int stored = alchemicalTE.getAspects().size();
-            if(stored > 0) {
+            if (stored > 0) {
                 return stored * 5;
             } else {
                 return 0;
@@ -93,27 +93,28 @@ public class AlchemicalMixerBlock extends BlockContainer {
 
     @Override
     public TileEntity createNewTileEntity(World level, int meta) {
-        return new AlchemicalMixerTileEntity();
+        return new TileEntityAlchemicalMixer();
     }
 
     @Override
     public void onBlockPlacedBy(World level, int x, int y, int z, EntityLivingBase player, ItemStack stack) {
-        int l = MathHelper.floor_double((double)(player.rotationYaw * 4.0F / 360.0F) + 0.5) & 3;
+        int l = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5) & 3;
         TileEntity te = level.getTileEntity(x, y, z);
 
-        if(te instanceof AlchemicalMixerTileEntity) {
+        if (te instanceof TileEntityAlchemicalMixer) {
             if (l == 0) {
-                ((AlchemicalMixerTileEntity) te).metaFacing = 2;
+                ((TileEntityAlchemicalMixer) te).metaFacing = 2;
             }
             if (l == 1) {
-                ((AlchemicalMixerTileEntity) te).metaFacing = 5;
+                ((TileEntityAlchemicalMixer) te).metaFacing = 5;
             }
             if (l == 2) {
-                ((AlchemicalMixerTileEntity) te).metaFacing = 3;
+                ((TileEntityAlchemicalMixer) te).metaFacing = 3;
             }
-            if(l == 3) {
-                ((AlchemicalMixerTileEntity) te).metaFacing = 4;
+            if (l == 3) {
+                ((TileEntityAlchemicalMixer) te).metaFacing = 4;
             }
+
         }
     }
 
@@ -121,13 +122,13 @@ public class AlchemicalMixerBlock extends BlockContainer {
 
     @Override
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World p_149633_1_, int p_149633_2_, int p_149633_3_, int p_149633_4_) {
-        this.setBlockBounds(0.185f,0.125f,0.185f,0.815f,0.875f,0.815f);
+        this.setBlockBounds(0.185f, 0.125f, 0.185f, 0.815f, 0.875f, 0.815f);
         return super.getSelectedBoundingBoxFromPool(p_149633_1_, p_149633_2_, p_149633_3_, p_149633_4_);
     }
 
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
-        this.setBlockBounds(0.185f,0.125f,0.185f,0.815f,0.875f,0.815f);
+        this.setBlockBounds(0.185f, 0.125f, 0.185f, 0.815f, 0.875f, 0.815f);
         return super.getCollisionBoundingBoxFromPool(p_149668_1_, p_149668_2_, p_149668_3_, p_149668_4_);
     }
 }

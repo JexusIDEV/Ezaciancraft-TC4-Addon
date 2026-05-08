@@ -18,7 +18,7 @@ import java.util.List;
 
 import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.*;
 
-public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssentiaTransport, IAspectContainer {
+public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssentiaTransport, IAspectContainer {
 
     public Aspect aspectInput1 = null;
     public Aspect aspectInput2 = null;
@@ -30,13 +30,12 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
 
     public int metaFacing = 3; //mostly used for rendering, changes when placed
     public ForgeDirection facing = null;
-
-    private int ticks = 0;
-    private int aspectProcessingTime = 0;
     public float rotationSpeed = 0f;
     public float whiskerRotation = 0f;
+    private int ticks = 0;
+    private int aspectProcessingTime = 0;
 
-    public AlchemicalMixerTileEntity() {
+    public TileEntityAlchemicalMixer() {
         colors = new ArrayList<>(3);
         colors.add(new Vector3f(1f, 1f, 1f));
         colors.add(new Vector3f(0f, 0f, 0f));
@@ -45,16 +44,16 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
 
     @Override
     public void writeCustomNBT(NBTTagCompound nbttagcompound) {
-        if(this.aspectInput1 != null)
+        if (this.aspectInput1 != null)
             nbttagcompound.setString(FIRST_ASPECT_IN, this.aspectInput1.getTag());
 
-        if(this.aspectInput2 != null)
+        if (this.aspectInput2 != null)
             nbttagcompound.setString(SECOND_ASPECT_IN, this.aspectInput2.getTag());
 
-        if(this.aspectOutput != null)
+        if (this.aspectOutput != null)
             nbttagcompound.setString(OUTPUT_ASPECT, this.aspectOutput.getTag());
 
-        nbttagcompound.setInteger(TE_META_FACING, (byte) this.metaFacing);
+        nbttagcompound.setInteger(TE_META_FACING, this.metaFacing);
 
         super.writeCustomNBT(nbttagcompound);
     }
@@ -74,7 +73,7 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
 
     private boolean getConnectableInput(ForgeDirection forgeDirection) {
         //I hate my existence :(
-        if(this.metaFacing == 2 || this.metaFacing == 3) {
+        if (this.metaFacing == 2 || this.metaFacing == 3) {
             if (forgeDirection == ForgeDirection.EAST) {
                 return true;
             } else if (forgeDirection == ForgeDirection.WEST) {
@@ -84,7 +83,7 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
             }
         }
 
-        if(this.metaFacing == 4 || this.metaFacing == 5) {
+        if (this.metaFacing == 4 || this.metaFacing == 5) {
             if (forgeDirection == ForgeDirection.NORTH) {
                 return true;
             } else if (forgeDirection == ForgeDirection.SOUTH) {
@@ -99,7 +98,7 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
 
     private int getSuctionAmountInPipes(ForgeDirection forgeDirection) {
         //I hate my existence :(
-        if(!this.isGettingRedstonePower()) {
+        if (!this.isGettingRedstonePower()) {
             if (this.metaFacing == 2 || this.metaFacing == 3) {
                 if (forgeDirection == ForgeDirection.EAST) {
                     return 128;
@@ -120,7 +119,7 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
                 }
             }
 
-            if(forgeDirection == ForgeDirection.DOWN) {
+            if (forgeDirection == ForgeDirection.DOWN) {
                 return 16;
             } else {
                 return 0;
@@ -132,7 +131,7 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
 
     @Override
     public boolean isConnectable(ForgeDirection forgeDirection) {
-        if(forgeDirection == ForgeDirection.DOWN) {
+        if (forgeDirection == ForgeDirection.DOWN) {
             return true;
         } else {
             return this.getConnectableInput(forgeDirection);
@@ -171,12 +170,12 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
 
     @Override
     public int addEssentia(Aspect aspect, int i, ForgeDirection forgeDirection) {
-        if(this.aspectInput1 == null) {
+        if (this.aspectInput1 == null) {
             this.aspectInput1 = aspect;
             this.markDirty();
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             return 1;
-        } else if(this.aspectInput2 == null) {
+        } else if (this.aspectInput2 == null) {
             this.aspectInput2 = aspect;
             this.markDirty();
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
@@ -286,30 +285,30 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
 
     @Override
     public void updateEntity() {
-        if(!this.worldObj.isRemote) {
+        if (!this.worldObj.isRemote) {
             ++this.ticks;
-            if(!this.isGettingRedstonePower()) {
+            if (!this.isGettingRedstonePower()) {
                 if (this.ticks % 5 == 0) {
                     if (this.aspectInput1 == null || this.aspectInput2 == null) {
                         this.drawEssentiaFromInputPipes();
                     }
                 }
-                if(++this.ticks % 20 == 0) {
-                    if(this.aspectInput1 != null && this.aspectInput2 != null && this.aspectOutput == null && this.aspectProcessingTime == 0) {
+                if (++this.ticks % 20 == 0) {
+                    if (this.aspectInput1 != null && this.aspectInput2 != null && this.aspectOutput == null && this.aspectProcessingTime == 0) {
                         this.aspectProcessingTime = 8;
-                    } else if(this.aspectInput1 == null || this.aspectInput2 == null) {
+                    } else if (this.aspectInput1 == null || this.aspectInput2 == null) {
                         this.aspectProcessingTime = 8;
                         return;
-                    } else if(!AspectHelper.compoundExists(this.aspectInput1, this.aspectInput2)) {
+                    } else if (!AspectHelper.compoundExists(this.aspectInput1, this.aspectInput2)) {
                         this.aspectProcessingTime = 8;
                         return;
                     }
 
-                    if(this.aspectProcessingTime > 0) {
+                    if (this.aspectProcessingTime > 0) {
                         this.aspectProcessingTime--;
                     }
 
-                    if(this.aspectProcessingTime == 0 && this.aspectOutput == null) {
+                    if (this.aspectProcessingTime == 0 && this.aspectOutput == null) {
                         this.processEssentiaMixing();
                         this.aspectProcessingTime = 8;
                     } else {
@@ -318,8 +317,8 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
                 }
             }
         } else {
-            if(this.aspectInput1 != null && this.aspectInput2 != null) {
-                if(AspectHelper.compoundExists(this.aspectInput1, this.aspectInput2)) {
+            if (this.aspectInput1 != null && this.aspectInput2 != null) {
+                if (AspectHelper.compoundExists(this.aspectInput1, this.aspectInput2)) {
                     if (!this.isGettingRedstonePower() && this.rotationSpeed < 20.0F) {
                         this.rotationSpeed += 2.0F;
                     }
@@ -327,9 +326,9 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
                     return;
                 }
             } else {
-                if(this.rotationSpeed > 0.0F && !this.isGettingRedstonePower()) {
+                if (this.rotationSpeed > 0.0F && !this.isGettingRedstonePower()) {
                     this.rotationSpeed -= 0.5F;
-                } else if(this.isGettingRedstonePower() && this.rotationSpeed <= 0f) {
+                } else if (this.isGettingRedstonePower() && this.rotationSpeed <= 0f) {
                     this.rotationSpeed = 0F;
                 }
             }
@@ -341,7 +340,7 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
             }
 
             int currentAspects = this.getAspects().visSize();
-            if(currentAspects > 0) {
+            if (currentAspects > 0) {
                 if (this.ticks % 20 == 0 && this.getAspects().size() > 0) {
                     this.currentAspectForColor = this.getAspects().getAspects()[this.ticks / 20 % this.getAspects().size()];
                     Color color = new Color(this.currentAspectForColor.getColor());
@@ -364,7 +363,7 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
             }
         }
 
-        if(this.ticks < 0 || this.ticks == Integer.MAX_VALUE) {
+        if (this.ticks < 0 || this.ticks == Integer.MAX_VALUE) {
             this.ticks = 0;
         }
 
@@ -376,131 +375,131 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
         TileEntity pipeInputA;
         TileEntity pipeInputB;
 
-        if(this.metaFacing == 2) {
+        if (this.metaFacing == 2) {
             pipeInputA = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.EAST);
             pipeInputB = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.WEST);
 
-            if(pipeInputA != null) {
+            if (pipeInputA != null) {
                 IEssentiaTransport pipe = (IEssentiaTransport) pipeInputA;
-                if(!pipe.canOutputTo(ForgeDirection.WEST)) return;
+                if (!pipe.canOutputTo(ForgeDirection.WEST)) return;
 
                 Aspect pipeAspect = null;
                 //primero comprueba si la escencia de la tuberia es mayor de cero, luego se revisa si la succión es menor a la del bloque fuente y al final si la fuente es mayor que la tuberia a succionar --sorry to much latino spanish :eyes:
-                if(pipe.getEssentiaAmount(ForgeDirection.WEST) > 0 && pipe.getSuctionAmount(ForgeDirection.WEST) < this.getSuctionAmount(ForgeDirection.EAST) && this.getSuctionAmount(ForgeDirection.EAST) >= pipe.getMinimumSuction()) {
+                if (pipe.getEssentiaAmount(ForgeDirection.WEST) > 0 && pipe.getSuctionAmount(ForgeDirection.WEST) < this.getSuctionAmount(ForgeDirection.EAST) && this.getSuctionAmount(ForgeDirection.EAST) >= pipe.getMinimumSuction()) {
                     pipeAspect = pipe.getEssentiaType(ForgeDirection.WEST);
                 }
-                if(pipeAspect != null && this.aspectInput1 == null && pipe.getSuctionAmount(ForgeDirection.WEST) < this.getSuctionAmount(ForgeDirection.EAST) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.WEST) == 1) {
+                if (pipeAspect != null && this.aspectInput1 == null && pipe.getSuctionAmount(ForgeDirection.WEST) < this.getSuctionAmount(ForgeDirection.EAST) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.WEST) == 1) {
                     this.aspectInput1 = pipeAspect;
                     this.markDirty();
                     this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                 }
             }
-            if(pipeInputB != null) {
+            if (pipeInputB != null) {
                 IEssentiaTransport pipe = (IEssentiaTransport) pipeInputB;
-                if(!pipe.canOutputTo(ForgeDirection.EAST)) return;
+                if (!pipe.canOutputTo(ForgeDirection.EAST)) return;
 
                 Aspect pipeAspect = null;
-                if(pipe.getEssentiaAmount(ForgeDirection.EAST) > 0 && pipe.getSuctionAmount(ForgeDirection.EAST) < this.getSuctionAmount(ForgeDirection.WEST) && this.getSuctionAmount(ForgeDirection.WEST) >= pipe.getMinimumSuction()) {
+                if (pipe.getEssentiaAmount(ForgeDirection.EAST) > 0 && pipe.getSuctionAmount(ForgeDirection.EAST) < this.getSuctionAmount(ForgeDirection.WEST) && this.getSuctionAmount(ForgeDirection.WEST) >= pipe.getMinimumSuction()) {
                     pipeAspect = pipe.getEssentiaType(ForgeDirection.WEST);
                 }
-                if(pipeAspect != null && this.aspectInput2 == null && pipe.getSuctionAmount(ForgeDirection.EAST) < this.getSuctionAmount(ForgeDirection.WEST) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.EAST) == 1) {
+                if (pipeAspect != null && this.aspectInput2 == null && pipe.getSuctionAmount(ForgeDirection.EAST) < this.getSuctionAmount(ForgeDirection.WEST) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.EAST) == 1) {
                     this.aspectInput2 = pipeAspect;
                     this.markDirty();
                     this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                 }
             }
 
-        } else if(this.metaFacing == 3) {
+        } else if (this.metaFacing == 3) {
             pipeInputA = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.WEST);
             pipeInputB = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.EAST);
 
-            if(pipeInputA != null) {
+            if (pipeInputA != null) {
                 IEssentiaTransport pipe = (IEssentiaTransport) pipeInputA;
-                if(!pipe.canOutputTo(ForgeDirection.EAST)) return;
+                if (!pipe.canOutputTo(ForgeDirection.EAST)) return;
 
                 Aspect pipeAspect = null;
-                if(pipe.getEssentiaAmount(ForgeDirection.EAST) > 0 && pipe.getSuctionAmount(ForgeDirection.EAST) < this.getSuctionAmount(ForgeDirection.WEST) && this.getSuctionAmount(ForgeDirection.WEST) >= pipe.getMinimumSuction()) {
+                if (pipe.getEssentiaAmount(ForgeDirection.EAST) > 0 && pipe.getSuctionAmount(ForgeDirection.EAST) < this.getSuctionAmount(ForgeDirection.WEST) && this.getSuctionAmount(ForgeDirection.WEST) >= pipe.getMinimumSuction()) {
                     pipeAspect = pipe.getEssentiaType(ForgeDirection.WEST);
                 }
-                if(pipeAspect != null && this.aspectInput1 == null && pipe.getSuctionAmount(ForgeDirection.EAST) < this.getSuctionAmount(ForgeDirection.WEST) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.EAST) == 1) {
+                if (pipeAspect != null && this.aspectInput1 == null && pipe.getSuctionAmount(ForgeDirection.EAST) < this.getSuctionAmount(ForgeDirection.WEST) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.EAST) == 1) {
                     this.aspectInput1 = pipeAspect;
                     this.markDirty();
                     this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                 }
             }
-            if(pipeInputB != null) {
+            if (pipeInputB != null) {
                 IEssentiaTransport pipe = (IEssentiaTransport) pipeInputB;
-                if(!pipe.canOutputTo(ForgeDirection.WEST)) return;
+                if (!pipe.canOutputTo(ForgeDirection.WEST)) return;
 
                 Aspect pipeAspect = null;
-                if(pipe.getEssentiaAmount(ForgeDirection.WEST) > 0 && pipe.getSuctionAmount(ForgeDirection.WEST) < this.getSuctionAmount(ForgeDirection.EAST) && this.getSuctionAmount(ForgeDirection.EAST) >= pipe.getMinimumSuction()) {
+                if (pipe.getEssentiaAmount(ForgeDirection.WEST) > 0 && pipe.getSuctionAmount(ForgeDirection.WEST) < this.getSuctionAmount(ForgeDirection.EAST) && this.getSuctionAmount(ForgeDirection.EAST) >= pipe.getMinimumSuction()) {
                     pipeAspect = pipe.getEssentiaType(ForgeDirection.WEST);
                 }
-                if(pipeAspect != null && this.aspectInput2 == null && pipe.getSuctionAmount(ForgeDirection.WEST) < this.getSuctionAmount(ForgeDirection.EAST) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.WEST) == 1) {
+                if (pipeAspect != null && this.aspectInput2 == null && pipe.getSuctionAmount(ForgeDirection.WEST) < this.getSuctionAmount(ForgeDirection.EAST) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.WEST) == 1) {
                     this.aspectInput2 = pipeAspect;
                     this.markDirty();
                     this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                 }
             }
-        } else if(this.metaFacing == 4) {
+        } else if (this.metaFacing == 4) {
             pipeInputA = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.NORTH);
             pipeInputB = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.SOUTH);
 
-            if(pipeInputA != null) {
+            if (pipeInputA != null) {
                 IEssentiaTransport pipe = (IEssentiaTransport) pipeInputA;
-                if(!pipe.canOutputTo(ForgeDirection.SOUTH)) return;
+                if (!pipe.canOutputTo(ForgeDirection.SOUTH)) return;
 
                 Aspect pipeAspect = null;
-                if(pipe.getEssentiaAmount(ForgeDirection.SOUTH) > 0 && pipe.getSuctionAmount(ForgeDirection.SOUTH) < this.getSuctionAmount(ForgeDirection.NORTH) && this.getSuctionAmount(ForgeDirection.NORTH) >= pipe.getMinimumSuction()) {
+                if (pipe.getEssentiaAmount(ForgeDirection.SOUTH) > 0 && pipe.getSuctionAmount(ForgeDirection.SOUTH) < this.getSuctionAmount(ForgeDirection.NORTH) && this.getSuctionAmount(ForgeDirection.NORTH) >= pipe.getMinimumSuction()) {
                     pipeAspect = pipe.getEssentiaType(ForgeDirection.SOUTH);
                 }
-                if(pipeAspect != null && this.aspectInput1 == null && pipe.getSuctionAmount(ForgeDirection.SOUTH) < this.getSuctionAmount(ForgeDirection.NORTH) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.SOUTH) == 1) {
+                if (pipeAspect != null && this.aspectInput1 == null && pipe.getSuctionAmount(ForgeDirection.SOUTH) < this.getSuctionAmount(ForgeDirection.NORTH) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.SOUTH) == 1) {
                     this.aspectInput1 = pipeAspect;
                     this.markDirty();
                     this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                 }
             }
-            if(pipeInputB != null) {
+            if (pipeInputB != null) {
                 IEssentiaTransport pipe = (IEssentiaTransport) pipeInputB;
-                if(!pipe.canOutputTo(ForgeDirection.NORTH)) return;
+                if (!pipe.canOutputTo(ForgeDirection.NORTH)) return;
 
                 Aspect pipeAspect = null;
-                if(pipe.getEssentiaAmount(ForgeDirection.NORTH) > 0 && pipe.getSuctionAmount(ForgeDirection.NORTH) < this.getSuctionAmount(ForgeDirection.SOUTH) && this.getSuctionAmount(ForgeDirection.SOUTH) >= pipe.getMinimumSuction()) {
+                if (pipe.getEssentiaAmount(ForgeDirection.NORTH) > 0 && pipe.getSuctionAmount(ForgeDirection.NORTH) < this.getSuctionAmount(ForgeDirection.SOUTH) && this.getSuctionAmount(ForgeDirection.SOUTH) >= pipe.getMinimumSuction()) {
                     pipeAspect = pipe.getEssentiaType(ForgeDirection.SOUTH);
                 }
-                if(pipeAspect != null && this.aspectInput2 == null && pipe.getSuctionAmount(ForgeDirection.NORTH) < this.getSuctionAmount(ForgeDirection.SOUTH) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.NORTH) == 1) {
+                if (pipeAspect != null && this.aspectInput2 == null && pipe.getSuctionAmount(ForgeDirection.NORTH) < this.getSuctionAmount(ForgeDirection.SOUTH) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.NORTH) == 1) {
                     this.aspectInput2 = pipeAspect;
                     this.markDirty();
                     this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                 }
             }
-        } else if(this.metaFacing == 5) {
+        } else if (this.metaFacing == 5) {
             pipeInputA = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.SOUTH);
             pipeInputB = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.NORTH);
 
-            if(pipeInputA != null) {
+            if (pipeInputA != null) {
                 IEssentiaTransport pipe = (IEssentiaTransport) pipeInputA;
-                if(!pipe.canOutputTo(ForgeDirection.NORTH)) return;
+                if (!pipe.canOutputTo(ForgeDirection.NORTH)) return;
 
                 Aspect pipeAspect = null;
-                if(pipe.getEssentiaAmount(ForgeDirection.NORTH) > 0 && pipe.getSuctionAmount(ForgeDirection.NORTH) < this.getSuctionAmount(ForgeDirection.SOUTH) && this.getSuctionAmount(ForgeDirection.SOUTH) >= pipe.getMinimumSuction()) {
+                if (pipe.getEssentiaAmount(ForgeDirection.NORTH) > 0 && pipe.getSuctionAmount(ForgeDirection.NORTH) < this.getSuctionAmount(ForgeDirection.SOUTH) && this.getSuctionAmount(ForgeDirection.SOUTH) >= pipe.getMinimumSuction()) {
                     pipeAspect = pipe.getEssentiaType(ForgeDirection.SOUTH);
                 }
-                if(pipeAspect != null && this.aspectInput1 == null && pipe.getSuctionAmount(ForgeDirection.NORTH) < this.getSuctionAmount(ForgeDirection.SOUTH) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.NORTH) == 1) {
+                if (pipeAspect != null && this.aspectInput1 == null && pipe.getSuctionAmount(ForgeDirection.NORTH) < this.getSuctionAmount(ForgeDirection.SOUTH) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.NORTH) == 1) {
                     this.aspectInput1 = pipeAspect;
                     this.markDirty();
                     this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                 }
             }
-            if(pipeInputB != null) {
+            if (pipeInputB != null) {
                 IEssentiaTransport pipe = (IEssentiaTransport) pipeInputB;
-                if(!pipe.canOutputTo(ForgeDirection.SOUTH)) return;
+                if (!pipe.canOutputTo(ForgeDirection.SOUTH)) return;
 
                 Aspect pipeAspect = null;
-                if(pipe.getEssentiaAmount(ForgeDirection.SOUTH) > 0 && pipe.getSuctionAmount(ForgeDirection.SOUTH) < this.getSuctionAmount(ForgeDirection.NORTH) && this.getSuctionAmount(ForgeDirection.NORTH) >= pipe.getMinimumSuction()) {
+                if (pipe.getEssentiaAmount(ForgeDirection.SOUTH) > 0 && pipe.getSuctionAmount(ForgeDirection.SOUTH) < this.getSuctionAmount(ForgeDirection.NORTH) && this.getSuctionAmount(ForgeDirection.NORTH) >= pipe.getMinimumSuction()) {
                     pipeAspect = pipe.getEssentiaType(ForgeDirection.SOUTH);
                 }
-                if(pipeAspect != null && this.aspectInput2 == null && pipe.getSuctionAmount(ForgeDirection.SOUTH) < this.getSuctionAmount(ForgeDirection.NORTH) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.SOUTH) == 1) {
+                if (pipeAspect != null && this.aspectInput2 == null && pipe.getSuctionAmount(ForgeDirection.SOUTH) < this.getSuctionAmount(ForgeDirection.NORTH) && pipe.takeEssentia(pipeAspect, 1, ForgeDirection.SOUTH) == 1) {
                     this.aspectInput2 = pipeAspect;
                     this.markDirty();
                     this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
@@ -510,7 +509,7 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
     }
 
     private void processEssentiaMixing() {
-        if(AspectHelper.compoundExists(this.aspectInput1, this.aspectInput2)) {
+        if (AspectHelper.compoundExists(this.aspectInput1, this.aspectInput2)) {
             this.aspectOutput = AspectHelper.getCompound(this.aspectInput1, this.aspectInput2);
             this.aspectInput1 = null;
             this.aspectInput2 = null;
@@ -522,7 +521,7 @@ public class AlchemicalMixerTileEntity extends TileThaumcraft implements IEssent
     }
 
     private boolean isGettingRedstonePower() {
-        return this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord,this.yCoord,this.zCoord);
+        return this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
     }
 
     public boolean isSideConnected(ForgeDirection direction) {

@@ -1,0 +1,12 @@
+# Blender 5.1.0 MTL File: 'staff.blend'
+# www.blender.org
+
+newmtl Material
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+illum 2
+map_Kd D:/VariosArchivos/Sprites (Texturas)/Minecraft/Mods/Ezaciancraft/assets/ezaciancraft/textures/models/staff_atlas.png
+map_d D:/VariosArchivos/Sprites (Texturas)/Minecraft/Mods/Ezaciancraft/assets/ezaciancraft/textures/models/staff_atlas.png

@@ -24,7 +24,7 @@ apply plugin: 'forge'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-version = project.version
+version = project.version_channel+"-"+project.version+"-"+project.tc_version
 group = project.group
 
 minecraft {
@@ -89,6 +89,8 @@ dependencies {
     implementation("curse.maven:thaumic-additions-232564:2417787")
     implementation("curse.maven:thaumic-tinkerer-75598:2232793")
     implementation("curse.maven:automagy-222153:2285272")
+    implementation("curse.maven:worldedit-225608:2309699")
+    implementation("curse.maven:natures-compass-252848:2451823")
     //implementation("curse.maven:kekztech-350844:2954805")
 
     //nuh nuh

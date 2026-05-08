@@ -3,6 +3,7 @@ package com.gabid.ezaciancraft.proxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -21,6 +22,11 @@ public class EzacianServerProxy extends EzacianCommonProxy {
 
     @Override
     public EntityPlayer getClientPlayer() {
+        return null;
+    }
+
+    @Override
+    public Minecraft getMinecraft() {
         return null;
     }
 

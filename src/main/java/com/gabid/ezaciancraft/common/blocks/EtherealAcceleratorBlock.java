@@ -1,6 +1,6 @@
 package com.gabid.ezaciancraft.common.blocks;
 
-import com.gabid.ezaciancraft.common.blocks.tileentity.EtherealAcceleratorTE;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityEtherealAccelerator;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
@@ -49,12 +49,12 @@ public class EtherealAcceleratorBlock extends BlockContainer {
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new EtherealAcceleratorTE();
+        return new TileEntityEtherealAccelerator();
     }
 
     @Override
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World p_149633_1_, int p_149633_2_, int p_149633_3_, int p_149633_4_) {
-        this.setBlockBounds(0.25f, 0.25f, 0.25f, 0.75f,0.75f,0.75f);
+        this.setBlockBounds(0.25f, 0.25f, 0.25f, 0.75f, 0.75f, 0.75f);
         return AxisAlignedBB.getBoundingBox(0.25d, 0.25d, 0.25d, 0.75d, 0.75d, 0.75d);
     }
 
