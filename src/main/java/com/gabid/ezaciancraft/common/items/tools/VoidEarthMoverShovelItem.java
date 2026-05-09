@@ -20,6 +20,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.IArchitect;
@@ -115,16 +116,16 @@ public class VoidEarthMoverShovelItem extends ItemSpade implements IWarpingGear,
         String info = "";
         switch (toolModeData) {
             case 0:
-                info = ezacianToolModeSingleTranslation;
+                info = StatCollector.translateToLocal(ezacianToolModeSingleTranslation);
                 break;
             case 1:
-                info = ezacianToolModeAreaTranslation;
+                info = StatCollector.translateToLocal(ezacianToolModeAreaTranslation);
                 break;
             case 2:
-                info = ezacianToolModeColumnTranslation;
+                info = StatCollector.translateToLocal(ezacianToolModeColumnTranslation);
                 break;
         }
-        tooltips.add(ezacianToolModeTranslation + ": " + info);
+        tooltips.add(StatCollector.translateToLocal(ezacianToolModeTranslation) + ": " + info);
     }
 
     @Override

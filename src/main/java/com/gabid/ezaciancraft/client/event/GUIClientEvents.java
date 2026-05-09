@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import org.lwjgl.opengl.GL11;
 
@@ -37,37 +38,37 @@ public class GUIClientEvents {
                 String infoBehaviour = "";
                 switch (currentBehaviour) {
                     case 0:
-                        infoBehaviour = ezacianPrimalToolBehaviourSeekerTranslation;
+                        infoBehaviour = StatCollector.translateToLocal(ezacianPrimalToolBehaviourSeekerTranslation);
                         break;
                     case 1:
-                        infoBehaviour = ezacianPrimalToolBehaviourMagnetTranslation;
+                        infoBehaviour = StatCollector.translateToLocal(ezacianPrimalToolBehaviourMagnetTranslation);
                         break;
                     case 2:
-                        infoBehaviour = ezacianPrimalToolBehaviourPlacerTranslation;
+                        infoBehaviour = StatCollector.translateToLocal(ezacianPrimalToolBehaviourPlacerTranslation);
                         break;
                     case 3:
-                        infoBehaviour = ezacianPrimalToolBehaviourGrowerTranslation;
+                        infoBehaviour = StatCollector.translateToLocal(ezacianPrimalToolBehaviourGrowerTranslation);
                         break;
                     case 4:
-                        infoBehaviour = ezacianPrimalToolBehaviourZephyrTranslation;
+                        infoBehaviour = StatCollector.translateToLocal(ezacianPrimalToolBehaviourZephyrTranslation);
                         break;
                 }
-                mc.fontRenderer.drawStringWithShadow(ezacianPrimalToolBehaviourTranslation + infoBehaviour, 10, 10, 0xffffffff);
+                mc.fontRenderer.drawStringWithShadow(StatCollector.translateToLocal(ezacianPrimalToolBehaviourTranslation) + infoBehaviour, 10, 10, 0xffffffff);
 
                 String infoSubMode = "";
                 switch (currentSubMode) {
                     case 0:
-                        infoSubMode = ezacianPrimalToolSubModeAreaTranslation;
+                        infoSubMode = StatCollector.translateToLocal(ezacianPrimalToolSubModeAreaTranslation);
                         break;
                     case 1:
-                        infoSubMode = ezacianPrimalToolSubModeVeinTranslation;
+                        infoSubMode = StatCollector.translateToLocal(ezacianPrimalToolSubModeVeinTranslation);
                         break;
                 }
-                mc.fontRenderer.drawStringWithShadow(ezacianPrimalToolSubModeTranslation + infoSubMode, 10, 20, 0xffffffff);
+                mc.fontRenderer.drawStringWithShadow(StatCollector.translateToLocal(ezacianPrimalToolSubModeTranslation) + infoSubMode, 10, 20, 0xffffffff);
 
                 if (stack.stackTagCompound.getInteger(PRIMAL_TOOL_SUB_MODE) == 0) {
                     int currentAOE = 2 * stack.stackTagCompound.getInteger(PRIMAL_TOOL_AOE) + 1;
-                    mc.fontRenderer.drawStringWithShadow(ezacianPrimalToolAOETranslation + currentAOE + "x" + currentAOE + "x" + 1, 10, 30, 0xffffffff);
+                    mc.fontRenderer.drawStringWithShadow(StatCollector.translateToLocal(ezacianPrimalToolAOETranslation) + currentAOE + "x" + currentAOE + "x" + 1, 10, 30, 0xffffffff);
                 }
                 GL11.glPopMatrix();
             }

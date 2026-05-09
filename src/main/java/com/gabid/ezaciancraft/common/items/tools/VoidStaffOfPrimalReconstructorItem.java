@@ -24,10 +24,7 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.potion.Potion;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
@@ -137,38 +134,38 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
         String infoBehaviour = "";
         switch (toolBehaviourData) {
             case 0:
-                infoBehaviour = ezacianPrimalToolBehaviourSeekerTranslation;
+                infoBehaviour = StatCollector.translateToLocal(ezacianPrimalToolBehaviourSeekerTranslation);
                 break;
             case 1:
-                infoBehaviour = ezacianPrimalToolBehaviourMagnetTranslation;
+                infoBehaviour = StatCollector.translateToLocal(ezacianPrimalToolBehaviourMagnetTranslation);
                 break;
             case 2:
-                infoBehaviour = ezacianPrimalToolBehaviourPlacerTranslation;
+                infoBehaviour = StatCollector.translateToLocal(ezacianPrimalToolBehaviourPlacerTranslation);
                 break;
             case 3:
-                infoBehaviour = ezacianPrimalToolBehaviourGrowerTranslation;
+                infoBehaviour = StatCollector.translateToLocal(ezacianPrimalToolBehaviourGrowerTranslation);
                 break;
             case 4:
-                infoBehaviour = ezacianPrimalToolBehaviourZephyrTranslation;
+                infoBehaviour = StatCollector.translateToLocal(ezacianPrimalToolBehaviourZephyrTranslation);
                 break;
         }
-        tooltips.add(ezacianPrimalToolBehaviourTranslation + infoBehaviour);
+        tooltips.add(StatCollector.translateToLocal(ezacianPrimalToolBehaviourTranslation) + infoBehaviour);
 
         int toolSubModeData = this.getSubMode(stack);
         String infoSubMode = "";
         switch (toolSubModeData) {
             case 0:
-                infoSubMode = ezacianPrimalToolSubModeAreaTranslation;
+                infoSubMode = StatCollector.translateToLocal(ezacianPrimalToolSubModeAreaTranslation);
                 break;
             case 1:
-                infoSubMode = ezacianPrimalToolSubModeVeinTranslation;
+                infoSubMode = StatCollector.translateToLocal(ezacianPrimalToolSubModeVeinTranslation);
                 break;
         }
-        tooltips.add(ezacianPrimalToolSubModeTranslation + infoSubMode);
+        tooltips.add(StatCollector.translateToLocal(ezacianPrimalToolSubModeTranslation) + infoSubMode);
 
         if (stack.stackTagCompound.getInteger(PRIMAL_TOOL_SUB_MODE) == 0) {
             int currentAOE = 2 * stack.stackTagCompound.getInteger(PRIMAL_TOOL_AOE) + 1;
-            tooltips.add(ezacianPrimalToolAOETranslation + currentAOE + "x" + currentAOE + "x" + 1);
+            tooltips.add(StatCollector.translateToLocal(ezacianPrimalToolAOETranslation) + currentAOE + "x" + currentAOE + "x" + 1);
         }
     }
 

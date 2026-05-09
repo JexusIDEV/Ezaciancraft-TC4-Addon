@@ -1,6 +1,7 @@
 #tab
 itemGroup.ezacianCraft=EzacianCraft
 itemGroup.ezacianCraftResources=Recursos de EzacianCraft
+itemGroup.ezacianCraftDecoratives=Decorativos de EzacianCraft
 
 #items
 ##resources
@@ -88,7 +89,6 @@ tc.research_text.DECORATIVE_BLOCKS=Para una base más bonita :)
 tc.research_name.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS=Vacío Magico y Revelaciones Enegrecidas...
 tc.research_text.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS=¿A donde estoy yendo?
 
-##currently placeholder
 tc.research_name.ALCHEMICAL_MIXER=El Mezclador Alquímico
 tc.research_text.ALCHEMICAL_MIXER=Mezclando Escencia ¡Yummy!
 
