@@ -167,7 +167,7 @@ public class EzacianToolHelper {
 
                 boolean hasCluster = handleThaumcraftCluster(world, player, block, meta, x, y, z);
 
-                if (!hasCluster) {
+                if (!hasCluster && (tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem || tool.getItem() instanceof ItemElementalPickaxe)) {
                     block.harvestBlock(world, player, x, y, z, meta);
                 }
 
