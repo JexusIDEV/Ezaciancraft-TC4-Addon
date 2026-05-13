@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.StringUtils;
+import thaumcraft.api.ThaumcraftApi;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 
@@ -62,6 +63,8 @@ public class ResourceMaterialBuilder {
         OreDictionary.registerOre("cluster" + StringUtils.capitalize(this.resourceBaseName), new ItemStack(this.resourceMetal, 1, 2));
         OreDictionary.registerOre("ore" + StringUtils.capitalize(this.resourceBaseName), this.resourceOreBlock);
         OreDictionary.registerOre("block" + StringUtils.capitalize(this.resourceBaseName), this.resourceBlock);
+
+        ThaumcraftApi.addSmeltingBonus(new ItemStack(this.resourceMetal, 1, 2), new ItemStack(this.resourceMetal, 1, 1));
     }
 
     public static ResourceMaterialBuilder createAFullSet(String _resourceBaseName, float _extraHardness, float _extraResistance, MapColor _metalAndOreColor, CreativeTabs tabToRegister) {
@@ -109,6 +112,7 @@ public class ResourceMaterialBuilder {
         protected Block resourceOreBlock;
         protected Block resourceBlock;
         protected Item resourceMetal; //uses my own class "MetalResourceItem"
+        protected Item resourceMetalCluster;
 
         public Builder(String _resourceBaseName, float _extraHardness, float _extraResistance, MapColor _metalAndOreColor, CreativeTabs _tabToRegister) {
             this.resourceBaseName = _resourceBaseName;

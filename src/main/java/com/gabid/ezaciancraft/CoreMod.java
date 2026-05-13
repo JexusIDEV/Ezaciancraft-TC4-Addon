@@ -16,6 +16,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 @Mod(modid = CoreMod.MODID, version = CoreMod.VERSION, dependencies = CoreMod.DEPENDENCIES)
@@ -59,6 +60,7 @@ public class CoreMod {
         proxy.registerDisplayClientStuff();
         EzacianNetworkHandler.initNetwork();
         EzacianCraftRecipes.setupRecipes();
+        EzacianCraftRegistryIMC.initAll();
 
         proxy.init(event);
     }

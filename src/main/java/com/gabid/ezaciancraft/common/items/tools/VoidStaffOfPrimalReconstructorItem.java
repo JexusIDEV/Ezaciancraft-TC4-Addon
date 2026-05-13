@@ -231,10 +231,10 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
 
             if (currentSubMode == 0) {
                 if (currentAOERadius == 0) {
-                    return super.onBlockStartBreak(itemstack, x, y, z, player);
+                    this.manageSingleClusterDrop(world, player, itemstack, x, y, z);
                 } else {
                     if (player.isSneaking()) {
-                        return super.onBlockStartBreak(itemstack, x, y, z, player);
+                        this.manageSingleClusterDrop(world, player, itemstack, x, y, z);
                     } else {
                         EzacianToolHelper.removeAOEBlocks(itemstack, player, world, x, y, z, currentAOERadius);
                     }
@@ -244,6 +244,34 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
             }
         }
         return super.onBlockStartBreak(itemstack, x, y, z, player);
+    }
+
+    private void manageSingleClusterDrop(World world, EntityPlayer player, ItemStack stack, int x, int y, int z) {
+        if (!world.isRemote) {
+            Block block = world.getBlock(x, y, z);
+            int meta = world.getBlockMetadata(x, y, z);
+
+            ItemStack ore = new ItemStack(block, 1, meta);
+
+            ItemStack cluster = Utils.findSpecialMiningResult(ore, 4f, player.worldObj.rand);
+
+            if (cluster != null) {
+                world.setBlockToAir(x, y, z);
+
+                EntityItem entityItem = new EntityItem(
+                        world,
+                        x + 0.5,
+                        y + 0.5,
+                        z + 0.5,
+                        cluster.copy()
+                );
+
+                world.spawnEntityInWorld(entityItem);
+
+                return;
+            }
+        }
+        super.onBlockStartBreak(stack, x, y, z, player);
     }
 
     @Override

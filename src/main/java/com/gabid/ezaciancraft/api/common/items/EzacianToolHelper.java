@@ -1,6 +1,8 @@
 package com.gabid.ezaciancraft.api.common.items;
 
 import com.gabid.ezaciancraft.api.oredict.OreDictUtils;
+import com.gabid.ezaciancraft.common.items.tools.VoidCorePickaxeItem;
+import com.gabid.ezaciancraft.common.items.tools.VoidStaffOfPrimalReconstructorItem;
 import com.gabid.ezaciancraft.lib.world.BlockFinder;
 import com.gabid.ezaciancraft.lib.world.math.Coord4D;
 import cpw.mods.fml.common.eventhandler.Event;
@@ -30,6 +32,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.items.equipment.ItemElementalPickaxe;
 import thaumcraft.common.lib.utils.BlockUtils;
 import thaumcraft.common.lib.utils.InventoryUtils;
 import thaumcraft.common.lib.utils.Utils;
@@ -70,6 +73,45 @@ public class EzacianToolHelper {
         return true;
     }
 
+    public static boolean handleThaumcraftCluster(World world, EntityPlayer player, Block block, int meta, int x, int y, int z) {
+        if (world.isRemote) return false;
+
+        ItemStack tool = player.getHeldItem();
+
+        ItemStack ore = new ItemStack(block, 1, meta);
+        ItemStack cluster = Utils.findSpecialMiningResult(ore, .25f, world.rand);
+        ItemStack clusterStaff = Utils.findSpecialMiningResult(ore, 4f, world.rand);
+
+        if(tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem) {
+            if (clusterStaff != null) {
+                EntityItem entityItem = new EntityItem(
+                        world,
+                        x + 0.5,
+                        y + 0.5,
+                        z + 0.5,
+                        clusterStaff.copy()
+                );
+
+                world.spawnEntityInWorld(entityItem);
+                return true;
+            }
+        } else {
+            if (cluster != null) {
+                EntityItem entityItem = new EntityItem(
+                        world,
+                        x + 0.5,
+                        y + 0.5,
+                        z + 0.5,
+                        cluster.copy()
+                );
+
+                world.spawnEntityInWorld(entityItem);
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected static void breakExtraBlock(ItemStack stack, World world, int x, int y, int z, int totalSize, EntityPlayer player, float refStrength, boolean breakSound) {
         if (world.isAirBlock(x, y, z)) return;
 
@@ -78,6 +120,7 @@ public class EzacianToolHelper {
             return;
 
         int meta = world.getBlockMetadata(x, y, z);
+        ItemStack tool = player.getHeldItem();
 
         boolean effective = false;
 
@@ -117,15 +160,23 @@ public class EzacianToolHelper {
         stack.damageItem(world.rand.nextInt(totalSize), player);
 
         if (!world.isRemote) {
-
             block.onBlockHarvested(world, x, y, z, meta, player);
 
             if (block.removedByPlayer(world, player, x, y, z, true)) {
                 block.onBlockDestroyedByPlayer(world, x, y, z, meta);
-                block.harvestBlock(world, player, x, y, z, meta);
+
+                boolean hasCluster = handleThaumcraftCluster(world, player, block, meta, x, y, z);
+
+                if (!hasCluster) {
+                    block.harvestBlock(world, player, x, y, z, meta);
+                }
+
                 player.addExhaustion(-0.025F);
-                if (block.getExpDrop(world, meta, EnchantmentHelper.getFortuneModifier(player)) > 0)
-                    player.addExperience(block.getExpDrop(world, meta, EnchantmentHelper.getFortuneModifier(player)));
+
+                int exp = block.getExpDrop(world, meta, EnchantmentHelper.getFortuneModifier(player));
+                if (exp > 0) {
+                    player.addExperience(exp);
+                }
             }
 
             EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
@@ -299,6 +350,7 @@ public class EzacianToolHelper {
     public static boolean breakVein(ItemStack stack, World world, EntityPlayer player, int x, int y, int z) {
         Block blck = world.getBlock(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
+        ItemStack tool = player.getHeldItem();
 
         boolean isVeinableWood = false;
         boolean isVeinableOre = false;
@@ -354,7 +406,11 @@ public class EzacianToolHelper {
                 player.worldObj.playAuxSFXAtEntity(null, 2001, coord.xCoord, coord.yCoord, coord.zCoord, meta << 12);
                 player.worldObj.setBlockToAir(coord.xCoord, coord.yCoord, coord.zCoord);
                 block2.breakBlock(player.worldObj, coord.xCoord, coord.yCoord, coord.zCoord, blck, meta);
-                block2.dropBlockAsItem(player.worldObj, coord.xCoord, coord.yCoord, coord.zCoord, meta, 0);
+                boolean hasCluster = handleThaumcraftCluster(world, player, block2, meta, coord.xCoord, coord.yCoord, coord.zCoord);
+
+                if (!hasCluster && (tool.getItem() instanceof ItemElementalPickaxe || tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem)) {
+                    block2.dropBlockAsItem(player.worldObj, coord.xCoord, coord.yCoord, coord.zCoord, meta, 0);
+                }
 
                 stack.damageItem(1, player);
             }
