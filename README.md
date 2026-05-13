@@ -23,4 +23,4 @@ Credits to:
 
 If you want a lang for your country, open an issue first to talk about that and later send the lang and files with my permission in pull request to check and add it to the mod.
 
-If you want more information, check the TRANSLATING.md file
+If you want more information, check the TRANSLATING.md file.
