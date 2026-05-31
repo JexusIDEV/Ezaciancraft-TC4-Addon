@@ -13,7 +13,8 @@ public class EzacianCraftTileEntities {
         registerTileEntity(TileEntityAlchemicalMixer.class, UNLOCALE_ALCHEMICAL_MIXER);
         registerTileEntity(TileEntityShadowAlchemyFurnace.class, UNLOCALE_SHADOW_ALCHEMY_FURNACE);
         registerTileEntity(TileEntityExtendedArcaneWorkbench.class, UNLOCALE_EXTENDED_ARCANE_WORKBENCH);
-        registerTileEntity(TileEntityWirelessEssentiaInterfaceBase.class, UNLOCALE_WIRELESS_ESSENTIA_INTERFACE);
+        registerTileEntity(TileEntityWirelessEssentiaInterfaceOutput.class, UNLOCALE_WIRELESS_ESSENTIA_INTERFACE+"Output");
+        registerTileEntity(TileEntityWirelessEssentiaInterfaceInput.class, UNLOCALE_WIRELESS_ESSENTIA_INTERFACE+"Input");
         registerTileEntity(TileEntityEtherealAccelerator.class, UNLOCALE_ETHEREAL_ACCELERATOR);
         registerTileEntity(EzacianCustomJarFillableTE.class, UNLOCALE_CUSTOM_BASE_JAR);
     }

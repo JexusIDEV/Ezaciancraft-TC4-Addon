@@ -99,6 +99,29 @@ public class BlockWirelessEssentiaInterface extends BlockContainer {
                     this.setBlockBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
                     break;
             }
+        } else if (te instanceof TileEntityWirelessEssentiaInterfaceOutput) {
+            TileEntityWirelessEssentiaInterfaceOutput wei = (TileEntityWirelessEssentiaInterfaceOutput) te;
+            ForgeDirection facing = wei.facing;
+            switch (facing) {
+                case NORTH:
+                    this.setBlockBounds(0f, 0f, 0f, 1f, 1f, .5f);
+                    break;
+                case SOUTH:
+                    this.setBlockBounds(0f, 0f, 0.5f, 1f, 1f, 1f);
+                    break;
+                case EAST:
+                    this.setBlockBounds(0.5f, 0f, 0f, 1f, 1f, 1f);
+                    break;
+                case WEST:
+                    this.setBlockBounds(0f, 0f, 0f, .5f, 1f, 1f);
+                    break;
+                case UP:
+                    this.setBlockBounds(0f, 0.5f, 0f, 1f, 1f, 1f);
+                    break;
+                case DOWN:
+                    this.setBlockBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
+                    break;
+            }
         }
         return super.getSelectedBoundingBoxFromPool(world, x, y, z);
     }
@@ -108,6 +131,29 @@ public class BlockWirelessEssentiaInterface extends BlockContainer {
         TileEntity te = world.getTileEntity(x, y, z);
         if (te instanceof TileEntityWirelessEssentiaInterfaceInput) {
             TileEntityWirelessEssentiaInterfaceInput wei = (TileEntityWirelessEssentiaInterfaceInput) te;
+            ForgeDirection facing = wei.facing;
+            switch (facing) {
+                case NORTH:
+                    this.setBlockBounds(0f, 0f, 0f, 1f, 1f, .5f);
+                    break;
+                case SOUTH:
+                    this.setBlockBounds(0f, 0f, 0.5f, 1f, 1f, 1f);
+                    break;
+                case EAST:
+                    this.setBlockBounds(0.5f, 0f, 0f, 1f, 1f, 1f);
+                    break;
+                case WEST:
+                    this.setBlockBounds(0f, 0f, 0f, .5f, 1f, 1f);
+                    break;
+                case UP:
+                    this.setBlockBounds(0f, 0.5f, 0f, 1f, 1f, 1f);
+                    break;
+                case DOWN:
+                    this.setBlockBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
+                    break;
+            }
+        } else if (te instanceof TileEntityWirelessEssentiaInterfaceOutput) {
+            TileEntityWirelessEssentiaInterfaceOutput wei = (TileEntityWirelessEssentiaInterfaceOutput) te;
             ForgeDirection facing = wei.facing;
             switch (facing) {
                 case NORTH:

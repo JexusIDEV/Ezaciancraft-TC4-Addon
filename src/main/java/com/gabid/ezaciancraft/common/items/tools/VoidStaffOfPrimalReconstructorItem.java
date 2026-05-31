@@ -278,8 +278,10 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
     public int getMaxItemUseDuration(ItemStack stack) {
         if (stack.hasTagCompound()) {
             int currentBehaviour = stack.stackTagCompound.getInteger(PRIMAL_TOOL_BEHAVIOUR);
-            if (currentBehaviour == 1 || currentBehaviour == 4) {
+            if (currentBehaviour == 1) {
                 return 160000;
+            } else if(currentBehaviour == 4) {
+                return 72000;
             } else {
                 return super.getMaxItemUseDuration(stack);
             }
@@ -377,35 +379,53 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
                 }
             } else if (currentBehaviour == 4) {
                 super.onUsingTick(stack, player, count);
-                player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+
                 int ticks = this.getMaxItemUseDuration(stack) - count;
+
                 if (player.motionY < 0.0) {
-                    player.motionY /= 1.2000000476837158;
+                    player.motionY /= 1.2;
                     player.fallDistance /= 1.2F;
                 }
 
-                player.motionY += 0.07999999821186066;
+                player.motionY += 0.08;
                 if (player.motionY > 0.5) {
-                    player.motionY = 0.20000000298023224;
+                    player.motionY = 0.2;
                 }
 
                 if (player instanceof EntityPlayerMP) {
                     Utils.resetFloatCounter((EntityPlayerMP) player);
                 }
 
-                List targets = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, player.boundingBox.offset(2.5, 2.5, 2.5));
+                List<Entity> targets = player.worldObj.getEntitiesWithinAABBExcludingEntity(
+                        player,
+                        player.boundingBox.expand(2.5, 2.5, 2.5)
+                );
                 int miny;
                 if (!targets.isEmpty()) {
-                    for (miny = 0; miny < targets.size(); ++miny) {
-                        Entity entity = (Entity) targets.get(miny);
-                        if (!(entity instanceof EntityPlayer) && !entity.isDead && (player.ridingEntity == null || player.ridingEntity != entity)) {
-                            Vec3 p = Vec3.createVectorHelper(player.posX, player.posY, player.posZ);
-                            Vec3 t = Vec3.createVectorHelper(entity.posX, entity.posY, entity.posZ);
-                            double distance = p.distanceTo(t) + 0.1;
-                            Vec3 r = Vec3.createVectorHelper(t.xCoord - p.xCoord, t.yCoord - p.yCoord, t.zCoord - p.zCoord);
-                            entity.motionX += r.xCoord / 2.5 / distance;
-                            entity.motionY += r.yCoord / 2.5 / distance;
-                            entity.motionZ += r.zCoord / 2.5 / distance;
+                    for (Entity entity : targets) {
+                        if (!(entity instanceof EntityPlayer)
+                                && !entity.isDead
+                                && (player.ridingEntity == null || player.ridingEntity != entity)) {
+
+                            Vec3 playerPos = Vec3.createVectorHelper(
+                                    player.posX, player.posY, player.posZ
+                            );
+
+                            Vec3 targetPos = Vec3.createVectorHelper(
+                                    entity.posX, entity.posY, entity.posZ
+                            );
+
+                            double distance = playerPos.distanceTo(targetPos) + 0.1;
+
+                            Vec3 direction = Vec3.createVectorHelper(
+                                    targetPos.xCoord - playerPos.xCoord,
+                                    targetPos.yCoord - playerPos.yCoord,
+                                    targetPos.zCoord - playerPos.zCoord
+                            );
+
+                            entity.motionX += direction.xCoord / 2.5 / distance;
+                            entity.motionY += direction.yCoord / 2.5 / distance;
+                            entity.motionZ += direction.zCoord / 2.5 / distance;
                         }
                     }
                 }
@@ -572,12 +592,16 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
     }
 
     @Override
-    public void changeBehaviour(ItemStack stack) {
+    public void changeBehaviour(ItemStack stack, boolean shiftPressed) {
         if (!NBTHelper.containerNBTIsNotNull(stack)) {
             NBTHelper.setDefaultContainerNBT(stack, PRIMAL_TOOL_BEHAVIOUR, 0);
         }
         int current = stack.getTagCompound().getInteger(PRIMAL_TOOL_BEHAVIOUR);
-        current++;
+        if(shiftPressed) {
+            current--;
+        } else {
+            current++;
+        }
         this.setBehaviour(stack, current);
     }
 
@@ -603,12 +627,16 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
     }
 
     @Override
-    public void changeSubMode(ItemStack stack) {
+    public void changeSubMode(ItemStack stack, boolean shiftPressed) {
         if (!NBTHelper.containerNBTIsNotNull(stack)) {
             NBTHelper.setDefaultContainerNBT(stack, PRIMAL_TOOL_SUB_MODE, 0);
         }
         int current = stack.getTagCompound().getInteger(PRIMAL_TOOL_SUB_MODE);
-        current++;
+        if(shiftPressed) {
+            current--;
+        } else {
+            current++;
+        }
         this.setSubMode(stack, current);
     }
 
@@ -634,12 +662,16 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
     }
 
     @Override
-    public void changeAOE(ItemStack stack) {
+    public void changeAOE(ItemStack stack, boolean shiftPressed) {
         if (!NBTHelper.containerNBTIsNotNull(stack)) {
             NBTHelper.setDefaultContainerNBT(stack, PRIMAL_TOOL_AOE, 0);
         }
         int current = stack.getTagCompound().getInteger(PRIMAL_TOOL_AOE);
-        current++;
+        if(shiftPressed) {
+            current--;
+        } else {
+            current++;
+        }
         this.setAOE(stack, current);
     }
 

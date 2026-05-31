@@ -5,8 +5,8 @@
     "description": "A Thaumcraft Addon which adds own lore and a lot of interesting machines, items and progression.\n\n¡Enjoy the mod!",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "",
-    "updateUrl": "",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/ezaciancraft",
+    "updateUrl": "https://github.com/JexusIDEV/Ezaciancraft-TC4-Addon",
     "authorList": [
       "GAB_ID"
     ],
@@ -14,7 +14,8 @@
     "logoFile": "ezacianCraftLogo.png",
     "screenshots": [],
     "dependencies": [
-      "Thaumcraft"
+      "Thaumcraft",
+      "Baubles"
     ]
   }
 ]

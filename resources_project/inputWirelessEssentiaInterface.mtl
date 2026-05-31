@@ -1,0 +1,12 @@
+# Blender 5.1.1 MTL File: 'wireless essentia interface.blend'
+# www.blender.org
+
+newmtl TexInput
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+illum 2
+map_Kd D:/VariosArchivos/Sprites (Texturas)/Minecraft/Mods/Ezaciancraft/assets/ezaciancraft/textures/models/inputWirelessEssentiaInterfaceTex.png
+map_d D:/VariosArchivos/Sprites (Texturas)/Minecraft/Mods/Ezaciancraft/assets/ezaciancraft/textures/models/inputWirelessEssentiaInterfaceTex.png

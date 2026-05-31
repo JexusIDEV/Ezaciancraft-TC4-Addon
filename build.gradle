@@ -24,7 +24,7 @@ apply plugin: 'forge'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-version = project.version_channel+"-"+project.version+"-"+project.tc_version
+version = project.version_channel+"-"+project.version
 group = project.group
 
 minecraft {
@@ -65,8 +65,8 @@ dependencies {
     implementation("curse.maven:thaumcraft-223628:2227552")
     implementation("curse.maven:baubles-227083:2224857")
 
-    implementation("curse.maven:tabula-minecraft-modeler-229092:2232293")
-    implementation("curse.maven:ichunutil-229060:2338148")
+    //implementation("curse.maven:tabula-minecraft-modeler-229092:2232293")
+    //implementation("curse.maven:ichunutil-229060:2338148")
 
     implementation("curse.maven:waila-73488:2417924")
 
@@ -76,15 +76,15 @@ dependencies {
     runtimeOnly("codechicken:CodeChickenCore:1.7.10-1.0.7.48:dev")
     runtimeOnly("codechicken:NotEnoughItems:1.7.10-1.0.5.120:universal")
 
-    implementation("curse.maven:brandons-core-231382:2292125")
-    implementation("curse.maven:forge-nbtedit-for-1-7-10-381388:2949679")
+    //implementation("curse.maven:brandons-core-231382:2292125")
+    //implementation("curse.maven:forge-nbtedit-for-1-7-10-381388:2949679")
 
     //thaum nei
     implementation("curse.maven:thaumcraft-nei-plugin-225095:2241913")
 
     //i want to suffer
     implementation("curse.maven:avaritia-233785:2519595")
-    implementation("curse.maven:draconic-evolution-223565:2313451")
+    //implementation("curse.maven:draconic-evolution-223565:2313451")
     implementation("curse.maven:howling-moon-236149:2326149")
     implementation("curse.maven:thaumic-additions-232564:2417787")
     implementation("curse.maven:thaumic-tinkerer-75598:2232793")

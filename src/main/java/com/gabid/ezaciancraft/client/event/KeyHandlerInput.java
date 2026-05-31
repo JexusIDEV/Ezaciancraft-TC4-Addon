@@ -15,6 +15,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import org.lwjgl.input.Keyboard;
 
 public class KeyHandlerInput {
     public KeyBinding kb_CETM = new KeyBinding("Change Ezacian Tool Mode", 36, "key.categories.misc");
@@ -63,7 +64,7 @@ public class KeyHandlerInput {
                 ItemStack toolStack = player.getHeldItem();
                 if (toolStack != null && toolStack.getItem() instanceof IEzacianPrimalTool) {
                     IEzacianPrimalTool toolItem = (IEzacianPrimalTool) toolStack.getItem();
-                    toolItem.changeBehaviour(toolStack);
+                    toolItem.changeBehaviour(toolStack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT));
                     EzacianNetworkHandler.sendToServer(new PacketUpdateEzacianPrimalModeTool(toolItem.getBehaviour(toolStack), toolItem.getSubMode(toolStack), toolItem.getAOE(toolStack)));
                 }
             }
@@ -78,7 +79,7 @@ public class KeyHandlerInput {
                 ItemStack toolStack = player.getHeldItem();
                 if (toolStack != null && toolStack.getItem() instanceof IEzacianPrimalTool) {
                     IEzacianPrimalTool toolItem = (IEzacianPrimalTool) toolStack.getItem();
-                    toolItem.changeSubMode(toolStack);
+                    toolItem.changeSubMode(toolStack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT));
                     EzacianNetworkHandler.sendToServer(new PacketUpdateEzacianPrimalModeTool(toolItem.getBehaviour(toolStack), toolItem.getSubMode(toolStack), toolItem.getAOE(toolStack)));
                 }
             }
@@ -93,7 +94,7 @@ public class KeyHandlerInput {
                 ItemStack toolStack = player.getHeldItem();
                 if (toolStack != null && toolStack.getItem() instanceof IEzacianPrimalTool) {
                     IEzacianPrimalTool toolItem = (IEzacianPrimalTool) toolStack.getItem();
-                    toolItem.changeAOE(toolStack);
+                    toolItem.changeAOE(toolStack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT));
                     EzacianNetworkHandler.sendToServer(new PacketUpdateEzacianPrimalModeTool(toolItem.getBehaviour(toolStack), toolItem.getSubMode(toolStack), toolItem.getAOE(toolStack)));
                 }
             }

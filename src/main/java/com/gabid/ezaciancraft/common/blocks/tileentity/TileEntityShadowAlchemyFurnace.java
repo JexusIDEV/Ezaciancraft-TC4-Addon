@@ -20,6 +20,7 @@ import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.TileAlembic;
 import thaumcraft.common.tiles.TileBellows;
 
+import static com.gabid.ezaciancraft.config.EzacianCraftConfiguration.*;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_SHADOW_ALCHEMY_FURNACE;
 import static net.minecraft.tileentity.TileEntityFurnace.isItemFuel;
 import static net.minecraftforge.common.util.ForgeDirection.UP;
@@ -29,8 +30,8 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
     private static final int[] inputSidesSlots = new int[]{0, 1};
     //essentia
     public AspectList visAspects = new AspectList();
-    protected int alembicDistillationHeightLimit = 8; //how many alembics the furnace can handle and fill
-    protected int essentiaMaxVis = 512;
+    protected int alembicDistillationHeightLimit = alembicsMaxHeight; //how many alembics the furnace can handle and fill
+    protected int essentiaMaxVis = visMaxCapacity;
     protected int essentiaAmountVis = 0;
     //item smelting and what
     protected boolean isBurning = false;
@@ -279,7 +280,7 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
                 this.getBellows();
                 this.speedBurnMultiplier = 1;
             } else {
-                this.speedBurnMultiplier = (float) (this.bellowsAmount * 2.5);
+                this.speedBurnMultiplier = (float) (this.bellowsAmount * processSpeedBellowsBonus);
             }
 
             this.processFuelAndResult();

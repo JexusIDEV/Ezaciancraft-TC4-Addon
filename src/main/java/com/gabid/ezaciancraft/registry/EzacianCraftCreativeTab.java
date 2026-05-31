@@ -25,24 +25,24 @@ public class EzacianCraftCreativeTab {
         @Override
         public void displayAllReleventItems(List list) {
             ItemStack wand = new ItemStack(ConfigItems.itemWandCasting, 1, 50);
-            ((ItemWandCasting) wand.getItem()).setCap(wand, WAND_CAP_SHADOW_VOID_METAL);
-            ((ItemWandCasting) wand.getItem()).setRod(wand, WAND_ROD_ADVANCED_PRIMAL);
+            ((ItemWandCasting) wand.getItem()).setCap(wand, shadowVoidMetalCap.cap);
+            ((ItemWandCasting) wand.getItem()).setRod(wand, advancedPrimalWandStaffRod.rodWand);
             list.add(wand);
 
             ItemStack wandScepter = new ItemStack(ConfigItems.itemWandCasting, 1, 75);
-            ((ItemWandCasting) wand.getItem()).setCap(wandScepter, WAND_CAP_SHADOW_VOID_METAL);
-            ((ItemWandCasting) wand.getItem()).setRod(wandScepter, WAND_ROD_ADVANCED_PRIMAL);
+            ((ItemWandCasting) wand.getItem()).setCap(wandScepter, shadowVoidMetalCap.cap);
+            ((ItemWandCasting) wand.getItem()).setRod(wandScepter, advancedPrimalWandStaffRod.rodWand);
             wandScepter.setTagInfo("sceptre", new NBTTagByte((byte) 1));
             list.add(wandScepter);
 
             ItemStack staff = new ItemStack(ConfigItems.itemWandCasting, 1, 50);
-            ((ItemWandCasting) wand.getItem()).setCap(staff, WAND_CAP_SHADOW_VOID_METAL);
-            ((ItemWandCasting) wand.getItem()).setRod(staff, STAFF_ROD_ADVANCED_PRIMAL);
+            ((ItemWandCasting) wand.getItem()).setCap(staff, shadowVoidMetalCap.cap);
+            ((ItemWandCasting) wand.getItem()).setRod(staff, advancedPrimalWandStaffRod.staffWand);
             list.add(staff);
 
             ItemStack staffScepter = new ItemStack(ConfigItems.itemWandCasting, 1, 75);
-            ((ItemWandCasting) wand.getItem()).setCap(staffScepter, WAND_CAP_SHADOW_VOID_METAL);
-            ((ItemWandCasting) wand.getItem()).setRod(staffScepter, STAFF_ROD_ADVANCED_PRIMAL);
+            ((ItemWandCasting) wand.getItem()).setCap(staffScepter, shadowVoidMetalCap.cap);
+            ((ItemWandCasting) wand.getItem()).setRod(staffScepter, advancedPrimalWandStaffRod.staffWand);
             staffScepter.setTagInfo("sceptre", new NBTTagByte((byte) 1));
             list.add(staffScepter);
 

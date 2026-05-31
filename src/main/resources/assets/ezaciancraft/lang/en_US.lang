@@ -15,13 +15,22 @@ item.crudeCrystalyium.0.name=Ingot of Crude Crystalyium
 item.crudeCrystalyium.1.name=Nugget of Crude Crystalyium
 item.crudeCrystalyium.2.name=Cluster of Crude Crystalyium
 
+###magic alloy
+item.ezacianPlates.0.name=Magic Alloy Plate
+
 #### wand and caps
-item.ezacianWandCap.0.name=Inert Cap of Shadow Void Metal
-item.ezacianWandCap.1.name=Charged Cap of Shadow Void Metal
+item.ezacianWandCap.0.name=
+item.ezacianWandCap.1.name=
+
+item.shadowVoidMetalWandCap.0.name=Inert Cap of Shadow Void Metal
+item.shadowVoidMetalWandCap.1.name=Charged Cap of Shadow Void Metal
+
+item.magicAlloyWandCap.0.name=Inert Cap of Magic Alloy
+item.magicAlloyWandCap.1.name=Charged Cap of Magic Alloy
 
 #### wand-staff rods
-item.ezacianWandRod.0.name=Core of Advanced Primal Wand
-item.ezacianWandRod.1.name=Core of Advanced Primal Staff
+item.advancedPrimalRod.0.name=Core of Advanced Primal Wand
+item.advancedPrimalRod.1.name=Core of Advanced Primal Staff
 
 #####wandCapName
 item.Wand.shadow_void_metal.cap=Cap of Shadow Void Metal
@@ -37,6 +46,9 @@ item.voidTerraShatterShovel.name=The Excavator Shovel of Void
 item.voidGrowthHoe.name=The Growth Hoe of Void
 
 item.voidStaffOfPrimalReconstructor.name=Primal Staff of the Reconstruction
+
+##armors
+item.magicAlloyTravellerBoots.name=Boots of Traveller of Magic Alloy
 
 #blocks
 ##resource
@@ -70,7 +82,12 @@ item.tile.crystalyiumJar.void.name=Singular Jar of Crystalyium with Essentia
 tile.shadowVoidMetalJar.0.name=Reinforced Jar of Shadow Void Metal
 tile.shadowVoidMetalJar.3.name=Singular Jar of Shadow Void Metal
 item.tile.shadowVoidMetalJar.name=Jar of Shadow Void Metal with Essentia
-item.tile.shadowVoidMetalJar.void.name=Jar of Shadow Void Metal with Essentia
+item.tile.shadowVoidMetalJar.void.name=Singular Jar of Shadow Void Metal with Essentia
+
+tile.magicAlloyJar.0.name=Reinforced Jar of Magic Alloy
+tile.magicAlloyJar.3.name=Singular Jar of Magic Alloy
+item.tile.magicAlloyJar.name=Jar of Magic Alloy with Essentia
+item.tile.magicAlloyJar.void.name=Singular Jar of Magic Alloy with Essentia
 
 #research and related
 ##category title
@@ -161,7 +178,7 @@ ezaciancraft.research_page.SHADOW_ALCHEMY_FURNACE.1=With your accumulated knowle
 ezaciancraft.research_page.SHADOW_ALCHEMY_FURNACE.2=It also possesses an even more remarkable feature: when using "Arcane Bellows" around the furnace, the processing speed increases without reducing fuel efficiency.<BR>It is, without a doubt, a beautifully engineered and immensely powerful creation...
 
 ezaciancraft.research_page.ADVANCED_ARCANE_WORKBENCH.1=With sufficient Vis and a number of rare materials you have gathered over time—such as catalysts—you have managed to create something truly remarkable.<BR>An enhanced version of the Arcane Workbench, capable of accepting staves for arcane crafting processes that the original table could not withstand. Additionally, the workbench provides an inherent Vis discount, which can stack with wand bonuses (WIP), resulting in reduced Vis consumption and far more efficient usage.
-ezaciancraft.research_page.ADVANCED_ARCANE_WORKBENCH.2=      §l§nMULTIBLOCK FORMATION§r<LINE> To assemble the multiblock, simply follow the recipe and pattern shown on the previous page. Ensure your wand contains the required amount of Vis, then right-click the center of the structure to form it. To use it, simply interact with any block within the completed structure to access its inventory.
+ezaciancraft.research_page.ADVANCED_ARCANE_WORKBENCH.2=     §l§nMULTIBLOCK FORMATION§r<LINE> To assemble the multiblock, simply follow the recipe and pattern shown on the previous page. Ensure your wand contains the required amount of Vis, then right-click the center of the structure to form it. To use it, simply interact with any block within the completed structure to access its inventory.
 
 ezaciancraft.research_page.CRYSTALYIUM.1=It appears you have encountered a highly unusual material, possessing properties as strange as they are fascinating. This substance contains an immense amount of physical-magical energy and even exhibits self-replicating behavior. It may prove extremely useful in the future for advanced components and highly unstable constructs...
 

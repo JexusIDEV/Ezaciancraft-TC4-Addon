@@ -1,6 +1,5 @@
 package com.gabid.ezaciancraft.client.renderer.tiles;
 
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceBase;
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceInput;
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceOutput;
 import cpw.mods.fml.relauncher.Side;
@@ -11,35 +10,38 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
 import org.lwjgl.opengl.GL11;
+import thaumcraft.api.TileThaumcraft;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 
 @SideOnly(Side.CLIENT)
 public class WirelessEssentiaInterfaceTileEntityRenderer extends TileEntitySpecialRenderer {
 
-    private final ResourceLocation texturePath = new ResourceLocation(MODID, "textures/models/blocks/base_tex.png");
+    private final ResourceLocation WEISTexPath = new ResourceLocation(MODID, "textures/models/blocks/wirelessEssentiaInterfacesTex.png");
     public IModelCustom outputModel = AdvancedModelLoader.loadModel(new ResourceLocation(MODID, "models/blocks/outputWirelessEssentiaInterface.obj"));
     public IModelCustom inputModel = AdvancedModelLoader.loadModel(new ResourceLocation(MODID, "models/blocks/inputWirelessEssentiaInterface.obj"));
 
     public WirelessEssentiaInterfaceTileEntityRenderer() {
     }
 
-    private void renderWirelessEssentiaInterfaceTE(TileEntityWirelessEssentiaInterfaceBase te, double x, double y, double z, float ticks) {
+    private void renderWirelessEssentiaInterfaceTE(TileThaumcraft te, double x, double y, double z, float ticks) {
         GL11.glPushMatrix();
-        int teDirection = te.metaFacing;
-        this.translateFromOrientation(x, y, z, teDirection);
-        this.bindTexture(this.texturePath);
+        GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
+        this.bindTexture(this.WEISTexPath);
 
         if (te instanceof TileEntityWirelessEssentiaInterfaceOutput) {
+            TileEntityWirelessEssentiaInterfaceOutput wire = (TileEntityWirelessEssentiaInterfaceOutput) te;
+            this.translateFromOrientation(wire.metaFacing);
             this.outputModel.renderAll();
         } else if (te instanceof TileEntityWirelessEssentiaInterfaceInput) {
+            TileEntityWirelessEssentiaInterfaceInput wire = (TileEntityWirelessEssentiaInterfaceInput) te;
+            this.translateFromOrientation(wire.metaFacing);
             this.inputModel.renderAll();
         }
         GL11.glPopMatrix();
     }
 
-    private void translateFromOrientation(double x, double y, double z, int orientation) {
-        GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
+    private void translateFromOrientation(int orientation) {
         if (orientation == 0) {
             GL11.glRotatef(-90.0F, 1.0F, 0.0F, 0.0F);
         } else if (orientation == 1) {
@@ -57,6 +59,6 @@ public class WirelessEssentiaInterfaceTileEntityRenderer extends TileEntitySpeci
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float ticks) {
-        this.renderWirelessEssentiaInterfaceTE((TileEntityWirelessEssentiaInterfaceBase) te, x, y, z, ticks);
+        this.renderWirelessEssentiaInterfaceTE((TileThaumcraft) te, x, y, z, ticks);
     }
 }

@@ -46,30 +46,28 @@ public class ContainerInventoryHelperUtils {
                 ItemStack itemstack = inv.getStackInSlot(i);
 
                 if (itemstack == null || hasValueToCompare(i, blacklist)) {
-                    continue; // <- AQUÍ filtramos
+                    continue;
                 }
 
                 EntityItem entityitem;
                 float f = world.rand.nextFloat() * 0.8F + 0.1F;
                 float f1 = world.rand.nextFloat() * 0.8F + 0.1F;
-                if (itemstack != null) {
-                    for (float f2 = world.rand.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; world.spawnEntityInWorld(entityitem)) {
-                        int j1 = world.rand.nextInt(21) + 10;
+                for (float f2 = world.rand.nextFloat() * 0.8F + 0.1F; itemstack.stackSize > 0; world.spawnEntityInWorld(entityitem)) {
+                    int j1 = world.rand.nextInt(21) + 10;
 
-                        if (j1 > itemstack.stackSize) {
-                            j1 = itemstack.stackSize;
-                        }
+                    if (j1 > itemstack.stackSize) {
+                        j1 = itemstack.stackSize;
+                    }
 
-                        itemstack.stackSize -= j1;
-                        entityitem = new EntityItem(world, ((float) x + f), ((float) y + f1), ((float) z + f2), new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
-                        float f3 = 0.05F;
-                        entityitem.motionX = ((float) world.rand.nextGaussian() * f3);
-                        entityitem.motionY = ((float) world.rand.nextGaussian() * f3 + 0.2F);
-                        entityitem.motionZ = ((float) world.rand.nextGaussian() * f3);
+                    itemstack.stackSize -= j1;
+                    entityitem = new EntityItem(world, ((float) x + f), ((float) y + f1), ((float) z + f2), new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
+                    float f3 = 0.05F;
+                    entityitem.motionX = ((float) world.rand.nextGaussian() * f3);
+                    entityitem.motionY = ((float) world.rand.nextGaussian() * f3 + 0.2F);
+                    entityitem.motionZ = ((float) world.rand.nextGaussian() * f3);
 
-                        if (itemstack.hasTagCompound()) {
-                            entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
-                        }
+                    if (itemstack.hasTagCompound()) {
+                        entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
                     }
                 }
             }

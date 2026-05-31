@@ -1,6 +1,8 @@
 package com.gabid.ezaciancraft.api.registry;
 
+import com.gabid.ezaciancraft.api.common.blocks.CustomBlockOre;
 import com.gabid.ezaciancraft.api.common.items.MetalResourceItem;
+import com.gabid.ezaciancraft.registry.EzacianCraftResources;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCompressed;
@@ -27,6 +29,7 @@ public class ResourceMaterialBuilder {
 
     private final float extraHardness;
     private final float extraResistance;
+    private final float resourceExperience;
     private final MapColor metalAndOreColor;
     private final CreativeTabs tabToRegister;
 
@@ -34,10 +37,11 @@ public class ResourceMaterialBuilder {
         this.resourceBaseName = builder.resourceBaseName;
         this.extraHardness = builder.extraHardness;
         this.extraResistance = builder.extraResistance;
+        this.resourceExperience = builder.resourceExperience;
         this.metalAndOreColor = builder.metalAndOreColor;
         this.tabToRegister = builder.tabToRegister;
 
-        this.resourceOreBlock = builder.resourceOreBlock != null ? builder.resourceOreBlock : new BlockOre();
+        this.resourceOreBlock = builder.resourceOreBlock != null ? builder.resourceOreBlock : new CustomBlockOre(this.resourceExperience);
         this.resourceOreBlock.setBlockName(builder.resourceBaseName + "Ore");
         this.resourceOreBlock.setBlockTextureName(new ResourceLocation(MODID, builder.resourceBaseName + "Ore").toString());
         this.resourceOreBlock.setHardness(3f + builder.extraHardness);
@@ -64,11 +68,47 @@ public class ResourceMaterialBuilder {
         OreDictionary.registerOre("ore" + StringUtils.capitalize(this.resourceBaseName), this.resourceOreBlock);
         OreDictionary.registerOre("block" + StringUtils.capitalize(this.resourceBaseName), this.resourceBlock);
 
+        //*ingot to nugget
+        GameRegistry.addShapelessRecipe(
+                new ItemStack(this.resourceMetal, 9, 1),
+                new ItemStack(this.resourceMetal, 1, 0));
+
+        //*nuggets to ingot
+        GameRegistry.addShapedRecipe(
+                new ItemStack(this.resourceMetal, 1, 0),
+                "###", "###", "###", '#', new ItemStack(this.resourceMetal, 1, 1));
+
+        //*ingot to block
+        GameRegistry.addShapedRecipe(
+                new ItemStack(this.resourceBlock, 1),
+                "###", "###", "###", '#', new ItemStack(this.resourceMetal, 1, 0));
+
+        //*block to ingot
+        GameRegistry.addShapelessRecipe(
+                new ItemStack(this.resourceMetal, 9, 0),
+                (new ItemStack(this.resourceBlock, 1, 0))
+        );
+
+        //normal ore smelt
+        GameRegistry.addSmelting(
+                new ItemStack(this.resourceOreBlock, 1),
+                new ItemStack(this.resourceMetal, 1, 0),
+                this.resourceExperience
+        );
+
+        //*cluster base smelt
+        GameRegistry.addSmelting(
+                new ItemStack(this.resourceMetal, 1, 2),
+                new ItemStack(this.resourceMetal, 2, 0),
+                this.resourceExperience*2
+        );
+
+        //add the nugget bonus to the cluster recipe on an infernal furnace
         ThaumcraftApi.addSmeltingBonus(new ItemStack(this.resourceMetal, 1, 2), new ItemStack(this.resourceMetal, 1, 1));
     }
 
-    public static ResourceMaterialBuilder createAFullSet(String _resourceBaseName, float _extraHardness, float _extraResistance, MapColor _metalAndOreColor, CreativeTabs tabToRegister) {
-        return new ResourceMaterialBuilder(new Builder(_resourceBaseName, _extraHardness, _extraResistance, _metalAndOreColor, tabToRegister));
+    public static ResourceMaterialBuilder createAFullSet(String _resourceBaseName, float _extraHardness, float _extraResistance, float _experience,MapColor _metalAndOreColor, CreativeTabs tabToRegister) {
+        return new ResourceMaterialBuilder(new Builder(_resourceBaseName, _extraHardness, _extraResistance, _experience, _metalAndOreColor, tabToRegister));
     }
 
     public String getResourceBaseName() {
@@ -95,6 +135,10 @@ public class ResourceMaterialBuilder {
         return this.extraResistance;
     }
 
+    public float getResourceExperience() {
+        return this.resourceExperience;
+    }
+
     public MapColor getMetalAndOreColor() {
         return this.metalAndOreColor;
     }
@@ -107,17 +151,18 @@ public class ResourceMaterialBuilder {
         protected final String resourceBaseName;
         private final float extraHardness;
         private final float extraResistance;
+        private final float resourceExperience;
         private final MapColor metalAndOreColor;
         private final CreativeTabs tabToRegister;
         protected Block resourceOreBlock;
         protected Block resourceBlock;
         protected Item resourceMetal; //uses my own class "MetalResourceItem"
-        protected Item resourceMetalCluster;
 
-        public Builder(String _resourceBaseName, float _extraHardness, float _extraResistance, MapColor _metalAndOreColor, CreativeTabs _tabToRegister) {
+        public Builder(String _resourceBaseName, float _extraHardness, float _experience,float _extraResistance, MapColor _metalAndOreColor, CreativeTabs _tabToRegister) {
             this.resourceBaseName = _resourceBaseName;
             this.extraHardness = _extraHardness;
             this.extraResistance = _extraResistance;
+            this.resourceExperience = _experience;
             this.metalAndOreColor = _metalAndOreColor;
             this.tabToRegister = _tabToRegister;
         }
@@ -143,6 +188,10 @@ public class ResourceMaterialBuilder {
 
         public float getExtraResistance() {
             return this.extraResistance;
+        }
+
+        public float getResourceExperience() {
+            return this.resourceExperience;
         }
 
         public MapColor getMetalAndOreColor() {

@@ -17,9 +17,9 @@ import thaumcraft.common.lib.research.ResearchManager;
 
 import static com.gabid.ezaciancraft.lib.EzacianArrayLibHelper.all2DArrayTrue;
 
-public class ThaumcraftMultiblockEvent implements IWandTriggerManager {
+public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
 
-    public ThaumcraftMultiblockEvent() {
+    public EzacianCraftWandMultiblockEvent() {
     }
 
     public static boolean createAdvancedArcaneWorkbench(ItemStack wand, EntityPlayer player, World world, int x, int y, int z) {

@@ -14,6 +14,8 @@ import com.gabid.ezaciancraft.client.renderer.tiles.WirelessEssentiaInterfaceTil
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAlchemicalMixer;
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityExtendedArcaneWorkbench;
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceInput;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceOutput;
+import com.gabid.ezaciancraft.common.event.EzacianCraftPlayerEvents;
 import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
 import com.gabid.ezaciancraft.registry.EzacianCraftItems;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -38,6 +40,8 @@ public class EzacianClientProxy extends EzacianCommonProxy {
         EzacianCraftKeybinds.registerKeybinds();
         GUIClientEvents guiClientEvents = new GUIClientEvents();
         MinecraftForge.EVENT_BUS.register(guiClientEvents);
+        EzacianCraftPlayerEvents playerEvents = new EzacianCraftPlayerEvents();
+        MinecraftForge.EVENT_BUS.register(playerEvents);
     }
 
     @Override
@@ -73,6 +77,7 @@ public class EzacianClientProxy extends EzacianCommonProxy {
 
         MinecraftForgeClient.registerItemRenderer(EzacianCraftItems.itemFilledJarCrystalyium, new EzacianCustomItemJarFilledRenderer());
         MinecraftForgeClient.registerItemRenderer(EzacianCraftItems.itemFilledJarShadowVoidMetal, new EzacianCustomItemJarFilledRenderer());
+        MinecraftForgeClient.registerItemRenderer(EzacianCraftItems.itemFilledJarMagicAlloy, new EzacianCustomItemJarFilledRenderer());
 
         MinecraftForgeClient.registerItemRenderer(EzacianCraftItems.voidStaffOfPrimalReconstructor, new VoidStaffOfPrimalReconstructorRenderer());
     }
@@ -87,6 +92,7 @@ public class EzacianClientProxy extends EzacianCommonProxy {
     private void registerTileEntitiesRenders() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAlchemicalMixer.class, new AlchemicalMixerTileEntityRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityExtendedArcaneWorkbench.class, new ExtendedArcaneWorkbenchTileEntityRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWirelessEssentiaInterfaceOutput.class, new WirelessEssentiaInterfaceTileEntityRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWirelessEssentiaInterfaceInput.class, new WirelessEssentiaInterfaceTileEntityRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(EzacianCustomJarFillableTE.class, new EzacianCustomJarFillableTER());
     }

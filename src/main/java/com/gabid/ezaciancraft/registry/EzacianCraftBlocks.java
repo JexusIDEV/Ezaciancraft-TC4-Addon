@@ -4,6 +4,7 @@ import com.gabid.ezaciancraft.api.common.blocks.EzacianCustomBlockJar;
 import com.gabid.ezaciancraft.api.common.items.BasicNamedItemBlockWithMetadata;
 import com.gabid.ezaciancraft.api.common.items.EzacianCustomItemBlockJar;
 import com.gabid.ezaciancraft.common.blocks.*;
+import com.gabid.ezaciancraft.common.items.ItemBlockWirelessEssentiaInterface;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCompressed;
@@ -35,6 +36,7 @@ public class EzacianCraftBlocks {
 
     public static EzacianCustomBlockJar crystalyiumJar;
     public static EzacianCustomBlockJar shadowVoidMetalJar;
+    public static EzacianCustomBlockJar magicAlloyJar;
 
     public static void setupBlocksRegistry() {
         //basicBlocks
@@ -51,9 +53,9 @@ public class EzacianCraftBlocks {
         shadowAlchemyFurnace.setCreativeTab(EZACIANCRAFT_TAB);
         GameRegistry.registerBlock(shadowAlchemyFurnace, ItemBlock.class, shadowAlchemyFurnace.getUnlocalizedName());
 
-        //wirelessEssentiaInterface = new BlockWirelessEssentiaInterface();
-        //wirelessEssentiaInterface.setCreativeTab(EZACIANCRAFT_TAB);
-        //GameRegistry.registerBlock(wirelessEssentiaInterface, ItemBlockWirelessEssentiaInterface.class, wirelessEssentiaInterface.getUnlocalizedName());
+        wirelessEssentiaInterface = new BlockWirelessEssentiaInterface();
+        wirelessEssentiaInterface.setCreativeTab(EZACIANCRAFT_TAB);
+        GameRegistry.registerBlock(wirelessEssentiaInterface, ItemBlockWirelessEssentiaInterface.class, wirelessEssentiaInterface.getUnlocalizedName());
 
         /*etherealAccelerator = new EtherealAcceleratorBlock();
         etherealAccelerator.setCreativeTab(EZACIANCRAFT_TAB);
@@ -67,6 +69,8 @@ public class EzacianCraftBlocks {
         GameRegistry.registerBlock(crystalyiumJar, EzacianCustomItemBlockJar.class, crystalyiumJar.getUnlocalizedName());
         shadowVoidMetalJar = new BlockShadowVoidMetalJar();
         GameRegistry.registerBlock(shadowVoidMetalJar, EzacianCustomItemBlockJar.class, shadowVoidMetalJar.getUnlocalizedName());
+        magicAlloyJar = new BlockMagicAlloyJar();
+        GameRegistry.registerBlock(magicAlloyJar, EzacianCustomItemBlockJar.class, magicAlloyJar.getUnlocalizedName());
 
         //extra void resources
         voidSeedOre = new BlockOre();

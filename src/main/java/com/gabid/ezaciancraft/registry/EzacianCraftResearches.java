@@ -374,7 +374,7 @@ public class EzacianCraftResearches {
                         .add(TAINT, 1)
                 ,
                 shadowVoidMetalColumnPos - 3, shadowVoidMetalRowPos + 1, 3,
-                new ItemStack(EzacianCraftItems.baseWandCap, 1, 0)
+                new ItemStack(EzacianCraftItems.shadowVoidMetalCap, 1, 0)
         )).setPages(
                 ResearchUtils.createPageTranslationNoUpper("CAP_shadow_void_metal", 1),
                 new ResearchPage((InfusionRecipe) recipes.get("shadowVoidMetalCap")),
@@ -396,7 +396,7 @@ public class EzacianCraftResearches {
                         .add(TAINT, 2)
                 ,
                 shadowVoidMetalColumnPos - 3, shadowVoidMetalRowPos + 2, 3,
-                new ItemStack(EzacianCraftItems.baseWandRod, 1, 0)
+                new ItemStack(EzacianCraftItems.advancedPrimalWandStaffRod, 1, 0)
         )).setPages(
                 ResearchUtils.createPageTranslationNoUpper("ROD_advanced_primal", 1),
                 ResearchUtils.createPageTranslationNoUpper("ROD_advanced_primal", 2),
@@ -412,7 +412,7 @@ public class EzacianCraftResearches {
                         .add(TOOL, 2)
                 ,
                 shadowVoidMetalColumnPos - 4, shadowVoidMetalRowPos + 2, 3,
-                new ItemStack(EzacianCraftItems.baseWandRod, 1, 1)
+                new ItemStack(EzacianCraftItems.advancedPrimalWandStaffRod, 1, 1)
         )).setPages(
                 ResearchUtils.createPageTranslationNoUpper("ROD_advanced_primal_staff", 1),
                 new ResearchPage((InfusionRecipe) recipes.get("advancedPrimalStaff"))

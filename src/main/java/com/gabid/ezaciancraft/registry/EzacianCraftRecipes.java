@@ -5,6 +5,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -16,6 +19,7 @@ import java.util.Arrays;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
+import static com.gabid.ezaciancraft.registry.EzacianCraftItems.advancedPrimalWandStaffRod;
 import static thaumcraft.api.aspects.Aspect.*;
 
 public class EzacianCraftRecipes {
@@ -29,46 +33,15 @@ public class EzacianCraftRecipes {
     }
 
     private static void registerWorkbenchRecipes() {
-        //shadow void
-        //*ingot to nugget
-        GameRegistry.addShapelessRecipe(
-                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 9, 1),
-                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0));
-        GameRegistry.addShapelessRecipe(
-                new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 9, 1),
-                new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 0));
-        //*ingot
-        GameRegistry.addShapedRecipe(
-                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
-                "###", "###", "###", '#', new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 1));
-        GameRegistry.addShapedRecipe(
-                new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 0),
-                "###", "###", "###", '#', new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 1));
-        //*block
-        GameRegistry.addShapedRecipe(
-                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceBlock(), 1),
-                "###", "###", "###", '#', new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0));
-        GameRegistry.addShapedRecipe(
-                new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceBlock(), 1),
-                "###", "###", "###", '#', new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 0));
-
-        GameRegistry.addShapelessRecipe(
-                new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 9, 0),
-                (new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceBlock(), 1, 0))
-        );
-        GameRegistry.addShapelessRecipe(
-                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 9, 0),
-                (new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceBlock(), 1, 0))
-        );
+        //wondering for the recipes checkout the ResourceMaterialBuilder to see how is done the material registry recipes and more
 
         //voidblock
-        GameRegistry.addShapedRecipe(
-                new ItemStack(EzacianCraftBlocks.voidMetalBlock, 1),
-                "###", "###", "###", '#', new ItemStack(ConfigItems.itemResource, 1, 16));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(EzacianCraftBlocks.voidMetalBlock, 1),
+                "###", "###", "###", '#', new ItemStack(ConfigItems.itemResource, 1, 16)));
 
-        GameRegistry.addShapelessRecipe(
-                new ItemStack(ConfigItems.itemResource, 9, 16),
-                (new ItemStack(EzacianCraftBlocks.voidMetalBlock, 1, 0))
+        GameRegistry.addRecipe(
+                new ShapelessOreRecipe(new ItemStack(ConfigItems.itemResource, 9, 16),
+                        (new ItemStack(EzacianCraftBlocks.voidMetalBlock, 1, 0)))
         );
 
         //crystalyium
@@ -79,31 +52,7 @@ public class EzacianCraftRecipes {
     }
 
     private static void registerFurnaceRecipes() {
-        //shadow void ore
-        GameRegistry.addSmelting(
-                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceOreBlock(), 1),
-                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
-                2f
-        );
 
-        GameRegistry.addSmelting(
-                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 2),
-                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 2, 0),
-                4f
-        );
-
-        //crystalyium ore
-        GameRegistry.addSmelting(
-                new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceOreBlock(), 1),
-                new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 0),
-                8f
-        );
-
-        GameRegistry.addSmelting(
-                new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 2),
-                new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 2, 0),
-                16f
-        );
     }
 
     private static void registerArcaneWorkbenchRecipes() {
@@ -368,7 +317,7 @@ public class EzacianCraftRecipes {
                                 .add(TOOL, 128)
                                 .add(MINE, 92)
                         ,
-                        EzacianCraftItems.STAFF_ROD_ADVANCED_PRIMAL.getItem(),
+                        advancedPrimalWandStaffRod.staffWand.getItem(),
                         new ItemStack[]{
                                 new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 0),
                                 new ItemStack(EzacianCraftItems.voidZephyrSword, 1, 0),
@@ -385,7 +334,7 @@ public class EzacianCraftRecipes {
         EzacianCraftResearches.recipes.put("shadowVoidMetalCap",
                 ThaumcraftApi.addInfusionCraftingRecipe(
                         "CAP_shadow_void_metal",
-                        new ItemStack(EzacianCraftItems.baseWandCap, 1, 0),
+                        new ItemStack(EzacianCraftItems.shadowVoidMetalCap, 1, 0),
                         10,
                         new AspectList()
                                 .add(MAGIC, 32)
@@ -406,7 +355,7 @@ public class EzacianCraftRecipes {
         EzacianCraftResearches.recipes.put("shadowVoidMetalCapCharged",
                 ThaumcraftApi.addInfusionCraftingRecipe(
                         "CAP_shadow_void_metal",
-                        new ItemStack(EzacianCraftItems.baseWandCap, 1, 1),
+                        new ItemStack(EzacianCraftItems.shadowVoidMetalCap, 1, 1),
                         10,
                         new AspectList()
                                 .add(MAGIC, 64)
@@ -417,7 +366,7 @@ public class EzacianCraftRecipes {
                                 .add(AURA, 64)
                                 .add(ENERGY, 48)
                         ,
-                        new ItemStack(EzacianCraftItems.baseWandCap, 1, 0),
+                        new ItemStack(EzacianCraftItems.shadowVoidMetalCap, 1, 0),
                         new ItemStack[]{
                                 new ItemStack(ConfigItems.itemResource, 1, 14),
                                 new ItemStack(ConfigItems.itemResource, 1, 14),
@@ -431,7 +380,7 @@ public class EzacianCraftRecipes {
         EzacianCraftResearches.recipes.put("advancedPrimalWand",
                 ThaumcraftApi.addInfusionCraftingRecipe(
                         "ROD_advanced_primal",
-                        new ItemStack(EzacianCraftItems.baseWandRod, 1, 0),
+                        new ItemStack(advancedPrimalWandStaffRod, 1, 0),
                         16,
                         new AspectList()
                                 .add(ORDER, 64)
@@ -460,7 +409,7 @@ public class EzacianCraftRecipes {
         EzacianCraftResearches.recipes.put("advancedPrimalStaff",
                 ThaumcraftApi.addInfusionCraftingRecipe(
                         "ROD_advanced_primal_staff",
-                        new ItemStack(EzacianCraftItems.baseWandRod, 1, 1),
+                        new ItemStack(advancedPrimalWandStaffRod, 1, 1),
                         20,
                         new AspectList()
                                 .add(AURA, 64)
@@ -469,10 +418,10 @@ public class EzacianCraftRecipes {
                         ,
                         new ItemStack(ConfigItems.itemResource, 1, 15),
                         new ItemStack[]{
-                                new ItemStack(EzacianCraftItems.baseWandRod, 1, 0),
+                                new ItemStack(advancedPrimalWandStaffRod, 1, 0),
                                 new ItemStack(ConfigBlocks.blockCrystal, 1, 6),
                                 new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
-                                new ItemStack(EzacianCraftItems.baseWandRod, 1, 0),
+                                new ItemStack(advancedPrimalWandStaffRod, 1, 0),
                                 new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
                                 new ItemStack(ConfigBlocks.blockCrystal, 1, 6),
                         }

@@ -8,8 +8,8 @@ import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_SHADOW
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_RESOURCES_TAB;
 
 public class EzacianCraftResources {
-    public static ResourceMaterialBuilder shadowVoidMetalResources = ResourceMaterialBuilder.createAFullSet(UNLOCALE_SHADOW_VOID_METAL, 1f, 0.25f, MapColor.blackColor, EZACIANCRAFT_RESOURCES_TAB);
-    public static ResourceMaterialBuilder crudeCrystalyiumResources = ResourceMaterialBuilder.createAFullSet(UNLOCALE_CRUDE_CRYSTALYIUM, 1f, 1f, MapColor.magentaColor, EZACIANCRAFT_RESOURCES_TAB);
+    public static ResourceMaterialBuilder shadowVoidMetalResources = ResourceMaterialBuilder.createAFullSet(UNLOCALE_SHADOW_VOID_METAL, 1f, 0.25f, 4f, MapColor.blackColor, EZACIANCRAFT_RESOURCES_TAB);
+    public static ResourceMaterialBuilder crudeCrystalyiumResources = ResourceMaterialBuilder.createAFullSet(UNLOCALE_CRUDE_CRYSTALYIUM, 1f, 1f, 8f, MapColor.magentaColor, EZACIANCRAFT_RESOURCES_TAB);
 
     public static void setupResources() {
 

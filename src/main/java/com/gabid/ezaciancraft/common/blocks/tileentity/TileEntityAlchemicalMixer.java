@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.*;
+import static com.gabid.ezaciancraft.config.EzacianCraftConfiguration.mixerBaseProcessingTimeSpeed;
 
 public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssentiaTransport, IAspectContainer {
 
@@ -34,6 +35,7 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
     public float whiskerRotation = 0f;
     private int ticks = 0;
     private int aspectProcessingTime = 0;
+    private final int maxAspectProcessingTime = mixerBaseProcessingTimeSpeed;
 
     public TileEntityAlchemicalMixer() {
         colors = new ArrayList<>(3);
@@ -155,6 +157,39 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
 
     @Override
     public Aspect getSuctionType(ForgeDirection forgeDirection) {
+        TileEntity pipeToFind;
+        if (this.metaFacing == 2 || this.metaFacing == 3) {
+            if (forgeDirection == ForgeDirection.EAST) {
+                pipeToFind = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, forgeDirection);
+                if(pipeToFind instanceof IEssentiaTransport) {
+                    return ((IEssentiaTransport) pipeToFind).getSuctionType(forgeDirection.getOpposite());
+                }
+            } else if (forgeDirection == ForgeDirection.WEST) {
+                pipeToFind = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, forgeDirection);
+                if(pipeToFind instanceof IEssentiaTransport) {
+                    return ((IEssentiaTransport) pipeToFind).getSuctionType(forgeDirection.getOpposite());
+                }
+            } else if (forgeDirection == ForgeDirection.UNKNOWN) {
+                return null;
+            }
+        }
+
+        if (this.metaFacing == 4 || this.metaFacing == 5) {
+            if (forgeDirection == ForgeDirection.NORTH) {
+                pipeToFind = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, forgeDirection);
+                if(pipeToFind instanceof IEssentiaTransport) {
+                    return ((IEssentiaTransport) pipeToFind).getSuctionType(forgeDirection.getOpposite());
+                }
+            } else if (forgeDirection == ForgeDirection.SOUTH) {
+                pipeToFind = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, forgeDirection);
+                if(pipeToFind instanceof IEssentiaTransport) {
+                    return ((IEssentiaTransport) pipeToFind).getSuctionType(forgeDirection.getOpposite());
+                }
+            } else if (forgeDirection == ForgeDirection.UNKNOWN) {
+                return null;
+            }
+        }
+
         return null;
     }
 
@@ -295,12 +330,12 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
                 }
                 if (++this.ticks % 20 == 0) {
                     if (this.aspectInput1 != null && this.aspectInput2 != null && this.aspectOutput == null && this.aspectProcessingTime == 0) {
-                        this.aspectProcessingTime = 8;
+                        this.aspectProcessingTime = this.maxAspectProcessingTime;
                     } else if (this.aspectInput1 == null || this.aspectInput2 == null) {
-                        this.aspectProcessingTime = 8;
+                        this.aspectProcessingTime = this.maxAspectProcessingTime;
                         return;
                     } else if (!AspectHelper.compoundExists(this.aspectInput1, this.aspectInput2)) {
-                        this.aspectProcessingTime = 8;
+                        this.aspectProcessingTime = this.maxAspectProcessingTime;
                         return;
                     }
 
@@ -310,7 +345,7 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
 
                     if (this.aspectProcessingTime == 0 && this.aspectOutput == null) {
                         this.processEssentiaMixing();
-                        this.aspectProcessingTime = 8;
+                        this.aspectProcessingTime = this.maxAspectProcessingTime;
                     } else {
                         return;
                     }

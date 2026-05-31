@@ -15,13 +15,19 @@ item.crudeCrystalyium.0.name=Lingote de Cristalio Crudo
 item.crudeCrystalyium.1.name=Pepita de Cristalio Crudo
 item.crudeCrystalyium.2.name=Racimo de Cristalio Crudo
 
+###magic alloy
+item.ezacianPlates.0.name=Placa de Aleación Mágica
+
 #### wand and caps
-item.ezacianWandCap.0.name=Cubierta de Metal Vacío Ensombrecido Inerte
-item.ezacianWandCap.1.name=Cubierta de Metal Vacío Ensombrecido Cargado
+item.shadowVoidMetalWandCap.0.name=Cubierta de Metal Vacío Ensombrecido Inerte
+item.shadowVoidMetalWandCap.1.name=Cubierta de Metal Vacío Ensombrecido Cargado
+
+item.magicAlloyWandCap.0.name=Cubierta de Aleación Mágica Inerte
+item.magicAlloyWandCap.1.name=Cubierta de Aleación Mágica Cargada
 
 #### wand-staff rods
-item.ezacianWandRod.0.name=Núcleo de Vara Primal Avanzada
-item.ezacianWandRod.1.name=Núcleo de Bastón Primal Avanzado
+item.advancedPrimalRod.0.name=Núcleo de Vara Primal Avanzada
+item.advancedPrimalRod.1.name=Núcleo de Bastón Primal Avanzado
 
 #####wandCapName
 item.Wand.shadow_void_metal.cap=Cubierta de Metal Vacío Ensombrecido
@@ -37,6 +43,9 @@ item.voidTerraShatterShovel.name=La Pala del Excavador del Vacío
 item.voidGrowthHoe.name=Azada de Crecimiento del Vacío
 
 item.voidStaffOfPrimalReconstructor.name=Bastón Primigenio de la Reconstrucción
+
+##armors
+item.magicAlloyTravellerBoots.name=Botas del Viajero de Aleación Mágica
 
 #blocks
 ##resource
@@ -71,6 +80,11 @@ tile.shadowVoidMetalJar.0.name=Tarro Reforzado de Metal Vacío Ensombrecido
 tile.shadowVoidMetalJar.3.name=Tarro de Metal Vacío Ensombrecido Singular
 item.tile.shadowVoidMetalJar.name=Tarro de Metal Vacío Ensombrecido con Esencia
 item.tile.shadowVoidMetalJar.void.name=Tarro de Metal Vacío Ensombrecido Singular con Esencia
+
+tile.magicAlloyJar.0.name=Tarro Reforzado de Aleación Mágica
+tile.magicAlloyJar.3.name=Tarro de Aleación Mágica Singular
+item.tile.magicAlloyJar.name=Tarro de Aleación Mágica con Esencia
+item.tile.magicAlloyJar.void.name=Tarro de Aleación Mágica Singular con Esencia
 
 #research and related
 ##category title
@@ -184,7 +198,7 @@ ezaciancraft.research_page.ELEMENTAL_VOID_TOOLS.2=     §l§nModos de Herramient
 
 ezaciancraft.research_page.ELEMENTAL_VOID_SWORD.1=Después de haber obtenido un poco de “Metal Vacío Ensombrecido”, decides ver la espada elemental que tienes guardada en alguna parte, te das cuenta de que tal vez podrías combinar el poder elemental del viento con la oscuridad misma de la “Espada Carmesí” y así obtener un arma más poderosa que la versión original.
 
-ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.1=Después de estar pensado y generando algunos oscuros, por fin conseguiste una idea simplemente inexpugnable al igual que la varia que decidiste reconstruir...<BR>Mezclando todas las herramientas y el Triturador primigenio y algunas esencias, has hecho una abominación bella.<BR>El Bastón de la Reconstrucción.<BR>Una versión extendida y multiherramienta de todas las herramientas del vacío que has creado, algo tan poderoso que no te hará falta cambiarla para cualquier cosa.
+ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.1=Después de estar pensado y generando algunas ideas oscuras, por fin conseguiste una idea simplemente inexpugnable al igual que la varia que decidiste reconstruir...<BR>Mezclando todas las herramientas y el Triturador primigenio y algunas escencias, has hecho una abominación bella.<BR>El Bastón de la Reconstrucción.<BR>Una versión extendida y multiherramienta de todas las herramientas del vacío que has creado, algo tan poderoso que no te hará falta cambiarla para cualquier cosa.
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.2=A diferencia de la Trituradora Primigenia este bastón pudo recuperar todo lo que perdió, por no decir que hasta tiene más que las herramientas originales, este bastón tiene 3 configuraciones para su uso que se explicara a más detalle en las siguientes páginas:
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.3=        §l§nComportamientos§r<BR>Dictamina que efecto o función va a efectuar de su herramienta original el cual se puede cambiar con la tecla asignada en la configuración:<BR>Observador Minero: Revela la posición de los minerales más cercanos con el clic.<BR>Magneto Torrencial: Al usar clic, genera magnetismo hacia el jugador con los ítems cercanos.<BR>Colocador Terrestial: Permite colocar bloques de un mismo tipo en área. (Sensible a ÁdE)
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.4=Plantador Crecedor: Aplica Fertilizante a las plantas o suelo con el clic, pero usando shift puede arar la tierra en área. (Sensible a ÁdE)<BR>Céfiro: Permite el generar un pequeño tornado que te hace levitar y también alejar a los mobs con este al hacer clic constante. (WIP-Roto, empuja muy raro...)

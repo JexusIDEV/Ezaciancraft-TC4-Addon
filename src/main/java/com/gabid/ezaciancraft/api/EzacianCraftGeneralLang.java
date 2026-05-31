@@ -19,9 +19,14 @@ public class EzacianCraftGeneralLang {
     //** ~cristalyium
     public static String UNLOCALE_CRUDE_CRYSTALYIUM = "crudeCrystalyium";
 
+    //**magic alloy
+    public static String UNLOCALE_MAGIC_ALLOY = "magicAlloy";
+
+    //** other
+    public static String UNLOCALE_EZACIAN_PLATES_BASENAME = "ezacianPlates";
+
     //*wand stuff
-    public static String UNLOCALE_SHADOW_VOID_INERT_WAND_CAP = "shadowVoidMetalInertWandCap";
-    public static String UNLOCALE_SHADOW_VOID_CHARGED_WAND_CAP = "shadowVoidMetalChargedWandCap";
+    public static String UNLOCALE_ADVANCED_PRIMAL_STAFF_WAND_ROD = "advancedPrimal";
 
     //*tools
     public static String UNLOCALE_VOID_ZEPHYR_SWORD = "voidZephyrSword";
@@ -30,6 +35,9 @@ public class EzacianCraftGeneralLang {
     public static String UNLOCALE_VOID_TERRA_SHATTER_SHOVEL = "voidTerraShatterShovel";
     public static String UNLOCALE_VOID_GROWTH_HOE = "voidGrowthHoe";
     public static String UNLOCALE_STAFF_OF_PRIMAL_RECONSTRUCTOR = "voidStaffOfPrimalReconstructor";
+
+    //*armor
+    public static String UNLOCALE_MAGIC_ALLOY_TRAVELLER_BOOTS = "magicAlloyTravellerBoots";
 
     //blocks
 
@@ -42,6 +50,7 @@ public class EzacianCraftGeneralLang {
     public static String UNLOCALE_ETHEREAL_ACCELERATOR = "etherealAccelerator";
     public static String UNLOCALE_CRYSTALYIUM_JAR = "crystalyiumJar";
     public static String UNLOCALE_SHADOW_VOID_METAL_JAR = "shadowVoidMetalJar";
+    public static String UNLOCALE_MAGIC_ALLOY_JAR = "magicAlloyJar";
 
     //*meta-tile blocks
     public static String UNLOCALE_CUSTOM_BASE_JAR = "customBaseJar";
