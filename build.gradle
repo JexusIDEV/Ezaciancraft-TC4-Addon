@@ -58,6 +58,12 @@ repositories {
     maven { url "https://maven.latmod.com/" }
 }
 
+idea {
+    sourceSets.configureEach {
+        it.output.resourcesDir = it.output.classesDirs.getFiles().iterator().next()
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 

@@ -56,17 +56,24 @@ public class EzacianCraftRecipes {
     }
 
     private static void registerArcaneWorkbenchRecipes() {
+        //JARS
         EzacianCraftResearches.recipes.put(UNLOCALE_SHADOW_VOID_METAL_JAR + "Void", ThaumcraftApi.addArcaneCraftingRecipe(
                 "SHADOW_VOID_METAL_JAR",
                 new ItemStack(EzacianCraftBlocks.shadowVoidMetalJar, 1, 3),
-                new AspectList().add(ENTROPY, 64).add(WATER, 48),
+                new AspectList().add(ENTROPY, 32).add(WATER, 24),
                 "A", "B", "C", 'A', new ItemStack(Blocks.obsidian, 1), 'B', new ItemStack(Items.blaze_powder, 1), 'C', new ItemStack(EzacianCraftBlocks.shadowVoidMetalJar, 1, 0)));
 
         EzacianCraftResearches.recipes.put(UNLOCALE_CRYSTALYIUM_JAR + "Void", ThaumcraftApi.addArcaneCraftingRecipe(
                 "CRYSATLYIUM_JAR",
                 new ItemStack(EzacianCraftBlocks.crystalyiumJar, 1, 3),
-                new AspectList().add(ENTROPY, 64).add(WATER, 48),
+                new AspectList().add(ENTROPY, 16).add(WATER, 8),
                 "A", "B", "C", 'A', new ItemStack(Blocks.obsidian, 1), 'B', new ItemStack(Items.blaze_powder, 1), 'C', new ItemStack(EzacianCraftBlocks.crystalyiumJar, 1, 0)));
+
+        EzacianCraftResearches.recipes.put(UNLOCALE_MAGIC_ALLOY_JAR + "Void", ThaumcraftApi.addArcaneCraftingRecipe(
+                "MAGIC_ALLOY_JAR",
+                new ItemStack(EzacianCraftBlocks.magicAlloyJar, 1, 3),
+                new AspectList().add(ENTROPY, 64).add(WATER, 48),
+                "A", "B", "C", 'A', new ItemStack(Blocks.obsidian, 1), 'B', new ItemStack(Items.blaze_powder, 1), 'C', new ItemStack(EzacianCraftBlocks.magicAlloyJar, 1, 0)));
 
         //decoratives magic
         EzacianCraftResearches.recipes.put(UNLOCALE_EZACIAN_STONE_DECORATIVE + "_0", ThaumcraftApi.addArcaneCraftingRecipe(
@@ -74,6 +81,21 @@ public class EzacianCraftRecipes {
                 new ItemStack(EzacianCraftBlocks.ezacianStoneDecorativeBlocks, 8, 0),
                 new AspectList().add(ORDER, 4).add(EARTH, 4),
                 "###", "$#%", "###", '#', new ItemStack(Blocks.stone, 1), '$', new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 1), '%', new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 1)
+        ));
+
+        //*MAGIC ALLOY
+        EzacianCraftResearches.recipes.put(UNLOCALE_MAGIC_ALLOY, ThaumcraftApi.addArcaneCraftingRecipe(
+                "MAGIC_ALLOY",
+                new ItemStack(EzacianCraftItems.ezacianPlates, 3, 0),
+                new AspectList().add(ORDER, 75).add(EARTH, 75).add(FIRE, 75).add(WATER, 75).add(ENTROPY, 75).add(AIR, 75),
+                " A ", "$#%", " B ", 'A', new ItemStack(ConfigItems.itemEldritchObject, 1, 3), '$', new ItemStack(ConfigItems.itemResource, 1, 2), '#', new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0), '%', new ItemStack(ConfigItems.itemResource, 1, 16), 'B', new ItemStack(ConfigBlocks.blockCrystal, 1, 6)
+        ));
+
+        EzacianCraftResearches.recipes.put(UNLOCALE_MAGIC_ALLOY+"Cap", ThaumcraftApi.addArcaneCraftingRecipe(
+                "CAP_magic_alloy",
+                new ItemStack(EzacianCraftItems.magicAlloyCap, 1, 0),
+                new AspectList().add(ORDER, 100).add(EARTH, 100).add(FIRE, 100).add(WATER, 100).add(ENTROPY, 100).add(AIR, 100),
+                "$#$", "#&#", "   ", '$', new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 1), '#', new ItemStack(EzacianCraftItems.ezacianPlates, 1, 0), '&', new ItemStack(EzacianCraftItems.shadowVoidMetalCap, 1, 0)
         ));
     }
 
@@ -131,6 +153,56 @@ public class EzacianCraftRecipes {
                                 new ItemStack(ConfigBlocks.blockTube, 1, 4),
                                 new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
                                 new ItemStack(Items.iron_ingot, 1)
+                        }
+                ));
+
+        EzacianCraftResearches.recipes.put(UNLOCALE_WIRELESS_ESSENTIA_INTERFACE+"Out",
+                ThaumcraftApi.addInfusionCraftingRecipe(
+                        "WIRELESS_INTERFACES",
+                        new ItemStack(EzacianCraftBlocks.wirelessEssentiaInterface, 1, 0),
+                        3,
+                        new AspectList()
+                                .add(WATER, 8)
+                                .add(AIR, 16)
+                                .add(MAGIC, 4)
+                                .add(AURA, 8)
+                                .add(CRAFT, 8)
+                                .add(TOOL, 8)
+                                .add(TRAVEL, 32)
+                        ,
+                        new ItemStack(ConfigBlocks.blockTube, 1, 4),
+                        new ItemStack[]{
+                                new ItemStack(Items.gold_ingot, 1),
+                                new ItemStack(ConfigItems.itemResource, 1, 8),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(Items.iron_ingot, 1, 0),
+                                new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9),
+                                new ItemStack(Blocks.dispenser, 1, 0)
+                        }
+                ));
+
+        EzacianCraftResearches.recipes.put(UNLOCALE_WIRELESS_ESSENTIA_INTERFACE+"In",
+                ThaumcraftApi.addInfusionCraftingRecipe(
+                        "WIRELESS_INTERFACES",
+                        new ItemStack(EzacianCraftBlocks.wirelessEssentiaInterface, 1, 1),
+                        3,
+                        new AspectList()
+                                .add(WATER, 8)
+                                .add(AIR, 16)
+                                .add(MAGIC, 4)
+                                .add(AURA, 8)
+                                .add(CRAFT, 8)
+                                .add(TOOL, 8)
+                                .add(TRAVEL, 32)
+                        ,
+                        new ItemStack(ConfigBlocks.blockTube, 1, 4),
+                        new ItemStack[]{
+                                new ItemStack(Items.gold_ingot, 1),
+                                new ItemStack(ConfigItems.itemResource, 1, 8),
+                                new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                                new ItemStack(Items.iron_ingot, 1, 0),
+                                new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9),
+                                new ItemStack(Blocks.hopper, 1, 0)
                         }
                 ));
 
@@ -344,7 +416,7 @@ public class EzacianCraftRecipes {
                                 .add(METAL, 64)
                                 .add(TOOL, 16)
                         ,
-                        new ItemStack(ConfigItems.itemWandCap, 1, 6),
+                        new ItemStack(ConfigItems.itemWandCap, 1, 8),
                         new ItemStack[]{
                                 new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
                                 new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 1),
@@ -471,6 +543,83 @@ public class EzacianCraftRecipes {
                                 new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 2)
                         }
                 ));
+
+        //*magic alloy
+        EzacianCraftResearches.recipes.put(UNLOCALE_MAGIC_ALLOY+"CapCharged",
+                ThaumcraftApi.addInfusionCraftingRecipe(
+                        "CAP_magic_alloy",
+                        new ItemStack(EzacianCraftItems.magicAlloyCap, 1, 1),
+                        10,
+                        new AspectList()
+                                .add(MAGIC, 256)
+                                .add(TAINT, 32)
+                                .add(AURA, 128)
+                                .add(ENERGY, 128)
+                        ,
+                        new ItemStack(EzacianCraftItems.magicAlloyCap, 1, 0),
+                        new ItemStack[]{
+                                new ItemStack(ConfigItems.itemEldritchObject, 1, 3),
+                                new ItemStack(ConfigItems.itemResource, 1, 14),
+                                new ItemStack(ConfigItems.itemResource, 1, 14),
+                                new ItemStack(ConfigItems.itemResource, 1, 14),
+                                new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 0),
+                                new ItemStack(ConfigItems.itemResource, 1, 14),
+                                new ItemStack(ConfigItems.itemResource, 1, 14),
+                                new ItemStack(ConfigItems.itemResource, 1, 14),
+                        }
+                ));
+        EzacianCraftResearches.recipes.put(UNLOCALE_MAGIC_ALLOY_TRAVELLER_BOOTS,
+                ThaumcraftApi.addInfusionCraftingRecipe(
+                        "MAGIC_ALLOY_TRAVELLER_BOOTS",
+                        new ItemStack(EzacianCraftItems.magicAlloyTravellerBoots, 1, 0),
+                        6,
+                        new AspectList()
+                                .add(ARMOR, 64)
+                                .add(MAGIC, 48)
+                                .add(AIR, 128)
+                                .add(MOTION, 92)
+                                .add(TRAVEL, 128)
+                                .add(FLIGHT, 32)
+                        ,
+                        new ItemStack(ConfigItems.itemBootsTraveller, 1, 0),
+                        new ItemStack[]{
+                                new ItemStack(ConfigBlocks.blockCrystal, 1, 0),
+                                new ItemStack(Items.feather, 1, 0),
+                                new ItemStack(Items.feather, 1, 0),
+                                new ItemStack(Items.fish, 1, 0),
+                                new ItemStack(ConfigItems.itemResource, 1, 7),
+                                new ItemStack(ConfigItems.itemResource, 1, 7),
+                                new ItemStack(EzacianCraftItems.ezacianPlates, 1, 0),
+                                new ItemStack(EzacianCraftItems.ezacianPlates, 1, 0),
+                                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
+                        }
+                ));
+
+        EzacianCraftResearches.recipes.put(UNLOCALE_MAGIC_ALLOY_JAR,
+                ThaumcraftApi.addInfusionCraftingRecipe(
+                        "MAGIC_ALLOY_JAR",
+                        new ItemStack(EzacianCraftBlocks.magicAlloyJar, 1, 0),
+                        8,
+                        new AspectList()
+                                .add(WATER, 92)
+                                .add(EXCHANGE, 64)
+                                .add(MAGIC, 128)
+                                .add(ORDER, 64)
+                                .add(AURA, 64)
+                                .add(VOID, 256)
+                        ,
+                        new ItemStack(EzacianCraftBlocks.shadowVoidMetalJar, 1, 0),
+                        new ItemStack[]{
+                                new ItemStack(EzacianCraftItems.ezacianPlates, 1, 0),
+                                new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 2),
+                                new ItemStack(EzacianCraftItems.ezacianPlates, 1, 0),
+                                new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 2),
+                                new ItemStack(ConfigItems.itemEldritchObject, 1, 3),
+                                new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 2),
+                                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
+                                new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 2),
+                        }
+                ));
     }
 
     private static void registerMultiblockRecipes() {
@@ -490,6 +639,5 @@ public class EzacianCraftRecipes {
                         new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), new ItemStack(EzacianCraftBlocks.ezacianStoneDecorativeBlocks, 1, 0), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7)
                 )
         ));
-
     }
 }

@@ -2,6 +2,7 @@ package com.gabid.ezaciancraft.common.blocks.tileentity;
 
 import com.gabid.ezaciancraft.api.essentia.EzacianEssentiaWirelessHandler;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.scoreboard.Score;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.ThaumcraftApiHelper;
@@ -10,10 +11,12 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.aspects.IEssentiaTransport;
+import thaumcraft.common.tiles.TileMirrorEssentia;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.gabid.ezaciancraft.CoreMod.LOG;
 import static com.gabid.ezaciancraft.config.EzacianCraftConfiguration.wirelessOutputInterfaceWorkRadius;
 
 public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft implements IEssentiaTransport, IAspectContainer {
@@ -138,7 +141,9 @@ public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft im
             this.fillInterface();
             if ((this.storedAspect != null && this.essentiaList.visSize() > 0) || this.storedAmount > 0) {
                 this.essentiaSources = EzacianEssentiaWirelessHandler.getNearestEssentiaHandler(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing.getOpposite(), wirelessOutputInterfaceWorkRadius);
-                EzacianEssentiaWirelessHandler.fillEssentiaWireless(this, this.worldObj, this.essentiaSources, this.facing, 1);
+                if(!this.essentiaSources.isEmpty()) {
+                    EzacianEssentiaWirelessHandler.fillEssentiaWireless(this, this.worldObj, this.essentiaSources, this.facing, 1);
+                }
             }
         }
     }

@@ -19,9 +19,6 @@ item.crudeCrystalyium.2.name=Cluster of Crude Crystalyium
 item.ezacianPlates.0.name=Magic Alloy Plate
 
 #### wand and caps
-item.ezacianWandCap.0.name=
-item.ezacianWandCap.1.name=
-
 item.shadowVoidMetalWandCap.0.name=Inert Cap of Shadow Void Metal
 item.shadowVoidMetalWandCap.1.name=Charged Cap of Shadow Void Metal
 
@@ -34,6 +31,8 @@ item.advancedPrimalRod.1.name=Core of Advanced Primal Staff
 
 #####wandCapName
 item.Wand.shadow_void_metal.cap=Cap of Shadow Void Metal
+item.Wand.magic_alloy.cap=Cap of Magic Alloy
+
 
 ####wandRodName
 item.Wand.advanced_primal.rod=Advanced Primal
@@ -48,7 +47,7 @@ item.voidGrowthHoe.name=The Growth Hoe of Void
 item.voidStaffOfPrimalReconstructor.name=Primal Staff of the Reconstruction
 
 ##armors
-item.magicAlloyTravellerBoots.name=Boots of Traveller of Magic Alloy
+item.magicAlloyTravellerBoots.name=Boots of the Traveller of Magic Alloy
 
 #blocks
 ##resource
@@ -69,7 +68,7 @@ tile.ezacianStoneDecorative.0.name=Chiseled Arcane Stone - Ezacian
 tile.alchemicalMixer.name=Alchemical Mixer
 tile.shadowAlchemyFurnace.name=Shadow Void Metal Alchemical Furnace
 tile.extendedArcaneWorkbench.name=Extended Arcane Workbench
-tile.wirelessEssentiaInterface.0.name=Interfaz Inalámbrica de Salida de Escencia
+tile.wirelessEssentiaInterface.0.name=Output Wireless Interface of Essentia
 tile.wirelessEssentiaInterface.1.name=Interfaz Inalámbrica de Entrada de Escencia
 tile.etherealAccelerator.name=Acelerador Etéreo
 
@@ -98,7 +97,7 @@ tc.research_name.GETTING_STARTED=Getting Started
 tc.research_text.GETTING_STARTED=Alien Magic?
 
 tc.research_name.MAGIC_AT_PHYSIC_WORLD=The Magic in the Ezacian Physic World and General One
-tc.research_text.MAGIC_AT_PHYSIC_WORLD=Understaing the origins
+tc.research_text.MAGIC_AT_PHYSIC_WORLD=Understanding the origins
 
 tc.research_name.DECORATIVE_BLOCKS=Decoratives Blocks
 tc.research_text.DECORATIVE_BLOCKS=For a prettier base :)
@@ -116,10 +115,10 @@ tc.research_name.TAINT_LANDS=Corrupted Taint Lands
 tc.research_text.TAINT_LANDS=Simply corrupt...
 
 tc.research_name.VOID_SEED_ORE_CONVERSION=Conversion Ore of Void Seeds
-tc.research_text.VOID_SEED_ORE_CONVERSION=Converting rare materials, on weirdier things...
+tc.research_text.VOID_SEED_ORE_CONVERSION=Converting rare materials, on weirder things...
 
 tc.research_name.SHADOW_VOID_METAL_ORE=Ore of Shadow Void Metal
-tc.research_text.SHADOW_VOID_METAL_ORE=Justly inedit...
+tc.research_text.SHADOW_VOID_METAL_ORE=Justly indite...
 
 tc.research_name.SHADOW_VOID_METAL=Shadow Void Metal
 tc.research_text.SHADOW_VOID_METAL=Darkening Void itself...
@@ -128,7 +127,7 @@ tc.research_name.SHADOW_VOID_METAL_JAR=Jars of Shadow Void Metal
 tc.research_text.SHADOW_VOID_METAL_JAR=An essential hollowed heart...
 
 tc.research_name.ELEMENTAL_VOID_TOOLS=Void Elemental Tools
-tc.research_text.ELEMENTAL_VOID_TOOLS=¡More powerfoul than never!
+tc.research_text.ELEMENTAL_VOID_TOOLS=¡More powerful than never!
 
 tc.research_name.ELEMENTAL_VOID_SWORD=The Void Sword of Zephyr
 tc.research_text.ELEMENTAL_VOID_SWORD=I might zephyr is not content...
@@ -153,6 +152,21 @@ tc.research_text.CRYSTALYIUM_JAR=Least like an Reservoir...
 
 tc.research_name.SHADOW_ALCHEMY_FURNACE=Shadow Void Metal Alchemical Furnace
 tc.research_text.SHADOW_ALCHEMY_FURNACE=¡Better than the Advanced one!
+
+tc.research_name.WIRELESS_INTERFACES=Wireless Interfaces of Essentia
+tc.research_text.WIRELESS_INTERFACES=¡I don't need tubes!
+
+tc.research_name.MAGIC_ALLOY=Magic Alloy
+tc.research_text.MAGIC_ALLOY=¡Resistant magic conductor!
+
+tc.research_name.CAP_magic_alloy=Caps of Magic Alloy
+tc.research_text.CAP_magic_alloy=No... 
+
+tc.research_name.MAGIC_ALLOY_TRAVELLER_BOOTS=Boots of the Traveller of Magic Alloy
+tc.research_text.MAGIC_ALLOY_TRAVELLER_BOOTS=¡Run like Sonic!
+
+tc.research_name.MAGIC_ALLOY_JAR=Jars of Magic Alloy
+tc.research_text.MAGIC_ALLOY_JAR=This even make sense?
 
 ##research pages
 ezaciancraft.research_page.GETTING_STARTED.1=After a long period of boredom, unsure of which field to research within the §lThaumonomicon§r,<BR>you come across a peculiar entry describing an entirely unknown culture. It does not seem to belong to Humans (Steves) at all, but rather to beings from outer space, originating from a distant planet known as: §l"CRIPTUS"§r.<BR>The writing is undoubtedly §lunique§r, but fortunately, you manage to find an alphabet that seems as though §o§lsomeone§r left it behind for you to understand.<LINE>
@@ -212,6 +226,14 @@ ezaciancraft.research_page.ROD_advanced_primal.1=Through the use of Void Metal, 
 ezaciancraft.research_page.ROD_advanced_primal.2=This staff retains its ability to regenerate Vis, restoring up to 75% of its total capacity. It also features a base capacity of 250 Vis—slightly higher than the original—and is fully compatible with the Arcane Workbench.<BR>Surely, this is something worth celebrating... is it not?
 
 ezaciancraft.research_page.ROD_advanced_primal_staff.1=Following your previous research, it was only natural to pursue an enhanced version of the staff itself, much like the original.<BR>You realize that only a few additional refinements were needed to achieve it.<BR>This staff can store up to 500 base Vis and retains its ability to regenerate up to 75% of its total capacity.
+
+ezaciancraft.research_page.MAGIC_ALLOY.1=After much contemplation upon obtaining the Primordial Pearl, you come to realize that with your new material—beyond its potential for crafting various intriguing creations—you could use it to “bind” Thaumium with Void Metal and Shadowmetal, thus forming a metalloïd that behaves as an exceptionally strong yet durable magical conductor. Nevertheless, the intense, volatile persistence of Void Metal remains evident, and it still suffers from the issue of Warp. Even so, with this material you are now capable of creating constructs that are not strictly bound to magic alone.
+
+ezaciancraft.research_page.CAP_magic_alloy.1=With your new material, you believed it would be feasible to utilize shadow-infused Void Metal to create a new wand cap. This cap is capable of granting a total discount of 7.5%—an absurdly formidable yet understandable outcome. Reaching this point is the work of a damaged and unhinged individual—myself, a Thaumaturge. How is this even possible!?
+
+ezaciancraft.research_page.MAGIC_ALLOY_TRAVELLER_BOOTS.1=As expected, your feet grow weary despite wearing the common Boots of the Traveller. Clearly, we are not ordinary beings; and in this case, with your new material, you have chosen to craft boots that provide unmatched comfort and freedom. By imbuing them with materials such as shadow-infused Void Metal, feathers, and other components, you obtain boots that allow you to jump up to 5 blocks high and move at a running speed of 24 blocks per second—these are the definitive boots!
+
+ezaciancraft.research_page.MAGIC_ALLOY_JAR.1=At last, with your new material and considerable effort, you have created something truly absurd: a jar capable of storing up to 8192 units of a single type of essentia. Why one would ever require such an amount remains unknown, but with this, you may finally feel satisfied...
 
 #container and screens
 ##Shadow V.M. Alchemy Furnace

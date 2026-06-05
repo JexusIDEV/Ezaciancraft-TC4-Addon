@@ -1,21 +1,26 @@
 package com.gabid.ezaciancraft.api.essentia;
 
-import com.gabid.ezaciancraft.CoreMod;
 import com.gabid.ezaciancraft.api.common.blocks.tileentity.EzacianCustomJarFillableTE;
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceInput;
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceOutput;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.WorldCoordinates;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.IAspectContainer;
+import thaumcraft.api.aspects.IAspectSource;
 import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.fx.PacketFXEssentiaSource;
-import thaumcraft.common.tiles.*;
+import thaumcraft.common.tiles.TileJarFillable;
+import thaumcraft.common.tiles.TileMirrorEssentia;
+import thaumcraft.common.tiles.TileTube;
+import thaumcraft.common.tiles.TileTubeBuffer;
 
 import java.util.*;
 
@@ -60,11 +65,12 @@ public class EzacianEssentiaWirelessHandler {
                     if(teEssentia == null || teEssentia instanceof TileTube || teEssentia instanceof TileTubeBuffer)
                         continue;
 
+                    double distScore = i * i + width * width + height * height;
+
                     if(teEssentia instanceof IEssentiaTransport) {
                         WorldCoordinates searcherCoords = new WorldCoordinates(searcherX, searcherY, searcherZ, world.provider.dimensionId);
                         IEssentiaTransport iEssentia = (IEssentiaTransport) teEssentia;
 
-                        double distScore = i * i + width * width + height * height;
                         double score;
                         double fillPenalty = getFillPenalty(teEssentia, iEssentia, facing);
                         double suctionBonus = getSuctionBonus(iEssentia, facing);
@@ -73,6 +79,15 @@ public class EzacianEssentiaWirelessHandler {
                         if(iEssentia.getEssentiaAmount(facing.getOpposite()) < getSourceCapacity(teEssentia)) {
                             sources.add(new ScoredSource(searcherCoords, score));
                         }
+                    }
+
+                    if(teEssentia instanceof TileMirrorEssentia) {
+                        WorldCoordinates searcherCoords = new WorldCoordinates(searcherX, searcherY, searcherZ, world.provider.dimensionId);
+
+                        double score;
+                        score = distScore ;
+
+                        sources.add(new ScoredSource(searcherCoords, score));
                     }
                 }
             }
@@ -135,13 +150,13 @@ public class EzacianEssentiaWirelessHandler {
     public static void fillEssentiaWireless(TileEntity originTE, World world, List<ScoredSource> sources, ForgeDirection facing, int toInsert) {
         double totalWeight = 0;
 
-        for (ScoredSource s : sources) {
-            totalWeight += 1.0 / (1.0 + s.score);
-        }
-
         TileEntityWirelessEssentiaInterfaceOutput originWEI = (TileEntityWirelessEssentiaInterfaceOutput) originTE;
 
         int remaining = Math.min(toInsert, originWEI.getStoredAmount());
+
+        for (ScoredSource s : sources) {
+            totalWeight += 1.0 / (1.0 + s.score);
+        }
 
         for (ScoredSource s : sources) {
             if (remaining <= 0) break;
@@ -200,6 +215,7 @@ public class EzacianEssentiaWirelessHandler {
                     SimpleNetworkWrapper LOCAL_NETWORK = PacketHandler.INSTANCE;
                     PacketFXEssentiaSource packet = createEssentiaFX(originTE, s.pos, originCurrentAspect);
 
+                    if (packet == null) continue;
                     LOCAL_NETWORK.sendToAllAround(packet,
                             new NetworkRegistry.TargetPoint(
                                     originTE.getWorldObj().provider.dimensionId,
@@ -211,19 +227,131 @@ public class EzacianEssentiaWirelessHandler {
                     );
                 }
             }
+
+            if(sourcesAC instanceof IAspectSource && teSources instanceof TileMirrorEssentia) {
+                fillEssentiaWireless(originWEI, (TileMirrorEssentia) teSources, toInsert);
+            }
+        }
+    }
+
+    public static void fillEssentiaWireless(TileEntityWirelessEssentiaInterfaceOutput originWEI, TileMirrorEssentia mirrorSource, int toInsert) {
+        if(mirrorSource != null) {
+            World localWorldDim = DimensionManager.getWorld(mirrorSource.linkDim);
+            if(localWorldDim != null) {
+                TileEntity teLinkedMirror = localWorldDim.getTileEntity(mirrorSource.linkX, mirrorSource.linkY, mirrorSource.linkZ);
+                if(teLinkedMirror instanceof TileMirrorEssentia) {
+                    TileMirrorEssentia linkedMirror = (TileMirrorEssentia) teLinkedMirror;
+                    ForgeDirection linkedMirrorFacing = ForgeDirection.getOrientation(linkedMirror.blockMetadata % 6);
+                    int remaining = Math.min(toInsert, originWEI.getStoredAmount());
+
+                    if(linkedMirrorFacing != ForgeDirection.UNKNOWN && originWEI.hasWorldObj() && linkedMirror.hasWorldObj()) {
+                        LOG.info("found mirror at: [{}, {}, {}] dim: {}, facing: {}", mirrorSource.linkX, mirrorSource.linkY, mirrorSource.linkZ, mirrorSource.linkDim, linkedMirrorFacing);
+
+                        List<ScoredSource> linkedMirrorSources = getNearestEssentiaHandler(localWorldDim, linkedMirror.xCoord, linkedMirror.yCoord, linkedMirror.zCoord, linkedMirrorFacing, wirelessOutputInterfaceWorkRadius);
+                        double totalWeight = 0;
+
+                        for (ScoredSource s : linkedMirrorSources) {
+                            totalWeight += 1.0 / (1.0 + s.score);
+                        }
+
+                        for(ScoredSource s : linkedMirrorSources) {
+                            if (remaining <= 0) break;
+
+                            TileEntity teSources = localWorldDim.getTileEntity(s.pos.x, s.pos.y, s.pos.z);
+
+                            IEssentiaTransport sourcesET = null;
+                            if (teSources instanceof IEssentiaTransport) sourcesET = (IEssentiaTransport) teSources;
+
+                            IAspectContainer sourcesAC = null;
+                            if (teSources instanceof IAspectContainer) sourcesAC = (IAspectContainer) teSources;
+
+                            if (sourcesET != null && sourcesAC != null) {
+                                int sourceCurrentStored = sourcesET.getEssentiaAmount(linkedMirrorFacing.getOpposite());
+                                int sourceCapacity = getSourceCapacity(teSources);
+
+                                if (sourceCapacity <= 0) continue;
+
+                                int sourceSpace = Math.max(0, sourceCapacity - sourceCurrentStored);
+                                if (sourceSpace == 0) continue;
+
+                                double weight = 1.0 / (1.0 + s.score);
+
+                                int amount = (int) ((weight / totalWeight) * toInsert);
+
+                                amount = Math.max(1, amount);
+                                amount = Math.min(amount, sourceSpace);
+                                amount = Math.min(amount, originWEI.getStoredAmount());
+
+                                if (amount <= 0) continue;
+
+                                Aspect targetAspect = sourcesET.getEssentiaType(linkedMirrorFacing.getOpposite());
+
+                                Aspect originCurrentAspect = originWEI.getStoredAspect();
+
+                                if (targetAspect != null && targetAspect != originWEI.getStoredAspect()) {
+                                    continue;
+                                }
+
+                                sourcesAC.addToContainer(originWEI.getStoredAspect(), amount);
+                                if(originWEI.takeFromContainer(originWEI.getStoredAspect(), amount)) {
+                                    remaining -= amount;
+                                }
+
+                                if (originCurrentAspect == null) return;
+
+                                ConnectionKey key = new ConnectionKey(originWEI, teSources);
+                                long now = System.currentTimeMillis();
+
+                                connectionDelay.entrySet().removeIf(entry -> now > entry.getValue() + ESSENTIA_DELAY_MILLIS);
+
+                                if (!connectionDelay.containsKey(key) || now > connectionDelay.get(key)) {
+                                    long delay = (long)(ESSENTIA_DELAY_MILLIS / (1.0 + s.score * 0.1));
+                                    connectionDelay.put(key, now + delay);
+
+                                    SimpleNetworkWrapper LOCAL_NETWORK = PacketHandler.INSTANCE;
+                                    PacketFXEssentiaSource packetIn = createEssentiaFX(originWEI, new WorldCoordinates(mirrorSource), originCurrentAspect);
+                                    PacketFXEssentiaSource packetOut = createEssentiaFX(linkedMirror, new WorldCoordinates(teSources), originCurrentAspect);
+
+                                    if (packetIn == null) continue;
+                                    LOCAL_NETWORK.sendToAllAround(packetIn,
+                                            new NetworkRegistry.TargetPoint(
+                                                    originWEI.getWorldObj().provider.dimensionId,
+                                                    originWEI.xCoord,
+                                                    originWEI.yCoord,
+                                                    originWEI.zCoord,
+                                                    32f
+                                            )
+                                    );
+
+                                    if (packetOut == null) continue;
+                                    LOCAL_NETWORK.sendToAllAround(packetOut,
+                                            new NetworkRegistry.TargetPoint(
+                                                    linkedMirror.getWorldObj().provider.dimensionId,
+                                                    linkedMirror.xCoord,
+                                                    linkedMirror.yCoord,
+                                                    linkedMirror.zCoord,
+                                                    32f
+                                            )
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
     public static void drainEssentiaWireless(TileEntity originTE, World world, List<ScoredSource> sources, ForgeDirection facing, int toExtract) {
         double totalWeight = 0;
 
-        for (ScoredSource s : sources) {
-            totalWeight += 1.0 / (1.0 + s.score);
-        }
-
         TileEntityWirelessEssentiaInterfaceInput originWEI = (TileEntityWirelessEssentiaInterfaceInput) originTE;
 
         int currentStoredWEI = Math.min(toExtract, originWEI.getMaxCapacityEssentiaVis() - originWEI.getCurrentStoredVis());
+
+        for (ScoredSource s : sources) {
+            totalWeight += 1.0 / (1.0 + s.score);
+        }
 
         for (ScoredSource s : sources) {
             if (currentStoredWEI > originWEI.getMaxCapacityEssentiaVis()) break;
@@ -270,6 +398,7 @@ public class EzacianEssentiaWirelessHandler {
                     SimpleNetworkWrapper LOCAL_NETWORK = PacketHandler.INSTANCE;
                     PacketFXEssentiaSource packet = createEssentiaFX(world.getTileEntity(s.pos.x, s.pos.y, s.pos.z), new WorldCoordinates(originTE.xCoord, originTE.yCoord, originTE.zCoord, world.provider.dimensionId), sourceAspect);
 
+                    if (packet == null) continue;
                     LOCAL_NETWORK.sendToAllAround(packet,
                             new NetworkRegistry.TargetPoint(
                                     originTE.getWorldObj().provider.dimensionId,
@@ -281,15 +410,120 @@ public class EzacianEssentiaWirelessHandler {
                     );
                 }
             }
+
+            if(sourcesAC instanceof IAspectSource && teSources instanceof TileMirrorEssentia) {
+                drainEssentiaWireless(originWEI, (TileMirrorEssentia) teSources, toExtract);
+            }
+        }
+    }
+
+    public static void drainEssentiaWireless(TileEntityWirelessEssentiaInterfaceInput originWEI, TileMirrorEssentia mirrorSource, int toExtract) {
+        if(mirrorSource != null) {
+            World localWorldDim = DimensionManager.getWorld(mirrorSource.linkDim);
+            if (localWorldDim != null) {
+                TileEntity teLinkedMirror = localWorldDim.getTileEntity(mirrorSource.linkX, mirrorSource.linkY, mirrorSource.linkZ);
+                if (teLinkedMirror instanceof TileMirrorEssentia) {
+                    TileMirrorEssentia linkedMirror = (TileMirrorEssentia) teLinkedMirror;
+                    ForgeDirection linkedMirrorFacing = ForgeDirection.getOrientation(linkedMirror.blockMetadata % 6);
+                    int currentStoredWEI = Math.min(toExtract, originWEI.getMaxCapacityEssentiaVis() - originWEI.getCurrentStoredVis());
+
+                    if (linkedMirrorFacing != ForgeDirection.UNKNOWN && originWEI.hasWorldObj() && linkedMirror.hasWorldObj()) {
+                        LOG.info("found mirror at: [{}, {}, {}] dim: {}, facing: {}", mirrorSource.linkX, mirrorSource.linkY, mirrorSource.linkZ, mirrorSource.linkDim, linkedMirrorFacing);
+
+                        List<ScoredSource> linkedMirrorSources = getNearestEssentiaHandler(localWorldDim, linkedMirror.xCoord, linkedMirror.yCoord, linkedMirror.zCoord, linkedMirrorFacing, wirelessOutputInterfaceWorkRadius);
+
+                        double totalWeight = 0;
+
+                        for (ScoredSource s : linkedMirrorSources) {
+                            totalWeight += 1.0 / (1.0 + s.score);
+                        }
+
+                        for(ScoredSource s : linkedMirrorSources) {
+                            if (currentStoredWEI > originWEI.getMaxCapacityEssentiaVis()) break;
+
+                            TileEntity teSources = localWorldDim.getTileEntity(s.pos.x, s.pos.y, s.pos.z);
+
+                            IEssentiaTransport sourcesET = null;
+                            if (teSources instanceof IEssentiaTransport) sourcesET = (IEssentiaTransport) teSources;
+
+                            IAspectContainer sourcesAC = null;
+                            if (teSources instanceof IAspectContainer) sourcesAC = (IAspectContainer) teSources;
+
+                            if(sourcesET != null && sourcesAC != null) {
+                                int available = sourcesET.getEssentiaAmount(linkedMirrorFacing.getOpposite());
+                                if (available <= 0) continue;
+
+                                Aspect sourceAspect = sourcesET.getEssentiaType(linkedMirrorFacing.getOpposite());
+                                if (sourceAspect == null) continue;
+
+                                double weight = 1.0 / (1.0 + s.score);
+
+                                int amountToExtract = (int) ((weight / totalWeight) * toExtract);
+
+                                amountToExtract = Math.max(1, amountToExtract);
+                                amountToExtract = Math.min(amountToExtract, available);
+                                amountToExtract = Math.min(amountToExtract, currentStoredWEI);
+
+                                if (amountToExtract <= 0) continue;
+
+                                if (sourcesAC.takeFromContainer(sourceAspect, amountToExtract)) {
+                                    originWEI.addToContainer(sourceAspect, amountToExtract);
+                                    currentStoredWEI -= amountToExtract;
+                                }
+
+                                ConnectionKey key = new ConnectionKey(originWEI, teSources);
+                                long now = System.currentTimeMillis();
+
+                                if (!connectionDelay.containsKey(key) || now > connectionDelay.get(key)) {
+                                    long delay = (long)(ESSENTIA_DELAY_MILLIS / (1.0 + s.score * 0.1));
+                                    connectionDelay.put(key, now + delay);
+
+                                    SimpleNetworkWrapper LOCAL_NETWORK = PacketHandler.INSTANCE;
+                                    PacketFXEssentiaSource packetIn = createEssentiaFX(mirrorSource, new WorldCoordinates(originWEI), sourceAspect);
+                                    PacketFXEssentiaSource packetOut = createEssentiaFX(teSources, new WorldCoordinates(linkedMirror), sourceAspect);
+
+                                    if (packetIn == null) continue;
+                                    LOCAL_NETWORK.sendToAllAround(packetIn,
+                                            new NetworkRegistry.TargetPoint(
+                                                    mirrorSource.getWorldObj().provider.dimensionId,
+                                                    mirrorSource.xCoord,
+                                                    mirrorSource.yCoord,
+                                                    mirrorSource.zCoord,
+                                                    32f
+                                            )
+                                    );
+
+                                    if (packetOut == null) continue;
+                                    LOCAL_NETWORK.sendToAllAround(packetOut,
+                                            new NetworkRegistry.TargetPoint(
+                                                    linkedMirror.getWorldObj().provider.dimensionId,
+                                                    linkedMirror.xCoord,
+                                                    linkedMirror.yCoord,
+                                                    linkedMirror.zCoord,
+                                                    32f
+                                            )
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
     private static PacketFXEssentiaSource createEssentiaFX(TileEntity source, WorldCoordinates destiny, Aspect originCurrentAspect) {
+        if (source == null || destiny == null) return null;
+
         int color = (originCurrentAspect != null) ? originCurrentAspect.getColor() : 0xFFFFFF;
 
-        byte dx = (byte) (destiny.x - source.xCoord);
-        byte dy = (byte) (destiny.y - source.yCoord);
-        byte dz = (byte) (destiny.z - source.zCoord);
+        byte dx;
+        byte dy;
+        byte dz;
+
+        dx = (byte) Math.max(-127, Math.min(127, destiny.x - source.xCoord));
+        dy = (byte) Math.max(-127, Math.min(127, destiny.y - source.yCoord));
+        dz = (byte) Math.max(-127, Math.min(127, destiny.z - source.zCoord));
 
         return new PacketFXEssentiaSource(
                 destiny.x,
@@ -303,10 +537,10 @@ public class EzacianEssentiaWirelessHandler {
     }
 
     public static class ScoredSource {
-        WorldCoordinates pos;
-        double score;
+        public WorldCoordinates pos;
+        public double score;
 
-        ScoredSource(WorldCoordinates pos, double score) {
+        public ScoredSource(WorldCoordinates pos, double score) {
             this.pos = pos;
             this.score = score;
         }

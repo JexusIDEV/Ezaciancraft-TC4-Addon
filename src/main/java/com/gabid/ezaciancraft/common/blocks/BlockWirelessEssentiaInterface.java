@@ -19,6 +19,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import java.util.List;
 
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_WIRELESS_ESSENTIA_INTERFACE;
+import static com.gabid.ezaciancraft.registry.EzacianCraftTypeRenders.WIRELESS_ESSENTIA_INTERFACES_RENDER_ID;
 import static thaumcraft.common.Thaumcraft.MODID;
 
 public class BlockWirelessEssentiaInterface extends BlockContainer {
@@ -55,7 +56,7 @@ public class BlockWirelessEssentiaInterface extends BlockContainer {
 
     @Override
     public int getRenderType() {
-        return -1;
+        return WIRELESS_ESSENTIA_INTERFACES_RENDER_ID;
     }
 
     @Override

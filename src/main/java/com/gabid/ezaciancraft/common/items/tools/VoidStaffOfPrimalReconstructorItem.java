@@ -453,8 +453,6 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
                 if (ticks % 20 == 0) {
                     stack.damageItem(1, player);
                 }
-            } else {
-                super.onUsingTick(stack, player, count);
             }
         } else {
             super.onUsingTick(stack, player, count);

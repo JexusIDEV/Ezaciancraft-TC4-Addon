@@ -24,6 +24,7 @@ public class EzacianCraftCreativeTab {
         @SuppressWarnings("unchecked")
         @Override
         public void displayAllReleventItems(List list) {
+            //shadow void metal
             ItemStack wand = new ItemStack(ConfigItems.itemWandCasting, 1, 50);
             ((ItemWandCasting) wand.getItem()).setCap(wand, shadowVoidMetalCap.cap);
             ((ItemWandCasting) wand.getItem()).setRod(wand, advancedPrimalWandStaffRod.rodWand);
@@ -45,6 +46,29 @@ public class EzacianCraftCreativeTab {
             ((ItemWandCasting) wand.getItem()).setRod(staffScepter, advancedPrimalWandStaffRod.staffWand);
             staffScepter.setTagInfo("sceptre", new NBTTagByte((byte) 1));
             list.add(staffScepter);
+
+            //magic alloy
+            ItemStack wandM = new ItemStack(ConfigItems.itemWandCasting, 1, 50);
+            ((ItemWandCasting) wandM.getItem()).setCap(wandM, magicAlloyCap.cap);
+            ((ItemWandCasting) wandM.getItem()).setRod(wandM, advancedPrimalWandStaffRod.rodWand);
+            list.add(wandM);
+
+            ItemStack wandScepterM = new ItemStack(ConfigItems.itemWandCasting, 1, 75);
+            ((ItemWandCasting) wandM.getItem()).setCap(wandScepterM, magicAlloyCap.cap);
+            ((ItemWandCasting) wandM.getItem()).setRod(wandScepterM, advancedPrimalWandStaffRod.rodWand);
+            wandScepterM.setTagInfo("sceptre", new NBTTagByte((byte) 1));
+            list.add(wandScepterM);
+
+            ItemStack staffM = new ItemStack(ConfigItems.itemWandCasting, 1, 50);
+            ((ItemWandCasting) wandM.getItem()).setCap(staffM, magicAlloyCap.cap);
+            ((ItemWandCasting) wandM.getItem()).setRod(staffM, advancedPrimalWandStaffRod.staffWand);
+            list.add(staffM);
+
+            ItemStack staffScepterM = new ItemStack(ConfigItems.itemWandCasting, 1, 75);
+            ((ItemWandCasting) wandM.getItem()).setCap(staffScepterM, magicAlloyCap.cap);
+            ((ItemWandCasting) wandM.getItem()).setRod(staffScepterM, advancedPrimalWandStaffRod.staffWand);
+            staffScepterM.setTagInfo("sceptre", new NBTTagByte((byte) 1));
+            list.add(staffScepterM);
 
             super.displayAllReleventItems(list);
         }

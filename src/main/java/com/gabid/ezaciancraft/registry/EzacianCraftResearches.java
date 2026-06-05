@@ -35,6 +35,9 @@ public class EzacianCraftResearches {
     public static final int shadowVoidMetalColumnPos = -3;
     public static final int shadowVoidMetalRowPos = 0;
 
+    public static final int magicAlloyColumnPos = shadowVoidMetalColumnPos;
+    public static final int magicAlloyRowPos = shadowVoidMetalRowPos - 4;
+
     public static HashMap<String, Object> recipes = new HashMap<>();
 
     public static void registerAllResearches() {
@@ -103,7 +106,6 @@ public class EzacianCraftResearches {
                 new ResearchPage(new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 2))
         ).setItemTriggers(new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceOreBlock(), 1, 0)).setAspectTriggers(REPLICATIO).setParents("GETTING_STARTED").registerResearchItem());
 
-        //currently in placholder
         ResearchCategories.addResearch((new ResearchItem("ALCHEMICAL_MIXER",
                 EZACIANCRAFT_CATEGORY_ID,
                 new AspectList()
@@ -139,6 +141,26 @@ public class EzacianCraftResearches {
                 ResearchUtils.createPageTranslation("ALCHEMICAL_MIXER", 2),
                 ResearchUtils.createPageTranslation("ALCHEMICAL_MIXER", 3)
         ).setParents("CENTRIFUGE").registerResearchItem());
+
+        ResearchCategories.addResearch((new ResearchItem("WIRELESS_INTERFACES",
+                EZACIANCRAFT_CATEGORY_ID,
+                new AspectList()
+                        .add(WATER, 1)
+                        .add(AIR, 4)
+                        .add(TRAVEL, 2)
+                        .add(AURA, 1)
+                        .add(CRAFT, 2)
+                        .add(TOOL, 2)
+                ,
+                5, 0, 2,
+                new ItemStack(EzacianCraftBlocks.wirelessEssentiaInterface, 1, 0)
+        )).setPages(
+                ResearchUtils.createPageTranslation("WIRELESS_INTERFACES", 1),
+                new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_WIRELESS_ESSENTIA_INTERFACE+"Out")),
+                new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_WIRELESS_ESSENTIA_INTERFACE+"In")),
+                ResearchUtils.createPageTranslation("WIRELESS_INTERFACES", 2),
+                ResearchUtils.createPageTranslation("WIRELESS_INTERFACES", 3)
+        ).setParents("THAUMATORIUM", "MIRRORESSENTIA").setConcealed().setSecondary().registerResearchItem());
 
         ResearchCategories.addResearch((new ResearchItem("SHADOW_ALCHEMY_FURNACE",
                 EZACIANCRAFT_CATEGORY_ID,
@@ -151,7 +173,7 @@ public class EzacianCraftResearches {
                         .add(ENERGY, 1)
                         .add(ELDRITCH, 1)
                 ,
-                5, 0, 2,
+                7, 0, 2,
                 new ItemStack(EzacianCraftBlocks.shadowAlchemyFurnace, 1, 0)
         )).setPages(
                 ResearchUtils.createPageTranslation("SHADOW_ALCHEMY_FURNACE", 1),
@@ -168,7 +190,7 @@ public class EzacianCraftResearches {
                         .add(AURA, 6)
                         .add(CRAFT, 4)
                 ,
-                7, 0, 2,
+                9, 0, 2,
                 new ItemStack(EzacianCraftBlocks.ezacianStoneDecorativeBlocks, 1, 0)
         )).setPages(
                 ResearchUtils.createPageTranslation("ADVANCED_ARCANE_WORKBENCH", 1),
@@ -418,5 +440,76 @@ public class EzacianCraftResearches {
                 new ResearchPage((InfusionRecipe) recipes.get("advancedPrimalStaff"))
         ).setConcealed().setSecondary().setParents("ROD_advanced_primal").registerResearchItem());
         ThaumcraftApi.addWarpToResearch("ROD_advanced_primal_staff", 6);
+
+        //*MAGIC ALLOY
+        ResearchCategories.addResearch((new ResearchItem("MAGIC_ALLOY",
+                EZACIANCRAFT_CATEGORY_ID,
+                new AspectList()
+                        .add(MAGIC, 1)
+                        .add(AURA, 1)
+                        .add(ELDRITCH, 1)
+                        .add(CRAFT, 1)
+                        .add(METAL, 1)
+                ,
+                magicAlloyColumnPos, magicAlloyRowPos, 2,
+                new ItemStack(EzacianCraftItems.ezacianPlates, 1, 0)
+        )).setPages(
+                ResearchUtils.createPageTranslation("MAGIC_ALLOY", 1),
+                new ResearchPage((ShapedArcaneRecipe) recipes.get(UNLOCALE_MAGIC_ALLOY))
+        ).setParents("SHADOW_VOID_METAL", "PRIMPEARL").setConcealed().setSecondary().registerResearchItem());
+        ThaumcraftApi.addWarpToResearch("MAGIC_ALLOY", 1);
+
+        ResearchCategories.addResearch((new ResearchItem("CAP_magic_alloy",
+                EZACIANCRAFT_CATEGORY_ID,
+                new AspectList()
+                        .add(AURA, 1)
+                        .add(TOOL, 1)
+                        .add(MAGIC, 1)
+                        .add(TAINT, 1)
+                        .add(METAL, 1)
+                ,
+                magicAlloyColumnPos - 3, magicAlloyRowPos, 2,
+                new ItemStack(EzacianCraftItems.magicAlloyCap, 1, 0)
+        )).setPages(
+                ResearchUtils.createPageTranslationNoUpper("CAP_magic_alloy", 1),
+                new ResearchPage((ShapedArcaneRecipe) recipes.get("magicAlloyCap")),
+                new ResearchPage((InfusionRecipe) recipes.get("magicAlloyCapCharged"))
+        ).setConcealed().setParents("MAGIC_ALLOY", "CRYSTALYIUM", "CAP_shadow_void_metal").registerResearchItem());
+        ThaumcraftApi.addWarpToResearch("CAP_magic_alloy", 2);
+
+        ResearchCategories.addResearch((new ResearchItem("MAGIC_ALLOY_TRAVELLER_BOOTS",
+                EZACIANCRAFT_CATEGORY_ID,
+                new AspectList()
+                        .add(ARMOR, 4)
+                        .add(MAGIC, 2)
+                        .add(AIR, 2)
+                        .add(MOTION, 4)
+                        .add(TRAVEL, 4)
+                        .add(FLIGHT, 1)
+                ,
+                magicAlloyColumnPos - 3, magicAlloyRowPos - 3, 1,
+                new ItemStack(EzacianCraftItems.magicAlloyTravellerBoots, 1, 0)
+        )).setPages(
+                ResearchUtils.createPageTranslation("MAGIC_ALLOY_TRAVELLER_BOOTS", 1),
+                new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_MAGIC_ALLOY_TRAVELLER_BOOTS))
+        ).setParents("MAGIC_ALLOY", "BOOTSTRAVELLER").setConcealed().setSecondary().registerResearchItem());
+
+        ResearchCategories.addResearch((new ResearchItem("MAGIC_ALLOY_JAR",
+                EZACIANCRAFT_CATEGORY_ID,
+                new AspectList()
+                        .add(WATER, 1)
+                        .add(EXCHANGE, 1)
+                        .add(MAGIC, 1)
+                        .add(ORDER, 1)
+                        .add(AURA, 1)
+                        .add(VOID, 1)
+                ,
+                magicAlloyColumnPos - 3, magicAlloyRowPos - 4, 3,
+                new ItemStack(EzacianCraftBlocks.magicAlloyJar, 1, 0)
+        )).setPages(
+                ResearchUtils.createPageTranslation("MAGIC_ALLOY_JAR", 1),
+                new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_MAGIC_ALLOY_JAR)),
+                new ResearchPage((ShapedArcaneRecipe) recipes.get(UNLOCALE_MAGIC_ALLOY_JAR+"Void"))
+        ).setParents("MAGIC_ALLOY", "SHADOW_VOID_METAL_JAR").setConcealed().registerResearchItem());
     }
 }

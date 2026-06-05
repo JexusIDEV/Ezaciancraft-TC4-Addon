@@ -1,5 +1,6 @@
 package com.gabid.ezaciancraft.config;
 
+import com.gabid.ezaciancraft.registry.EzacianCraftTypeRenders;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
@@ -10,6 +11,7 @@ public class EzacianCraftConfiguration {
     public static final String CAT_MACHINES = "Machines";
     public static final String CAT_ESSENTIA = "Essentia";
     public static final String CAT_WORLDGEN = "World Generation";
+    public static final String CAT_RENDERING = "General Rendering";
 
     //Default Configs and Values
     //Essentia
@@ -69,7 +71,6 @@ public class EzacianCraftConfiguration {
                 "The multiplier what increases the score bonus of the essentia search in how much suction is requesting."
         ).getDouble();
 
-
         // ---- //
 
         //Machines
@@ -108,7 +109,7 @@ public class EzacianCraftConfiguration {
                 CAT_MACHINES,
                 "wirelessInputInterfaceWorkRadius",
                 16,
-                "The max radius that the interface can search for sources in block units.",
+                "The max radius that the interface can search for sources in block units as volume in their facing.",
                 1,
                 16
         ).getInt();
@@ -117,7 +118,7 @@ public class EzacianCraftConfiguration {
                 CAT_MACHINES,
                 "wirelessOutputInterfaceWorkRadius",
                 16,
-                "The max radius that the interface can search for sources in block units.",
+                "The max radius that the interface can search for sources in block units as volume in their facing.",
                 1,
                 16
         ).getInt();
@@ -130,6 +131,38 @@ public class EzacianCraftConfiguration {
                 "The initial base discount value that the workbench can work.",
                 1,
                 20
+        ).getInt();
+
+        // ---- //
+
+        //Rendering
+        //general block render Types
+        String genericRenderComment ="The render type what the block or blocks uses, -1 is full custom.";
+        EzacianCraftTypeRenders.ALCHEMICAL_MIXER_RENDER_ID = config.get(
+                CAT_RENDERING,
+                "alchemicalMixerTypeRender",
+                -1,
+                genericRenderComment,
+                -1,
+                1
+        ).getInt();
+
+        EzacianCraftTypeRenders.ETHEREAL_ACCELERATOR_RENDER_ID = config.get(
+                CAT_RENDERING,
+                "etherealAcceleratorTypeRender",
+                -1,
+                genericRenderComment,
+                -1,
+                1
+        ).getInt();
+
+        EzacianCraftTypeRenders.WIRELESS_ESSENTIA_INTERFACES_RENDER_ID = config.get(
+                CAT_RENDERING,
+                "wirelessEssentiaInterfaceTypeRender",
+                -1,
+                genericRenderComment,
+                -1,
+                1
         ).getInt();
 
         if (config.hasChanged()) {
