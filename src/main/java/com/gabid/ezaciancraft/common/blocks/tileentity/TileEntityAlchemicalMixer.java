@@ -26,6 +26,7 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
     public Aspect aspectOutput = null;
     public int maxAspectCapacity = 3;
     public Aspect currentAspectForColor = null;
+    int currentAspects = 0;
 
     public List<Vector3f> colors;
 
@@ -36,6 +37,8 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
     private int ticks = 0;
     private int aspectProcessingTime = 0;
     private final int maxAspectProcessingTime = mixerBaseProcessingTimeSpeed;
+
+    public MixerStates state = MixerStates.IDLE;
 
     public TileEntityAlchemicalMixer() {
         colors = new ArrayList<>(3);
@@ -56,6 +59,7 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
             nbttagcompound.setString(OUTPUT_ASPECT, this.aspectOutput.getTag());
 
         nbttagcompound.setInteger(TE_META_FACING, this.metaFacing);
+        nbttagcompound.setInteger("State", this.state.ordinal());
 
         super.writeCustomNBT(nbttagcompound);
     }
@@ -67,6 +71,7 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
         this.aspectOutput = Aspect.getAspect(nbttagcompound.getString(OUTPUT_ASPECT));
         this.metaFacing = nbttagcompound.getInteger(TE_META_FACING);
         this.facing = ForgeDirection.getOrientation(this.metaFacing);
+        this.state = MixerStates.values()[(nbttagcompound.getInteger("State"))];
 
         super.readCustomNBT(nbttagcompound);
     }
@@ -320,88 +325,8 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
 
     @Override
     public void updateEntity() {
-        if (!this.worldObj.isRemote) {
-            ++this.ticks;
-            if (!this.isGettingRedstonePower()) {
-                if (this.ticks % 5 == 0) {
-                    if (this.aspectInput1 == null || this.aspectInput2 == null) {
-                        this.drawEssentiaFromInputPipes();
-                    }
-                }
-                if (++this.ticks % 20 == 0) {
-                    if (this.aspectInput1 != null && this.aspectInput2 != null && this.aspectOutput == null && this.aspectProcessingTime == 0) {
-                        this.aspectProcessingTime = this.maxAspectProcessingTime;
-                    } else if (this.aspectInput1 == null || this.aspectInput2 == null) {
-                        this.aspectProcessingTime = this.maxAspectProcessingTime;
-                        return;
-                    } else if (!AspectHelper.compoundExists(this.aspectInput1, this.aspectInput2)) {
-                        this.aspectProcessingTime = this.maxAspectProcessingTime;
-                        return;
-                    }
-
-                    if (this.aspectProcessingTime > 0) {
-                        this.aspectProcessingTime--;
-                    }
-
-                    if (this.aspectProcessingTime == 0 && this.aspectOutput == null) {
-                        this.processEssentiaMixing();
-                        this.aspectProcessingTime = this.maxAspectProcessingTime;
-                    } else {
-                        return;
-                    }
-                }
-            }
-        } else {
-            if (this.aspectInput1 != null && this.aspectInput2 != null) {
-                if (AspectHelper.compoundExists(this.aspectInput1, this.aspectInput2)) {
-                    if (!this.isGettingRedstonePower() && this.rotationSpeed < 20.0F) {
-                        this.rotationSpeed += 2.0F;
-                    }
-                } else {
-                    return;
-                }
-            } else {
-                if (this.rotationSpeed > 0.0F && !this.isGettingRedstonePower()) {
-                    this.rotationSpeed -= 0.5F;
-                } else if (this.isGettingRedstonePower() && this.rotationSpeed <= 0f) {
-                    this.rotationSpeed = 0F;
-                }
-            }
-
-            int pr = (int) this.whiskerRotation;
-            this.whiskerRotation += this.rotationSpeed;
-            if (this.whiskerRotation % 180.0F <= 20.0F && pr % 180 >= 160 && this.rotationSpeed > 0.0F) {
-                this.worldObj.playSound((double) this.xCoord + 0.5, (double) this.yCoord + 0.5, (double) this.zCoord + 0.5, "thaumcraft:pump", 1.0F, 1.0F, false);
-            }
-
-            int currentAspects = this.getAspects().visSize();
-            if (currentAspects > 0) {
-                if (this.ticks % 20 == 0 && this.getAspects().size() > 0) {
-                    this.currentAspectForColor = this.getAspects().getAspects()[this.ticks / 20 % this.getAspects().size()];
-                    Color color = new Color(this.currentAspectForColor.getColor());
-                    this.colors.get(0).x = color.getRed() / 255f;
-                    this.colors.get(0).y = color.getGreen() / 255f;
-                    this.colors.get(0).z = color.getBlue() / 255f;
-                    this.colors.get(1).x = (this.colors.get(2).x - this.colors.get(0).x) / 20f;
-                    this.colors.get(1).y = (this.colors.get(2).y - this.colors.get(0).y) / 20f;
-                    this.colors.get(1).z = (this.colors.get(2).z - this.colors.get(0).z) / 20f;
-                }
-
-                if (this.currentAspectForColor == null) {
-                    this.colors.get(0).x = this.colors.get(0).y = this.colors.get(0).z = 1.0F;
-                    this.colors.get(1).x = this.colors.get(1).y = this.colors.get(1).z = 0.0F;
-                } else {
-                    this.colors.get(2).x -= this.colors.get(1).x;
-                    this.colors.get(2).y -= this.colors.get(1).y;
-                    this.colors.get(2).z -= this.colors.get(1).z;
-                }
-            }
-        }
-
-        if (this.ticks < 0 || this.ticks == Integer.MAX_VALUE) {
-            this.ticks = 0;
-        }
-
+        this.handleEssentiaProcessingAndLogic();
+        this.handleEssentiaColor();
         super.updateEntity();
     }
 
@@ -561,6 +486,112 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
 
     public boolean isSideConnected(ForgeDirection direction) {
         TileEntity connectableTE = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, direction);
-        return connectableTE != null && connectableTE instanceof IEssentiaTransport;
+        return connectableTE instanceof IEssentiaTransport;
+    }
+
+    public void handleEssentiaProcessingAndLogic() {
+        if (!this.worldObj.isRemote) {
+            this.ticks++;
+            boolean powered = this.isGettingRedstonePower();
+
+            if (powered) {
+                this.state = MixerStates.PAUSED;
+                return;
+            }
+
+            if (this.ticks % 5 == 0) {
+                if (this.aspectInput1 == null || aspectInput2 == null) {
+                    this.drawEssentiaFromInputPipes();
+                }
+            }
+
+            if (this.aspectInput1 == null || this.aspectInput2 == null) {
+                this.state = MixerStates.IDLE;
+                this.aspectProcessingTime = 0;
+                return;
+            } else {
+                if (!AspectHelper.compoundExists(this.aspectInput1, this.aspectInput2)) {
+                    this.state = MixerStates.IDLE;
+                    this.aspectProcessingTime = 0;
+                    return;
+                } else {
+                    this.state = MixerStates.WORKING;
+                    if(this.aspectProcessingTime <= 0) {
+                        this.aspectProcessingTime = maxAspectProcessingTime;
+                    }
+                }
+            }
+
+            if(this.ticks % 20 == 0 && this.aspectProcessingTime > 0) {
+                this.aspectProcessingTime--;
+            }
+
+            if (this.aspectProcessingTime <= 0 && this.aspectOutput == null) {
+                this.processEssentiaMixing();
+            }
+        } else {
+            this.handleClientAnimLogic();
+        }
+    }
+
+    public void handleClientAnimLogic() {
+        boolean powered = this.isGettingRedstonePower();
+
+        if (powered) {
+            if (this.rotationSpeed > 0.0F) {
+                this.rotationSpeed -= 0.5F;
+            }
+        } else {
+            if (this.state == MixerStates.WORKING) {
+                if (this.rotationSpeed < 20.0F) {
+                    this.rotationSpeed += 2.0F;
+                }
+            } else {
+                if (this.rotationSpeed > 0f) {
+                    this.rotationSpeed -= 0.5f;
+                }
+            }
+        }
+
+        if (this.rotationSpeed < 0f) {
+            this.rotationSpeed = 0F;
+        } else {
+            int pr = (int) this.whiskerRotation;
+            this.whiskerRotation += this.rotationSpeed;
+            if (this.whiskerRotation % 180.0F <= 20.0F && pr % 180 >= 160 && this.rotationSpeed > 0.0F) {
+                this.worldObj.playSound((double) this.xCoord + 0.5, (double) this.yCoord + 0.5, (double) this.zCoord + 0.5, "thaumcraft:pump", 1.0F, 1.0F, false);
+            }
+        }
+    }
+
+    public void handleEssentiaColor() {
+        this.currentAspects = this.getAspects().visSize();
+        if (this.currentAspects > 0) {
+            if (this.ticks % 20 == 0 && this.getAspects().size() > 0) {
+                this.currentAspectForColor = this.getAspects().getAspects()[this.ticks / 20 % this.getAspects().size()];
+                Color color = new Color(this.currentAspectForColor.getColor());
+                this.colors.get(0).x = color.getRed() / 255f;
+                this.colors.get(0).y = color.getGreen() / 255f;
+                this.colors.get(0).z = color.getBlue() / 255f;
+                this.colors.get(1).x = (this.colors.get(2).x - this.colors.get(0).x) / 20f;
+                this.colors.get(1).y = (this.colors.get(2).y - this.colors.get(0).y) / 20f;
+                this.colors.get(1).z = (this.colors.get(2).z - this.colors.get(0).z) / 20f;
+            }
+
+            if (this.currentAspectForColor == null) {
+                this.colors.get(0).x = this.colors.get(0).y = this.colors.get(0).z = 1.0F;
+                this.colors.get(1).x = this.colors.get(1).y = this.colors.get(1).z = 0.0F;
+            } else {
+                this.colors.get(2).x -= this.colors.get(1).x;
+                this.colors.get(2).y -= this.colors.get(1).y;
+                this.colors.get(2).z -= this.colors.get(1).z;
+            }
+        }
+    }
+
+    public enum MixerStates {
+        IDLE,
+        WORKING,
+        PAUSED
     }
 }

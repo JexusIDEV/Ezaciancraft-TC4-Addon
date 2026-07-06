@@ -18,7 +18,7 @@ import thaumcraft.api.ThaumcraftApi;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 
-//a helper for registering various materials with ingot, nugget, block and ore
+///@api A helper for registering various materials with ingot, nugget, block and ore
 public class ResourceMaterialBuilder {
     protected final String resourceBaseName;
 

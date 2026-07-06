@@ -15,6 +15,7 @@ public class EzacianCraftTileEntities {
         registerTileEntity(TileEntityExtendedArcaneWorkbench.class, UNLOCALE_EXTENDED_ARCANE_WORKBENCH);
         registerTileEntity(TileEntityWirelessEssentiaInterfaceOutput.class, UNLOCALE_WIRELESS_ESSENTIA_INTERFACE+"Output");
         registerTileEntity(TileEntityWirelessEssentiaInterfaceInput.class, UNLOCALE_WIRELESS_ESSENTIA_INTERFACE+"Input");
+        registerTileEntity(TileEntityAdvancedEssentiaStorage.class, UNLOCALE_ADVANCED_ESSENTIA_STORAGE);
         registerTileEntity(TileEntityEtherealAccelerator.class, UNLOCALE_ETHEREAL_ACCELERATOR);
         registerTileEntity(EzacianCustomJarFillableTE.class, UNLOCALE_CUSTOM_BASE_JAR);
     }

@@ -4,6 +4,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
+import java.util.Arrays;
+
 public class NBTHelper {
 
     public static boolean containerNBTIsNotNull(ItemStack container) {
@@ -55,26 +57,29 @@ public class NBTHelper {
 
         for (int i = 0; i < stackToWrite.length; i++) {
             ItemStack stack = stackToWrite[i];
+
             if (stack != null) {
                 NBTTagCompound t = new NBTTagCompound();
-                stack.writeToNBT(t);
                 t.setByte("Index", (byte) i);
+                stack.writeToNBT(t);
                 itemStackNBT.appendTag(t);
             }
         }
         tag.setTag("Items", itemStackNBT);
     }
 
-    public static void readNBTItemStackInventory(NBTTagCompound tag, ItemStack[] stackToRead, int size) {
-        NBTTagList itemStackNBT = tag.getTagList("Items", 10);
-        stackToRead = new ItemStack[size];
+    public static ItemStack[] readNBTItemStackInventory(NBTTagCompound tag, int size) {
+        ItemStack[] inventory = new ItemStack[size];
+        NBTTagList list = tag.getTagList("Items", 10);
 
-        for (int i = 0; i < itemStackNBT.tagCount(); i++) {
-            NBTTagCompound t = itemStackNBT.getCompoundTagAt(i);
-            int index = t.getByte("Index");
-            if (index >= 0 && index < stackToRead.length) {
-                stackToRead = new ItemStack[]{ItemStack.loadItemStackFromNBT(t)};
+        for (int i = 0; i < list.tagCount(); i++) {
+            NBTTagCompound t = list.getCompoundTagAt(i);
+            int index = t.getByte("Index") & 255;
+
+            if (index >= 0 && index < inventory.length) {
+                inventory[index] = ItemStack.loadItemStackFromNBT(t);
             }
         }
+        return inventory;
     }
 }

@@ -3,6 +3,7 @@ package com.gabid.ezaciancraft.proxy;
 import com.gabid.ezaciancraft.api.common.blocks.tileentity.EzacianCustomJarFillableTE;
 import com.gabid.ezaciancraft.client.event.EzacianCraftKeybinds;
 import com.gabid.ezaciancraft.client.event.GUIClientEvents;
+import com.gabid.ezaciancraft.client.event.RenderEvents;
 import com.gabid.ezaciancraft.client.renderer.items.VoidStaffOfPrimalReconstructorRenderer;
 import com.gabid.ezaciancraft.client.renderer.items.blocks.AlchemicalMixerBlockRender;
 import com.gabid.ezaciancraft.client.renderer.items.blocks.EzacianCustomItemJarFilledRenderer;
@@ -33,6 +34,8 @@ public class EzacianClientProxy extends EzacianCommonProxy {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        RenderEvents renderEvents = new RenderEvents();
+        MinecraftForge.EVENT_BUS.register(renderEvents);
     }
 
     @Override

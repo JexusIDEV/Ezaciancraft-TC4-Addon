@@ -109,6 +109,5 @@ public class ScreenShadowAlchemyFurnace extends GuiContainer {
     private void renderProgress() {
         int scaledProgress = getScaledValue(this.furnaceTE.getFurnaceCookTime(), this.furnaceTE.getMaxFurnaceCookTime(), 49);
         this.drawTexturedModalRect(this.guiLeft + 106, this.guiTop + 30 + (49 - scaledProgress), 214, 49 - scaledProgress, 6, scaledProgress);
-
     }
 }

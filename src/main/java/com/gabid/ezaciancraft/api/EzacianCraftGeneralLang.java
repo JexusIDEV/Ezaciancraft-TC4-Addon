@@ -47,6 +47,7 @@ public class EzacianCraftGeneralLang {
     public static String UNLOCALE_SHADOW_ALCHEMY_FURNACE = "shadowAlchemyFurnace";
     public static String UNLOCALE_EXTENDED_ARCANE_WORKBENCH = "extendedArcaneWorkbench";
     public static String UNLOCALE_WIRELESS_ESSENTIA_INTERFACE = "wirelessEssentiaInterface";
+    public static String UNLOCALE_ADVANCED_ESSENTIA_STORAGE = "advancedEssentiaStorage";
     public static String UNLOCALE_ETHEREAL_ACCELERATOR = "etherealAccelerator";
     public static String UNLOCALE_CRYSTALYIUM_JAR = "crystalyiumJar";
     public static String UNLOCALE_SHADOW_VOID_METAL_JAR = "shadowVoidMetalJar";
@@ -54,5 +55,7 @@ public class EzacianCraftGeneralLang {
 
     //*meta-tile blocks
     public static String UNLOCALE_CUSTOM_BASE_JAR = "customBaseJar";
+
+    public static String UNLOCALE_ALCHEMY_BLOCK_EXPERT = "alchemyBlockExpert";
 
 }

@@ -14,6 +14,7 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.WandTriggerRegistry;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
+import thaumcraft.common.config.ConfigRecipes;
 
 import java.util.Arrays;
 
@@ -639,5 +640,31 @@ public class EzacianCraftRecipes {
                         new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), new ItemStack(EzacianCraftBlocks.ezacianStoneDecorativeBlocks, 1, 0), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6), new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 7)
                 )
         ));
+
+        WandTriggerRegistry.registerWandBlockTrigger(CoreMod.thaumcraftMultiblockEvent, 1, ConfigBlocks.blockMetalDevice, 3, MODID);
+        WandTriggerRegistry.registerWandBlockTrigger(CoreMod.thaumcraftMultiblockEvent, 1, ConfigBlocks.blockMetalDevice, 9, MODID);
+        WandTriggerRegistry.registerWandBlockTrigger(CoreMod.thaumcraftMultiblockEvent, 1, ConfigBlocks.blockWoodenDevice, 6, MODID);
+        EzacianCraftResearches.recipes.put(UNLOCALE_ADVANCED_ESSENTIA_STORAGE+"Multi", Arrays.asList(
+                new AspectList()
+                        .add(Aspect.FIRE, 125)
+                        .add(Aspect.EARTH, 125)
+                        .add(Aspect.ORDER, 125)
+                        .add(Aspect.AIR, 125)
+                        .add(Aspect.ENTROPY, 125)
+                        .add(Aspect.WATER, 125)
+                , 3, 3, 3,
+                Arrays.asList(
+                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9),
+                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9),
+                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9),
+
+                        new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3), new ItemStack(EzacianCraftBlocks.alchemyBlockExpert, 1, 0), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3),
+                        new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3), new ItemStack(ConfigBlocks.blockWoodenDevice, 1, 6),
+
+                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9),
+                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9),
+                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9), new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9)
+        )));
     }
 }

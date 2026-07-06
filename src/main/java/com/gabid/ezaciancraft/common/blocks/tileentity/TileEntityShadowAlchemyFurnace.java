@@ -1,5 +1,6 @@
 package com.gabid.ezaciancraft.common.blocks.tileentity;
 
+import com.gabid.ezaciancraft.lib.nbt.NBTHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
@@ -53,16 +54,8 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
     @Override
     public void readFromNBT(NBTTagCompound nbtCompound) {
         super.readFromNBT(nbtCompound);
-        NBTTagList itemStackNBT = nbtCompound.getTagList("Items", 10);
-        this.furnaceItemStacks = new ItemStack[2];
+        this.furnaceItemStacks = NBTHelper.readNBTItemStackInventory(nbtCompound, 2);
 
-        for (int i = 0; i < itemStackNBT.tagCount(); i++) {
-            NBTTagCompound t = itemStackNBT.getCompoundTagAt(i);
-            int index = t.getByte("Index");
-            if (index >= 0 && index < this.furnaceItemStacks.length) {
-                this.furnaceItemStacks[index] = ItemStack.loadItemStackFromNBT(t);
-            }
-        }
         this.speedBurnMultiplier = nbtCompound.getFloat("SpeedBurnBoost");
         this.furnaceCookTime = nbtCompound.getInteger("CookTime");
         this.maxFurnaceCookTime = nbtCompound.getInteger("MaxCookTime");
@@ -78,18 +71,7 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
         nbttagcompound.setFloat("SpeedBurnBoost", this.speedBurnMultiplier);
         nbttagcompound.setInteger("CookTime", this.furnaceCookTime);
         nbttagcompound.setInteger("MaxCookTime", this.maxFurnaceCookTime);
-        NBTTagList itemStackNBT = new NBTTagList();
-
-        for (int i = 0; i < this.furnaceItemStacks.length; i++) {
-            ItemStack stack = this.furnaceItemStacks[i];
-            if (stack != null) {
-                NBTTagCompound t = new NBTTagCompound();
-                stack.writeToNBT(t);
-                t.setByte("Index", (byte) i);
-                itemStackNBT.appendTag(t);
-            }
-        }
-        nbttagcompound.setTag("Items", itemStackNBT);
+        NBTHelper.writeNBTItemStackInventory(nbttagcompound, this.furnaceItemStacks);
 
         if (this.hasCustomInventoryName()) {
             nbttagcompound.setString("CustomName", this.customName);
@@ -360,7 +342,7 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
 
     //manages the transfer of essentia to the alembic or other stuff
     private void processEssentia() {
-        int expulsionSpeed = 1;
+        int expulsionSpeed = visAlembicExpulsion;
         if (this.bellowsAmount > 0) {
             expulsionSpeed = expulsionSpeed + this.bellowsAmount;
         }

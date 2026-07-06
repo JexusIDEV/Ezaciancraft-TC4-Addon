@@ -14,13 +14,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
 public class KeyHandlerInput {
     public KeyBinding kb_CETM = new KeyBinding("Change Ezacian Tool Mode", 36, "key.categories.misc");
     public boolean kb_CETM_IsPressed = false;
-    public long kb_CETM_LastPressed = 0L;
 
     public KeyBinding kb_CPETB = new KeyBinding("Change Primal Ezacian Tool Behaviour", 37, "key.categories.misc");
     public boolean kb_CPETB_IsPressed = false;
@@ -44,7 +42,6 @@ public class KeyHandlerInput {
         if (this.kb_CETM.isPressed()) {
             kb_CETM_IsPressed = true;
             EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-            World level = Minecraft.getMinecraft().theWorld;
             if (player != null) {
                 ItemStack toolStack = player.getHeldItem();
                 if (toolStack != null && toolStack.getItem() instanceof IEzacianTool) {

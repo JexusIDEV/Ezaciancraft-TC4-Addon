@@ -33,7 +33,7 @@ public class EzacianCraftWorldGen implements IWorldGenerator {
     }
 
     private void generateInOverworld(World world, int chunkX, int chunkZ, Random random) {
-        //void seed ore gen
+        //void seed and shadow ore gen
         if (world.provider.getBiomeGenForCoords(chunkX, chunkZ) == ThaumcraftWorldGenerator.biomeTaint) {
             this.addOre(EzacianCraftBlocks.voidSeedOre, world, random, chunkX, chunkZ, 1, 6, 8, 6, 16);
             this.addOre(EzacianCraftResources.shadowVoidMetalResources.getResourceOreBlock(), world, random, chunkX, chunkZ, 1, 8, 4, 1, 8);

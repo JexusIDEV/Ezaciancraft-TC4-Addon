@@ -1,13 +1,11 @@
 package com.gabid.ezaciancraft.registry;
 
-import com.gabid.ezaciancraft.api.aspects.CustomWandRodPrimalUpdate;
+import com.gabid.ezaciancraft.api.aspects.wand.CustomWandRodPrimalUpdate;
 import com.gabid.ezaciancraft.api.common.items.CustomItemWandCap;
 import com.gabid.ezaciancraft.api.common.items.CustomItemWandRodStaff;
 import com.gabid.ezaciancraft.api.common.items.EzacianCustomItemJarFilled;
 import com.gabid.ezaciancraft.api.registry.EzacianCraftMiscRegistry;
 import com.gabid.ezaciancraft.common.items.ItemEzacianPlates;
-import com.gabid.ezaciancraft.common.items.ItemEzacianWandCap;
-import com.gabid.ezaciancraft.common.items.ItemEzacianWandStaffRod;
 import com.gabid.ezaciancraft.common.items.armor.ItemMagicAlloyTravelerBoots;
 import com.gabid.ezaciancraft.common.items.debug.ItemDebugger;
 import com.gabid.ezaciancraft.common.items.tools.*;
@@ -15,11 +13,7 @@ import com.gabid.ezaciancraft.common.items.weapons.VoidZephyrSwordItem;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import thaumcraft.api.wands.StaffRod;
-import thaumcraft.api.wands.WandCap;
-import thaumcraft.api.wands.WandRod;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;

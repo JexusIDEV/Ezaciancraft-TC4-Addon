@@ -1,5 +1,6 @@
 package com.gabid.ezaciancraft;
 
+import com.gabid.ezaciancraft.client.event.RenderEvents;
 import com.gabid.ezaciancraft.common.event.EzacianCraftPlayerEvents;
 import com.gabid.ezaciancraft.common.event.EzacianCraftWandMultiblockEvent;
 import com.gabid.ezaciancraft.common.network.EzacianNetworkHandler;
@@ -38,7 +39,8 @@ public class CoreMod {
     @SidedProxy(modId = MODID, clientSide = "com.gabid.ezaciancraft.proxy.EzacianClientProxy", serverSide = "com.gabid.ezaciancraft.proxy.EzacianServerProxy")
     public static EzacianCommonProxy proxy;
     public static EzacianCraftWandMultiblockEvent thaumcraftMultiblockEvent;
-    public static EzacianCraftPlayerEvents playerEvents = new EzacianCraftPlayerEvents();
+    public static EzacianCraftPlayerEvents playerEvents;
+    public static RenderEvents renderEvents;
 
     //https://github.com/mekanism/Mekanism/blob/1.7.10/src/main/java/mekanism/common/util/MekanismUtils.java#L1496
     public static String getModIdFromItemStack(ItemStack stack) {
@@ -71,6 +73,7 @@ public class CoreMod {
 
         thaumcraftMultiblockEvent = new EzacianCraftWandMultiblockEvent();
         playerEvents = new EzacianCraftPlayerEvents();
+        renderEvents = new RenderEvents();
 
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new EzacianCraftGUIContainerEvent());
 

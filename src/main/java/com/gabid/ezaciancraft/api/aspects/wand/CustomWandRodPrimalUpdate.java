@@ -1,4 +1,4 @@
-package com.gabid.ezaciancraft.api.aspects;
+package com.gabid.ezaciancraft.api.aspects.wand;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

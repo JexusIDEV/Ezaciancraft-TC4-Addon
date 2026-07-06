@@ -1,4 +1,4 @@
-package com.gabid.ezaciancraft.common.items;
+package com.gabid.ezaciancraft.common.items.block;
 
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceInput;
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceOutput;

@@ -142,6 +142,24 @@ public class EzacianCraftResearches {
                 ResearchUtils.createPageTranslation("ALCHEMICAL_MIXER", 3)
         ).setParents("CENTRIFUGE").registerResearchItem());
 
+        ResearchCategories.addResearch((new ResearchItem("ADVANCED_ESSENTIA_STORAGE",
+                EZACIANCRAFT_CATEGORY_ID,
+                new AspectList()
+                        .add(WATER, 1)
+                        .add(MOTION, 1)
+                        .add(EXCHANGE, 1)
+                        .add(CRAFT, 1)
+                        .add(MAGIC, 1)
+                ,
+                3, 2, 2,
+                new ItemStack(EzacianCraftBlocks.alchemyBlockExpert, 1, 0)
+        )).setPages(
+                ResearchUtils.createPageTranslation("ADVANCED_ESSENTIA_STORAGE", 1),
+                new ResearchPage((List) recipes.get(UNLOCALE_ADVANCED_ESSENTIA_STORAGE+"Multi"))//,
+                //ResearchUtils.createPageTranslation("ALCHEMICAL_MIXER", 2),
+                //ResearchUtils.createPageTranslation("ALCHEMICAL_MIXER", 3)
+        ).setParents("MAGIC_ALLOY", "ADVALCHEMYFURNACE").registerResearchItem());
+
         ResearchCategories.addResearch((new ResearchItem("WIRELESS_INTERFACES",
                 EZACIANCRAFT_CATEGORY_ID,
                 new AspectList()

@@ -1,21 +1,23 @@
 package com.gabid.ezaciancraft.registry;
 
+import com.gabid.ezaciancraft.api.common.blocks.BaseGenericBlock;
+import com.gabid.ezaciancraft.api.common.blocks.BaseGenericLightBlock;
 import com.gabid.ezaciancraft.api.common.blocks.EzacianCustomBlockJar;
 import com.gabid.ezaciancraft.api.common.items.BasicNamedItemBlockWithMetadata;
 import com.gabid.ezaciancraft.api.common.items.EzacianCustomItemBlockJar;
 import com.gabid.ezaciancraft.common.blocks.*;
-import com.gabid.ezaciancraft.common.items.ItemBlockWirelessEssentiaInterface;
+import com.gabid.ezaciancraft.common.items.block.ItemBlockWirelessEssentiaInterface;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCompressed;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_METAL_BLOCK;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_SEED_ORE;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.*;
 
 public class EzacianCraftBlocks {
@@ -27,12 +29,14 @@ public class EzacianCraftBlocks {
     public static Block alchemicalMixer;
     public static Block shadowAlchemyFurnace;
     public static Block wirelessEssentiaInterface;
+    public static Block advancedEssentiaStorage;
     public static Block extendedArcaneWorkbench;
     public static Block etherealAccelerator;
 
     //extra void resources
     public static Block voidSeedOre;
     public static Block voidMetalBlock;
+    public static Block alchemyBlockExpert;
 
     public static EzacianCustomBlockJar crystalyiumJar;
     public static EzacianCustomBlockJar shadowVoidMetalJar;
@@ -56,6 +60,10 @@ public class EzacianCraftBlocks {
         wirelessEssentiaInterface = new BlockWirelessEssentiaInterface();
         wirelessEssentiaInterface.setCreativeTab(EZACIANCRAFT_TAB);
         GameRegistry.registerBlock(wirelessEssentiaInterface, ItemBlockWirelessEssentiaInterface.class, wirelessEssentiaInterface.getUnlocalizedName());
+
+        advancedEssentiaStorage = new BlockAdvancedEssentiaStorage();
+        advancedEssentiaStorage.setCreativeTab(EZACIANCRAFT_TAB);
+        GameRegistry.registerBlock(advancedEssentiaStorage, advancedEssentiaStorage.getUnlocalizedName());
 
         /*etherealAccelerator = new EtherealAcceleratorBlock();
         etherealAccelerator.setCreativeTab(EZACIANCRAFT_TAB);
@@ -89,5 +97,8 @@ public class EzacianCraftBlocks {
         voidMetalBlock.setResistance(10.25f);
         voidMetalBlock.setCreativeTab(EZACIANCRAFT_RESOURCES_TAB);
         GameRegistry.registerBlock(voidMetalBlock, voidMetalBlock.getUnlocalizedName());
+
+        alchemyBlockExpert = new BaseGenericLightBlock(Material.iron, UNLOCALE_ALCHEMY_BLOCK_EXPERT,3f, 3f, Block.soundTypeMetal, EZACIANCRAFT_TAB, 15);
+        GameRegistry.registerBlock(alchemyBlockExpert, alchemyBlockExpert.getUnlocalizedName());
     }
 }

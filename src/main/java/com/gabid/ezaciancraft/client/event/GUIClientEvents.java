@@ -15,7 +15,6 @@ import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.PRIMAL_TOOL_AO
 import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.PRIMAL_TOOL_SUB_MODE;
 import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.*;
 
-
 public class GUIClientEvents {
 
     public GUIClientEvents() {

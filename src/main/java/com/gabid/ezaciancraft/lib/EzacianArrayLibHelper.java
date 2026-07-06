@@ -15,6 +15,19 @@ public class EzacianArrayLibHelper {
                 });
     }
 
+    public static boolean all3DArrayTrue(boolean[][][] matrix) {
+        return Arrays.stream(matrix)
+                .allMatch(plane ->
+                        Arrays.stream(plane)
+                                .allMatch(row -> {
+                                    for (boolean v : row) {
+                                        if (!v) return false;
+                                    }
+                                    return true;
+                                })
+                );
+    }
+
     public static boolean hasValueToCompare(int valueToCheck, int[] values) {
         for (int s : values) {
             if (valueToCheck == s) {

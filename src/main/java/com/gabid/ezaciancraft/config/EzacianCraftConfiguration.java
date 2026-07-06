@@ -27,6 +27,7 @@ public class EzacianCraftConfiguration {
     public static int alembicsMaxHeight = 8;
     public static float processSpeedBellowsBonus = 2.5f;
     public static int visMaxCapacity = 512;
+    public static int visAlembicExpulsion = 2;
 
     //*Wireless essentia interfaces machines
     public static int wirelessInputInterfaceWorkRadius = 16;
@@ -102,6 +103,13 @@ public class EzacianCraftConfiguration {
                 "visMaxCapacity",
                 512,
                 "The max capacity which the furnace can hold."
+        ).getInt();
+
+        visAlembicExpulsion = config.get(
+                CAT_MACHINES,
+                "visAlembicExpulsion",
+                2,
+                "How fast the furnace can inject the essentia to the available alembics."
         ).getInt();
 
         //*wireless

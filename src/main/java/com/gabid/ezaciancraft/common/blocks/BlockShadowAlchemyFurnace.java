@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.lib.utils.InventoryUtils;
 import thaumcraft.common.tiles.TileAlchemyFurnace;
+import thaumcraft.common.tiles.TileAlembic;
 
 import java.util.Random;
 
@@ -197,6 +198,7 @@ public class BlockShadowAlchemyFurnace extends BlockContainer {
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         TileEntity te = world.getTileEntity(x, y, z);
+        TileEntity teAbove = world.getTileEntity(x, y + 1, z);
         if (te instanceof TileEntityShadowAlchemyFurnace) {
             TileEntityShadowAlchemyFurnace furnaceTE = (TileEntityShadowAlchemyFurnace) te;
             furnaceTE.getBellows();

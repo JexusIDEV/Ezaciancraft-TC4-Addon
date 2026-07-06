@@ -159,7 +159,7 @@ tc.research_text.WIRELESS_INTERFACES=¡I don't need tubes!
 tc.research_name.MAGIC_ALLOY=Magic Alloy
 tc.research_text.MAGIC_ALLOY=¡Resistant magic conductor!
 
-tc.research_name.CAP_magic_alloy=Caps of Magic Alloy
+tc.research_name.CAP_magic_alloy=Wand Caps of Magic Alloy
 tc.research_text.CAP_magic_alloy=No... 
 
 tc.research_name.MAGIC_ALLOY_TRAVELLER_BOOTS=Boots of the Traveller of Magic Alloy
@@ -188,7 +188,7 @@ ezaciancraft.research_page.ALCHEMICAL_MIXER.1=After growing frustrated with §l�
 ezaciancraft.research_page.ALCHEMICAL_MIXER.2=Its operation is as follows: the §lsides§r of the machine act as input points, connecting to pipes §l(of any type)§r. This is where the Essentia to be combined is §linserted§r. If one side has §lalready absorbed an Essentia§r, attempting to insert another—whether identical or different—into the same side will fail. However, inserting Essentia into the opposite side, if available, §lwill succeed§r.<BR>Once the machine detects §lcompatible Essentia§r, it will begin processing the §lrecipe§r after a short delay.<BR>The §llower section§r serves as the output, where the resulting §lcompound Essentia§r is expelled. It supports both §ljars§r and §lpipes§r for extraction.
 ezaciancraft.research_page.ALCHEMICAL_MIXER.3=The machine can also emit a §4Redstone§0§r signal to a §lcomparator§r when it contains §lmaterials§r. Additionally, it is §lsensitive to §4Redstone§0§r input, allowing you to control its §loperation§r and §lprocessing§r state.<BR>This makes it suitable for both §lbasic and advanced automation§r setups.
 
-ezaciancraft.research_page.SHADOW_ALCHEMY_FURNACE.1=With your accumulated knowledge of both the basic and advanced furnaces, you dared to create a hybrid—an efficient and compact device that combines the strengths of both worlds.<BR>The M.V.E. Alchemical Furnace offers significantly greater capacity than a standard furnace and can withstand increased pressure, supporting up to 8 alembics simultaneously.
+ezaciancraft.research_page.SHADOW_ALCHEMY_FURNACE.1=With your accumulated knowledge of both the basic and advanced furnaces, you dared to create a hybrid—an efficient and compact device that combines the strengths of both worlds.<BR>The S.V.M. Alchemical Furnace offers significantly greater capacity than a standard furnace and can withstand increased pressure, supporting up to 8 alembics simultaneously.
 ezaciancraft.research_page.SHADOW_ALCHEMY_FURNACE.2=It also possesses an even more remarkable feature: when using "Arcane Bellows" around the furnace, the processing speed increases without reducing fuel efficiency.<BR>It is, without a doubt, a beautifully engineered and immensely powerful creation...
 
 ezaciancraft.research_page.ADVANCED_ARCANE_WORKBENCH.1=With sufficient Vis and a number of rare materials you have gathered over time—such as catalysts—you have managed to create something truly remarkable.<BR>An enhanced version of the Arcane Workbench, capable of accepting staves for arcane crafting processes that the original table could not withstand. Additionally, the workbench provides an inherent Vis discount, which can stack with wand bonuses (WIP), resulting in reduced Vis consumption and far more efficient usage.
