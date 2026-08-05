@@ -41,6 +41,6 @@ public class ExtendedArcaneWorkbenchTileEntityRenderer extends TileEntitySpecial
 
     @Override
     public void renderTileEntityAt(TileEntity te, double a, double b, double c, float d) {
-        renderTEAndWand((TileEntityExtendedArcaneWorkbench) te, a, b, c, d);
+        this.renderTEAndWand((TileEntityExtendedArcaneWorkbench) te, a, b, c, d);
     }
 }

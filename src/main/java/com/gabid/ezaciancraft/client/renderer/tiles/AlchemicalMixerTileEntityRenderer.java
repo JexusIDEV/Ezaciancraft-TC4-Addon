@@ -39,7 +39,7 @@ public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer
         GL11.glTranslated(x + 0.5, y - 0.5, z + 0.5);
         GL11.glRotatef(0f, 0f, 1f, 0f);
         this.rotateBlockByOrientation(teDirection);
-        bindTexture(texturePath);
+        this.bindTexture(this.texturePath);
         this.model.renderPipes();
         this.renderIsDownConnected(te);
         GL11.glPopMatrix();
@@ -82,7 +82,7 @@ public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer
 
     @Override
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float ticks) {
-        renderAlchemicalMixerTE((TileEntityAlchemicalMixer) te, x, y, z, ticks);
+        this.renderAlchemicalMixerTE((TileEntityAlchemicalMixer) te, x, y, z, ticks);
     }
 
     private void renderStoredEssentia(TileEntityAlchemicalMixer te) {

@@ -2,12 +2,14 @@ package com.gabid.ezaciancraft.lib.world;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 import static com.gabid.ezaciancraft.lib.EzacianArrayLibHelper.hasValueToCompare;
 
+///api Methods used for dropping inventory items to the world in minecraft or own ways
 public class ContainerInventoryHelperUtils {
     public static void dropInventoryItems(IInventory inv, World world, int x, int y, int z) {
         if (inv != null) {

@@ -2,6 +2,7 @@ package com.gabid.ezaciancraft.lib.math;
 
 import net.minecraft.util.MathHelper;
 
+///api Old code what im using for this mod and getting the pixel render of a scale data
 public class EzacianGuiContainerMathHelper {
 
     public static int getProgressScalar(int minValue, int maxValue, int scalarPixel) {

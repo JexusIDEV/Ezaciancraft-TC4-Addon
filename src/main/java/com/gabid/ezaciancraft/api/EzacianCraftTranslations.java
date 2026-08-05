@@ -1,6 +1,5 @@
 package com.gabid.ezaciancraft.api;
 
-import net.minecraft.util.StatCollector;
 
 public class EzacianCraftTranslations {
     //generic Ezacian Tools

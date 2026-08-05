@@ -6,6 +6,7 @@ import net.minecraft.nbt.NBTTagList;
 
 import java.util.Arrays;
 
+///api Helper used for writing NBT to TE's or ItemStacks in the game directly
 public class NBTHelper {
 
     public static boolean containerNBTIsNotNull(ItemStack container) {

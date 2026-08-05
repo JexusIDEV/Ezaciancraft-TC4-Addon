@@ -69,6 +69,7 @@ public class CoreMod {
         EzacianCraftResources.setupResources();
         EzacianCraftTileEntities.setupTileEntities();
         EzacianCraftAspects.initAspects();
+        EzacianCraftAspectTagRegistry.initAddExtraTagObjects();
         GameRegistry.registerWorldGenerator(new EzacianCraftWorldGen(), 0);
 
         thaumcraftMultiblockEvent = new EzacianCraftWandMultiblockEvent();

@@ -4,6 +4,7 @@ import thaumcraft.api.research.ResearchPage;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 
+///api helper or utils used for creating an easier way to create page research entries in the thaumonomicon
 public class ResearchUtils {
     public static ResearchPage createPageTranslation(String entryName) {
         return new ResearchPage(MODID + ".research_page." + entryName.toUpperCase());

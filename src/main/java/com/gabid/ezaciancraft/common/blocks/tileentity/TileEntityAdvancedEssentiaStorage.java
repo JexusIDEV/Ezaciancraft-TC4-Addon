@@ -12,12 +12,10 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IEssentiaTransport;
 
 public class TileEntityAdvancedEssentiaStorage extends TileThaumcraft implements IEssentiaTransport, IExtendedAspectContainer {
-    protected long ticks;
     public final ExtendedAspectList aspects = new ExtendedAspectList();
+    public boolean isBreaking = false;
 
-    public TileEntityAdvancedEssentiaStorage() {
-
-    }
+    public TileEntityAdvancedEssentiaStorage() {}
 
     @Override
     public void writeCustomNBT(NBTTagCompound tag) {
@@ -57,7 +55,7 @@ public class TileEntityAdvancedEssentiaStorage extends TileThaumcraft implements
         this.aspects.addAspect(aspect, amount);
 
         this.markDirty();
-        this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 
         return 0;
     }
@@ -68,7 +66,7 @@ public class TileEntityAdvancedEssentiaStorage extends TileThaumcraft implements
             this.aspects.removeAspect(aspect, amount);
 
             this.markDirty();
-            this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 
             return true;
         }
@@ -84,7 +82,7 @@ public class TileEntityAdvancedEssentiaStorage extends TileThaumcraft implements
         }
 
         this.markDirty();
-        this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 
         return true;
     }
@@ -166,7 +164,7 @@ public class TileEntityAdvancedEssentiaStorage extends TileThaumcraft implements
             }
         }
 
-        return getDominantAspect();
+        return this.getDominantAspect();
     }
 
     @Override
@@ -185,13 +183,6 @@ public class TileEntityAdvancedEssentiaStorage extends TileThaumcraft implements
         return false;
     }
 
-    @Override
-    public void updateEntity() {
-        super.updateEntity();
-        if(this.worldObj.isRemote) return;
-        this.ticks++;
-    }
-
     public Aspect getDominantAspect() {
         Aspect best = null;
         int max = 0;
@@ -203,11 +194,6 @@ public class TileEntityAdvancedEssentiaStorage extends TileThaumcraft implements
                 best = asp;
             }
         }
-
         return best;
-    }
-
-    public long getStorageTicks() {
-        return this.ticks;
     }
 }

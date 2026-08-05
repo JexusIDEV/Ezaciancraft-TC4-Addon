@@ -49,6 +49,8 @@ item.voidStaffOfPrimalReconstructor.name=Bastón Primigenio de la Reconstrucció
 item.magicAlloyTravellerBoots.name=Botas del Viajero de Aleación Mágica
 
 #blocks
+tile.alchemyBlockExpert.name=Construcción Alquímica de Experto
+
 ##resource
 ### ~void
 tile.shadowVoidMetalOre.name=Mineral de Metal Vacío Ensombrecido
@@ -167,6 +169,9 @@ tc.research_text.MAGIC_ALLOY_TRAVELLER_BOOTS=¡Correr como Sonic!
 tc.research_name.MAGIC_ALLOY_JAR=Tarros de Aleación Mágica
 tc.research_text.MAGIC_ALLOY_JAR=¿Siquiera esto tiene sentido?
 
+tc.research_name.ADVANCED_ESSENTIA_STORAGE=Almacenamiento Avanzado de Esencia
+tc.research_text.ADVANCED_ESSENTIA_STORAGE=¡Infinidad Absoluta!
+
 ##research pages
 ezaciancraft.research_page.GETTING_STARTED.1=Después de haber quedado aburrido por mucho tiempo en que campo investigar en el §lTaumonomicon§r.<BR>Encuentras con una entrada particular que se relaciona con una cultura completamente desconocida y que pareciera no pertenecer exactamente a los Humanos (Steves), la cual vienen del espacio y un planeta notablemente lejano llamado: §l“CRIPTUS”§r.<BR>La escritura definitivamente es §lpropia§r, pero tienes la suerte de encontrar un alfabeto que parece que §o§lalguien§r de forma remota te la escribió para ti.<LINE>
 ezaciancraft.research_page.GETTING_STARTED.2=<IMG>ezaciancraft:textures/research/ezacianLangNoteResearch.png:0:0:256:136:.65</IMG><LINE><BR>Quien haya sido, parece que lo que busca es que §linvestigues este campo§r; ¿Con que intenciones? ¡No lo sabes! §o§l¿Pero en que se puede perder en investigar algo en lo que no pueda ser aburrido?
@@ -221,7 +226,7 @@ ezaciancraft.research_page.ELEMENTAL_VOID_SWORD.1=Después de haber obtenido un 
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.1=Después de estar pensado y generando algunas ideas oscuras, por fin conseguiste una idea simplemente inexpugnable al igual que la varia que decidiste reconstruir...<BR>Mezclando todas las herramientas y el Triturador primigenio y algunas esencias, has hecho una abominación bella.<BR>El Bastón de la Reconstrucción.<BR>Una versión extendida y multiherramienta de todas las herramientas del vacío que has creado, algo tan poderoso que no te hará falta cambiarla para cualquier cosa.
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.2=A diferencia de la Trituradora Primigenia este bastón pudo recuperar todo lo que perdió, por no decir que hasta tiene más que las herramientas originales, este bastón tiene 3 configuraciones para su uso que se explicara a más detalle en las siguientes páginas:
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.3=        §l§nComportamientos§r<BR>Dictamina que efecto o función va a efectuar de su herramienta original el cual se puede cambiar con la tecla asignada en la configuración:<BR>Observador Minero: Revela la posición de los minerales más cercanos con el clic.<BR>Magneto Torrencial: Al usar clic, genera magnetismo hacia el jugador con los ítems cercanos.<BR>Colocador Terrestial: Permite colocar bloques de un mismo tipo en área. (Sensible a ÁdE)
-ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.4=Plantador Crecedor: Aplica Fertilizante a las plantas o suelo con el clic, pero usando shift puede arar la tierra en área. (Sensible a ÁdE)<BR>Céfiro: Permite el generar un pequeño tornado que te hace levitar y también alejar a los mobs con este al hacer clic constante. (WIP-Roto, empuja muy raro...)
+ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.4=Plantador Crecedor: Aplica Fertilizante a las plantas o suelo con el clic, pero usando shift puede arar la tierra en área. (Sensible a ÁdE)<BR>Céfiro: Permite el generar un pequeño tornado que te hace levitar y también alejar a los mobs con este al hacer clic constante.
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.5=        §l§nSub-Modo y AdÉ§r<BR>El Sub-Modo Es el que determina el comportamiento principal que debe aplicar al romper bloques, tiene dos modos:<BR>Área: Responsable de romper bloques en área con la configuración de ÁdE establecida, el cual se puede cambiar con la tecla asignada en la configuración.<BR>Vena: Permite romper bloques específicos interconectados: los cuales son Madera y Minerales.<BR>El ÁdE es el que determina en que área debe hacer acción con la información anterior, al igual que se menciono antes, se puede incrementar con su tecla asignada en la configuración.
 
 ezaciancraft.research_page.CAP_shadow_void_metal.1=Al Conseguir “Metal Vacío Ensombrecido”, te das cuenta de que podrías usar el material para evitar más el costo de la vis cuando quieres crear algo con mucha vis, sabes que este material tiene mejor flujo mágico que el original, pero es mejor infusionar los dos para mejores resultados…<BR>Este cubierto te da un descuento de: 15% de vis total.
@@ -237,6 +242,8 @@ ezaciancraft.research_page.CAP_magic_alloy.1=Con tu nuevo material, creíste que
 ezaciancraft.research_page.MAGIC_ALLOY_TRAVELLER_BOOTS.1=Como es de esperarse, tus pies se cansan a pesar de llevar las botas del viajero comunes, nosotros como es obvio no somos normales; y en este caso con el nuevo material has decidido el crear unas botas que te darán una comodidad y libertad sin igual. Imbuyendo varios materiales como el metal vacío ensombrecido y plumas y otras cosas más, consigues unas botas que te hacen saltar hasta 5 bloques y yendo a una velocidad de 24 bloques por segundo corriendo; ¡son las botas definitivas!
 
 ezaciancraft.research_page.MAGIC_ALLOY_JAR.1=Finalmente con tu nuevo material y algo de esfuerzo, has creado algo absurdo, un tarro que puede guardar máximo de 8192 de esencia total de un solo tipo, porque se requeriría tener TANTA esencia, ni se sabe, pero espero que con esto ya te puedas sentir lleno...
+
+ezaciancraft.research_page.ADVANCED_ESSENTIA_STORAGE.1=AAA
 
 #container and screens
 ##Shadow V.M. Alchemy Furnace

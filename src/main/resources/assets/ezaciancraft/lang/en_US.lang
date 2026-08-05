@@ -50,6 +50,8 @@ item.voidStaffOfPrimalReconstructor.name=Primal Staff of the Reconstruction
 item.magicAlloyTravellerBoots.name=Boots of the Traveller of Magic Alloy
 
 #blocks
+tile.alchemyBlockExpert.name=Expert Alchemical Construct
+
 ##resource
 ### ~void
 tile.shadowVoidMetalOre.name=Ore of Shadow Void Metal
@@ -168,6 +170,9 @@ tc.research_text.MAGIC_ALLOY_TRAVELLER_BOOTS=¡Run like Sonic!
 tc.research_name.MAGIC_ALLOY_JAR=Jars of Magic Alloy
 tc.research_text.MAGIC_ALLOY_JAR=This even make sense?
 
+tc.research_name.ADVANCED_ESSENTIA_STORAGE=Advanced Essentia Storage
+tc.research_text.ADVANCED_ESSENTIA_STORAGE=¡Absolute Infinity!
+
 ##research pages
 ezaciancraft.research_page.GETTING_STARTED.1=After a long period of boredom, unsure of which field to research within the §lThaumonomicon§r,<BR>you come across a peculiar entry describing an entirely unknown culture. It does not seem to belong to Humans (Steves) at all, but rather to beings from outer space, originating from a distant planet known as: §l"CRIPTUS"§r.<BR>The writing is undoubtedly §lunique§r, but fortunately, you manage to find an alphabet that seems as though §o§lsomeone§r left it behind for you to understand.<LINE>
 ezaciancraft.research_page.GETTING_STARTED.2=<IMG>ezaciancraft:textures/research/ezacianLangNoteResearch.png:0:0:256:136:.65</IMG><LINE><BR>Whoever left this behind clearly intends for you to §lexplore this field of research§r. For what purpose? You have no idea. §o§lBut what is there to lose in studying something so intriguing?
@@ -217,7 +222,7 @@ ezaciancraft.research_page.ELEMENTAL_VOID_SWORD.1=After acquiring some Shadow Vo
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.1=After much thought and experimentation with darker concepts, you finally arrive at an idea as formidable as the staff you chose to reconstruct...<BR>By combining all your tools, the Primal Crusher, and various Essentia, you have created a beautiful abomination.<BR>The Staff of Reconstruction.<BR>An extended, multi-functional tool that incorporates all your Void-based creations—so powerful that you will never need to switch tools again.
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.2=Unlike the Primal Crusher, this staff has regained everything that was lost—and even more than the original tools. It features three operational configurations, which will be explained in detail on the following pages:
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.3=        §l§nBehaviors§r<BR>Determines the function performed, based on its original tool modes. This can be changed via a configurable key:<BR>Miner’s Insight: Reveals nearby ore locations upon use.<BR>Torrential Magnetism: Attracts nearby items toward the player when activated.<BR>Terrestrial Placer: Allows placement of blocks of the same type in an area. (AoE sensitive)
-ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.4=Growth Planter: Applies fertilizer to plants or soil when used; holding shift tills the ground in an area. (AoE sensitive)<BR>Zephyr: Generates a small tornado that lifts you into the air and pushes mobs away while held. (WIP—currently unstable behavior...)
+ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.4=Growth Planter: Applies fertilizer to plants or soil when used; holding shift tills the ground in an area. (AoE sensitive)<BR>Zephyr: Generates a small tornado that lifts you into the air and pushes mobs away while held.
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.5=        §l§nSub-Mode and AoE§r<BR>The Sub-Mode determines how blocks are affected when broken. It has two configurations:<BR>Area: Breaks blocks in an area based on the selected AoE setting (configurable via keybind).<BR>Vein: Breaks interconnected blocks such as wood or ore veins.<BR>AoE determines the size of the affected area and can be increased using its assigned key.
 
 ezaciancraft.research_page.CAP_shadow_void_metal.1=Upon obtaining Shadow Void Metal, you realize it can be used to further reduce Vis costs when crafting high-consumption recipes. Its magical flow is superior to the original, but combining both yields even better results...<BR>This cap provides a §l15%§r reduction in total Vis cost.
@@ -234,6 +239,8 @@ ezaciancraft.research_page.CAP_magic_alloy.1=With your new material, you believe
 ezaciancraft.research_page.MAGIC_ALLOY_TRAVELLER_BOOTS.1=As expected, your feet grow weary despite wearing the common Boots of the Traveller. Clearly, we are not ordinary beings; and in this case, with your new material, you have chosen to craft boots that provide unmatched comfort and freedom. By imbuing them with materials such as shadow-infused Void Metal, feathers, and other components, you obtain boots that allow you to jump up to 5 blocks high and move at a running speed of 24 blocks per second—these are the definitive boots!
 
 ezaciancraft.research_page.MAGIC_ALLOY_JAR.1=At last, with your new material and considerable effort, you have created something truly absurd: a jar capable of storing up to 8192 units of a single type of essentia. Why one would ever require such an amount remains unknown, but with this, you may finally feel satisfied...
+
+ezaciancraft.research_page.ADVANCED_ESSENTIA_STORAGE.1=AAA
 
 #container and screens
 ##Shadow V.M. Alchemy Furnace

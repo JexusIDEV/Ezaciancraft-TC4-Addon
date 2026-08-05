@@ -2,9 +2,9 @@ package com.gabid.ezaciancraft.lib;
 
 import java.util.Arrays;
 
+///api simplistic lib what helps about some multidimensional arrays
 public class EzacianArrayLibHelper {
 
-    //by gpt but usefull
     public static boolean all2DArrayTrue(boolean[][] matrix) {
         return Arrays.stream(matrix)
                 .allMatch(file -> {

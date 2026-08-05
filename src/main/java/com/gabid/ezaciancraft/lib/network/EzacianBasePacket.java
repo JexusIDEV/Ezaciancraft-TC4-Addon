@@ -7,6 +7,7 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayer;
 
+///api Base packet, used for creating a modular way of client or server ones
 public abstract class EzacianBasePacket<REQ extends IMessage> implements IMessage, IMessageHandler<REQ, REQ> {
 
     @Override

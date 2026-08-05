@@ -8,14 +8,8 @@ import com.gabid.ezaciancraft.client.renderer.items.VoidStaffOfPrimalReconstruct
 import com.gabid.ezaciancraft.client.renderer.items.blocks.AlchemicalMixerBlockRender;
 import com.gabid.ezaciancraft.client.renderer.items.blocks.EzacianCustomItemJarFilledRenderer;
 import com.gabid.ezaciancraft.client.renderer.items.blocks.WirelessEssentiaInterfaceBlockRender;
-import com.gabid.ezaciancraft.client.renderer.tiles.AlchemicalMixerTileEntityRenderer;
-import com.gabid.ezaciancraft.client.renderer.tiles.ExtendedArcaneWorkbenchTileEntityRenderer;
-import com.gabid.ezaciancraft.client.renderer.tiles.EzacianCustomJarFillableTER;
-import com.gabid.ezaciancraft.client.renderer.tiles.WirelessEssentiaInterfaceTileEntityRenderer;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAlchemicalMixer;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityExtendedArcaneWorkbench;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceInput;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceOutput;
+import com.gabid.ezaciancraft.client.renderer.tiles.*;
+import com.gabid.ezaciancraft.common.blocks.tileentity.*;
 import com.gabid.ezaciancraft.common.event.EzacianCraftPlayerEvents;
 import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
 import com.gabid.ezaciancraft.registry.EzacianCraftItems;
@@ -97,6 +91,7 @@ public class EzacianClientProxy extends EzacianCommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityExtendedArcaneWorkbench.class, new ExtendedArcaneWorkbenchTileEntityRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWirelessEssentiaInterfaceOutput.class, new WirelessEssentiaInterfaceTileEntityRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWirelessEssentiaInterfaceInput.class, new WirelessEssentiaInterfaceTileEntityRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAdvancedEssentiaStorage.class, new AdvancedEssentiaStorageTER());
         ClientRegistry.bindTileEntitySpecialRenderer(EzacianCustomJarFillableTE.class, new EzacianCustomJarFillableTER());
     }
 }

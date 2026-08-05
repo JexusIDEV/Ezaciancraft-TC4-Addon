@@ -1,5 +1,6 @@
 package com.gabid.ezaciancraft.common.blocks.tileentity;
 
+import com.gabid.ezaciancraft.api.MachineTypeStates;
 import com.gabid.ezaciancraft.api.aspects.AspectHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -38,7 +39,7 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
     private int aspectProcessingTime = 0;
     private final int maxAspectProcessingTime = mixerBaseProcessingTimeSpeed;
 
-    public MixerStates state = MixerStates.IDLE;
+    public MachineTypeStates state = MachineTypeStates.IDLE;
 
     public TileEntityAlchemicalMixer() {
         colors = new ArrayList<>(3);
@@ -71,7 +72,7 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
         this.aspectOutput = Aspect.getAspect(nbttagcompound.getString(OUTPUT_ASPECT));
         this.metaFacing = nbttagcompound.getInteger(TE_META_FACING);
         this.facing = ForgeDirection.getOrientation(this.metaFacing);
-        this.state = MixerStates.values()[(nbttagcompound.getInteger("State"))];
+        this.state = MachineTypeStates.values()[(nbttagcompound.getInteger("State"))];
 
         super.readCustomNBT(nbttagcompound);
     }
@@ -495,7 +496,7 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
             boolean powered = this.isGettingRedstonePower();
 
             if (powered) {
-                this.state = MixerStates.PAUSED;
+                this.state = MachineTypeStates.PAUSED;
                 return;
             }
 
@@ -506,16 +507,16 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
             }
 
             if (this.aspectInput1 == null || this.aspectInput2 == null) {
-                this.state = MixerStates.IDLE;
+                this.state = MachineTypeStates.IDLE;
                 this.aspectProcessingTime = 0;
                 return;
             } else {
                 if (!AspectHelper.compoundExists(this.aspectInput1, this.aspectInput2)) {
-                    this.state = MixerStates.IDLE;
+                    this.state = MachineTypeStates.IDLE;
                     this.aspectProcessingTime = 0;
                     return;
                 } else {
-                    this.state = MixerStates.WORKING;
+                    this.state = MachineTypeStates.WORKING;
                     if(this.aspectProcessingTime <= 0) {
                         this.aspectProcessingTime = maxAspectProcessingTime;
                     }
@@ -526,8 +527,11 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
                 this.aspectProcessingTime--;
             }
 
-            if (this.aspectProcessingTime <= 0 && this.aspectOutput == null) {
-                this.processEssentiaMixing();
+            if (this.aspectProcessingTime <= 0) {
+                if (this.aspectOutput == null) {
+                    this.processEssentiaMixing();
+                }
+                this.aspectProcessingTime = 0; // clamp
             }
         } else {
             this.handleClientAnimLogic();
@@ -542,7 +546,7 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
                 this.rotationSpeed -= 0.5F;
             }
         } else {
-            if (this.state == MixerStates.WORKING) {
+            if (this.state == MachineTypeStates.WORKING) {
                 if (this.rotationSpeed < 20.0F) {
                     this.rotationSpeed += 2.0F;
                 }
@@ -587,11 +591,5 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
                 this.colors.get(2).z -= this.colors.get(1).z;
             }
         }
-    }
-
-    public enum MixerStates {
-        IDLE,
-        WORKING,
-        PAUSED
     }
 }

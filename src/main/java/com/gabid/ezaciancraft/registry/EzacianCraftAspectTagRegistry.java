@@ -3,11 +3,18 @@ package com.gabid.ezaciancraft.registry;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.common.config.ConfigItems;
 
+import static com.gabid.ezaciancraft.registry.EzacianCraftAspects.PRIMORDIUM;
 import static com.gabid.ezaciancraft.registry.EzacianCraftAspects.REPLICATIO;
 import static thaumcraft.api.aspects.Aspect.*;
 
 public class EzacianCraftAspectTagRegistry {
+
+    public static void initAddExtraTagObjects() {
+        //primordial pearl with primordium
+        ThaumcraftApi.registerObjectTag(new ItemStack(ConfigItems.itemEldritchObject,1,3), new AspectList().add(PRIMORDIUM, 8));
+    }
 
     public static void initObjectAspects() {
         //void seed ore

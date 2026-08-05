@@ -1,5 +1,6 @@
 package com.gabid.ezaciancraft.common.event;
 
+import com.gabid.ezaciancraft.api.InterfaceTypesAndStates;
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAdvancedEssentiaStorage;
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAdvancedEssentiaStorageInterface;
 import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
@@ -254,6 +255,7 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
 
                     if(multiblockBlueprintFormed[positiveSearchY][positiveSearchZ][positiveSearchX] != null) {
                         world.setBlock(mSearchX, mSearchY, mSearchZ, multiblockBlueprintFormed[positiveSearchY][positiveSearchZ][positiveSearchX], multiblockMetaDatas[positiveSearchY][positiveSearchZ][positiveSearchX], 3);
+                        world.markBlockForUpdate(mSearchX, mSearchY, mSearchZ);
                     } else {
                         world.setBlock(mSearchX, mSearchY, mSearchZ, Blocks.air, 0, 3);
                     }
@@ -278,11 +280,14 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
                     TileEntity currentTE = world.getTileEntity(mSearchX, mSearchY, mSearchZ);
                     if(currentTE instanceof TileEntityAdvancedEssentiaStorageInterface) {
                         TileEntityAdvancedEssentiaStorageInterface interfaceTE = (TileEntityAdvancedEssentiaStorageInterface) currentTE;
-                        interfaceTE.setStorageReference(storageTE);
+                        interfaceTE.setMasterPos(storageTE.xCoord, storageTE.yCoord, storageTE.zCoord);
+                        world.markBlockForUpdate(storageTE.xCoord, storageTE.yCoord, storageTE.zCoord);
                     }
                 }
             }
         }
+
+        world.playSoundEffect((double) x + 0.5, (double) y + 0.5, (double) z + 0.5, "thaumcraft:wand", 1.0F, 1.0F);
 
         return true;
     }

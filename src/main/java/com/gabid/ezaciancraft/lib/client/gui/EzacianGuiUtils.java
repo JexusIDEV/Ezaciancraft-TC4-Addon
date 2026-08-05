@@ -10,9 +10,6 @@ import java.util.List;
 
 //sorry brandon...
 public class EzacianGuiUtils {
-    public static final double PXL128 = 0.0078125;
-    public static final double PXL256 = 0.00390625;
-
     public static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
         return mouseX >= x && mouseX <= x + xSize && mouseY >= y && mouseY <= y + ySize;
     }

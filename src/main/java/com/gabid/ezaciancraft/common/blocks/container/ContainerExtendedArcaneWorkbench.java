@@ -15,10 +15,9 @@ import thaumcraft.common.container.SlotCraftingArcaneWorkbench;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 
+import java.util.List;
+
 public class ContainerExtendedArcaneWorkbench extends Container {
-    private static final int WAND_SLOT = 10;
-    private static final int PLAYER_INV_START = 11;
-    private static final int PLAYER_INV_END = 37;
 
     protected TileEntityExtendedArcaneWorkbench arcaneWorkTE;
     protected InventoryPlayer playerInv;
@@ -53,27 +52,38 @@ public class ContainerExtendedArcaneWorkbench extends Container {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotId) {
-        ItemStack stack = null;
+        ItemStack result = null;
         Slot slot = (Slot) this.inventorySlots.get(slotId);
 
         if (slot != null && slot.getHasStack()) {
             ItemStack stackInSlot = slot.getStack();
-            stack = stackInSlot.copy();
+            result = stackInSlot.copy();
 
-            if (slotId >= PLAYER_INV_START) {
-                if (stackInSlot.getItem() instanceof ItemWandCasting) {
-                    if (!this.mergeItemStack(stackInSlot, WAND_SLOT, WAND_SLOT + 1, false)) {
-                        return null;
-                    }
-                } else {
-                    if (!this.mergeItemStack(stackInSlot, 0, 9, false)) {
-                        return null;
-                    }
-                }
-            } else {
-                if (!this.mergeItemStack(stackInSlot, PLAYER_INV_START, PLAYER_INV_END + 1, true)) {
+            if (slotId == 0) {
+                if (!this.mergeItemStack(stackInSlot, 11, 47, true)) {
                     return null;
                 }
+                slot.onSlotChange(stackInSlot, result);
+            } else if (slotId >= 11 && slotId < 38) {
+                if (stackInSlot.getItem() instanceof ItemWandCasting) {
+                    if (!this.mergeItemStack(stackInSlot, 1, 2, false)) {
+                        return null;
+                    }
+                    slot.onSlotChange(stackInSlot, result);
+                } else if (!this.mergeItemStack(stackInSlot, 38, 47, false)) {
+                    return null;
+                }
+            } else if (slotId >= 38 && slotId < 47) {
+                if (stackInSlot.getItem() instanceof ItemWandCasting) {
+                    if (!this.mergeItemStack(stackInSlot, 1, 2, false)) {
+                        return null;
+                    }
+                    slot.onSlotChange(stackInSlot, result);
+                } else if (!this.mergeItemStack(stackInSlot, 11, 38, false)) {
+                    return null;
+                }
+            } else if (!this.mergeItemStack(stackInSlot, 11, 47, false)) {
+                return null;
             }
 
             if (stackInSlot.stackSize == 0) {
@@ -81,9 +91,13 @@ public class ContainerExtendedArcaneWorkbench extends Container {
             } else {
                 slot.onSlotChanged();
             }
-        }
 
-        return stack;
+            if (stackInSlot.stackSize == result.stackSize) {
+                return null;
+            }
+            slot.onPickupFromSlot(player, stackInSlot);
+        }
+        return result;
     }
 
     @Override
