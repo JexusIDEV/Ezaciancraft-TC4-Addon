@@ -1,11 +1,12 @@
 package com.gabid.ezaciancraft.registry;
 
-import com.gabid.ezaciancraft.api.common.blocks.BaseGenericBlock;
 import com.gabid.ezaciancraft.api.common.blocks.BaseGenericLightBlock;
 import com.gabid.ezaciancraft.api.common.blocks.EzacianCustomBlockJar;
 import com.gabid.ezaciancraft.api.common.items.BasicNamedItemBlockWithMetadata;
 import com.gabid.ezaciancraft.api.common.items.EzacianCustomItemBlockJar;
 import com.gabid.ezaciancraft.common.blocks.*;
+import com.gabid.ezaciancraft.common.blocks.machine.*;
+import com.gabid.ezaciancraft.common.blocks.vegetal.BlockAspectCrop;
 import com.gabid.ezaciancraft.common.items.block.ItemBlockWirelessEssentiaInterface;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -37,6 +38,7 @@ public class EzacianCraftBlocks {
     public static Block voidSeedOre;
     public static Block voidMetalBlock;
     public static Block alchemyBlockExpert;
+    public static Block aspectCrop;
 
     public static EzacianCustomBlockJar crystalyiumJar;
     public static EzacianCustomBlockJar shadowVoidMetalJar;
@@ -100,5 +102,10 @@ public class EzacianCraftBlocks {
 
         alchemyBlockExpert = new BaseGenericLightBlock(Material.iron, UNLOCALE_ALCHEMY_BLOCK_EXPERT,3f, 3f, Block.soundTypeMetal, EZACIANCRAFT_TAB, 15);
         GameRegistry.registerBlock(alchemyBlockExpert, alchemyBlockExpert.getUnlocalizedName());
+    }
+
+    public static void setupLateRegistryBlocks() {
+        aspectCrop = new BlockAspectCrop();
+        GameRegistry.registerBlock(aspectCrop, aspectCrop.getUnlocalizedName());
     }
 }

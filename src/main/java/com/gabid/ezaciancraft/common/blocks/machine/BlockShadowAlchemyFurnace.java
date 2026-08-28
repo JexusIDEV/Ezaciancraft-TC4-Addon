@@ -1,4 +1,4 @@
-package com.gabid.ezaciancraft.common.blocks;
+package com.gabid.ezaciancraft.common.blocks.machine;
 
 import com.gabid.ezaciancraft.CoreMod;
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityShadowAlchemyFurnace;
@@ -24,7 +24,6 @@ import net.minecraft.world.World;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.lib.utils.InventoryUtils;
 import thaumcraft.common.tiles.TileAlchemyFurnace;
-import thaumcraft.common.tiles.TileAlembic;
 
 import java.util.Random;
 

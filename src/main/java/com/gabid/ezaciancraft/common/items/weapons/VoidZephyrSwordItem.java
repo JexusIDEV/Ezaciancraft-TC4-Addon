@@ -69,10 +69,7 @@ public class VoidZephyrSwordItem extends ItemElementalSword implements IWarpingG
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase playerHitter) {
         if (!target.worldObj.isRemote && (!(target instanceof EntityPlayer) || !(playerHitter instanceof EntityPlayer) || MinecraftServer.getServer().isPVPEnabled())) {
-            try {
-                target.isPotionApplicable(new PotionEffect(Potion.weakness.getId(), 60));
-            } catch (Exception var5) {
-            }
+            target.isPotionApplicable(new PotionEffect(Potion.weakness.getId(), 60));
         }
         return super.hitEntity(stack, target, playerHitter);
     }

@@ -1,14 +1,19 @@
 package com.gabid.ezaciancraft.registry;
 
+import com.gabid.ezaciancraft.api.EzacianToolMaterials;
 import com.gabid.ezaciancraft.api.aspects.wand.CustomWandRodPrimalUpdate;
 import com.gabid.ezaciancraft.api.common.items.CustomItemWandCap;
 import com.gabid.ezaciancraft.api.common.items.CustomItemWandRodStaff;
 import com.gabid.ezaciancraft.api.common.items.EzacianCustomItemJarFilled;
 import com.gabid.ezaciancraft.api.registry.EzacianCraftMiscRegistry;
 import com.gabid.ezaciancraft.common.items.ItemEzacianPlates;
+import com.gabid.ezaciancraft.api.common.items.ItemCustomFortressArmor;
+import com.gabid.ezaciancraft.common.items.armor.ItemMagicAlloyFortressArmor;
 import com.gabid.ezaciancraft.common.items.armor.ItemMagicAlloyTravelerBoots;
+import com.gabid.ezaciancraft.common.items.armor.ItemShadowVoidMetalRobes;
 import com.gabid.ezaciancraft.common.items.debug.ItemDebugger;
 import com.gabid.ezaciancraft.common.items.tools.*;
+import com.gabid.ezaciancraft.common.items.vegetal.ItemAspectSeed;
 import com.gabid.ezaciancraft.common.items.weapons.VoidZephyrSwordItem;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.EnumRarity;
@@ -27,6 +32,7 @@ public class EzacianCraftItems {
 
     //resources
     public static Item ezacianPlates;
+    public static Item aspectSeeds;
 
     //*Other
     public static EzacianCustomItemJarFilled itemFilledJarCrystalyium;
@@ -43,6 +49,14 @@ public class EzacianCraftItems {
 
     //armors
     public static Item magicAlloyTravellerBoots;
+
+    public static Item magicAlloyFortressArmorHelmet;
+    public static Item magicAlloyFortressArmorChest;
+    public static Item magicAlloyFortressArmorLeggings;
+
+    public static Item shadowVoidMetalRobesArmorHelmet;
+    public static Item shadowVoidMetalRobesArmorChest;
+    public static Item shadowVoidMetalRobesArmorLeggings;
 
     //*wand caps and staffs etc
     public static CustomItemWandCap shadowVoidMetalCap;
@@ -63,6 +77,8 @@ public class EzacianCraftItems {
         //resources
         ezacianPlates = new ItemEzacianPlates();
         GameRegistry.registerItem(ezacianPlates, ezacianPlates.getUnlocalizedName(), MODID);
+        aspectSeeds = new ItemAspectSeed();
+        GameRegistry.registerItem(aspectSeeds, aspectSeeds.getUnlocalizedName(), MODID);
 
         //other
         itemFilledJarCrystalyium = new EzacianCustomItemJarFilled(EzacianCraftBlocks.crystalyiumJar);
@@ -94,6 +110,22 @@ public class EzacianCraftItems {
         //armors
         magicAlloyTravellerBoots = new ItemMagicAlloyTravelerBoots();
         GameRegistry.registerItem(magicAlloyTravellerBoots, magicAlloyTravellerBoots.getUnlocalizedName(), MODID);
+
+        //fortress
+        magicAlloyFortressArmorHelmet = new ItemMagicAlloyFortressArmor(EzacianToolMaterials.armorMagicAlloyMaterial, 4, 0);
+        GameRegistry.registerItem(magicAlloyFortressArmorHelmet, magicAlloyFortressArmorHelmet.getUnlocalizedName(), MODID);
+        magicAlloyFortressArmorChest = new ItemMagicAlloyFortressArmor(EzacianToolMaterials.armorMagicAlloyMaterial, 4, 1);
+        GameRegistry.registerItem(magicAlloyFortressArmorChest, magicAlloyFortressArmorChest.getUnlocalizedName(), MODID);
+        magicAlloyFortressArmorLeggings = new ItemMagicAlloyFortressArmor(EzacianToolMaterials.armorMagicAlloyMaterial, 4, 2);
+        GameRegistry.registerItem(magicAlloyFortressArmorLeggings, magicAlloyFortressArmorLeggings.getUnlocalizedName(), MODID);
+
+        //shadow robe
+        shadowVoidMetalRobesArmorHelmet = new ItemShadowVoidMetalRobes(EzacianToolMaterials.armorShadowVoidMetalMaterial, 4, 0);
+        GameRegistry.registerItem(shadowVoidMetalRobesArmorHelmet, shadowVoidMetalRobesArmorHelmet.getUnlocalizedName(), MODID);
+        shadowVoidMetalRobesArmorChest = new ItemShadowVoidMetalRobes(EzacianToolMaterials.armorShadowVoidMetalMaterial, 4, 1);
+        GameRegistry.registerItem(shadowVoidMetalRobesArmorChest, shadowVoidMetalRobesArmorChest.getUnlocalizedName(), MODID);
+        shadowVoidMetalRobesArmorLeggings = new ItemShadowVoidMetalRobes(EzacianToolMaterials.armorShadowVoidMetalMaterial, 4, 2);
+        GameRegistry.registerItem(shadowVoidMetalRobesArmorLeggings, shadowVoidMetalRobesArmorLeggings.getUnlocalizedName(), MODID);
 
         //wand caps and staffs etc
         shadowVoidMetalCap = new CustomItemWandCap(UNLOCALE_SHADOW_VOID_METAL, MODID, EnumRarity.epic, EZACIANCRAFT_TAB, "shadow_void_metal", 0.35f, 5, true);

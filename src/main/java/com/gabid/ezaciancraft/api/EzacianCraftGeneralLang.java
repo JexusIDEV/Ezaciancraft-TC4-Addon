@@ -24,6 +24,7 @@ public class EzacianCraftGeneralLang {
 
     //** other
     public static String UNLOCALE_EZACIAN_PLATES_BASENAME = "ezacianPlates";
+    public static String UNLOCALE_ASPECT_SEED_BASENAME = "aspectSeed";
 
     //*wand stuff
     public static String UNLOCALE_ADVANCED_PRIMAL_STAFF_WAND_ROD = "advancedPrimal";
@@ -38,6 +39,14 @@ public class EzacianCraftGeneralLang {
 
     //*armor
     public static String UNLOCALE_MAGIC_ALLOY_TRAVELLER_BOOTS = "magicAlloyTravellerBoots";
+
+    public static String UNLOCALE_MAGIC_ALLOY_FORTRESS_ARMOR_HELMET = "magicAlloyFortressArmorHelmet";
+    public static String UNLOCALE_MAGIC_ALLOY_FORTRESS_ARMOR_CHESTPLATE = "magicAlloyFortressArmorChestplate";
+    public static String UNLOCALE_MAGIC_ALLOY_FORTRESS_ARMOR_LEGGINGS = "magicAlloyFortressArmorLeggings";
+
+    public static String UNLOCALE_SHADOW_VOID_METAL_ROBES_ARMOR_HELMET = "shadowVoidMetalRobesArmorHelmet";
+    public static String UNLOCALE_SHADOW_VOID_METAL_ROBES_ARMOR_CHESTPLATE = "shadowVoidMetalRobesArmorChestplate";
+    public static String UNLOCALE_SHADOW_VOID_METAL_ROBES_ARMOR_LEGGINGS = "shadowVoidMetalRobesArmorLeggings";
 
     //blocks
 
@@ -57,5 +66,7 @@ public class EzacianCraftGeneralLang {
     public static String UNLOCALE_CUSTOM_BASE_JAR = "customBaseJar";
 
     public static String UNLOCALE_ALCHEMY_BLOCK_EXPERT = "alchemyBlockExpert";
+
+    public static String UNLOCALE_ASPECT_CROP_BASENAME = "aspectCrop";
 
 }

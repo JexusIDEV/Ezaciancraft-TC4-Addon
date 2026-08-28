@@ -15,6 +15,9 @@ item.crudeCrystalyium.0.name=Ingot of Crude Crystalyium
 item.crudeCrystalyium.1.name=Nugget of Crude Crystalyium
 item.crudeCrystalyium.2.name=Cluster of Crude Crystalyium
 
+#seed
+item.aspectSeed.name=Aspect Seed
+
 ###magic alloy
 item.ezacianPlates.0.name=Magic Alloy Plate
 
@@ -240,7 +243,9 @@ ezaciancraft.research_page.MAGIC_ALLOY_TRAVELLER_BOOTS.1=As expected, your feet 
 
 ezaciancraft.research_page.MAGIC_ALLOY_JAR.1=At last, with your new material and considerable effort, you have created something truly absurd: a jar capable of storing up to 8192 units of a single type of essentia. Why one would ever require such an amount remains unknown, but with this, you may finally feel satisfied...
 
-ezaciancraft.research_page.ADVANCED_ESSENTIA_STORAGE.1=AAA
+ezaciancraft.research_page.ADVANCED_ESSENTIA_STORAGE.1=After thinking about it for far too long, you decided to create something both completely necessary and equally unhinged. You began studying alchemical blocks, and the idea came to you to improve the ones you used to create the Advanced Essentia Furnace.<BR>With that, you concluded your research by creating the expert version, an amalgamation composed of the previous ones that allows all kinds of functions and filters.
+ezaciancraft.research_page.ADVANCED_ESSENTIA_STORAGE.2=You required the use of all your new resources to build it, and this led you to the idea of using this block to create the storage you had long desired—the one that wouldn’t let you sleep.<BR>Even so, it is possible that this new construct could be used for other purposes in the future.
+ezaciancraft.research_page.ADVANCED_ESSENTIA_STORAGE.3=And as you envisioned in your original idea, the primary use of this block is to create an essentia storage system capable of holding absurd amounts in a stable and separated way. Additionally, it features multiple interfaces that allow insertion from below and extraction from above. This construct also prioritizes extracting whichever essentia is most abundant, but it can still absorb others without issue, and filtered tubes can be used to insert or extract specific aspects into the system.
 
 #container and screens
 ##Shadow V.M. Alchemy Furnace

@@ -1,7 +1,11 @@
 package com.gabid.ezaciancraft.registry;
 
+import com.gabid.ezaciancraft.api.aspects.AspectHelper;
+import com.gabid.ezaciancraft.common.items.vegetal.ItemAspectSeed;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.config.ConfigItems;
 
@@ -11,9 +15,9 @@ import static thaumcraft.api.aspects.Aspect.*;
 
 public class EzacianCraftAspectTagRegistry {
 
-    public static void initAddExtraTagObjects() {
+    public static void postInitAddExtraTagObjects() {
         //primordial pearl with primordium
-        ThaumcraftApi.registerObjectTag(new ItemStack(ConfigItems.itemEldritchObject,1,3), new AspectList().add(PRIMORDIUM, 8));
+        //AspectHelper.addNewAspectTagsToObject(ConfigItems.itemEldritchObject, 3, new AspectList().add(PRIMORDIUM, 16));
     }
 
     public static void initObjectAspects() {
@@ -94,5 +98,16 @@ public class EzacianCraftAspectTagRegistry {
                 .add(METAL, 9)
         );
 
+        ThaumcraftApi.registerObjectTag(new ItemStack(EzacianCraftItems.aspectSeeds, 1, 0), new AspectList());
     }
+
+    /*public static void addNewAspectTagsToObject(Item item, int meta, AspectList aspectList) {
+        if (ThaumcraftApi.exists(item, meta) && aspectList != null) {
+            AspectList oldAsp = ThaumcraftApi.objectTags.get(Arrays.asList(item, meta));
+            ThaumcraftApi.objectTags.remove(Arrays.asList(item, meta));
+            AspectList newAsp = oldAsp.copy();
+            newAsp.add(aspectList);
+            ThaumcraftApi.objectTags.put(Arrays.asList(item, meta), newAsp);
+        }
+    }*/
 }

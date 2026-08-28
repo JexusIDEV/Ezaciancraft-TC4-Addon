@@ -22,6 +22,7 @@ import java.util.List;
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
 
+///@api Item Used for creative players, which helps to get cheat commands for various utilities
 public class ItemDebugger extends Item {
 
     public ItemDebugger() {
@@ -76,11 +77,12 @@ public class ItemDebugger extends Item {
                     Thaumcraft.proxy.playerKnowledge.setWarpPerm(player.getDisplayName(), 0);
                     Thaumcraft.proxy.playerKnowledge.setWarpSticky(player.getDisplayName(), 0);
                     Thaumcraft.proxy.playerKnowledge.setWarpTemp(player.getDisplayName(), 0);
-                    player.addChatMessage(new ChatComponentText("All Warp purged"));
+                    player.addChatMessage(new ChatComponentText("All Warp Purged"));
                     break;
             }
+            stack.stackSize--;
+            return stack;
         }
-        stack.stackSize--;
         return stack;
     }
 }

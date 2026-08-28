@@ -42,4 +42,14 @@ public class AspectHelper {
         final String color = Integer.toHexString(a.getColor()).concat("00");
         return Integer.valueOf(color.substring(4, 6), 16) / 255.0f;
     }
+
+    /*public static void addNewAspectTagsToObject(Item item, int meta, AspectList aspectList) {
+        if (ThaumcraftApi.exists(item, meta) && aspectList != null) {
+            AspectList oldAsp = ThaumcraftApi.objectTags.get(Arrays.asList(item, meta));
+            ThaumcraftApi.objectTags.remove(Arrays.asList(item, meta));
+            AspectList newAsp = oldAsp.copy();
+            newAsp.add(aspectList);
+            ThaumcraftApi.objectTags.put(Arrays.asList(item, meta), newAsp);
+        }
+    }*/
 }

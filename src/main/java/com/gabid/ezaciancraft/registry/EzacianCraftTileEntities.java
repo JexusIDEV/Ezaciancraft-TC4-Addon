@@ -2,6 +2,7 @@ package com.gabid.ezaciancraft.registry;
 
 import com.gabid.ezaciancraft.api.common.blocks.tileentity.EzacianCustomJarFillableTE;
 import com.gabid.ezaciancraft.common.blocks.tileentity.*;
+import com.gabid.ezaciancraft.common.blocks.vegetal.TileEntityAspectCrop;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.tileentity.TileEntity;
 
@@ -19,6 +20,8 @@ public class EzacianCraftTileEntities {
         registerTileEntity(TileEntityAdvancedEssentiaStorageInterface.class, UNLOCALE_ADVANCED_ESSENTIA_STORAGE+"Interface");
         registerTileEntity(TileEntityEtherealAccelerator.class, UNLOCALE_ETHEREAL_ACCELERATOR);
         registerTileEntity(EzacianCustomJarFillableTE.class, UNLOCALE_CUSTOM_BASE_JAR);
+
+        registerTileEntity(TileEntityAspectCrop.class, UNLOCALE_ASPECT_CROP_BASENAME);
     }
 
     private static <T extends TileEntity> void registerTileEntity(Class<T> classTE, String unlocaleBlockName) {

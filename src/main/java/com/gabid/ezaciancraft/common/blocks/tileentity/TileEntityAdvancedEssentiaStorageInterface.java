@@ -1,6 +1,5 @@
 package com.gabid.ezaciancraft.common.blocks.tileentity;
 
-import com.gabid.ezaciancraft.api.InterfaceTypesAndStates;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -12,7 +11,6 @@ import thaumcraft.common.tiles.TileTube;
 
 public class TileEntityAdvancedEssentiaStorageInterface extends TileThaumcraft implements IEssentiaTransport {
 
-    protected Aspect readAspect = null;
     private long ticks;
 
     protected int masterX;
@@ -183,7 +181,7 @@ public class TileEntityAdvancedEssentiaStorageInterface extends TileThaumcraft i
 
             if (te instanceof TileTube) {
                 TileTube other = (TileTube) te;
-                Aspect aspect = other.getSuctionType(dir.getOpposite());
+                Aspect aspect = other.getEssentiaType(dir.getOpposite());
 
                 if (aspect == null) continue;
 

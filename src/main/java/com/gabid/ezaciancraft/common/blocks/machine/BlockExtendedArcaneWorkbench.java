@@ -1,4 +1,4 @@
-package com.gabid.ezaciancraft.common.blocks;
+package com.gabid.ezaciancraft.common.blocks.machine;
 
 import com.gabid.ezaciancraft.CoreMod;
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityExtendedArcaneWorkbench;

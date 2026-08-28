@@ -7,6 +7,7 @@ import com.gabid.ezaciancraft.lib.world.BlockFinder;
 import com.gabid.ezaciancraft.lib.world.math.Coord4D;
 import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockOre;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.client.Minecraft;
@@ -78,35 +79,37 @@ public class EzacianToolHelper {
 
         ItemStack tool = player.getHeldItem();
 
-        ItemStack ore = new ItemStack(block, 1, meta);
-        ItemStack cluster = Utils.findSpecialMiningResult(ore, .25f, world.rand);
-        ItemStack clusterStaff = Utils.findSpecialMiningResult(ore, 4f, world.rand);
+        if(block instanceof BlockOre) {
+            ItemStack ore = new ItemStack(block, 1, meta);
+            ItemStack cluster = Utils.findSpecialMiningResult(ore, .25f, world.rand);
+            ItemStack clusterStaff = Utils.findSpecialMiningResult(ore, 4f, world.rand);
 
-        if(tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem) {
-            if (clusterStaff != null) {
-                EntityItem entityItem = new EntityItem(
-                        world,
-                        x + 0.5,
-                        y + 0.5,
-                        z + 0.5,
-                        clusterStaff.copy()
-                );
+            if (tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem) {
+                if (clusterStaff != null) {
+                    EntityItem entityItem = new EntityItem(
+                            world,
+                            x + 0.5,
+                            y + 0.5,
+                            z + 0.5,
+                            clusterStaff.copy()
+                    );
 
-                world.spawnEntityInWorld(entityItem);
-                return true;
-            }
-        } else {
-            if (cluster != null) {
-                EntityItem entityItem = new EntityItem(
-                        world,
-                        x + 0.5,
-                        y + 0.5,
-                        z + 0.5,
-                        cluster.copy()
-                );
+                    world.spawnEntityInWorld(entityItem);
+                    return true;
+                }
+            } else {
+                if (cluster != null) {
+                    EntityItem entityItem = new EntityItem(
+                            world,
+                            x + 0.5,
+                            y + 0.5,
+                            z + 0.5,
+                            cluster.copy()
+                    );
 
-                world.spawnEntityInWorld(entityItem);
-                return true;
+                    world.spawnEntityInWorld(entityItem);
+                    return true;
+                }
             }
         }
         return false;
@@ -167,18 +170,20 @@ public class EzacianToolHelper {
 
                 boolean hasCluster = handleThaumcraftCluster(world, player, block, meta, x, y, z);
 
-                if (!hasCluster && !(tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem || tool.getItem() instanceof ItemElementalPickaxe)) {
+                if(!(tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem || tool.getItem() instanceof ItemElementalPickaxe)) {
                     block.harvestBlock(world, player, x, y, z, meta);
+                } else {
+                    if(!hasCluster) {
+                        block.harvestBlock(world, player, x, y, z, meta);
+                    } else {
+                        int exp = block.getExpDrop(world, meta, EnchantmentHelper.getFortuneModifier(player));
+                        if (exp > 0) {
+                            player.addExperience(exp);
+                        }
+                    }
                 }
-
                 player.addExhaustion(-0.025F);
-
-                int exp = block.getExpDrop(world, meta, EnchantmentHelper.getFortuneModifier(player));
-                if (exp > 0) {
-                    player.addExperience(exp);
-                }
             }
-
             EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
             mpPlayer.playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
         } else {

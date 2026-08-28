@@ -21,8 +21,8 @@ public class EzacianCraftAspects {
     public static final Aspect ORDOS = new EzacianAspect("ordos", 15527148, new Aspect[]{Aspect.ORDER, MAGICUS}, 1);
     public static final Aspect PERDOTOS = new EzacianAspect("perdotos", 5328976, new Aspect[]{Aspect.ENTROPY, MAGICUS}, 1);
 
-    //the true compound, need a complex machine to produce
-    public static final Aspect PRIMORDIUM = new ChangeableColoredAspect("primordium", 0xff0000, null, 1, MODID, ChangeableColoredAspect.SOFT_RAINBOW);
+    //the true compound needs a complex machine to produce it
+    public static final Aspect PRIMORDIUM = new ChangeableColoredAspect("primordium", 0xff0000, null, 1, ChangeableColoredAspect.SOFT_RAINBOW);
 
     public static void initAspects() {
     }

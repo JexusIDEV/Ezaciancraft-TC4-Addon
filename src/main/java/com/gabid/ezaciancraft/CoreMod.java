@@ -46,7 +46,7 @@ public class CoreMod {
     public static String getModIdFromItemStack(ItemStack stack) {
         try {
             ModContainer mod = GameData.findModOwner(GameData.getItemRegistry().getNameForObject(stack.getItem()));
-            return mod == null ? "Minecraft" : mod.getName();
+            return mod == null ? "minecraft" : mod.getName();
         } catch (Exception e) {
             return "null";
         }
@@ -57,7 +57,7 @@ public class CoreMod {
         try {
             EzacianCraftConfiguration.initConfig(event.getSuggestedConfigurationFile());
         } catch (Exception var8) {
-            LOG.error("Ezaciancraft has a problem loading it's configuration");
+            LOG.error("Ezaciancraft has a problem loading it's configuration...");
         } finally {
             if (Config.config != null) {
                 EzacianCraftConfiguration.save();
@@ -68,8 +68,6 @@ public class CoreMod {
         EzacianCraftItems.setupItemsRegistry();
         EzacianCraftResources.setupResources();
         EzacianCraftTileEntities.setupTileEntities();
-        EzacianCraftAspects.initAspects();
-        EzacianCraftAspectTagRegistry.initAddExtraTagObjects();
         GameRegistry.registerWorldGenerator(new EzacianCraftWorldGen(), 0);
 
         thaumcraftMultiblockEvent = new EzacianCraftWandMultiblockEvent();
@@ -87,17 +85,20 @@ public class CoreMod {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         proxy.registerDisplayClientStuff();
+        EzacianCraftBlocks.setupLateRegistryBlocks();
         EzacianNetworkHandler.initNetwork();
-        EzacianCraftRecipes.setupRecipes();
-        EzacianCraftRegistryIMC.initAll();
 
         proxy.init(event);
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        EzacianCraftResearches.registerAllResearches();
+        EzacianCraftAspects.initAspects();
         EzacianCraftAspectTagRegistry.initObjectAspects();
+        EzacianCraftRecipes.setupRecipes();
+        EzacianCraftAspectTagRegistry.postInitAddExtraTagObjects();
+        EzacianCraftRegistryIMC.initAll();
+        EzacianCraftResearches.registerAllResearches();
 
         proxy.postInit(event);
     }

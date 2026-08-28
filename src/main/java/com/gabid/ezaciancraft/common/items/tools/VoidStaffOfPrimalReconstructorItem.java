@@ -8,6 +8,7 @@ import com.gabid.ezaciancraft.lib.nbt.NBTHelper;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockOre;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
@@ -251,24 +252,26 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
             Block block = world.getBlock(x, y, z);
             int meta = world.getBlockMetadata(x, y, z);
 
-            ItemStack ore = new ItemStack(block, 1, meta);
+            if(block instanceof BlockOre) {
+                ItemStack ore = new ItemStack(block, 1, meta);
 
-            ItemStack cluster = Utils.findSpecialMiningResult(ore, 4f, player.worldObj.rand);
+                ItemStack cluster = Utils.findSpecialMiningResult(ore, 4f, player.worldObj.rand);
 
-            if (cluster != null) {
-                world.setBlockToAir(x, y, z);
+                if (cluster != null) {
+                    world.setBlockToAir(x, y, z);
 
-                EntityItem entityItem = new EntityItem(
-                        world,
-                        x + 0.5,
-                        y + 0.5,
-                        z + 0.5,
-                        cluster.copy()
-                );
+                    EntityItem entityItem = new EntityItem(
+                            world,
+                            x + 0.5,
+                            y + 0.5,
+                            z + 0.5,
+                            cluster.copy()
+                    );
 
-                world.spawnEntityInWorld(entityItem);
+                    world.spawnEntityInWorld(entityItem);
 
-                return;
+                    return;
+                }
             }
         }
         super.onBlockStartBreak(stack, x, y, z, player);

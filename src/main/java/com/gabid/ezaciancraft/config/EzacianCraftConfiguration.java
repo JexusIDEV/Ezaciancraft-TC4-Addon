@@ -12,6 +12,9 @@ public class EzacianCraftConfiguration {
     public static final String CAT_ESSENTIA = "Essentia";
     public static final String CAT_WORLDGEN = "World Generation";
     public static final String CAT_RENDERING = "General Rendering";
+    public static final String CAT_GENERAL = "General";
+
+    public static int CONFIG_VERSION = 1;
 
     //Default Configs and Values
     //Essentia
@@ -43,8 +46,26 @@ public class EzacianCraftConfiguration {
         }
     }
 
+    /*private static void handleConfigMigration() {
+        int version = config.get(CAT_GENERAL, "configVersion", CONFIG_VERSION).getInt();
+
+        if (version < 2) {
+            if (config.hasCategory("Old Machines")) {
+                config.removeCategory(config.getCategory("Old Machines"));
+            }
+
+            if (config.hasKey(CAT_MACHINES, config.has)) {
+                config.getCategory(CAT_MACHINES).remove("oldPropertyName");
+            }
+        }
+
+        // Actualizar versión
+        config.get(CAT_GENERAL, "configVersion", 2).set(2);
+    }*/
+
     public static void loadConfigurations() {
         config.load();
+        //handleConfigMigration();
         syncConfigurations();
     }
 

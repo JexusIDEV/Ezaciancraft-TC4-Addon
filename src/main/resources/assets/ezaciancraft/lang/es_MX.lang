@@ -15,6 +15,9 @@ item.crudeCrystalyium.0.name=Lingote de Cristalio Crudo
 item.crudeCrystalyium.1.name=Pepita de Cristalio Crudo
 item.crudeCrystalyium.2.name=Racimo de Cristalio Crudo
 
+#seed
+item.aspectSeed.name=Semilla de Aspecto
+
 ###magic alloy
 item.ezacianPlates.0.name=Placa de Aleación Mágica
 
@@ -237,13 +240,15 @@ ezaciancraft.research_page.ROD_advanced_primal_staff.1=Con tu investigación ant
 
 ezaciancraft.research_page.MAGIC_ALLOY.1=Después de pensarlo mucho con poseer la perla primordial, te das cuenta que con tu nuevo material, aparte de aprovecharlo para crear otras cosas interesantes, viste que podrías usarlo para “pegar” el Taumio con el Metal Vacío y el Ensombrecido e así crear un metaloide como un conductor mágico muy fuerte pero duradero, de todas formas; la persistencia caliente del metal vacío es notable y aun padece del problema del Warp, pero con este material puedes crear cosas que no sean exclusivas de la magia.
 
-ezaciancraft.research_page.CAP_magic_alloy.1=Con tu nuevo material, creíste que sería factible con el metal vacío ensombrecido en crear un nuevo cubierto para tu varita, la cubierta tiene la capacidad de dar un descuento de 7.5% total, algo absurdamente inexpugnable pero entendible, llegar hasta aquí es simplemente para una persona dañada y loca, yo, Taumaturgo. ¿¡cómo siquiera posible!?
+ezaciancraft.research_page.CAP_magic_alloy.1=Con tu nuevo material, creíste que sería factible con el metal vacío ensombrecido en crear un nuevo cubierto para tu varita, la cubierta tiene la capacidad de dar un descuento de 7.5% total, algo absurdamente inexpugnable pero entendible, llegar hasta aquí es simplemente para una persona dañada y loca como, yo... Taumaturgo... ¿¡cómo es siquiera posible!?
 
-ezaciancraft.research_page.MAGIC_ALLOY_TRAVELLER_BOOTS.1=Como es de esperarse, tus pies se cansan a pesar de llevar las botas del viajero comunes, nosotros como es obvio no somos normales; y en este caso con el nuevo material has decidido el crear unas botas que te darán una comodidad y libertad sin igual. Imbuyendo varios materiales como el metal vacío ensombrecido y plumas y otras cosas más, consigues unas botas que te hacen saltar hasta 5 bloques y yendo a una velocidad de 24 bloques por segundo corriendo; ¡son las botas definitivas!
+ezaciancraft.research_page.MAGIC_ALLOY_TRAVELLER_BOOTS.1=Como es de esperarse, tus pies se cansan a pesar de llevar las botas del viajero comunes, nosotros como es obvio no somos normales; y en este caso con el nuevo material has decidido el crear unas botas que te darán una comodidad y libertad sin igual. Imbuyendo varios materiales como el metal vacío ensombrecido y plumas y otras cosas más, consigues unas botas que te hacen saltar hasta 5 bloques y yendo a una velocidad de 24 bloques por segundo corriendo; ¡Son las botas definitivas!
 
 ezaciancraft.research_page.MAGIC_ALLOY_JAR.1=Finalmente con tu nuevo material y algo de esfuerzo, has creado algo absurdo, un tarro que puede guardar máximo de 8192 de esencia total de un solo tipo, porque se requeriría tener TANTA esencia, ni se sabe, pero espero que con esto ya te puedas sentir lleno...
 
-ezaciancraft.research_page.ADVANCED_ESSENTIA_STORAGE.1=AAA
+ezaciancraft.research_page.ADVANCED_ESSENTIA_STORAGE.1=Despues de pensarlo demasiado, decidiste crear algo completamente necesario pero desquiciado a partes iguales, te pusiste a ver los bloques de alquimia y se te ocurrio el mejorar los bloques que usaste para crear el Horno Avanzado de Esencia.<BR>Y con eso acabaste con tu investigación el crear la versión experta, el cual es una amalgamación compuesta de las anteriores que permiten todo tipo de funciones y filtros.
+ezaciancraft.research_page.ADVANCED_ESSENTIA_STORAGE.2=Requeriste del uso de todos tus nuevos recursos para crearlo y con esto se te vino a la idea el usar este bloque para crear el alamacenamiento que simplemente deseate y que no te dejaba dormir.<BR>Áun asi, es posbile que este nuevo constructo pueda ser usado para otras cosas a futuro.
+ezaciancraft.research_page.ADVANCED_ESSENTIA_STORAGE.3=Y el como planteaste en tu idea en el uso principal de este bloque, es el poder crear un almacenamiento de esencia que es capaz de guardar cantidades absurdas de estas de forma separada y estable, junto con el hecho de tener múltiples interfaces que permiten su inserción por abajo y arriba su extracción, también este constructo absorbe la esencia que tenga más primero, pero puede absorber el resto sin problemas y usar tubos con filtros para insertar aspectos específicos al sistema.
 
 #container and screens
 ##Shadow V.M. Alchemy Furnace

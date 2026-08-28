@@ -155,9 +155,10 @@ public class EzacianCraftResearches {
                 new ItemStack(EzacianCraftBlocks.alchemyBlockExpert, 1, 0)
         )).setPages(
                 ResearchUtils.createPageTranslation("ADVANCED_ESSENTIA_STORAGE", 1),
-                new ResearchPage((List) recipes.get(UNLOCALE_ADVANCED_ESSENTIA_STORAGE+"Multi"))//,
-                //ResearchUtils.createPageTranslation("ALCHEMICAL_MIXER", 2),
-                //ResearchUtils.createPageTranslation("ALCHEMICAL_MIXER", 3)
+                ResearchUtils.createPageTranslation("ADVANCED_ESSENTIA_STORAGE", 2),
+                new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_ADVANCED_ESSENTIA_STORAGE)),
+                ResearchUtils.createPageTranslation("ADVANCED_ESSENTIA_STORAGE", 3),
+                new ResearchPage((List) recipes.get(UNLOCALE_ADVANCED_ESSENTIA_STORAGE+"Multi"))
         ).setParents("MAGIC_ALLOY", "ADVALCHEMYFURNACE").registerResearchItem());
 
         ResearchCategories.addResearch((new ResearchItem("WIRELESS_INTERFACES",

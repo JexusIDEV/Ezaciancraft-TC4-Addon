@@ -8,8 +8,8 @@ import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.tiles.TileArcaneWorkbench;
 
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_EXTENDED_ARCANE_WORKBENCH;
-import static com.gabid.ezaciancraft.common.blocks.BlockExtendedArcaneWorkbench.multiblockBlueprint;
-import static com.gabid.ezaciancraft.common.blocks.BlockExtendedArcaneWorkbench.multiblockMetaDatas;
+import static com.gabid.ezaciancraft.common.blocks.machine.BlockExtendedArcaneWorkbench.multiblockBlueprint;
+import static com.gabid.ezaciancraft.common.blocks.machine.BlockExtendedArcaneWorkbench.multiblockMetaDatas;
 
 public class TileEntityExtendedArcaneWorkbench extends TileArcaneWorkbench {
 

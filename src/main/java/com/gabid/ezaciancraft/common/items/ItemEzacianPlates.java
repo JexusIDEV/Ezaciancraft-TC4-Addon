@@ -32,7 +32,7 @@ public class ItemEzacianPlates extends Item {
     public void registerIcons(IIconRegister register) {
         this.plateIcons = new IIcon[plateNames.length];
         for(int i=0; i < this.plateNames.length; i++) {
-            plateIcons[i] = register.registerIcon(new ResourceLocation(MODID, this.plateNames[i]+"Plate").toString());
+            this.plateIcons[i] = register.registerIcon(new ResourceLocation(MODID, this.plateNames[i]+"Plate").toString());
         }
     }
 

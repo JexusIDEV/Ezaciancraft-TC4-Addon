@@ -13,6 +13,7 @@ import com.gabid.ezaciancraft.common.blocks.tileentity.*;
 import com.gabid.ezaciancraft.common.event.EzacianCraftPlayerEvents;
 import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
 import com.gabid.ezaciancraft.registry.EzacianCraftItems;
+import com.gabid.ezaciancraft.registry.EzacianCraftResearches;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;

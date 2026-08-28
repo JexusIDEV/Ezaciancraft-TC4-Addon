@@ -5,7 +5,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import thaumcraft.api.ThaumcraftApi;
@@ -14,12 +13,13 @@ import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.WandTriggerRegistry;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
-import thaumcraft.common.config.ConfigRecipes;
 
 import java.util.Arrays;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
+import static com.gabid.ezaciancraft.registry.EzacianCraftAspects.REPLICATIO;
+import static com.gabid.ezaciancraft.registry.EzacianCraftAspects.SPAZIO;
 import static com.gabid.ezaciancraft.registry.EzacianCraftItems.advancedPrimalWandStaffRod;
 import static thaumcraft.api.aspects.Aspect.*;
 
@@ -44,12 +44,7 @@ public class EzacianCraftRecipes {
                 new ShapelessOreRecipe(new ItemStack(ConfigItems.itemResource, 9, 16),
                         (new ItemStack(EzacianCraftBlocks.voidMetalBlock, 1, 0)))
         );
-
-        //crystalyium
-
-
         //decoratives no magic
-
     }
 
     private static void registerFurnaceRecipes() {
@@ -612,13 +607,43 @@ public class EzacianCraftRecipes {
                         new ItemStack(EzacianCraftBlocks.shadowVoidMetalJar, 1, 0),
                         new ItemStack[]{
                                 new ItemStack(EzacianCraftItems.ezacianPlates, 1, 0),
-                                new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 2),
+                        }
+                ));
+
+        //advanced essentia storage
+        EzacianCraftResearches.recipes.put(UNLOCALE_ADVANCED_ESSENTIA_STORAGE,
+                ThaumcraftApi.addInfusionCraftingRecipe(
+                        "ADVANCED_ESSENTIA_STORAGE",
+                        new ItemStack(EzacianCraftBlocks.alchemyBlockExpert, 1, 0),
+                        16,
+                        new AspectList()
+                                .add(WATER, 256)
+                                .add(EXCHANGE, 92)
+                                .add(MAGIC, 128)
+                                .add(ORDER, 256)
+                                .add(AURA, 128)
+                                .add(VOID, 512)
+                                .add(REPLICATIO, 128)
+                                .add(SPAZIO, 256)
+                        ,
+                        new ItemStack(ConfigBlocks.blockMetalDevice, 1, 1),
+                        new ItemStack[]{ //my lord
                                 new ItemStack(EzacianCraftItems.ezacianPlates, 1, 0),
-                                new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 2),
+                                new ItemStack(EzacianCraftItems.ezacianPlates, 1, 0),
                                 new ItemStack(ConfigItems.itemEldritchObject, 1, 3),
-                                new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 2),
-                                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
-                                new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 2),
+                                new ItemStack(ConfigBlocks.blockCrystal, 1, 6),
+                                new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 0),
+                                new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 0),
+                                new ItemStack(EzacianCraftBlocks.magicAlloyJar, 1, 0),
+                                new ItemStack(EzacianCraftBlocks.magicAlloyJar, 1, 0),
+                                new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9),
+                                new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9),
+                                new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3),
+                                new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3),
+                                new ItemStack(ConfigBlocks.blockTube, 1, 4),
+                                new ItemStack(ConfigBlocks.blockTube, 1, 4),
+                                new ItemStack(ConfigItems.itemResource, 1, 8),
+                                new ItemStack(ConfigItems.itemResource, 1, 8),
                         }
                 ));
     }
