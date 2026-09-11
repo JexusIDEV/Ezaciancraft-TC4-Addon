@@ -38,6 +38,7 @@ public class ItemDebugger extends Item {
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
         list.add(new ItemStack(item, 1, 0));
         list.add(new ItemStack(item, 1, 1));
+        list.add(new ItemStack(item, 1, 2));
     }
 
     @Override
@@ -49,6 +50,9 @@ public class ItemDebugger extends Item {
                 break;
             case 1:
                 tooltips.add("Debug Item - Used to drain all warp to the player");
+                break;
+            case 2:
+                tooltips.add("Debug Item - Only Adds the important research for doing research's duh.");
                 break;
         }
 
@@ -78,6 +82,24 @@ public class ItemDebugger extends Item {
                     Thaumcraft.proxy.playerKnowledge.setWarpSticky(player.getDisplayName(), 0);
                     Thaumcraft.proxy.playerKnowledge.setWarpTemp(player.getDisplayName(), 0);
                     player.addChatMessage(new ChatComponentText("All Warp Purged"));
+                    break;
+
+                case 2:
+                    Collection<ResearchCategoryList> ra = ResearchCategories.researchCategories.values();
+
+                    for (ResearchCategoryList _cat : ra) {
+                        Collection<ResearchItem> rl = _cat.research.values();
+                        for (ResearchItem ri : rl) {
+                            if (!ResearchManager.isResearchComplete(player.getDisplayName(), ri.key)) {
+                                if(ri.key.equals("RESEARCHER1") || ri.key.equals("RESEARCHER2") || ri.key.equals("RESEARCHDUPE")) {
+                                    Thaumcraft.proxy.getResearchManager().completeResearch(player, ri.key);
+                                }
+                            }
+                        }
+                    }
+
+                    player.addChatMessage(new ChatComponentText("Mastery Researches added"));
+                    PacketHandler.INSTANCE.sendTo(new PacketSyncResearch(player), (EntityPlayerMP) player);
                     break;
             }
             stack.stackSize--;

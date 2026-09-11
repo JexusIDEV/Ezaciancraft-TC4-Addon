@@ -29,7 +29,7 @@ public class EzacianCustomBlockCrop extends BlockCrops {
     public IIcon[] plantStagesIcons;
     private boolean customDrops;
 
-    public EzacianCustomBlockCrop(String _cropName, int _stages, Item _cropSeedItem, Item _cropResult, boolean _customDrops) {
+    public EzacianCustomBlockCrop(String _cropName, int _stages, Item _cropSeedItem, Item _cropResult) {
         super();
         this.setStepSound(EzacianCustomBlockCrop.soundTypeGrass);
         this.cropName = _cropName;
@@ -40,7 +40,6 @@ public class EzacianCustomBlockCrop extends BlockCrops {
         this.setBlockName(_cropName);
         this.cropSeedItem = _cropSeedItem;
         this.cropResult = _cropResult;
-        this.customDrops = _customDrops;
     }
 
     @Override
@@ -168,7 +167,7 @@ public class EzacianCustomBlockCrop extends BlockCrops {
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
         ArrayList<ItemStack> ret = super.getDrops(world, x, y, z, metadata, fortune);
 
-        if(!this.customDrops) {
+        if(this.cropResult != null || this.cropSeedItem != null) {
             if (metadata >= this.stages - 1) {
                 for (int i = 0; i < 3 + fortune; ++i) {
                     if (world.rand.nextInt(15) <= metadata) {

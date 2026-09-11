@@ -51,6 +51,14 @@ item.voidStaffOfPrimalReconstructor.name=Bastón Primigenio de la Reconstrucció
 ##armors
 item.magicAlloyTravellerBoots.name=Botas del Viajero de Aleación Mágica
 
+item.magicAlloyFortressArmorHelmet.name=Yelmo de Fortaleza de Aleación Mágica Reforzado
+item.magicAlloyFortressArmorChestplate.name=Coraza de Fortaleza de Aleación Mágica Reforzada
+item.magicAlloyFortressArmorLeggings.name=Musleras de Fortaleza de Aleación Mágica Reforzada
+
+item.shadowVoidMetalRobesArmorHelmet.name=Capucha de Taumaturgo de Metal Vacío Ensombrecido
+item.shadowVoidMetalRobesArmorChestplate.name=Túnica de Taumaturgo de Metal Vacío Ensombrecido
+item.shadowVoidMetalRobesArmorLeggings.name=Pantalones de Taumaturgo de Metal Vacío Ensombrecido
+
 #blocks
 tile.alchemyBlockExpert.name=Construcción Alquímica de Experto
 
@@ -75,6 +83,9 @@ tile.extendedArcaneWorkbench.name=Mesa de Trabajo Arcana Extendida
 tile.wirelessEssentiaInterface.0.name=Interfaz Inalámbrica de Salida de Esencia
 tile.wirelessEssentiaInterface.1.name=Interfaz Inalámbrica de Entrada de Esencia
 tile.etherealAccelerator.name=Acelerador Etéreo
+tile.advancedEssentiaStorage.name=Bloque Avanzado de Almacenamiento de Esencia
+
+tile.aspectCrop.name=Cultivo de Aspecto
 
 ###jar's
 tile.crystalyiumJar.0.name=Tarro Reforzado de Cristalio
@@ -109,6 +120,9 @@ tc.research_text.DECORATIVE_BLOCKS=Para una base más bonita :)
 tc.research_name.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS=Vacío Mágico y Revelaciones Ennegrecidas...
 tc.research_text.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS=¿A donde estoy yendo?
 
+tc.research_name.ASPECT_SEEDS=Semillas de Aspecto
+tc.research_text.ASPECT_SEEDS=¡Esencia por todas partes!
+
 tc.research_name.ALCHEMICAL_MIXER=El Mezclador Alquímico
 tc.research_text.ALCHEMICAL_MIXER=Mezclando Escancia ¡Yummy!
 
@@ -135,6 +149,9 @@ tc.research_text.ELEMENTAL_VOID_TOOLS=¡Más Poderoso que nunca!
 
 tc.research_name.ELEMENTAL_VOID_SWORD=La Espada del Vacío de Céfiro
 tc.research_text.ELEMENTAL_VOID_SWORD=Creo que Céfiro no estaría contento...
+
+tc.research_name.SHADOW_VOID_METAL_ARMOR_ROBES=Ropajes de Taumaturgo de Metal Vacío Enosmbrecido
+tc.research_text.SHADOW_VOID_METAL_ARMOR_ROBES=Consume tu cerebro y locura...
 
 tc.research_name.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION=El Bastón Primigenio
 tc.research_text.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION=La herramienta perfecta...
@@ -169,6 +186,9 @@ tc.research_text.CAP_magic_alloy=No...
 tc.research_name.MAGIC_ALLOY_TRAVELLER_BOOTS=Botas del Viajero de Aleación Mágica
 tc.research_text.MAGIC_ALLOY_TRAVELLER_BOOTS=¡Correr como Sonic!
 
+tc.research_name.MAGIC_ALLOY_FORTRESS_ARMOR=Armadura Reforzada de Aleación Mágica
+tc.research_text.MAGIC_ALLOY_FORTRESS_ARMOR=¡Se Inquebrantable!
+
 tc.research_name.MAGIC_ALLOY_JAR=Tarros de Aleación Mágica
 tc.research_text.MAGIC_ALLOY_JAR=¿Siquiera esto tiene sentido?
 
@@ -190,6 +210,8 @@ ezaciancraft.research_page.DECORATIVE_BLOCKS.1=Esta entrada muestra todas las re
 ezaciancraft.research_page.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS.1=§lMe acabo de percatar de las cosas perturbadoras que este mundo aloja respecto a la magia...<BR>Simplemente no lo puedo creer…
 ezaciancraft.research_page.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS.2=§lEste mundo está construido bajo el eldritch, por más que quieras escapar, ellos y el vacío siempre te van a alcanzar...<BR>Supongo que uno siempre se va a corromper a lo largo del tiempo si me sigo exponiendo a estas cosas, pero; qué más da si al final las cosas son así…
 ezaciancraft.research_page.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS.3=§lNo? Tengo que seguir con este camino que orilla a mi mente ser papilla, pero si quiero ser mas poderoso y congruente, no queda que utilizar las profundidades perturbadas de la realidad si quiero conseguirlo, es lo que queda…
+
+ezaciancraft.research_page.ASPECT_SEEDS.1=Con ver y tener el taumatorio y saber el poder que tiene la destilería para obtener esencia, te diste cuenta que con un poquito de cabeza puedes imbuir un algo de esencia a una semilla y producir en masa una cantidad de esencia abismal a partir de sus frutos cristalizados, los cuales guarda la esencia en una capacidad máxima de 8 cuando la planta esta madura y absorbe los aspectos de su entorno con el paso del tiempo; dependiendo del tipo de aspecto escogido…<BR>Es momento de crear plantaciones grandes y olvidarte el sufrir la búsqueda y uso de materiales extraños para obtener esencias extrañas por resto de tu existencia.
 
 ezaciancraft.research_page.ALCHEMICAL_MIXER.1=Después de quedar harto por culpa de las §l§nesencias raras§r o complicadas de conseguir de tu alrededor, decides irte por una investigación y campo que se relaciona con el centrifugador: §l“El Mezclador Alquímico”§r.<BR>Este aparato hace lo contrario que el §l“Centrifugador Alquímico”§r, es capaz de mezclar esencias conocidas en su compuesto próximo; tanto las §l§nesencias primigenias y compuestas§r por igual.<BR>§c§oSi quieres saber su uso, por favor continua en la siguiente página.§r§0<LINE>
 ezaciancraft.research_page.ALCHEMICAL_MIXER.2=La manera en cómo funciona es: En sus §llaterales§r están las entradas de la máquina, las cuales se conectan con tuberías §l(de cualquier tipo)§r; aquí es donde se §lintroducen§r las esencias a mezclar, en la que si estas §lya han absorbido uno de esencia§r y se intenta §lmeter más del mismo u otro en el mismo lado, no se introducirá§r, pero si se introduce el mismo en el otro lado estando libre, §lsí será aceptado§r.<BR>Empezara a realizar la §lreceta§r cuando tenga las §lesencias compatibles§r y esperar un poco.<BR>§lLa parte inferior§r es donde la §lesencia compuesta§r procesada sale, este acepta tanto §ljarrones§r o §ltuberías§r como salida.
@@ -226,6 +248,8 @@ ezaciancraft.research_page.ELEMENTAL_VOID_TOOLS.2=     §l§nModos de Herramient
 
 ezaciancraft.research_page.ELEMENTAL_VOID_SWORD.1=Después de haber obtenido un poco de “Metal Vacío Ensombrecido”, decides ver la espada elemental que tienes guardada en alguna parte, te das cuenta de que tal vez podrías combinar el poder elemental del viento con la oscuridad misma de la “Espada Carmesí” y así obtener un arma más poderosa que la versión original.
 
+ezaciancraft.research_page.SHADOW_VOID_METAL_ARMOR_ROBES.1=Te has puesto a pensar respecto a tus ropas de taumaturgo del vacío, te das cuenta de que con este nuevo material puedes infusionarlo para obtener un traje con una cantidad de descuento absurda y perturbada, cada pieza da un descuento de 10% pero con la terrible consecuencia de que el Warp presente es tan maloliente y aterrador, que definitivamente deberías usarlo con cuidado, y no dañar más tu mente…
+
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.1=Después de estar pensado y generando algunas ideas oscuras, por fin conseguiste una idea simplemente inexpugnable al igual que la varia que decidiste reconstruir...<BR>Mezclando todas las herramientas y el Triturador primigenio y algunas esencias, has hecho una abominación bella.<BR>El Bastón de la Reconstrucción.<BR>Una versión extendida y multiherramienta de todas las herramientas del vacío que has creado, algo tan poderoso que no te hará falta cambiarla para cualquier cosa.
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.2=A diferencia de la Trituradora Primigenia este bastón pudo recuperar todo lo que perdió, por no decir que hasta tiene más que las herramientas originales, este bastón tiene 3 configuraciones para su uso que se explicara a más detalle en las siguientes páginas:
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.3=        §l§nComportamientos§r<BR>Dictamina que efecto o función va a efectuar de su herramienta original el cual se puede cambiar con la tecla asignada en la configuración:<BR>Observador Minero: Revela la posición de los minerales más cercanos con el clic.<BR>Magneto Torrencial: Al usar clic, genera magnetismo hacia el jugador con los ítems cercanos.<BR>Colocador Terrestial: Permite colocar bloques de un mismo tipo en área. (Sensible a ÁdE)
@@ -243,6 +267,8 @@ ezaciancraft.research_page.MAGIC_ALLOY.1=Después de pensarlo mucho con poseer l
 ezaciancraft.research_page.CAP_magic_alloy.1=Con tu nuevo material, creíste que sería factible con el metal vacío ensombrecido en crear un nuevo cubierto para tu varita, la cubierta tiene la capacidad de dar un descuento de 7.5% total, algo absurdamente inexpugnable pero entendible, llegar hasta aquí es simplemente para una persona dañada y loca como, yo... Taumaturgo... ¿¡cómo es siquiera posible!?
 
 ezaciancraft.research_page.MAGIC_ALLOY_TRAVELLER_BOOTS.1=Como es de esperarse, tus pies se cansan a pesar de llevar las botas del viajero comunes, nosotros como es obvio no somos normales; y en este caso con el nuevo material has decidido el crear unas botas que te darán una comodidad y libertad sin igual. Imbuyendo varios materiales como el metal vacío ensombrecido y plumas y otras cosas más, consigues unas botas que te hacen saltar hasta 5 bloques y yendo a una velocidad de 24 bloques por segundo corriendo; ¡Son las botas definitivas!
+
+ezaciancraft.research_page.MAGIC_ALLOY_FORTRESS_ARMOR.1=Con la aleación mágica en tus manos, te das cuenta de que con esto puedes infusionar tu armadura de fortaleza con este material, generando una resistencia absurda y durable para dolosas y complicadas batallas con hordas grandes de enemigos. La armadura conserva una regeneración pasiva más lenta que el mismo metal vacío y el ensombrecido, pero se compensa con su dureza y durabilidad; Lo malo de esto es que sufrirás de algo de Warp, pero conviene tener la locura del momento para arrasar cualquier qué.
 
 ezaciancraft.research_page.MAGIC_ALLOY_JAR.1=Finalmente con tu nuevo material y algo de esfuerzo, has creado algo absurdo, un tarro que puede guardar máximo de 8192 de esencia total de un solo tipo, porque se requeriría tener TANTA esencia, ni se sabe, pero espero que con esto ya te puedas sentir lleno...
 
@@ -264,6 +290,15 @@ tc.aspect.spazio=Espacio, Volumen
 tc.aspect.tempus=Tiempo
 tc.aspect.replicatio=Replicar, Duplicar
 tc.aspect.lupinus=Hombre Creatura, Licantropía
+
+tc.aspect.magicus=Magia Pura, Magia Neutra
+tc.aspect.aerum=Aire Primordial
+tc.aspect.terrum=Tierra Primordial
+tc.aspect.aqueus=Agua Primordial
+tc.aspect.ignus=Fuego Primordial
+tc.aspect.perdotos=Entropía Primordial
+tc.aspect.ordos=Orden Primordial
+tc.aspect.primordium=Creación, Origen
 
 #other
 ##ezacianBaseTools

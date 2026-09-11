@@ -52,6 +52,14 @@ item.voidStaffOfPrimalReconstructor.name=Primal Staff of the Reconstruction
 ##armors
 item.magicAlloyTravellerBoots.name=Boots of the Traveller of Magic Alloy
 
+item.magicAlloyFortressArmorHelmet.name=Reinforced Magic Alloy Fortress Helm
+item.magicAlloyFortressArmorChestplate.name=Reinforced Magic Alloy Fortress Cuirass
+item.magicAlloyFortressArmorLeggings.name=Reinforced Magic Alloy Fortress Thigh Guards
+
+item.shadowVoidMetalRobesArmorHelmet.name=Shadow Void Metal Thaumaturge's Hood
+item.shadowVoidMetalRobesArmorChestplate.name=Shadow Void Metal Thaumaturge's Robe
+item.shadowVoidMetalRobesArmorLeggings.name=Shadow Void Metal Thaumaturge's Leggings
+
 #blocks
 tile.alchemyBlockExpert.name=Expert Alchemical Construct
 
@@ -74,8 +82,11 @@ tile.alchemicalMixer.name=Alchemical Mixer
 tile.shadowAlchemyFurnace.name=Shadow Void Metal Alchemical Furnace
 tile.extendedArcaneWorkbench.name=Extended Arcane Workbench
 tile.wirelessEssentiaInterface.0.name=Output Wireless Interface of Essentia
-tile.wirelessEssentiaInterface.1.name=Interfaz Inalámbrica de Entrada de Escencia
-tile.etherealAccelerator.name=Acelerador Etéreo
+tile.wirelessEssentiaInterface.1.name=Input Wireless Interface of Essentia
+tile.etherealAccelerator.name=Ethereal Accelerator
+tile.advancedEssentiaStorage.name=Advanced Block of Essentia Storage
+
+tile.aspectCrop.name=Crop Aspect
 
 ###jar's
 tile.crystalyiumJar.0.name=Reinforced Jar of Crystalyium
@@ -110,6 +121,9 @@ tc.research_text.DECORATIVE_BLOCKS=For a prettier base :)
 tc.research_name.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS=Void Magic and Darkened Revelations...
 tc.research_text.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS=Where am I going?
 
+tc.research_name.ASPECT_SEEDS=Aspected Seeds
+tc.research_text.ASPECT_SEEDS=¡Essentia for everywere!
+
 tc.research_name.ALCHEMICAL_MIXER=The Alchemical Mixer
 tc.research_text.ALCHEMICAL_MIXER=Mixing essentia ¡Yummy!
 
@@ -136,6 +150,9 @@ tc.research_text.ELEMENTAL_VOID_TOOLS=¡More powerful than never!
 
 tc.research_name.ELEMENTAL_VOID_SWORD=The Void Sword of Zephyr
 tc.research_text.ELEMENTAL_VOID_SWORD=I might zephyr is not content...
+
+tc.research_name.SHADOW_VOID_METAL_ARMOR_ROBES=Thaumaturge's Robes of Shadow Void Metal
+tc.research_text.SHADOW_VOID_METAL_ARMOR_ROBES=Consume your brain and craziness...
 
 tc.research_name.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION=The Primal Staff of Reconstruction
 tc.research_text.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION=The perfect Tool...
@@ -170,6 +187,9 @@ tc.research_text.CAP_magic_alloy=No...
 tc.research_name.MAGIC_ALLOY_TRAVELLER_BOOTS=Boots of the Traveller of Magic Alloy
 tc.research_text.MAGIC_ALLOY_TRAVELLER_BOOTS=¡Run like Sonic!
 
+tc.research_name.MAGIC_ALLOY_FORTRESS_ARMOR=Reinforced Armor Fortress of Magic Alloy
+tc.research_text.MAGIC_ALLOY_FORTRESS_ARMOR=¡Be Unbreakable!
+
 tc.research_name.MAGIC_ALLOY_JAR=Jars of Magic Alloy
 tc.research_text.MAGIC_ALLOY_JAR=This even make sense?
 
@@ -191,6 +211,8 @@ ezaciancraft.research_page.DECORATIVE_BLOCKS.1=This entry displays all available
 ezaciancraft.research_page.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS.1=§lI have come to realize the deeply disturbing truths that this world holds about magic...<BR>I can scarcely believe it…
 ezaciancraft.research_page.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS.2=§lThis world is built upon eldritch foundations. No matter how hard you try to escape, they—and the void itself—will inevitably catch up to you...<BR>I suppose corruption is unavoidable if I continue to expose myself to these forces… but in the end, does it even matter…
 ezaciancraft.research_page.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS.3=§l...Right? I must continue down this path, even as it erodes my sanity. If I wish to become more powerful—more complete—I must delve into the fractured depths of reality itself. That is the only way forward…
+
+ezaciancraft.research_page.ASPECT_SEEDS.1=Upon seeing and acquiring the Thaumatorium—and realizing the distillery's power to extract essence—you understood that, with a bit of ingenuity, you could infuse a seed with a trace of essentia. This allows for the mass production of vast quantities of essence from the plant's crystallized fruits; these fruits store up to 8 units of essentia once the plant matures and absorbs aspects from its surroundings over time—depending on the specific aspect chosen...<BR>It is time to establish large-scale plantations and leave behind the struggle of hunting for and using exotic materials to obtain rare essentia for the rest of your days.
 
 ezaciancraft.research_page.ALCHEMICAL_MIXER.1=After growing frustrated with §l§nrare or hard-to-obtain Essentia§r, you turn your attention toward a new field of research related to the centrifuge: §l"The Alchemical Mixer"§r.<BR>This device performs the inverse function of the §l"Alchemical Centrifuge"§r, allowing you to combine known Essentia into more complex compounds—both §l§nprimal and compound Essentia§r alike.<BR>§c§oTo understand its usage, proceed to the next page.§r§0<LINE>
 ezaciancraft.research_page.ALCHEMICAL_MIXER.2=Its operation is as follows: the §lsides§r of the machine act as input points, connecting to pipes §l(of any type)§r. This is where the Essentia to be combined is §linserted§r. If one side has §lalready absorbed an Essentia§r, attempting to insert another—whether identical or different—into the same side will fail. However, inserting Essentia into the opposite side, if available, §lwill succeed§r.<BR>Once the machine detects §lcompatible Essentia§r, it will begin processing the §lrecipe§r after a short delay.<BR>The §llower section§r serves as the output, where the resulting §lcompound Essentia§r is expelled. It supports both §ljars§r and §lpipes§r for extraction.
@@ -220,7 +242,10 @@ ezaciancraft.research_page.SHADOW_VOID_METAL_JAR.1=In the end, the reservoir pro
 
 ezaciancraft.research_page.ELEMENTAL_VOID_TOOLS.1=Thanks to your discovery of §lShadow Void Metal§r and the §lPrimordial Pearl§r, you realize that you can forge something truly §oinvincible§r.<BR>This leads to the creation of the §limproved and darkened§r versions of the §lElemental Tools§r. These tools feature multiple modes, allowing for far greater §lversatility§r, along with the §ldamage recovery§r property of Void Metal. They also retain their §l§ooriginal functionality§r, as though nothing had §ochanged§r… §cRefer to the end for mode details...§r§0
 ezaciancraft.research_page.ELEMENTAL_VOID_TOOLS.2=     §l§nTool Modes§r<BR>§l§n§2(1) Green Mode (Single)§r§0<BR>Breaks one block at a time.<BR>§l§n§c(2) Red Mode (Area)§r§0<BR>Breaks blocks in a 5x5 area, centered slightly above the thaumaturge’s head.<BR>§l§n§9(3) Blue Mode (Line/Tree)§r§0<BR>Breaks blocks in a straight line up to 10 blocks in the direction faced. When using an axe, this becomes Tree Mode, allowing an entire tree to be felled at once.<BR>
+
 ezaciancraft.research_page.ELEMENTAL_VOID_SWORD.1=After acquiring some Shadow Void Metal, you take another look at your stored elemental sword. You realize that perhaps you could combine the elemental power of air with the darkness of the “Crimson Blade,” creating a weapon far more powerful than the original.
+
+ezaciancraft.research_page.SHADOW_VOID_METAL_ARMOR_ROBES.1=As you consider your Void thaumaturge's Robes, you realize that this new material can be used to craft a suit offering an absurd and unsettling discount—each piece grants a 10% reduction. However, there is a terrible price to pay: the lingering Warp energy is so foul-smelling and terrifying that you must use the gear with extreme caution to avoid further damaging for your mind...
 
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.1=After much thought and experimentation with darker concepts, you finally arrive at an idea as formidable as the staff you chose to reconstruct...<BR>By combining all your tools, the Primal Crusher, and various Essentia, you have created a beautiful abomination.<BR>The Staff of Reconstruction.<BR>An extended, multi-functional tool that incorporates all your Void-based creations—so powerful that you will never need to switch tools again.
 ezaciancraft.research_page.PRIMAL_VOID_STAFF_OF_RECONSTRUCTION.2=Unlike the Primal Crusher, this staff has regained everything that was lost—and even more than the original tools. It features three operational configurations, which will be explained in detail on the following pages:
@@ -240,6 +265,8 @@ ezaciancraft.research_page.MAGIC_ALLOY.1=After much contemplation upon obtaining
 ezaciancraft.research_page.CAP_magic_alloy.1=With your new material, you believed it would be feasible to utilize shadow-infused Void Metal to create a new wand cap. This cap is capable of granting a total discount of 7.5%—an absurdly formidable yet understandable outcome. Reaching this point is the work of a damaged and unhinged individual—myself, a Thaumaturge. How is this even possible!?
 
 ezaciancraft.research_page.MAGIC_ALLOY_TRAVELLER_BOOTS.1=As expected, your feet grow weary despite wearing the common Boots of the Traveller. Clearly, we are not ordinary beings; and in this case, with your new material, you have chosen to craft boots that provide unmatched comfort and freedom. By imbuing them with materials such as shadow-infused Void Metal, feathers, and other components, you obtain boots that allow you to jump up to 5 blocks high and move at a running speed of 24 blocks per second—these are the definitive boots!
+
+ezaciancraft.research_page.MAGIC_ALLOY_FORTRESS_ARMOR.1=With the magical alloy in your hands, you realize you can use it to infuse your fortress armor, granting it incredible, lasting resilience for grueling battles against massive enemy hordes. While the armor’s passive regeneration is slower than that of Void Metal or Shadowed Metal, this is offset by its superior hardness and durability; the downside is that you will suffer some Warp exposure, but the resulting madness is a price worth paying to crush anything in your path.
 
 ezaciancraft.research_page.MAGIC_ALLOY_JAR.1=At last, with your new material and considerable effort, you have created something truly absurd: a jar capable of storing up to 8192 units of a single type of essentia. Why one would ever require such an amount remains unknown, but with this, you may finally feel satisfied...
 

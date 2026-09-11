@@ -6,7 +6,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -21,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.IEssentiaContainerItem;
 import thaumcraft.common.Thaumcraft;
 
 import java.util.List;
@@ -29,13 +29,14 @@ import static com.gabid.ezaciancraft.CoreMod.MODID;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ASPECT_SEED_BASENAME;
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_RESOURCES_TAB;
 
-public class ItemAspectSeed extends ItemSeeds {
+public class ItemAspectSeed extends ItemSeeds implements IEssentiaContainerItem {
     protected IIcon[] seedIcons = new IIcon[2];
 
     public ItemAspectSeed() {
         super(EzacianCraftBlocks.aspectCrop, Blocks.farmland);
         this.setUnlocalizedName(UNLOCALE_ASPECT_SEED_BASENAME);
         this.setCreativeTab(EZACIANCRAFT_RESOURCES_TAB);
+        this.setMaxDamage(64);
         this.setMaxDamage(0);
     }
 
@@ -50,7 +51,7 @@ public class ItemAspectSeed extends ItemSeeds {
                 TileEntity te = world.getTileEntity(x, y+1, z);
 
                 if (te instanceof TileEntityAspectCrop) {
-                    AspectList asp = this.getAspectsForSeed(stack);
+                    AspectList asp = new AspectList().add(this.getAspects(stack).getAspects()[0], 1);
                     ((TileEntityAspectCrop) te).setCropAspect(asp);
                 }
                 --stack.stackSize;
@@ -68,9 +69,9 @@ public class ItemAspectSeed extends ItemSeeds {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer plyr, List list, boolean flag) {
         super.addInformation(stack, plyr, list, flag);
-        if(this.getAspectsForSeed(stack) != null) {
-            if (Thaumcraft.proxy.playerKnowledge.hasDiscoveredAspect(plyr.getDisplayName(), this.getAspectsForSeed(stack).getAspects()[0])) {
-                list.add(this.getAspectsForSeed(stack).getAspects()[0].getName());
+        if(this.getAspects(stack) != null) {
+            if (Thaumcraft.proxy.playerKnowledge.hasDiscoveredAspect(plyr.getDisplayName(), this.getAspects(stack).getAspects()[0])) {
+                list.add(this.getAspects(stack).getAspects()[0].getName());
             } else {
                 list.add(StatCollector.translateToLocal("tc.aspect.unknown"));
             }
@@ -109,57 +110,37 @@ public class ItemAspectSeed extends ItemSeeds {
 
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
-        for(Aspect asp : Aspect.getPrimalAspects()) {
+        for (Aspect asp : Aspect.aspects.values()) {
             ItemStack dummyStack = new ItemStack(item);
-            this.setAspectForSeed(dummyStack, new AspectList().add(asp, 1));
+            this.setAspects(dummyStack, new AspectList().add(asp, 2));
             list.add(dummyStack);
         }
-
-        for(Aspect asp : Aspect.getCompoundAspects()) {
-            ItemStack dummyStack = new ItemStack(item);
-            this.setAspectForSeed(dummyStack, new AspectList().add(asp, 1));
-            list.add(dummyStack);
-        }
-    }
-
-    @Override
-    public void onUpdate(ItemStack stack, World level, Entity player, int a, boolean b) {
-        if (stack.hasTagCompound()) {
-            this.setAspectForSeed(stack, this.getAspectsForSeed(stack).add(Aspect.PLANT, 1));
-        }
-        super.onUpdate(stack, level, player, a, b);
-    }
-
-    @Override
-    public void onCreated(ItemStack stack, World level, EntityPlayer player) {
-        if (stack.hasTagCompound()) {
-            this.setAspectForSeed(stack, this.getAspectsForSeed(stack).add(Aspect.PLANT, 1));
-        }
-    }
-
-    public AspectList getAspectsForSeed(ItemStack itemstack) {
-        if (itemstack.hasTagCompound()) {
-            AspectList aspects = new AspectList();
-            aspects.readFromNBT(itemstack.getTagCompound());
-            return aspects.size() > 0 ? aspects : null;
-        } else {
-            return null;
-        }
-    }
-
-    public void setAspectForSeed(ItemStack stack, AspectList asp) {
-        if(!stack.hasTagCompound()) {
-            stack.setTagCompound(new NBTTagCompound());
-        }
-        asp.writeToNBT(stack.getTagCompound());
     }
 
     public int getAspectSeedColor(ItemStack stackSeed) {
         if(stackSeed != null) {
-            if(this.getAspectsForSeed(stackSeed) != null) {
-                return this.getAspectsForSeed(stackSeed).getAspects()[0].getColor();
+            if(this.getAspects(stackSeed) != null) {
+                return this.getAspects(stackSeed).getAspects()[0].getColor();
             }
         }
         return 0xffffff;
+    }
+
+    @Override
+    public AspectList getAspects(ItemStack itemStack) {
+        AspectList aspects = new AspectList();
+        if (!itemStack.hasTagCompound()) {
+            itemStack.setTagCompound(new NBTTagCompound());
+        }
+        aspects.readFromNBT(itemStack.getTagCompound());
+        return aspects.size() > 0 ? aspects : null;
+    }
+
+    @Override
+    public void setAspects(ItemStack itemStack, AspectList aspectList) {
+        if(!itemStack.hasTagCompound()) {
+            itemStack.setTagCompound(new NBTTagCompound());
+        }
+        aspectList.writeToNBT(itemStack.getTagCompound());
     }
 }

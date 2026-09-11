@@ -9,7 +9,6 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.config.ConfigItems;
 
-import static com.gabid.ezaciancraft.registry.EzacianCraftAspects.PRIMORDIUM;
 import static com.gabid.ezaciancraft.registry.EzacianCraftAspects.REPLICATIO;
 import static thaumcraft.api.aspects.Aspect.*;
 
@@ -98,7 +97,7 @@ public class EzacianCraftAspectTagRegistry {
                 .add(METAL, 9)
         );
 
-        ThaumcraftApi.registerObjectTag(new ItemStack(EzacianCraftItems.aspectSeeds, 1, 0), new AspectList());
+        ThaumcraftApi.registerObjectTag(new ItemStack(EzacianCraftItems.aspectSeeds, 1, 0), new AspectList().add(PLANT, 1));
     }
 
     /*public static void addNewAspectTagsToObject(Item item, int meta, AspectList aspectList) {

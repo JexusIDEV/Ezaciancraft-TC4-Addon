@@ -1,9 +1,14 @@
 package com.gabid.ezaciancraft.registry;
 
+import com.gabid.ezaciancraft.common.items.vegetal.ItemAspectSeed;
 import com.gabid.ezaciancraft.lib.research.ResearchUtils;
+import nemexlib.api.thaumcraft.aspects.Aspects;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.CrucibleRecipe;
 import thaumcraft.api.crafting.IArcaneRecipe;
@@ -14,6 +19,7 @@ import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.common.config.ConfigBlocks;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -104,7 +110,35 @@ public class EzacianCraftResearches {
                 ResearchUtils.createPageTranslation("CRYSTALYIUM", 1),
                 new ResearchPage((CrucibleRecipe) recipes.get("crudeCrystalyiumCluster")),
                 new ResearchPage(new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceMetal(), 1, 2))
-        ).setItemTriggers(new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceOreBlock(), 1, 0)).setAspectTriggers(REPLICATIO).setParents("GETTING_STARTED").registerResearchItem());
+        ).setConcealed().setItemTriggers(new ItemStack(EzacianCraftResources.crudeCrystalyiumResources.getResourceOreBlock(), 1, 0)).setAspectTriggers(REPLICATIO).setSpecial().setParents("GETTING_STARTED").registerResearchItem());
+
+        ItemAspectSeed dumItemSeed = (ItemAspectSeed) EzacianCraftItems.aspectSeeds;
+        ItemStack dummySeed = new ItemStack(dumItemSeed, 1, 0);
+        if(!dummySeed.hasTagCompound()) {
+            dummySeed.setTagCompound(new NBTTagCompound());
+        }
+        dumItemSeed.setAspects(dummySeed, new AspectList().add(AIR, 1));
+
+        ArrayList<CrucibleRecipe> seedRecipes = new ArrayList<>();
+
+        for(Aspect asp : aspects.values()) {
+            seedRecipes.add((CrucibleRecipe) recipes.get("aspectSeed_"+asp.getName()));
+        }
+
+        ResearchCategories.addResearch((new ResearchItem("ASPECT_SEEDS",
+                EZACIANCRAFT_CATEGORY_ID,
+                new AspectList()
+                        .add(AURA, 2)
+                        .add(PLANT, 4)
+                        .add(MAGIC, 2)
+                        .add(EXCHANGE, 1)
+                ,
+                crystalyiumResearchesColumnPos, crystalyiumResearchesRowPos-2, 0,
+                dummySeed
+        )).setPages(
+                ResearchUtils.createPageTranslation("ASPECT_SEEDS", 1),
+                new ResearchPage((CrucibleRecipe[]) seedRecipes.toArray(new CrucibleRecipe[0]))
+        ).setParents("DISTILESSENTIA", "THAUMATORIUM").setSecondary().setItemTriggers(new ItemStack(Items.wheat_seeds), new ItemStack(Items.melon_seeds), new ItemStack(Items.pumpkin_seeds)).setAspectTriggers(PLANT).setConcealed().registerResearchItem());
 
         ResearchCategories.addResearch((new ResearchItem("ALCHEMICAL_MIXER",
                 EZACIANCRAFT_CATEGORY_ID,
@@ -140,7 +174,7 @@ public class EzacianCraftResearches {
                 new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_ALCHEMICAL_MIXER)),
                 ResearchUtils.createPageTranslation("ALCHEMICAL_MIXER", 2),
                 ResearchUtils.createPageTranslation("ALCHEMICAL_MIXER", 3)
-        ).setParents("CENTRIFUGE").registerResearchItem());
+        ).setParents("CENTRIFUGE", "INFUSION").registerResearchItem());
 
         ResearchCategories.addResearch((new ResearchItem("ADVANCED_ESSENTIA_STORAGE",
                 EZACIANCRAFT_CATEGORY_ID,
@@ -159,7 +193,7 @@ public class EzacianCraftResearches {
                 new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_ADVANCED_ESSENTIA_STORAGE)),
                 ResearchUtils.createPageTranslation("ADVANCED_ESSENTIA_STORAGE", 3),
                 new ResearchPage((List) recipes.get(UNLOCALE_ADVANCED_ESSENTIA_STORAGE+"Multi"))
-        ).setParents("MAGIC_ALLOY", "ADVALCHEMYFURNACE").registerResearchItem());
+        ).setParents("MAGIC_ALLOY", "ADVALCHEMYFURNACE", "INFUSION").registerResearchItem().setSpecial());
 
         ResearchCategories.addResearch((new ResearchItem("WIRELESS_INTERFACES",
                 EZACIANCRAFT_CATEGORY_ID,
@@ -198,7 +232,7 @@ public class EzacianCraftResearches {
                 ResearchUtils.createPageTranslation("SHADOW_ALCHEMY_FURNACE", 1),
                 new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_SHADOW_ALCHEMY_FURNACE)),
                 ResearchUtils.createPageTranslation("SHADOW_ALCHEMY_FURNACE", 2)
-        ).setParents("SHADOW_VOID_METAL", "CRYSTALYIUM", "DISTILESSENTIA", "PRIMPEARL").setConcealed().registerResearchItem());
+        ).setParents("SHADOW_VOID_METAL", "CRYSTALYIUM", "DISTILESSENTIA", "PRIMPEARL", "INFUSION").setConcealed().registerResearchItem());
         ThaumcraftApi.addWarpToResearch("SHADOW_ALCHEMY_FURNACE", 3);
 
         ResearchCategories.addResearch((new ResearchItem("ADVANCED_ARCANE_WORKBENCH",
@@ -215,7 +249,7 @@ public class EzacianCraftResearches {
                 ResearchUtils.createPageTranslation("ADVANCED_ARCANE_WORKBENCH", 1),
                 new ResearchPage((List) recipes.get("AdvancedArcaneWorkbench")),
                 ResearchUtils.createPageTranslation("ADVANCED_ARCANE_WORKBENCH", 2)
-        ).setConcealed().setSecondary().setParents("DECORATIVE_BLOCKS", "CRYSTALYIUM", "ROD_greatwood_staff").registerResearchItem());
+        ).setConcealed().setSecondary().setParents("DECORATIVE_BLOCKS", "CRYSTALYIUM", "SHADOW_VOID_METAL", "ROD_greatwood_staff").registerResearchItem());
 
         ItemStack[] taintStacks = {
                 new ItemStack(ConfigBlocks.blockTaint, 1, 0),
@@ -297,7 +331,7 @@ public class EzacianCraftResearches {
                 ResearchUtils.createPageTranslation("CRYSTALYIUM_JAR", 1),
                 new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_CRYSTALYIUM_JAR)),
                 new ResearchPage((ShapedArcaneRecipe) recipes.get(UNLOCALE_CRYSTALYIUM_JAR + "Void"))
-        ).setParents("JARLABEL", "JARVOID", "CRYSTALYIUM").setSecondary().setConcealed().registerResearchItem());
+        ).setParents("JARLABEL", "JARVOID", "CRYSTALYIUM", "INFUSION", "WARDEDARCANA").setSecondary().setConcealed().registerResearchItem());
 
         //shadow void metal stuff
         ResearchCategories.addResearch((new ResearchItem("SHADOW_VOID_METAL",
@@ -308,14 +342,15 @@ public class EzacianCraftResearches {
                         .add(VOID, 1)
                         .add(TAINT, 1)
                         .add(MAGIC, 1)
+                        .add(METAL, 1)
                 ,
-                shadowVoidMetalColumnPos, shadowVoidMetalRowPos, 2,
+                shadowVoidMetalColumnPos, shadowVoidMetalRowPos, 3,
                 new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0)
         )).setPages(
                 ResearchUtils.createPageTranslation("SHADOW_VOID_METAL", 1),
                 ResearchUtils.createPageTranslation("SHADOW_VOID_METAL", 2),
                 new ResearchPage((CrucibleRecipe) recipes.get("shadowVoidMetalCauldron"))
-        ).setParents("VOIDMETAL", "VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS").registerResearchItem());
+        ).setParents("VOIDMETAL", "VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS").setSpecial().registerResearchItem());
         ThaumcraftApi.addWarpToResearch("SHADOW_VOID_METAL", 5);
 
         ResearchCategories.addResearch((new ResearchItem("SHADOW_VOID_METAL_JAR",
@@ -381,6 +416,27 @@ public class EzacianCraftResearches {
         ).setConcealed().setParents("ELEMENTALSWORD", "SHADOW_VOID_METAL", "PRIMPEARL").registerResearchItem());
         ThaumcraftApi.addWarpToResearch("ELEMENTAL_VOID_SWORD", 3);
 
+        ResearchCategories.addResearch((new ResearchItem("SHADOW_VOID_METAL_ARMOR_ROBES",
+                EZACIANCRAFT_CATEGORY_ID,
+                new AspectList()
+                        .add(ARMOR, 8)
+                        .add(MAGIC, 6)
+                        .add(TAINT, 6)
+                        .add(ELDRITCH, 4)
+                        .add(VOID, 4)
+                        .add(DARKNESS, 4)
+                        .add(CLOTH, 8)
+                ,
+                shadowVoidMetalColumnPos - 3, shadowVoidMetalRowPos, 3,
+                new ItemStack(EzacianCraftItems.shadowVoidMetalRobesArmorHelmet, 1, 0)
+        )).setPages(
+                ResearchUtils.createPageTranslation("SHADOW_VOID_METAL_ARMOR_ROBES", 1),
+                new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_SHADOW_VOID_METAL_ROBES_ARMOR_HELMET)),
+                new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_SHADOW_VOID_METAL_ROBES_ARMOR_CHESTPLATE)),
+                new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_SHADOW_VOID_METAL_ROBES_ARMOR_LEGGINGS))
+        ).setConcealed().setParents("ARMORVOIDFORTRESS", "SHADOW_VOID_METAL", "CRYSTALYIUM", "PRIMPEARL").setSecondary().registerResearchItem());
+        ThaumcraftApi.addWarpToResearch("SHADOW_VOID_METAL_ARMOR_ROBES", 6);
+
         ResearchCategories.addResearch((new ResearchItem("PRIMAL_VOID_STAFF_OF_RECONSTRUCTION",
                 EZACIANCRAFT_CATEGORY_ID,
                 new AspectList()
@@ -391,7 +447,7 @@ public class EzacianCraftResearches {
                         .add(DARKNESS, 1)
                         .add(TOOL, 1)
                 ,
-                shadowVoidMetalColumnPos - 5, shadowVoidMetalRowPos - 1, 3,
+                shadowVoidMetalColumnPos - 6, shadowVoidMetalRowPos, 3,
                 new ItemStack(EzacianCraftItems.voidStaffOfPrimalReconstructor, 1, 0)
         )).setPages(
                 ResearchUtils.createPageTranslation("PRIMAL_VOID_STAFF_OF_RECONSTRUCTION", 1),
@@ -475,7 +531,7 @@ public class EzacianCraftResearches {
         )).setPages(
                 ResearchUtils.createPageTranslation("MAGIC_ALLOY", 1),
                 new ResearchPage((ShapedArcaneRecipe) recipes.get(UNLOCALE_MAGIC_ALLOY))
-        ).setParents("SHADOW_VOID_METAL", "PRIMPEARL").setConcealed().setSecondary().registerResearchItem());
+        ).setParents("SHADOW_VOID_METAL", "PRIMPEARL").setConcealed().setSecondary().setSpecial().registerResearchItem());
         ThaumcraftApi.addWarpToResearch("MAGIC_ALLOY", 1);
 
         ResearchCategories.addResearch((new ResearchItem("CAP_magic_alloy",
@@ -512,6 +568,24 @@ public class EzacianCraftResearches {
                 ResearchUtils.createPageTranslation("MAGIC_ALLOY_TRAVELLER_BOOTS", 1),
                 new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_MAGIC_ALLOY_TRAVELLER_BOOTS))
         ).setParents("MAGIC_ALLOY", "BOOTSTRAVELLER").setConcealed().setSecondary().registerResearchItem());
+
+        ResearchCategories.addResearch((new ResearchItem("MAGIC_ALLOY_FORTRESS_ARMOR",
+                EZACIANCRAFT_CATEGORY_ID,
+                new AspectList()
+                        .add(ARMOR, 8)
+                        .add(MAGIC, 4)
+                        .add(TAINT, 2)
+                        .add(ELDRITCH, 4)
+                        .add(METAL, 8)
+                ,
+                magicAlloyColumnPos - 3, magicAlloyRowPos - 2, 1,
+                new ItemStack(EzacianCraftItems.magicAlloyFortressArmorHelmet, 1, 0)
+        )).setPages(
+                ResearchUtils.createPageTranslation("MAGIC_ALLOY_FORTRESS_ARMOR", 1),
+                new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_MAGIC_ALLOY_FORTRESS_ARMOR_HELMET)),
+                new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_MAGIC_ALLOY_FORTRESS_ARMOR_CHESTPLATE)),
+                new ResearchPage((InfusionRecipe) recipes.get(UNLOCALE_MAGIC_ALLOY_FORTRESS_ARMOR_LEGGINGS))
+        ).setParents("MAGIC_ALLOY", "ARMORFORTRESS").setConcealed().setSecondary().registerResearchItem());
 
         ResearchCategories.addResearch((new ResearchItem("MAGIC_ALLOY_JAR",
                 EZACIANCRAFT_CATEGORY_ID,

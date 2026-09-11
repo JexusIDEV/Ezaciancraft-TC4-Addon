@@ -2,7 +2,6 @@ package com.gabid.ezaciancraft.common.blocks.vegetal;
 
 import com.gabid.ezaciancraft.api.common.blocks.EzacianCustomBlockCrop;
 import com.gabid.ezaciancraft.common.items.vegetal.ItemAspectSeed;
-import com.gabid.ezaciancraft.registry.EzacianCraftItems;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -15,8 +14,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.ItemCrystalEssence;
 
 import java.util.ArrayList;
@@ -25,12 +24,14 @@ import java.util.Random;
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ASPECT_CROP_BASENAME;
 import static com.gabid.ezaciancraft.lib.world.ContainerInventoryHelperUtils.dropItems;
+import static com.gabid.ezaciancraft.registry.EzacianCraftItems.aspectSeeds;
+import static thaumcraft.common.config.ConfigItems.itemCrystalEssence;
 
 public class BlockAspectCrop extends EzacianCustomBlockCrop {
     protected IIcon colouredParts;
 
     public BlockAspectCrop() {
-        super(UNLOCALE_ASPECT_CROP_BASENAME, 4, EzacianCraftItems.aspectSeeds, ConfigItems.itemCrystalEssence, true);
+        super(UNLOCALE_ASPECT_CROP_BASENAME, 4, null, null);
     }
 
     @Override
@@ -75,14 +76,14 @@ public class BlockAspectCrop extends EzacianCustomBlockCrop {
                     }
                 }
 
-                ItemAspectSeed itemSeed = (ItemAspectSeed) this.cropSeedItem;
+                ItemAspectSeed itemSeed = (ItemAspectSeed) aspectSeeds;
                 ItemStack stackSeed = new ItemStack(itemSeed);
 
-                ItemCrystalEssence itemCrystal = (ItemCrystalEssence) this.cropResult;
+                ItemCrystalEssence itemCrystal = (ItemCrystalEssence) itemCrystalEssence;
                 ItemStack stackCrystal = new ItemStack(itemCrystal);
 
                 if(asp != null) {
-                    itemSeed.setAspectForSeed(stackSeed, new AspectList().add(asp.getAspects()[0],1));
+                    itemSeed.setAspects(stackSeed, new AspectList().add(asp.getAspects()[0],2));
                     itemToDrop.add(stackSeed);
                     int amountAspectBonus = cropTE.getAspects().size() - 1;
                     if(meta >= this.stages-1) {
