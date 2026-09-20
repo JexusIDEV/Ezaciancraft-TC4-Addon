@@ -5,13 +5,12 @@ import com.gabid.ezaciancraft.common.items.vegetal.ItemAspectSeed;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.WandTriggerRegistry;
@@ -22,7 +21,8 @@ import java.util.Arrays;
 
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
-import static com.gabid.ezaciancraft.registry.EzacianCraftAspects.*;
+import static com.gabid.ezaciancraft.registry.EzacianCraftAspects.REPLICATIO;
+import static com.gabid.ezaciancraft.registry.EzacianCraftAspects.SPAZIO;
 import static com.gabid.ezaciancraft.registry.EzacianCraftItems.advancedPrimalWandStaffRod;
 import static thaumcraft.api.aspects.Aspect.*;
 
@@ -148,6 +148,20 @@ public class EzacianCraftRecipes {
                 );
             }
         }
+
+        //mercurial
+        EzacianCraftResearches.recipes.put("mercurialExchangeIron", ThaumcraftApi.addCrucibleRecipe(
+                "MERCURIAL_EXCHANGE",
+                new ItemStack(Items.iron_ingot, 1, 0),
+                new ItemStack(ConfigItems.itemResource, 1, 3),
+                ThaumcraftApiHelper.getObjectAspects(new ItemStack(Items.iron_ingot, 1, 0)).add(EXCHANGE, 4).add(ORDER, 2)
+        ));
+        EzacianCraftResearches.recipes.put("mercurialExchangeGold", ThaumcraftApi.addCrucibleRecipe(
+                "MERCURIAL_EXCHANGE",
+                new ItemStack(Items.gold_ingot, 1, 0),
+                new ItemStack(ConfigItems.itemResource, 1, 3),
+                ThaumcraftApiHelper.getObjectAspects(new ItemStack(Items.gold_ingot, 1, 0)).add(EXCHANGE, 4).add(ORDER, 2)
+        ));
     }
 
     private static void registerInfusionRecipes() {
@@ -248,8 +262,10 @@ public class EzacianCraftRecipes {
                                 new ItemStack(ConfigBlocks.blockMetalDevice, 1, 3),
                                 new ItemStack(ConfigItems.itemResource, 1, 16),
                                 new ItemStack(ConfigBlocks.blockCrystal, 1, 0),
+                                new ItemStack(ConfigBlocks.blockCrystal, 1, 1),
+                                new ItemStack(ConfigItems.itemResource, 1, 0),
                                 new ItemStack(ConfigItems.itemEldritchObject, 1, 3),
-                                new ItemStack(ConfigBlocks.blockCrystal, 1, 1)
+
                         }
                 ));
 
@@ -641,7 +657,7 @@ public class EzacianCraftRecipes {
                         new ItemStack[]{
                                 new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
                                 new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 2),
-                                new ItemStack(ConfigItems.itemEldritchObject, 1, 3),
+                                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 3),
                                 new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 2)
                         }
                 ));

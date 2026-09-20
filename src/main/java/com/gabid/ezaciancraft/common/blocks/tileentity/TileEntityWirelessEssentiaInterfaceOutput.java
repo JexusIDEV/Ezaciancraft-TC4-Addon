@@ -30,6 +30,8 @@ public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft im
     private int storedAmount = 0;
     private final int maxAmount = 8;
 
+    protected boolean hasRedstone = false;
+
     protected long ticks;
 
     protected List<EzacianEssentiaWirelessHandler.ScoredSource> essentiaSources = new ArrayList<>();
@@ -50,6 +52,7 @@ public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft im
 
         nbttagcompound.setInteger("facing", this.facing.ordinal());
         nbttagcompound.setInteger("meta", this.blockMetadata);
+        nbttagcompound.setBoolean("hasRedstone", this.hasRedstone);
         super.writeCustomNBT(nbttagcompound);
     }
 
@@ -63,6 +66,7 @@ public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft im
         this.facing = ForgeDirection.getOrientation(face);
         this.metaFacing = this.facing.ordinal();
         this.blockMetadata = nbttagcompound.getInteger("meta");
+        this.hasRedstone = nbttagcompound.getBoolean("hasRedstone");
         super.readCustomNBT(nbttagcompound);
     }
 
@@ -133,13 +137,10 @@ public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft im
     @Override
     public void updateEntity() {
         super.updateEntity();
-        if(this.ticks < 0 || this.ticks == Long.MAX_VALUE) {
-            this.ticks = 0;
-        }
-
+        this.hasRedstone = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
         if (!this.worldObj.isRemote && this.ticks++ % 5 == 0) {
             this.fillInterface();
-            if ((this.storedAspect != null && this.essentiaList.visSize() > 0) || this.storedAmount > 0) {
+            if (((this.storedAspect != null && this.essentiaList.visSize() > 0) || this.storedAmount > 0) && !this.hasRedstone) {
                 this.essentiaSources = EzacianEssentiaWirelessHandler.getNearestEssentiaHandler(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing.getOpposite(), wirelessOutputInterfaceWorkRadius);
                 if(!this.essentiaSources.isEmpty()) {
                     EzacianEssentiaWirelessHandler.fillEssentiaWireless(this, this.worldObj, this.essentiaSources, this.facing, 1);

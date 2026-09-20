@@ -26,7 +26,7 @@ public class AdvancedEssentiaStorageTER extends TileEntitySpecialRenderer {
     private void renderAlchemicalMixerTE(TileEntityAdvancedEssentiaStorage te, double x, double y, double z, float ticks) {
         GL11.glPushMatrix();
         GL11.glTranslated(x+.5, y-.5, z+.5);
-        bindTexture(texturePath);
+        this.bindTexture(this.texturePath);
         this.model.renderAll();
         GL11.glPopMatrix();
     }

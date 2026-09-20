@@ -24,6 +24,8 @@ public class TileEntityWirelessEssentiaInterfaceInput extends TileThaumcraft imp
 
     protected List<EzacianEssentiaWirelessHandler.ScoredSource> essentiaSources = new ArrayList<>();
 
+    protected boolean hasRedstone = false;
+
     protected long ticks;
 
     public TileEntityWirelessEssentiaInterfaceInput() {
@@ -37,6 +39,7 @@ public class TileEntityWirelessEssentiaInterfaceInput extends TileThaumcraft imp
 
         nbttagcompound.setInteger("facing", this.facing.ordinal());
         nbttagcompound.setInteger("meta", this.blockMetadata);
+        nbttagcompound.setBoolean("hasRedstone", this.hasRedstone);
         super.writeCustomNBT(nbttagcompound);
     }
 
@@ -48,6 +51,7 @@ public class TileEntityWirelessEssentiaInterfaceInput extends TileThaumcraft imp
         this.facing = ForgeDirection.getOrientation(face);
         this.metaFacing = this.facing.ordinal();
         this.blockMetadata = nbttagcompound.getInteger("meta");
+        this.hasRedstone = nbttagcompound.getBoolean("hasRedstone");
         super.readCustomNBT(nbttagcompound);
     }
 
@@ -121,12 +125,9 @@ public class TileEntityWirelessEssentiaInterfaceInput extends TileThaumcraft imp
     @Override
     public void updateEntity() {
         super.updateEntity();
-        if(this.ticks < 0 || this.ticks == Long.MAX_VALUE) {
-            this.ticks = 0;
-        }
-
+        this.hasRedstone = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
         if(!this.worldObj.isRemote && this.ticks++ % 5 == 0) {
-            if (this.essentiaList.visSize() >= 0 || this.currentStoredVis < this.maxCapacityEssentiaVis) {
+            if ((this.essentiaList.visSize() >= 0 || this.currentStoredVis < this.maxCapacityEssentiaVis) && !this.hasRedstone) {
                 this.essentiaSources = EzacianEssentiaWirelessHandler.getNearestEssentiaHandler(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing.getOpposite(), wirelessInputInterfaceWorkRadius);
                 EzacianEssentiaWirelessHandler.drainEssentiaWireless(this, this.worldObj, this.essentiaSources, this.facing, 1);
             }

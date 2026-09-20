@@ -27,9 +27,10 @@ public class EzacianCustomBlockCrop extends BlockCrops {
     protected final Item cropResult;
     public int stages;
     public IIcon[] plantStagesIcons;
-    private boolean customDrops;
+    public int lightRequiredToGrow;
+    public int renderTypeId;
 
-    public EzacianCustomBlockCrop(String _cropName, int _stages, Item _cropSeedItem, Item _cropResult) {
+    public EzacianCustomBlockCrop(String _cropName, int _stages, Item _cropSeedItem, Item _cropResult, int _lightRequiredToGrow, int _renderTypeId) {
         super();
         this.setStepSound(EzacianCustomBlockCrop.soundTypeGrass);
         this.cropName = _cropName;
@@ -40,11 +41,13 @@ public class EzacianCustomBlockCrop extends BlockCrops {
         this.setBlockName(_cropName);
         this.cropSeedItem = _cropSeedItem;
         this.cropResult = _cropResult;
+        this.lightRequiredToGrow = _lightRequiredToGrow;
+        this.renderTypeId = _renderTypeId;
     }
 
     @Override
     public int getRenderType() {
-        return 1;
+        return this.renderTypeId;
     }
 
     @Override
@@ -54,34 +57,21 @@ public class EzacianCustomBlockCrop extends BlockCrops {
 
     @Override
     public void updateTick(World world, int x, int y, int z, Random rand) {
-        super.updateTick(world, x, y, z, rand);
-
-        if (world.getBlockLightValue(x, y + 1, z) >= 9) {
+        if (world.getBlockLightValue(x, y + 1, z) >= this.lightRequiredToGrow) {
             int l = world.getBlockMetadata(x, y, z);
 
             if (l < this.stages - 1) {
-                float f = this.func_149864_n(world, x, y, z);
+                float f = this.getGrowthRate(world, x, y, z);
 
                 if (rand.nextInt((int) (25.0F / f) + 1) == 0) {
                     ++l;
-                    world.setBlockMetadataWithNotify(x, y, z, l, 2);
+                    world.setBlockMetadataWithNotify(x, y, z, l, 3);
                 }
             }
         }
     }
 
-    @Override
-    public void func_149863_m(World world, int x, int y, int z) {
-        int l = world.getBlockMetadata(x, y, z) + MathHelper.getRandomIntegerInRange(world.rand, 2, 5);
-
-        if (l > this.stages - 1) {
-            l = this.stages - 1;
-        }
-
-        world.setBlockMetadataWithNotify(x, y, z, l, 2);
-    }
-
-    protected float func_149864_n(World world, int x, int y, int z) {
+    public float getGrowthRate(World world, int x, int y, int z) {
         float f = 1.0F;
         Block block = world.getBlock(x, y, z - 1);
         Block block1 = world.getBlock(x, y, z + 1);
@@ -177,5 +167,37 @@ public class EzacianCustomBlockCrop extends BlockCrops {
             }
         }
         return ret;
+    }
+
+    //fertilize, the BlockCrops method
+    @Override
+    public void func_149863_m(World world, int x, int y, int z) {
+        int l = world.getBlockMetadata(x, y, z) + MathHelper.getRandomIntegerInRange(world.rand, 2, 5);
+
+        if (l > this.stages-1)
+        {
+            l = this.stages-1;
+        }
+
+        world.setBlockMetadataWithNotify(x, y, z, l, 3);
+    }
+
+    //can fertilize
+    @Override
+    public boolean func_149851_a(World world, int x, int y, int z, boolean flag) {
+        int meta = world.getBlockMetadata(x, y, z);
+        return meta < this.stages-1;
+    }
+
+    //should fertilize
+    @Override
+    public boolean func_149852_a(World world, Random rand, int x, int y, int z) {
+        return super.func_149852_a(world, rand, x, y, z);
+    }
+
+    //fertilize, the IGrowable method
+    @Override
+    public void func_149853_b(World world, Random rand, int x, int y, int z) {
+        super.func_149853_b(world, rand, x, y, z);
     }
 }

@@ -124,6 +124,9 @@ tc.research_text.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS=Where am I going?
 tc.research_name.ASPECT_SEEDS=Aspected Seeds
 tc.research_text.ASPECT_SEEDS=¡Essentia for everywere!
 
+tc.research_name.MERCURIAL_EXCHANGE=Mercurial Exchange
+tc.research_text.MERCURIAL_EXCHANGE=Pure Transmutation
+
 tc.research_name.ALCHEMICAL_MIXER=The Alchemical Mixer
 tc.research_text.ALCHEMICAL_MIXER=Mixing essentia ¡Yummy!
 
@@ -214,9 +217,15 @@ ezaciancraft.research_page.VOIDNESS_MAGIC_AND_DARKNESS_REVELATIONS.3=§l...Right
 
 ezaciancraft.research_page.ASPECT_SEEDS.1=Upon seeing and acquiring the Thaumatorium—and realizing the distillery's power to extract essence—you understood that, with a bit of ingenuity, you could infuse a seed with a trace of essentia. This allows for the mass production of vast quantities of essence from the plant's crystallized fruits; these fruits store up to 8 units of essentia once the plant matures and absorbs aspects from its surroundings over time—depending on the specific aspect chosen...<BR>It is time to establish large-scale plantations and leave behind the struggle of hunting for and using exotic materials to obtain rare essentia for the rest of your days.
 
+ezaciancraft.research_page.MERCURIAL_EXCHANGE.1=After acquiring some mercury and understanding certain processes, you are reminded of the ancient glories of alchemy and how the substance was used for transmutation—particularly of various metals. You therefore decided to formulate a theory allowing you to create metals using mercury as a base. By applying principles of order and permutation alongside the fundamental aspects of the target metal, you can transmute mercury into that metal; it is a peculiar way to recycle the substance if you happen to have a surplus. I suppose it could prove useful in certain exceptional cases.
+
 ezaciancraft.research_page.ALCHEMICAL_MIXER.1=After growing frustrated with §l§nrare or hard-to-obtain Essentia§r, you turn your attention toward a new field of research related to the centrifuge: §l"The Alchemical Mixer"§r.<BR>This device performs the inverse function of the §l"Alchemical Centrifuge"§r, allowing you to combine known Essentia into more complex compounds—both §l§nprimal and compound Essentia§r alike.<BR>§c§oTo understand its usage, proceed to the next page.§r§0<LINE>
 ezaciancraft.research_page.ALCHEMICAL_MIXER.2=Its operation is as follows: the §lsides§r of the machine act as input points, connecting to pipes §l(of any type)§r. This is where the Essentia to be combined is §linserted§r. If one side has §lalready absorbed an Essentia§r, attempting to insert another—whether identical or different—into the same side will fail. However, inserting Essentia into the opposite side, if available, §lwill succeed§r.<BR>Once the machine detects §lcompatible Essentia§r, it will begin processing the §lrecipe§r after a short delay.<BR>The §llower section§r serves as the output, where the resulting §lcompound Essentia§r is expelled. It supports both §ljars§r and §lpipes§r for extraction.
 ezaciancraft.research_page.ALCHEMICAL_MIXER.3=The machine can also emit a §4Redstone§0§r signal to a §lcomparator§r when it contains §lmaterials§r. Additionally, it is §lsensitive to §4Redstone§0§r input, allowing you to control its §loperation§r and §lprocessing§r state.<BR>This makes it suitable for both §lbasic and advanced automation§r setups.
+
+ezaciancraft.research_page.WIRELESS_INTERFACES.1=Fed up with the hassle of managing pipes, you began to research and delve into the nature of Magic Mirrors. You learned that these mirrors can transmit Essentia between points A and B—even in a chain if others are nearby. By combining this knowledge with your discovery of the Thaumatorium and a deeper analysis of Essentia pressure within the piping, you managed to devise—drawing upon the "Iter" (Journey) aspect and related concepts—interfaces that facilitate the sending and receiving of Essentia across your network of pipes and jars.
+ezaciancraft.research_page.WIRELESS_INTERFACES.2=This makes handling Essentia over long distances far more efficient and greatly simplifies interaction with Essentia Magic Mirrors.<BR>Its operation is extremely simple: the interface reads from a volume of 16x16x16 blocks (configurable) via jars or mirrors that facilitate the deposit or extraction of stored essence, depending on whether the interface is configured for input or output. The interfaces also prioritize jars based on proximity—handling the nearest ones first—with a limit of up to 8 simultaneous processes (configurable) per jar of equal priority.
+ezaciancraft.research_page.WIRELESS_INTERFACES.3=They also measure the quantity and pressure involved—with one factor acting as a score penalty and the other as a bonus—which are crucial considerations in complex systems.<BR>Additionally, they can be locked using Redstone should advanced automation be required.
 
 ezaciancraft.research_page.SHADOW_ALCHEMY_FURNACE.1=With your accumulated knowledge of both the basic and advanced furnaces, you dared to create a hybrid—an efficient and compact device that combines the strengths of both worlds.<BR>The S.V.M. Alchemical Furnace offers significantly greater capacity than a standard furnace and can withstand increased pressure, supporting up to 8 alembics simultaneously.
 ezaciancraft.research_page.SHADOW_ALCHEMY_FURNACE.2=It also possesses an even more remarkable feature: when using "Arcane Bellows" around the furnace, the processing speed increases without reducing fuel efficiency.<BR>It is, without a doubt, a beautifully engineered and immensely powerful creation...
@@ -288,6 +297,15 @@ tc.aspect.spazio=Space, Volume
 tc.aspect.tempus=Time
 tc.aspect.replicatio=Replicate, Duplicate
 tc.aspect.lupinus=Men Creature, Lycanthropy
+
+tc.aspect.magicus=Pure Magic, Neutral Magic
+tc.aspect.aerum=Primordial Air
+tc.aspect.terrum=Primordial Earth
+tc.aspect.aqueus=Primordial Water
+tc.aspect.ignus=Primordial Fire
+tc.aspect.perdotos=Primordial Entropy
+tc.aspect.ordos=Primordial Order
+tc.aspect.primordium=Creation, Origin
 
 #other
 ##ezacianBaseTools

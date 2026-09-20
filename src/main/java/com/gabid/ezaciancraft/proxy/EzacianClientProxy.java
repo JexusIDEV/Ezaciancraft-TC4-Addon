@@ -10,10 +10,10 @@ import com.gabid.ezaciancraft.client.renderer.items.blocks.EzacianCustomItemJarF
 import com.gabid.ezaciancraft.client.renderer.items.blocks.WirelessEssentiaInterfaceBlockRender;
 import com.gabid.ezaciancraft.client.renderer.tiles.*;
 import com.gabid.ezaciancraft.common.blocks.tileentity.*;
+import com.gabid.ezaciancraft.common.blocks.vegetal.TileEntityAspectCrop;
 import com.gabid.ezaciancraft.common.event.EzacianCraftPlayerEvents;
 import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
 import com.gabid.ezaciancraft.registry.EzacianCraftItems;
-import com.gabid.ezaciancraft.registry.EzacianCraftResearches;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -94,5 +94,6 @@ public class EzacianClientProxy extends EzacianCommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWirelessEssentiaInterfaceInput.class, new WirelessEssentiaInterfaceTileEntityRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAdvancedEssentiaStorage.class, new AdvancedEssentiaStorageTER());
         ClientRegistry.bindTileEntitySpecialRenderer(EzacianCustomJarFillableTE.class, new EzacianCustomJarFillableTER());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAspectCrop.class, new AspectedCropBlockTileEntityRenderer());
     }
 }

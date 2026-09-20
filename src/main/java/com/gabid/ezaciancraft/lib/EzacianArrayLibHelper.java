@@ -15,8 +15,8 @@ public class EzacianArrayLibHelper {
                 });
     }
 
-    public static boolean all3DArrayTrue(boolean[][][] matrix) {
-        return Arrays.stream(matrix)
+    public static boolean all3DArrayTrue(boolean[][][] tensor) {
+        return Arrays.stream(tensor)
                 .allMatch(plane ->
                         Arrays.stream(plane)
                                 .allMatch(row -> {

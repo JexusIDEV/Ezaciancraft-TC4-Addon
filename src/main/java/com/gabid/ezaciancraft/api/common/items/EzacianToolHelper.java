@@ -74,7 +74,7 @@ public class EzacianToolHelper {
         return true;
     }
 
-    public static boolean handleThaumcraftCluster(World world, EntityPlayer player, Block block, int meta, int x, int y, int z) {
+    public static boolean handleThaumcraftCluster(World world, EntityPlayer player, Block block, int meta, int fortune, int x, int y, int z) {
         if (world.isRemote) return false;
 
         ItemStack tool = player.getHeldItem();
@@ -84,7 +84,7 @@ public class EzacianToolHelper {
             ItemStack cluster = Utils.findSpecialMiningResult(ore, .25f, world.rand);
             ItemStack clusterStaff = Utils.findSpecialMiningResult(ore, 4f, world.rand);
 
-            if (tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem) {
+            if (tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem && block.getDrops(world, x, y, z, meta, fortune).isEmpty()) {
                 if (clusterStaff != null) {
                     EntityItem entityItem = new EntityItem(
                             world,
@@ -166,9 +166,10 @@ public class EzacianToolHelper {
             block.onBlockHarvested(world, x, y, z, meta, player);
 
             if (block.removedByPlayer(world, player, x, y, z, true)) {
+                int fortune = EnchantmentHelper.getFortuneModifier(player);
                 block.onBlockDestroyedByPlayer(world, x, y, z, meta);
 
-                boolean hasCluster = handleThaumcraftCluster(world, player, block, meta, x, y, z);
+                boolean hasCluster = handleThaumcraftCluster(world, player, block, meta, fortune, x, y, z);
 
                 if(!(tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem || tool.getItem() instanceof ItemElementalPickaxe)) {
                     block.harvestBlock(world, player, x, y, z, meta);
@@ -397,7 +398,7 @@ public class EzacianToolHelper {
         }
 
         if (isVeinableOre && !player.capabilities.isCreativeMode) {
-
+            int fortune = EnchantmentHelper.getFortuneModifier(player);
             Set<Coord4D> found = new BlockFinder(player.worldObj, itemStackBlock, new Coord4D(x, y, z, player.worldObj.provider.dimensionId)).calc();
 
             for (Coord4D coord : found) {
@@ -411,7 +412,7 @@ public class EzacianToolHelper {
                 player.worldObj.playAuxSFXAtEntity(null, 2001, coord.xCoord, coord.yCoord, coord.zCoord, meta << 12);
                 player.worldObj.setBlockToAir(coord.xCoord, coord.yCoord, coord.zCoord);
                 block2.breakBlock(player.worldObj, coord.xCoord, coord.yCoord, coord.zCoord, blck, meta);
-                boolean hasCluster = handleThaumcraftCluster(world, player, block2, meta, coord.xCoord, coord.yCoord, coord.zCoord);
+                boolean hasCluster = handleThaumcraftCluster(world, player, block2, meta, fortune, coord.xCoord, coord.yCoord, coord.zCoord);
 
                 if (!hasCluster && (tool.getItem() instanceof ItemElementalPickaxe || tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem)) {
                     block2.dropBlockAsItem(player.worldObj, coord.xCoord, coord.yCoord, coord.zCoord, meta, 0);

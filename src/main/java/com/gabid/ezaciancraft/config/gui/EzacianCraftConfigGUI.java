@@ -23,7 +23,7 @@ public class EzacianCraftConfigGUI extends GuiConfig {
     }
 
     private static List<IConfigElement> getConfigElements() {
-        List<IConfigElement> list = new ArrayList<IConfigElement>();
+        List<IConfigElement> list = new ArrayList<>();
 
         for (String category : EzacianCraftConfiguration.config.getCategoryNames()) {
             list.add(new ConfigElement(

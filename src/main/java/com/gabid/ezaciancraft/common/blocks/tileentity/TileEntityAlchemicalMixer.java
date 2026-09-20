@@ -331,7 +331,7 @@ public class TileEntityAlchemicalMixer extends TileThaumcraft implements IEssent
         super.updateEntity();
     }
 
-    //functional methods - please, if someone viewing this, please don kill me... :skull:
+    //functional methods - please, if someone viewing this, please don't kill me... :skull:
     private void drawEssentiaFromInputPipes() {
         TileEntity pipeInputA;
         TileEntity pipeInputB;

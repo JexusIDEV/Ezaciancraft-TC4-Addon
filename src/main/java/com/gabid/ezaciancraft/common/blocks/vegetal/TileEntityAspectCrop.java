@@ -1,44 +1,63 @@
 package com.gabid.ezaciancraft.common.blocks.vegetal;
 
-import cpw.mods.fml.common.network.NetworkRegistry;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 import thaumcraft.api.TileThaumcraft;
+import thaumcraft.api.WorldCoordinates;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
-import thaumcraft.common.lib.network.PacketHandler;
-import thaumcraft.common.lib.network.fx.PacketFXBlockSparkle;
+
+import java.util.Random;
+
+import static com.gabid.ezaciancraft.common.blocks.vegetal.BlockAspectCrop.aspectCoordsData;
 
 public class TileEntityAspectCrop extends TileThaumcraft implements IAspectContainer {
 
-    protected AspectList storedAspects = new AspectList();
-    protected int aspectAmount = 0;
-    protected boolean enableFX = false;
+    protected Aspect mainAspect;
+    protected int aspectAmount = 1;
+    protected int maxCapacity = 8;
+    protected int ticks = 0;
 
     public TileEntityAspectCrop() {}
 
     @Override
     public void writeCustomNBT(NBTTagCompound nbttagcompound) {
         super.writeCustomNBT(nbttagcompound);
-        this.storedAspects.writeToNBT(nbttagcompound);
+        if(this.mainAspect != null)
+            nbttagcompound.setString("aspect", this.mainAspect.getTag());
         nbttagcompound.setInteger("amount", this.aspectAmount);
     }
 
     @Override
     public void readCustomNBT(NBTTagCompound nbttagcompound) {
         super.readCustomNBT(nbttagcompound);
-        this.storedAspects.readFromNBT(nbttagcompound);
+        if (nbttagcompound.hasKey("aspect")) {
+            this.mainAspect = Aspect.getAspect(nbttagcompound.getString("aspect"));
+        } else {
+            this.mainAspect = null;
+        }
+
         this.aspectAmount = nbttagcompound.getInteger("amount");
     }
 
     @Override
     public AspectList getAspects() {
-        return this.storedAspects != null ? this.storedAspects : new AspectList();
+        if (this.mainAspect == null || this.aspectAmount <= 0) {
+            return new AspectList();
+        }
+
+        return new AspectList().add(this.mainAspect, this.aspectAmount);
     }
 
-    public void setCropAspect(AspectList aspectList) {
-        this.storedAspects = aspectList;
+    public void setCropAspect(Aspect aspect) {
+        if(!this.worldObj.isRemote) {
+            this.mainAspect = aspect;
+            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+            this.markDirty();
+            this.worldObj.markBlockRangeForRenderUpdate(this.xCoord, this.yCoord, this.zCoord, this.xCoord, this.yCoord, this.zCoord);
+        }
     }
 
     @Override
@@ -47,7 +66,7 @@ public class TileEntityAspectCrop extends TileThaumcraft implements IAspectConta
 
     @Override
     public boolean doesContainerAccept(Aspect aspect) {
-        return aspect.equals(this.storedAspects.getAspects()[0]);
+        return aspect == this.mainAspect;
     }
 
     @Override
@@ -67,7 +86,7 @@ public class TileEntityAspectCrop extends TileThaumcraft implements IAspectConta
 
     @Override
     public boolean doesContainerContainAmount(Aspect aspect, int i) {
-        return aspect == this.storedAspects.getAspects()[0];
+        return aspect == this.mainAspect;
     }
 
     @Override
@@ -75,28 +94,51 @@ public class TileEntityAspectCrop extends TileThaumcraft implements IAspectConta
         Aspect[] arr$ = aspectList.getAspects();
 
         for (Aspect tt : arr$) {
-            if (tt == this.storedAspects.getAspects()[0]) {
+            if (tt == this.mainAspect) {
                 return true;
             }
         }
-
         return false;
     }
 
     @Override
     public int containerContains(Aspect aspect) {
-        return 1;
+        return this.aspectAmount;
     }
 
-    public int getAspectAmount(Aspect asp) {
-        return this.aspectAmount = this.storedAspects.getAmount(asp);
+    public void addAspect(int amt) {
+        if(this.worldObj.isRemote) return;
+        if(this.mainAspect == null) return;
+        if(this.aspectAmount + amt > 8) return;
+        this.aspectAmount += amt;
+        this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+        this.markDirty();
+        this.worldObj.markBlockRangeForRenderUpdate(this.xCoord, this.yCoord, this.zCoord, this.xCoord, this.yCoord, this.zCoord);
     }
 
-    public AspectList addAspect(int amt) {
-        return this.storedAspects.add(this.storedAspects.getAspects()[0], amt);
+    public Aspect getMainAspect() {
+        return this.mainAspect;
     }
 
-    public void setEnableFX(boolean enableFX) {
-        this.enableFX = enableFX;
+    public int getAspectAmount() {
+        return this.aspectAmount;
+    }
+
+    public int getMaxCapacity() {
+        return this.maxCapacity;
+    }
+
+    public void onGrow(int meta, int stages, int x, int y, int z, World world, Random rand) {
+        int grows = MathHelper.getRandomIntegerInRange(rand, 1, 3);
+        if(meta < stages-1) {
+            meta += grows;
+            world.setBlockMetadataWithNotify(x, y, z, meta, 2);
+            this.markDirty();
+            world.markBlockRangeForRenderUpdate(x, y, z, x, y, z);
+        } else {
+            world.setBlockMetadataWithNotify(x, y, z, meta, stages-1);
+            this.markDirty();
+            world.markBlockRangeForRenderUpdate(this.xCoord, this.yCoord, this.zCoord, this.xCoord, this.yCoord, this.zCoord);
+        }
     }
 }

@@ -107,4 +107,30 @@ public class ContainerInventoryHelperUtils {
             }
         }
     }
+
+    public static void dropItem(ItemStack stack, World world, int x, int y, int z) {
+        if (stack != null) {
+            EntityItem entityitem;
+            float f = world.rand.nextFloat() * 0.8F + 0.1F;
+            float f1 = world.rand.nextFloat() * 0.8F + 0.1F;
+            for (float f2 = world.rand.nextFloat() * 0.8F + 0.1F; stack.stackSize > 0; world.spawnEntityInWorld(entityitem)) {
+                int j1 = world.rand.nextInt(21) + 10;
+
+                if (j1 > stack.stackSize) {
+                    j1 = stack.stackSize;
+                }
+
+                stack.stackSize -= j1;
+                entityitem = new EntityItem(world, ((float) x + f), ((float) y + f1), ((float) z + f2), new ItemStack(stack.getItem(), j1, stack.getItemDamage()));
+                float f3 = 0.05F;
+                entityitem.motionX = ((float) world.rand.nextGaussian() * f3);
+                entityitem.motionY = ((float) world.rand.nextGaussian() * f3 + 0.2F);
+                entityitem.motionZ = ((float) world.rand.nextGaussian() * f3);
+
+                if (stack.hasTagCompound()) {
+                    entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
+                }
+            }
+        }
+    }
 }

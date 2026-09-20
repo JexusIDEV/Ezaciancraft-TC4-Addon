@@ -51,8 +51,7 @@ public class ItemAspectSeed extends ItemSeeds implements IEssentiaContainerItem 
                 TileEntity te = world.getTileEntity(x, y+1, z);
 
                 if (te instanceof TileEntityAspectCrop) {
-                    AspectList asp = new AspectList().add(this.getAspects(stack).getAspects()[0], 1);
-                    ((TileEntityAspectCrop) te).setCropAspect(asp);
+                    ((TileEntityAspectCrop) te).setCropAspect(this.getAspects(stack).getAspects()[0]);
                 }
                 --stack.stackSize;
                 return true;

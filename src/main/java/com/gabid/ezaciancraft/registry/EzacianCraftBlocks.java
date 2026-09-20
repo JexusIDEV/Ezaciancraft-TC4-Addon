@@ -64,7 +64,6 @@ public class EzacianCraftBlocks {
         GameRegistry.registerBlock(wirelessEssentiaInterface, ItemBlockWirelessEssentiaInterface.class, wirelessEssentiaInterface.getUnlocalizedName());
 
         advancedEssentiaStorage = new BlockAdvancedEssentiaStorage();
-        advancedEssentiaStorage.setCreativeTab(EZACIANCRAFT_TAB);
         GameRegistry.registerBlock(advancedEssentiaStorage, advancedEssentiaStorage.getUnlocalizedName());
 
         /*etherealAccelerator = new EtherealAcceleratorBlock();
@@ -72,7 +71,6 @@ public class EzacianCraftBlocks {
         GameRegistry.registerBlock(etherealAccelerator, etherealAccelerator.getUnlocalizedName());*/
 
         extendedArcaneWorkbench = new BlockExtendedArcaneWorkbench();
-        extendedArcaneWorkbench.setCreativeTab(EZACIANCRAFT_TAB);
         GameRegistry.registerBlock(extendedArcaneWorkbench, ItemBlock.class, extendedArcaneWorkbench.getUnlocalizedName());
 
         crystalyiumJar = new BlockCrystalyiumJar();

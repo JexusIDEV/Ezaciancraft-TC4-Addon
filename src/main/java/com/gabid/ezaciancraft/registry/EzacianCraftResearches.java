@@ -18,6 +18,7 @@ import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.config.ConfigItems;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,9 @@ public class EzacianCraftResearches {
 
     public static final int crystalyiumResearchesColumnPos = 3;
     public static final int crystalyiumResearchesRowPos = -2;
+
+    public static final int genericResearchesColumnPos = 3;
+    public static final int genericResearchesRowPos = -4;
 
     public static final int shadowVoidMetalColumnPos = -3;
     public static final int shadowVoidMetalRowPos = 0;
@@ -133,12 +137,28 @@ public class EzacianCraftResearches {
                         .add(MAGIC, 2)
                         .add(EXCHANGE, 1)
                 ,
-                crystalyiumResearchesColumnPos, crystalyiumResearchesRowPos-2, 0,
+                genericResearchesColumnPos, genericResearchesRowPos, 0,
                 dummySeed
         )).setPages(
                 ResearchUtils.createPageTranslation("ASPECT_SEEDS", 1),
                 new ResearchPage((CrucibleRecipe[]) seedRecipes.toArray(new CrucibleRecipe[0]))
-        ).setParents("DISTILESSENTIA", "THAUMATORIUM").setSecondary().setItemTriggers(new ItemStack(Items.wheat_seeds), new ItemStack(Items.melon_seeds), new ItemStack(Items.pumpkin_seeds)).setAspectTriggers(PLANT).setConcealed().registerResearchItem());
+        ).setParents("DISTILESSENTIA", "THAUMATORIUM").setItemTriggers(new ItemStack(Items.wheat_seeds), new ItemStack(Items.melon_seeds), new ItemStack(Items.pumpkin_seeds)).setSecondary().setConcealed().registerResearchItem());
+
+        ResearchCategories.addResearch((new ResearchItem("MERCURIAL_EXCHANGE",
+                EZACIANCRAFT_CATEGORY_ID,
+                new AspectList()
+                        .add(METAL, 6)
+                        .add(EXCHANGE, 4)
+                        .add(CRYSTAL, 2)
+                        .add(ORDER, 2)
+                ,
+                genericResearchesColumnPos+2, genericResearchesRowPos, 0,
+                new ItemStack(ConfigItems.itemResource, 1, 3)
+        )).setPages(
+                ResearchUtils.createPageTranslation("MERCURIAL_EXCHANGE", 1),
+                new ResearchPage((CrucibleRecipe) recipes.get("mercurialExchangeIron")),
+                new ResearchPage((CrucibleRecipe) recipes.get("mercurialExchangeGold"))
+        ).setItemTriggers(new ItemStack(ConfigItems.itemResource, 1, 3)).setParents("ALCHEMICALDUPLICATION", "ALCHEMICALMANUFACTURE").setSecondary().setConcealed().registerResearchItem());
 
         ResearchCategories.addResearch((new ResearchItem("ALCHEMICAL_MIXER",
                 EZACIANCRAFT_CATEGORY_ID,

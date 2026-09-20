@@ -18,10 +18,7 @@ import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.*;
 import net.minecraft.potion.Potion;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
@@ -232,10 +229,12 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
 
             if (currentSubMode == 0) {
                 if (currentAOERadius == 0) {
-                    this.manageSingleClusterDrop(world, player, itemstack, x, y, z);
+                    int fortune = EnchantmentHelper.getFortuneModifier(player);
+                    this.manageSingleClusterDrop(world, player, itemstack, fortune, x, y, z);
                 } else {
                     if (player.isSneaking()) {
-                        this.manageSingleClusterDrop(world, player, itemstack, x, y, z);
+                        int fortune = EnchantmentHelper.getFortuneModifier(player);
+                        this.manageSingleClusterDrop(world, player, itemstack, fortune, x, y, z);
                     } else {
                         EzacianToolHelper.removeAOEBlocks(itemstack, player, world, x, y, z, currentAOERadius);
                     }
@@ -247,12 +246,12 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
         return super.onBlockStartBreak(itemstack, x, y, z, player);
     }
 
-    private void manageSingleClusterDrop(World world, EntityPlayer player, ItemStack stack, int x, int y, int z) {
+    private void manageSingleClusterDrop(World world, EntityPlayer player, ItemStack stack, int fortune, int x, int y, int z) {
         if (!world.isRemote) {
             Block block = world.getBlock(x, y, z);
             int meta = world.getBlockMetadata(x, y, z);
 
-            if(block instanceof BlockOre) {
+            if(block instanceof BlockOre && block.getItemDropped(0, itemRand, 0) == Item.getItemFromBlock(block)) {
                 ItemStack ore = new ItemStack(block, 1, meta);
 
                 ItemStack cluster = Utils.findSpecialMiningResult(ore, 4f, player.worldObj.rand);
