@@ -5,7 +5,9 @@ With a lot of white and (mostly) dark magic in his progression and solves a lot 
 
 This mod will add a LOT of Compatibility in the future and a lot of new content for a while; But.
 This mod is still in too alpha, so expect unfinished content or a lot of bugs, go to issues tab to redirect GitHub and open an issue (only issues and translations accepted). Or if you want to make suggestions for the mod, go to my trello where is the general roadmap of the mod.
+<br>
 Trello - Roadmap:
+<br>
 https://trello.com/b/3uVFoshD/ezaciancraft-tc4-addon-mod
 
 This is an addon for thaumcraft, so the dependencies is to download Thaumcraft and Baubles in the latest version for the current minecraft version of the mod to work.
