@@ -657,7 +657,7 @@ public class EzacianCraftRecipes {
                         new ItemStack[]{
                                 new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
                                 new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 2),
-                                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 3),
+                                new ItemStack(EzacianCraftResources.shadowVoidMetalResources.getResourceMetal(), 1, 0),
                                 new ItemStack(ConfigBlocks.blockCosmeticOpaque, 1, 2)
                         }
                 ));

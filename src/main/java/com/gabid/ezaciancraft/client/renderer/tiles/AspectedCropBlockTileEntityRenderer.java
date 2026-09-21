@@ -16,7 +16,7 @@ public class AspectedCropBlockTileEntityRenderer extends TileEntitySpecialRender
             Tessellator tes = Tessellator.instance;
             BlockAspectCrop cropBlock = (BlockAspectCrop) te.blockType;
             int color;
-            int currentMeta = te.blockMetadata;
+            int currentMeta = te.getWorldObj().getBlockMetadata(te.xCoord, te.yCoord, te.zCoord);
             float scale = 0.5f;
 
             if (te.getMainAspect() != null) {
@@ -78,13 +78,15 @@ public class AspectedCropBlockTileEntityRenderer extends TileEntitySpecialRender
     }
 
     private void renderCrossModel(Tessellator tes, float minU, float maxU, float minV, float maxV, float scale) {
-        tes.addVertexWithUV(-scale, 0, -scale, minU, maxV);
-        tes.addVertexWithUV(scale, 0, scale, maxU, maxV);
+        double diffHeight = 0.45D * (double)scale;
+
+        tes.addVertexWithUV(-scale, -0.0625F, -scale, minU, maxV);
+        tes.addVertexWithUV(scale, -0.0625F, scale, maxU, maxV);
         tes.addVertexWithUV(scale, 1, scale, maxU, minV);
         tes.addVertexWithUV(-scale, 1, -scale, minU, minV);
 
-        tes.addVertexWithUV(-scale, 0, scale, minU, maxV);
-        tes.addVertexWithUV(scale, 0, -scale, maxU, maxV);
+        tes.addVertexWithUV(-scale, -0.0625F, scale, minU, maxV);
+        tes.addVertexWithUV(scale, -0.0625F, -scale, maxU, maxV);
         tes.addVertexWithUV(scale, 1, -scale, maxU, minV);
         tes.addVertexWithUV(-scale, 1, scale, minU, minV);
     }
