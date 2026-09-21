@@ -6,8 +6,8 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -156,5 +156,29 @@ public class BlockAspectCrop extends EzacianCustomBlockCrop {
                 te.addAspect(1);
             }
         }
+    }
+
+    @Override
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
+        this.setBlockBoundsBasedOnState(world, x, y, z);
+        return super.getSelectedBoundingBoxFromPool(world, x, y, z);
+    }
+
+    @Override
+    public void setBlockBoundsBasedOnState(IBlockAccess access, int x, int y, int z) {
+        int currentMeta = access.getBlockMetadata(x,y,z);
+        if(currentMeta == 0) {
+            this.setBlockBounds(0.175f, -0.0625F, 0.175f, .825f, .2f, .825f);
+
+        } else if(currentMeta == 1) {
+            this.setBlockBounds(0.175f, -0.0625F, 0.175f, .825f, .425f, .825f);
+
+        } else if(currentMeta == 2) {
+            this.setBlockBounds(0.175f, -0.0625F, 0.175f, .825f, .55f, .825f);
+
+        } else if(currentMeta >= 3) {
+            this.setBlockBounds(0.175f, -0.0625F, 0.175f, .825f, .875f, .825f);
+        }
+        super.setBlockBoundsBasedOnState(access, x, y, z);
     }
 }

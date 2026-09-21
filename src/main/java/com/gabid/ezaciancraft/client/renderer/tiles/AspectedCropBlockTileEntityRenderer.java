@@ -78,8 +78,6 @@ public class AspectedCropBlockTileEntityRenderer extends TileEntitySpecialRender
     }
 
     private void renderCrossModel(Tessellator tes, float minU, float maxU, float minV, float maxV, float scale) {
-        double diffHeight = 0.45D * (double)scale;
-
         tes.addVertexWithUV(-scale, -0.0625F, -scale, minU, maxV);
         tes.addVertexWithUV(scale, -0.0625F, scale, maxU, maxV);
         tes.addVertexWithUV(scale, 1, scale, maxU, minV);
