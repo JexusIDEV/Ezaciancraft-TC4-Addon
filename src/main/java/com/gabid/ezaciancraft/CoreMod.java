@@ -30,7 +30,7 @@ import thaumcraft.common.config.Config;
 @Mod(modid = CoreMod.MODID, version = CoreMod.VERSION, dependencies = CoreMod.DEPENDENCIES, guiFactory = "com.gabid.ezaciancraft.event.EzacianCraftGameModGuiFactory")
 public class CoreMod {
     public static final String MODID = "ezaciancraft";
-    public static final String VERSION = "alpha-1.2.0";
+    public static final String VERSION = "release-1.0.0";
     public static final String DEPENDENCIES = "required-after:Thaumcraft@[4.2.3.5,);after:Baubles@[1.0.1.10,);";
 
     public static final Logger LOG = LogManager.getLogger("EZACIANCRAFT");
