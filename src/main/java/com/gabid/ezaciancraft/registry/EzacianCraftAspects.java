@@ -7,7 +7,10 @@ import thaumcraft.api.aspects.Aspect;
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 
 public class EzacianCraftAspects {
-    public static final Aspect TEMPUS = new EzacianAspect("tempus", 12566463, new Aspect[]{Aspect.MOTION, Aspect.VOID});
+    // Magic Bees may already have registered the shared time aspect.
+    public static final Aspect TEMPUS = Aspect.getAspect("tempus") != null
+            ? Aspect.getAspect("tempus")
+            : new EzacianAspect("tempus", 12566463, new Aspect[]{Aspect.MOTION, Aspect.VOID});
     public static final Aspect SPAZIO = new EzacianAspect("spazio", 7566195, new Aspect[]{Aspect.VOID, Aspect.ORDER});
     public static final Aspect REPLICATIO = new EzacianAspect("replicatio", 13421772, new Aspect[]{Aspect.EXCHANGE, Aspect.MAGIC});
 
