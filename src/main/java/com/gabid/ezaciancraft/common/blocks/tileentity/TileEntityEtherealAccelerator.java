@@ -30,6 +30,8 @@ public class TileEntityEtherealAccelerator extends TileThaumcraft {
             if (te != null && te.canUpdate()) {
                 for (int h = 0; h < this.accelerationSpeed; ++i) {
                     te.updateEntity();
+                    te.markDirty();
+                    te.getWorldObj().markBlockForUpdate(x,y,z);
                 }
             }
         }

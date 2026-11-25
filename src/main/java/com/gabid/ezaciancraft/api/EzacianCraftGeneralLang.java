@@ -61,6 +61,7 @@ public class EzacianCraftGeneralLang {
     public static String UNLOCALE_CRYSTALYIUM_JAR = "crystalyiumJar";
     public static String UNLOCALE_SHADOW_VOID_METAL_JAR = "shadowVoidMetalJar";
     public static String UNLOCALE_MAGIC_ALLOY_JAR = "magicAlloyJar";
+    public static String UNLOCALE_UPGRADED_BUFFER_TUBE = "upgradedBufferTube";
 
     //*meta-tile blocks
     public static String UNLOCALE_CUSTOM_BASE_JAR = "customBaseJar";

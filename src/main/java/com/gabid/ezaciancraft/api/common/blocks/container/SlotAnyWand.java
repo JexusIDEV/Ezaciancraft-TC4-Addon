@@ -14,4 +14,9 @@ public class SlotAnyWand extends SlotLimitedByWand {
     public boolean isItemValid(ItemStack stack) {
         return stack != null && stack.getItem() != null && stack.getItem() instanceof ItemWandCasting;
     }
+
+    @Override
+    public int getSlotStackLimit() {
+        return 1;
+    }
 }

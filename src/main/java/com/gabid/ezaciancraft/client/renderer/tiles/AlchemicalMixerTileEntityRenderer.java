@@ -86,7 +86,7 @@ public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer
     }
 
     private void renderStoredEssentia(TileEntityAlchemicalMixer te) {
-        if (this.field_147501_a.field_147553_e != null && te.currentAspectForColor != null && te.getAspects().visSize() != 0) {
+        if (this.field_147501_a.field_147553_e != null && te.currentAspectForColor != null && te.getAspects().visSize() <= 0) {
             GL11.glPushMatrix();
             GL11.glEnable(GL_BLEND);
             GL11.glBlendFunc(770, 771);

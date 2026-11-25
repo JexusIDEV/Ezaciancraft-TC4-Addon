@@ -5,12 +5,14 @@ import com.gabid.ezaciancraft.common.blocks.container.ContainerShadowAlchemyFurn
 import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityShadowAlchemyFurnace;
 import com.gabid.ezaciancraft.lib.client.gui.EzacianGuiUtils;
 import com.gabid.ezaciancraft.lib.math.EzacianGuiContainerMathHelper;
+import com.gabid.ezaciancraft.lib.render.ColorHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
+import thaumcraft.api.aspects.Aspect;
 import thaumcraft.client.lib.UtilsFX;
 
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ import java.util.List;
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 import static com.gabid.ezaciancraft.lib.math.EzacianGuiContainerMathHelper.getScaledValue;
 import static java.lang.String.format;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_COLOR;
 
 @SideOnly(Side.CLIENT)
 public class ScreenShadowAlchemyFurnace extends GuiContainer {
@@ -45,10 +49,13 @@ public class ScreenShadowAlchemyFurnace extends GuiContainer {
     protected void drawGuiContainerBackgroundLayer(float ticks, int x, int y) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         UtilsFX.bindTexture(MODID, GUI_TEXTURE_PATH);
-        GL11.glEnable(3042);
+        GL11.glEnable(GL_BLEND);
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
         this.renderVis();
-        GL11.glDisable(3042);
+        this.renderCentiVisHeat();
+        this.renderCentiVisLiquid();
+        this.renderCentiVisDestroy();
+        GL11.glDisable(GL_BLEND);
         this.renderBurn();
         this.renderProgress();
     }
@@ -72,10 +79,14 @@ public class ScreenShadowAlchemyFurnace extends GuiContainer {
 
         //burn time
         int burn;
-        if (this.furnaceTE.getMaxFurnaceBurnTime() > 0) {
-            burn = (this.furnaceTE.getFurnaceBurnTime() * 100) / this.furnaceTE.getMaxFurnaceBurnTime();
+        if(this.furnaceTE.getCentiVisHeat() > 0) {
+            burn = 100;
         } else {
-            burn = 0;
+            if (this.furnaceTE.getMaxFurnaceBurnTime() > 0) {
+                burn = (this.furnaceTE.getFurnaceBurnTime() * 100) / this.furnaceTE.getMaxFurnaceBurnTime();
+            } else {
+                burn = 0;
+            }
         }
         if (EzacianGuiUtils.isInRect(82, 43, 20, 26, x - this.guiLeft, y - this.guiTop)) {
             this.drawCreativeTabHoveringText(StatCollector.translateToLocal("gui.shadowAlchemyFurnace.burnProgress") + burn + "%", x, y);
@@ -91,6 +102,17 @@ public class ScreenShadowAlchemyFurnace extends GuiContainer {
         if (EzacianGuiUtils.isInRect(106, 30, 6, 49, x - this.guiLeft, y - this.guiTop)) {
             this.drawCreativeTabHoveringText(StatCollector.translateToLocal("gui.shadowAlchemyFurnace.cookProgress") + progress + "%", x, y);
         }
+
+        //centivis
+        if (EzacianGuiUtils.isInRect(154, 28, 5, 51, x - this.guiLeft, y - this.guiTop)) {
+            this.drawCreativeTabHoveringText(this.furnaceTE.getCentiVisHeat() + " " + Aspect.FIRE.getName(), x, y);
+        }
+        if (EzacianGuiUtils.isInRect(162, 28, 5, 51, x - this.guiLeft, y - this.guiTop)) {
+            this.drawCreativeTabHoveringText(this.furnaceTE.getCentiVisLiquidity() + " " + Aspect.WATER.getName(), x, y);
+        }
+        if (EzacianGuiUtils.isInRect(170, 28, 5, 51, x - this.guiLeft, y - this.guiTop)) {
+            this.drawCreativeTabHoveringText(this.furnaceTE.getCentiVisDestruction() + " " + Aspect.ENTROPY.getName(), x, y);
+        }
     }
 
     private void renderVis() {
@@ -100,14 +122,54 @@ public class ScreenShadowAlchemyFurnace extends GuiContainer {
     }
 
     private void renderBurn() {
-        if (this.furnaceTE.getMaxFurnaceBurnTime() > 0) {
-            int scaledBurn = getScaledValue(this.furnaceTE.getFurnaceBurnTime(), this.furnaceTE.getMaxFurnaceBurnTime(), 20);
-            this.drawTexturedModalRect(this.guiLeft + 84, this.guiTop + 46 + (20 - scaledBurn), 177, 20 - scaledBurn, 16, scaledBurn);
+        if(this.furnaceTE.getCentiVisHeat() <= 0) {
+            if (this.furnaceTE.getMaxFurnaceBurnTime() > 0) {
+                int scaledBurn = getScaledValue(this.furnaceTE.getFurnaceBurnTime(), this.furnaceTE.getMaxFurnaceBurnTime(), 20);
+                this.drawTexturedModalRect(this.guiLeft + 84, this.guiTop + 46 + (20 - scaledBurn), 177, 20 - scaledBurn, 16, scaledBurn);
+            }
+        } else {
+            this.drawTexturedModalRect(this.guiLeft + 84, this.guiTop + 46, 177, 0, 16, 20);
         }
     }
 
     private void renderProgress() {
         int scaledProgress = getScaledValue(this.furnaceTE.getFurnaceCookTime(), this.furnaceTE.getMaxFurnaceCookTime(), 49);
         this.drawTexturedModalRect(this.guiLeft + 106, this.guiTop + 30 + (49 - scaledProgress), 214, 49 - scaledProgress, 6, scaledProgress);
+    }
+
+    private void renderCentiVisHeat() {
+        int scaledVis = getScaledValue(this.furnaceTE.getCentiVisHeat(), this.furnaceTE.getMaxCentivisUnit(), 45);
+        int colorExpect = Aspect.FIRE.getColor();
+        float r = ColorHelper.getRedDecimalToHexFloat(colorExpect);
+        float g = ColorHelper.getGreenDecimalToHexFloat(colorExpect);
+        float b = ColorHelper.getBlueDecimalToHexFloat(colorExpect);
+        GL11.glColor3f(r, g, b);
+        this.drawTexturedModalRect(this.guiLeft + 154, this.guiTop + 31 + (45 - scaledVis), 227, 45 - scaledVis, 5, scaledVis);
+        GL11.glColor3f(1f, 1f, 1f);
+        this.drawTexturedModalRect(this.guiLeft + 154, this.guiTop + 28, 221, 0, 5, 51);
+    }
+
+    private void renderCentiVisLiquid() {
+        int scaledVis = getScaledValue(this.furnaceTE.getCentiVisLiquidity(), this.furnaceTE.getMaxCentivisUnit(), 45);
+        int colorExpect = Aspect.WATER.getColor();
+        float r = ColorHelper.getRedDecimalToHexFloat(colorExpect);
+        float g = ColorHelper.getGreenDecimalToHexFloat(colorExpect);
+        float b = ColorHelper.getBlueDecimalToHexFloat(colorExpect);
+        GL11.glColor3f(r, g, b);
+        this.drawTexturedModalRect(this.guiLeft + 162, this.guiTop + 31 + (45 - scaledVis), 227, 45 - scaledVis, 5, scaledVis);
+        GL11.glColor3f(1f, 1f, 1f);
+        this.drawTexturedModalRect(this.guiLeft + 162, this.guiTop + 28, 221, 0, 5, 51);
+    }
+
+    private void renderCentiVisDestroy() {
+        int scaledVis = getScaledValue(this.furnaceTE.getCentiVisDestruction(), this.furnaceTE.getMaxCentivisUnit(), 45);
+        int colorExpect = Aspect.ENTROPY.getColor();
+        float r = ColorHelper.getRedDecimalToHexFloat(colorExpect);
+        float g = ColorHelper.getGreenDecimalToHexFloat(colorExpect);
+        float b = ColorHelper.getBlueDecimalToHexFloat(colorExpect);
+        GL11.glColor3f(r, g, b);
+        this.drawTexturedModalRect(this.guiLeft + 170, this.guiTop + 31 + (45 - scaledVis), 227, 45 - scaledVis, 5, scaledVis);
+        GL11.glColor3f(1f, 1f, 1f);
+        this.drawTexturedModalRect(this.guiLeft + 170, this.guiTop + 28, 221, 0, 5, 51);
     }
 }

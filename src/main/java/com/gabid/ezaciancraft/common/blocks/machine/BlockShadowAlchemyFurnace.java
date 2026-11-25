@@ -73,7 +73,7 @@ public class BlockShadowAlchemyFurnace extends BlockContainer {
                     return this.shadowAlchemyFurnaceIcons[4];
                 }
             } else if (meta >= 2 && meta <= 5 && side == meta) {
-                if (furnaceTE.getFurnaceBurnTime() > 0) {
+                if (furnaceTE.getFurnaceBurnTime() > 0 || furnaceTE.isBurning()) {
                     return this.shadowAlchemyFurnaceIcons[1];
                 } else {
                     return this.shadowAlchemyFurnaceIcons[0];

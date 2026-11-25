@@ -7,6 +7,7 @@ import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_CRUDE_
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_SHADOW_VOID_METAL;
 import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_RESOURCES_TAB;
 
+///set of register materials of the mod
 public class EzacianCraftResources {
     public static ResourceMaterialBuilder shadowVoidMetalResources = ResourceMaterialBuilder.createAFullSet(UNLOCALE_SHADOW_VOID_METAL, 1f, 0.25f, 4f, MapColor.blackColor, EZACIANCRAFT_RESOURCES_TAB);
     public static ResourceMaterialBuilder crudeCrystalyiumResources = ResourceMaterialBuilder.createAFullSet(UNLOCALE_CRUDE_CRYSTALYIUM, 1f, 1f, 8f, MapColor.magentaColor, EZACIANCRAFT_RESOURCES_TAB);

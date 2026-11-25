@@ -1,6 +1,8 @@
 package com.gabid.ezaciancraft.common.blocks.tileentity;
 
 import com.gabid.ezaciancraft.lib.nbt.NBTHelper;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
@@ -11,12 +13,14 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraftforge.common.util.ForgeDirection;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.visnet.VisNetHandler;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.TileAlembic;
 import thaumcraft.common.tiles.TileBellows;
@@ -26,6 +30,8 @@ import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_SHADOW
 import static net.minecraft.tileentity.TileEntityFurnace.isItemFuel;
 import static net.minecraftforge.common.util.ForgeDirection.UP;
 
+@Getter
+@Setter
 public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements ISidedInventory {
     //sided container and itemstack interface
     private static final int[] inputSidesSlots = new int[]{0, 1};
@@ -42,6 +48,11 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
     protected int furnaceCookTime = 0;
     protected int maxFurnaceCookTime;
     protected float speedBurnMultiplier = 1;
+    //centivis
+    protected int centiVisHeat = 0;
+    protected int centiVisLiquidity = 0;
+    protected int centiVisDestruction = 0;
+    protected int maxCentivisUnit = 500;
     //extra
     private int ticks = 0;
     private int bellowsAmount = 0;
@@ -86,6 +97,10 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
         this.furnaceBurnTime = nbttagcompound.getInteger("BurnTime");
         this.maxFurnaceBurnTime = nbttagcompound.getInteger("MaxBurnTime");
         this.essentiaAmountVis = nbttagcompound.getInteger("Vis");
+
+        this.centiVisHeat = nbttagcompound.getInteger("CentiVisHeat");
+        this.centiVisLiquidity = nbttagcompound.getInteger("CentiVisLiquid");
+        this.centiVisDestruction = nbttagcompound.getInteger("CentiVisDestruction");
     }
 
     @Override
@@ -93,6 +108,10 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
         nbttagcompound.setInteger("BurnTime", this.furnaceBurnTime);
         nbttagcompound.setInteger("MaxBurnTime", this.maxFurnaceBurnTime);
         nbttagcompound.setInteger("Vis", this.essentiaAmountVis);
+
+        nbttagcompound.setInteger("CentiVisHeat", this.centiVisHeat);
+        nbttagcompound.setInteger("CentiVisLiquid", this.centiVisLiquidity);
+        nbttagcompound.setInteger("CentiVisDestruction", this.centiVisDestruction);
     }
 
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
@@ -238,7 +257,6 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
                 return tag;
             }
         }
-
         return null;
     }
 
@@ -264,18 +282,49 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
             } else {
                 this.speedBurnMultiplier = (float) (this.bellowsAmount * processSpeedBellowsBonus);
             }
-
-            this.processFuelAndResult();
+            this.centiVisCharge();
+            this.processResult();
             this.processEssentia();
         }
     }
 
+    //centi vis system to the block
+    private void centiVisCharge() {
+        if(this.ticks++ % 5 == 0) {
+            this.centiVisHeat = MathHelper.clamp_int(this.centiVisHeat, 0, this.maxCentivisUnit);
+
+            if (this.centiVisHeat <= this.maxCentivisUnit) {
+                int data = this.centiVisHeat + VisNetHandler.drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, Aspect.FIRE, 50);
+                this.centiVisHeat = MathHelper.clamp_int(data, 0, this.maxCentivisUnit);
+            }
+
+            if (this.centiVisLiquidity <= this.maxCentivisUnit) {
+                int data = this.centiVisLiquidity + VisNetHandler.drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, Aspect.ENTROPY, 50);
+                this.centiVisLiquidity = MathHelper.clamp_int(data, 0, this.maxCentivisUnit);
+            }
+
+            if (this.centiVisDestruction <= this.maxCentivisUnit) {
+                int data = this.centiVisDestruction + VisNetHandler.drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, Aspect.WATER, 50);
+                this.centiVisDestruction = MathHelper.clamp_int(data, 0, this.maxCentivisUnit);
+            }
+        }
+    }
+
     //manages the burn and the processing of the furnace
-    private void processFuelAndResult() {
+    private void processResult() {
         ItemStack fuelItemStack = this.getStackInSlot(1);
         ItemStack itemStackToProcess = this.getStackInSlot(0);
         AspectList itemStackToProcessAspects = ThaumcraftCraftingManager.getObjectTags(itemStackToProcess);
 
+        if(this.centiVisHeat <= 0) {
+            this.processByCombustion(fuelItemStack, itemStackToProcess, itemStackToProcessAspects);
+        } else {
+            this.setFurnaceBurnTime(1);
+            this.processByVis(itemStackToProcess, itemStackToProcessAspects);
+        }
+    }
+
+    private void processByCombustion(ItemStack fuelItemStack, ItemStack itemStackToProcess, AspectList itemStackToProcessAspects) {
         if (this.furnaceBurnTime <= 0 && itemStackToProcess != null && fuelItemStack != null && TileEntityFurnace.isItemFuel(fuelItemStack)) {
             this.setMaxFurnaceBurnTime(TileEntityFurnace.getItemBurnTime(fuelItemStack));
             this.setFurnaceBurnTime(this.getMaxFurnaceBurnTime());
@@ -334,7 +383,67 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
                 this.markDirty();
             }
 
-            //EzacianNetworkHandler.sendToServer(new PacketUpdateShadowAlchemyFurnaceData(this.furnaceBurnTime, this.furnaceCookTime, this.essentiaAmountVis));
+            this.markDirty();
+            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+        }
+    }
+
+    private void processByVis(ItemStack itemStackToProcess, AspectList itemStackToProcessAspects) {
+        if(itemStackToProcess != null && this.centiVisHeat > 0 && itemStackToProcessAspects != null) {
+            AspectList metaVis = ThaumcraftCraftingManager.getBonusTags(itemStackToProcess, itemStackToProcessAspects);
+            int visItemAmount = metaVis.visSize();
+            if (this.essentiaAmountVis + visItemAmount < this.essentiaMaxVis) {
+                if(visItemAmount <= this.centiVisHeat && visItemAmount <= this.centiVisLiquidity && visItemAmount <= this.centiVisDestruction) {
+                    if (this.bellowsAmount > 1) {
+                        this.maxFurnaceCookTime = (int) ((float) (visItemAmount * 10) * (1.0F - 0.125F)) / (int) this.speedBurnMultiplier;
+                        this.centiVisHeat -= (int) (1 * this.speedBurnMultiplier);
+                        this.centiVisLiquidity -= (int) (1 * this.speedBurnMultiplier);
+                        this.centiVisDestruction -= (int) (1 * this.speedBurnMultiplier);
+                    } else {
+                        this.maxFurnaceCookTime = (int) ((float) (visItemAmount * 10) * (1.0F - 0.125F));
+                        this.centiVisHeat--;
+                        this.centiVisLiquidity--;
+                        this.centiVisDestruction--;
+                    }
+                    this.furnaceCookTime++;
+
+                    if (this.furnaceCookTime >= this.maxFurnaceCookTime) {
+                        this.setFurnaceCookTime(0);
+                        itemStackToProcess.stackSize--;
+
+                        if (this.furnaceItemStacks[0].stackSize <= 0) {
+                            this.furnaceItemStacks[0] = this.furnaceItemStacks[0].getItem().getContainerItem(this.furnaceItemStacks[0]);
+                        }
+
+                        for (Aspect aspect : metaVis.getAspects()) {
+                            this.visAspects.add(aspect, metaVis.getAmount(aspect));
+                        }
+
+                        this.essentiaAmountVis = this.visAspects.visSize();
+                    }
+                } else {
+                    if(this.centiVisHeat <= 0) {
+                        this.setCentiVisHeat(0);
+                    }
+                    if(this.centiVisLiquidity <= 0) {
+                        this.setCentiVisLiquidity(0);
+                    }
+                    if(this.centiVisDestruction <= 0) {
+                        this.setCentiVisDestruction(0);
+                    }
+
+                    if(this.getFurnaceCookTime() > 0) {
+                        this.furnaceCookTime--;
+                    } else {
+                        this.setFurnaceCookTime(0);
+                    }
+                }
+                this.markDirty();
+                this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+            }
+        } else {
+            this.setFurnaceCookTime(0);
+            this.setMaxFurnaceCookTime(0);
             this.markDirty();
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         }
@@ -404,90 +513,6 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
                 }
             }
         }
-    }
-
-    public boolean isBurning() {
-        return this.isBurning;
-    }
-
-    public void setBurning(boolean burning) {
-        this.isBurning = burning;
-    }
-
-    public boolean isProcessing() {
-        return this.isProcessing;
-    }
-
-    public void setProcessing(boolean processing) {
-        this.isProcessing = processing;
-    }
-
-    public int getFurnaceBurnTime() {
-        return this.furnaceBurnTime;
-    }
-
-    public void setFurnaceBurnTime(int furnaceBurnTime) {
-        this.furnaceBurnTime = furnaceBurnTime;
-    }
-
-    public int getFurnaceCookTime() {
-        return this.furnaceCookTime;
-    }
-
-    public void setFurnaceCookTime(int furnaceCookTime) {
-        this.furnaceCookTime = furnaceCookTime;
-    }
-
-    public float getSpeedBurnMultiplier() {
-        return this.speedBurnMultiplier;
-    }
-
-    public void setSpeedBurnMultiplier(float speedBurnMultiplier) {
-        this.speedBurnMultiplier = speedBurnMultiplier;
-    }
-
-    public int getBellowsAmount() {
-        return this.bellowsAmount;
-    }
-
-    public void setBellowsAmount(int bellowsAmount) {
-        this.bellowsAmount = bellowsAmount;
-    }
-
-    public int getEssentiaAmountVis() {
-        return this.essentiaAmountVis;
-    }
-
-    public void setEssentiaAmountVis(int essentiaAmountVis) {
-        this.essentiaAmountVis = essentiaAmountVis;
-    }
-
-    public int getEssentiaMaxVis() {
-        return this.essentiaMaxVis;
-    }
-
-    public void setEssentiaMaxVis(int essentiaMaxVis) {
-        this.essentiaMaxVis = essentiaMaxVis;
-    }
-
-    public int getMaxFurnaceBurnTime() {
-        return this.maxFurnaceBurnTime;
-    }
-
-    public void setMaxFurnaceBurnTime(int maxFurnaceBurnTime) {
-        this.maxFurnaceBurnTime = maxFurnaceBurnTime;
-    }
-
-    public int getMaxFurnaceCookTime() {
-        return this.maxFurnaceCookTime;
-    }
-
-    public void setMaxFurnaceCookTime(int maxFurnaceCookTime) {
-        this.maxFurnaceCookTime = maxFurnaceCookTime;
-    }
-
-    public AspectList getVisAspects() {
-        return this.visAspects;
     }
 
     public void getBellows() {

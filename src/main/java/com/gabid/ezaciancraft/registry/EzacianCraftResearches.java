@@ -29,10 +29,12 @@ import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
 import static com.gabid.ezaciancraft.registry.EzacianCraftAspects.REPLICATIO;
 import static thaumcraft.api.aspects.Aspect.*;
 
+///the main and general register of all the researches of the mod.
 public class EzacianCraftResearches {
 
     public static final String EZACIANCRAFT_CATEGORY_ID = "EZACIANCRAFT";
 
+    //researches positions on the book
     public static final int taintResearchesColumnPos = 0;
     public static final int taintResearchesRowPos = 2;
 

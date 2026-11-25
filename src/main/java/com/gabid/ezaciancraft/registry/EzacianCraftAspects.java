@@ -4,6 +4,9 @@ import com.gabid.ezaciancraft.api.aspects.ChangeableColoredAspect;
 import com.gabid.ezaciancraft.api.aspects.EzacianAspect;
 import thaumcraft.api.aspects.Aspect;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 
 public class EzacianCraftAspects {
@@ -25,5 +28,6 @@ public class EzacianCraftAspects {
     //public static final Aspect PRIMORDIUM = new ChangeableColoredAspect("primordium", 0xff0000, null, 1, ChangeableColoredAspect.SOFT_RAINBOW);
 
     public static void initAspects() {
+
     }
 }

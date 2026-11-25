@@ -12,6 +12,7 @@ import thaumcraft.common.config.ConfigItems;
 import static com.gabid.ezaciancraft.registry.EzacianCraftAspects.REPLICATIO;
 import static thaumcraft.api.aspects.Aspect.*;
 
+///class which set the aspects of blocks or items what doesn't have their aspects by the research system.
 public class EzacianCraftAspectTagRegistry {
 
     public static void postInitAddExtraTagObjects() {

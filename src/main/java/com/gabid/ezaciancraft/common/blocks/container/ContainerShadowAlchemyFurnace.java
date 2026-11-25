@@ -21,6 +21,9 @@ public class ContainerShadowAlchemyFurnace extends Container {
     protected int lastMaxFurnaceBurnTime;
     protected int lastFurnaceCookTime;
     protected int lastMaxFurnaceCookTime;
+    protected int lastCentiVisHeat;
+    protected int lastCentiVisLiquidity;
+    protected int lastCentiVisDestroy;
 
     public ContainerShadowAlchemyFurnace(InventoryPlayer inventoryPlayer, TileEntityShadowAlchemyFurnace _furnaceTE) {
         this.furnaceTE = _furnaceTE;
@@ -51,6 +54,9 @@ public class ContainerShadowAlchemyFurnace extends Container {
         data.sendProgressBarUpdate(this, 2, this.furnaceTE.getFurnaceCookTime());
         data.sendProgressBarUpdate(this, 3, this.furnaceTE.getMaxFurnaceCookTime());
         data.sendProgressBarUpdate(this, 4, this.furnaceTE.getEssentiaAmountVis());
+        data.sendProgressBarUpdate(this, 5, this.furnaceTE.getCentiVisHeat());
+        data.sendProgressBarUpdate(this, 6, this.furnaceTE.getCentiVisLiquidity());
+        data.sendProgressBarUpdate(this, 7, this.furnaceTE.getCentiVisDestruction());
     }
 
     @Override
@@ -74,12 +80,25 @@ public class ContainerShadowAlchemyFurnace extends Container {
             if (this.lastEssentiaAmountVis != this.furnaceTE.getEssentiaAmountVis()) {
                 data.sendProgressBarUpdate(this, 4, this.furnaceTE.getEssentiaAmountVis());
             }
+            if (this.lastCentiVisHeat != this.furnaceTE.getCentiVisHeat()) {
+                data.sendProgressBarUpdate(this, 5, this.furnaceTE.getCentiVisHeat());
+            }
+            if (this.lastCentiVisLiquidity != this.furnaceTE.getCentiVisLiquidity()) {
+                data.sendProgressBarUpdate(this, 6, this.furnaceTE.getCentiVisLiquidity());
+            }
+            if (this.lastCentiVisDestroy != this.furnaceTE.getCentiVisDestruction()) {
+                data.sendProgressBarUpdate(this, 7, this.furnaceTE.getCentiVisDestruction());
+            }
         }
+
         this.lastFurnaceCookTime = this.furnaceTE.getFurnaceCookTime();
         this.lastMaxFurnaceCookTime = this.furnaceTE.getMaxFurnaceCookTime();
         this.lastFurnaceBurnTime = this.furnaceTE.getFurnaceBurnTime();
         this.lastMaxFurnaceBurnTime = this.furnaceTE.getMaxFurnaceBurnTime();
         this.lastEssentiaAmountVis = this.furnaceTE.getEssentiaAmountVis();
+        this.lastCentiVisHeat = this.furnaceTE.getCentiVisHeat();
+        this.lastCentiVisLiquidity = this.furnaceTE.getCentiVisLiquidity();
+        this.lastCentiVisDestroy = this.furnaceTE.getCentiVisDestruction();
     }
 
     @Override
@@ -99,6 +118,15 @@ public class ContainerShadowAlchemyFurnace extends Container {
                 break;
             case 4:
                 this.furnaceTE.setEssentiaAmountVis(value);
+                break;
+            case 5:
+                this.furnaceTE.setCentiVisHeat(value);
+                break;
+            case 6:
+                this.furnaceTE.setCentiVisLiquidity(value);
+                break;
+            case 7:
+                this.furnaceTE.setCentiVisDestruction(value);
                 break;
         }
     }

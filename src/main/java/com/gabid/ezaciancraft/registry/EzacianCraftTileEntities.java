@@ -8,6 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
 
+///The tile entities of the mod
 public class EzacianCraftTileEntities {
 
     public static void setupTileEntities() {
@@ -18,6 +19,7 @@ public class EzacianCraftTileEntities {
         registerTileEntity(TileEntityWirelessEssentiaInterfaceInput.class, UNLOCALE_WIRELESS_ESSENTIA_INTERFACE+"Input");
         registerTileEntity(TileEntityAdvancedEssentiaStorage.class, UNLOCALE_ADVANCED_ESSENTIA_STORAGE);
         registerTileEntity(TileEntityAdvancedEssentiaStorageInterface.class, UNLOCALE_ADVANCED_ESSENTIA_STORAGE+"Interface");
+        registerTileEntity(TileEntityUpgradedBufferTube.class, UNLOCALE_UPGRADED_BUFFER_TUBE);
         registerTileEntity(TileEntityEtherealAccelerator.class, UNLOCALE_ETHEREAL_ACCELERATOR);
         registerTileEntity(EzacianCustomJarFillableTE.class, UNLOCALE_CUSTOM_BASE_JAR);
 

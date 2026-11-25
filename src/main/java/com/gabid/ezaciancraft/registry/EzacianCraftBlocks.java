@@ -32,6 +32,7 @@ public class EzacianCraftBlocks {
     public static Block wirelessEssentiaInterface;
     public static Block advancedEssentiaStorage;
     public static Block extendedArcaneWorkbench;
+    public static Block upgradedBufferTube;
     public static Block etherealAccelerator;
 
     //extra void resources
@@ -72,6 +73,10 @@ public class EzacianCraftBlocks {
 
         extendedArcaneWorkbench = new BlockExtendedArcaneWorkbench();
         GameRegistry.registerBlock(extendedArcaneWorkbench, ItemBlock.class, extendedArcaneWorkbench.getUnlocalizedName());
+
+        /*upgradedBufferTube = new BlockUpgradedBufferTube();
+        upgradedBufferTube.setCreativeTab(EZACIANCRAFT_TAB);
+        GameRegistry.registerBlock(upgradedBufferTube, ItemBlock.class, upgradedBufferTube.getUnlocalizedName());*/
 
         crystalyiumJar = new BlockCrystalyiumJar();
         GameRegistry.registerBlock(crystalyiumJar, EzacianCustomItemBlockJar.class, crystalyiumJar.getUnlocalizedName());

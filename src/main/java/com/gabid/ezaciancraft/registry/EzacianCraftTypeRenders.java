@@ -2,6 +2,7 @@ package com.gabid.ezaciancraft.registry;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
+///the renders ids what tile entities or other uses in the minecraft-forge render pipeline
 public class EzacianCraftTypeRenders {
 
     //blocks

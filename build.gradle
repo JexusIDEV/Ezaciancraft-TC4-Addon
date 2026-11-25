@@ -67,16 +67,24 @@ idea {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    //mixin
+    implementation("curse.maven:unimixins-826970:8153136")
+
     //for this is thaumcraft addon
     implementation("curse.maven:thaumcraft-223628:2227552")
     implementation("curse.maven:baubles-227083:2224857")
 
-    implementation("curse.maven:tabula-minecraft-modeler-229092:2232293")
-    implementation("curse.maven:ichunutil-229060:2338148")
+    //implementation("curse.maven:tabula-minecraft-modeler-229092:2232293")
+    //implementation("curse.maven:ichunutil-229060:2338148")
 
     implementation("curse.maven:waila-73488:2417924")
 
-    //ohhhh, my NEI
+    //auxiliar libs, fixes and integrations
+    implementation("curse.maven:thaumcraft-4-patched-1297690:9723408")
+    implementation("curse.maven:thaumcraft-integration-1018962:6151131")
+    implementation("curse.maven:salis-arcana-1162488:9402623")
+
+    //NEI
     compileOnly("codechicken:CodeChickenLib:1.7.10-1.1.3.141:dev")
     runtimeOnly("codechicken:CodeChickenLib:1.7.10-1.1.3.141:dev")
     runtimeOnly("codechicken:CodeChickenCore:1.7.10-1.0.7.48:dev")
@@ -88,7 +96,7 @@ dependencies {
     //thaum nei
     implementation("curse.maven:thaumcraft-nei-plugin-225095:2241913")
 
-    //i want to suffer
+    //integrations
     implementation("curse.maven:avaritia-233785:2519595")
     //implementation("curse.maven:draconic-evolution-223565:2313451")
     implementation("curse.maven:howling-moon-236149:2326149")
@@ -101,7 +109,12 @@ dependencies {
     implementation("curse.maven:waila-73488:2230518")
     //implementation("curse.maven:kekztech-350844:2954805")
 
-    //nuh nuh
+    //external - real utility libs
+    compileOnly("org.projectlombok:lombok:1.18.48")
+    annotationProcessor("org.projectlombok:lombok:1.18.48")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.48")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.48")
 }
 
 processResources {
