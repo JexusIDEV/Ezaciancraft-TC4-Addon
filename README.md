@@ -28,3 +28,9 @@ Credits to:
 If you want a lang for your country, open an issue first to talk about that and later send the lang and files with my permission in pull request to check and add it to the mod.
 
 If you want more information, check the TRANSLATING.md file.
+<br>
+*---COMPILING---*
+<br>
+For compiling the project, you can consult this link in how to work with RetroFuturaGradle (GTNH Example Mod) and set up the project correctly:
+<br>
+https://github.com/GTNewHorizons/ExampleMod1.7.10
