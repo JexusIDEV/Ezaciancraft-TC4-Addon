@@ -21,16 +21,19 @@ Credits to:
         FML Team | LexManos: For creating the Forge Mod Loader and the Example Project. (MDK)
     </li>
     <li>
-        Anatawa12: Creating the Fork and support for the Example Project for this version.
+        Anatawa12: Creating the Fork and support for the Example Project for this version. (Now for helping to form the base workspace of the mod)
+    </li>
+    <li>
+        GTNH-Team: Creating RetroFuturaGradle and their fork of the MDK for working a newer workspace and pipelines for this project.
     </li>
 </ul>
 
 If you want a lang for your country, open an issue first to talk about that and later send the lang and files with my permission in pull request to check and add it to the mod.
 
 If you want more information, check the TRANSLATING.md file.
-<br>
+
 *---COMPILING---*
-<br>
+
 For compiling the project, you can consult this link in how to work with RetroFuturaGradle (GTNH Example Mod) and set up the project correctly:
 <br>
 https://github.com/GTNewHorizons/ExampleMod1.7.10
