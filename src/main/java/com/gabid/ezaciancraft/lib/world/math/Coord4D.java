@@ -1,7 +1,7 @@
 package com.gabid.ezaciancraft.lib.world.math;
 
-import cpw.mods.fml.common.network.NetworkRegistry;
-import io.netty.buffer.ByteBuf;
+import java.util.ArrayList;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -16,11 +16,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.ArrayList;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import io.netty.buffer.ByteBuf;
 
-//interesting api-lib class from meka meka
-//https://github.com/mekanism/Mekanism/blob/1.7.10/src/main/java/mekanism/api/Coord4D.java
+// interesting api-lib class from meka meka
+// https://github.com/mekanism/Mekanism/blob/1.7.10/src/main/java/mekanism/api/Coord4D.java
 public class Coord4D {
+
     public int xCoord;
     public int yCoord;
     public int zCoord;
@@ -84,7 +86,11 @@ public class Coord4D {
      * @return the Coord4D object from the TileEntity
      */
     public static Coord4D get(TileEntity tileEntity) {
-        return new Coord4D(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord, tileEntity.getWorldObj().provider.dimensionId);
+        return new Coord4D(
+            tileEntity.xCoord,
+            tileEntity.yCoord,
+            tileEntity.zCoord,
+            tileEntity.getWorldObj().provider.dimensionId);
     }
 
     /**
@@ -230,7 +236,11 @@ public class Coord4D {
      * @return translated Coord4D
      */
     public Coord4D getFromSide(ForgeDirection side, int amount) {
-        return new Coord4D(xCoord + (side.offsetX * amount), yCoord + (side.offsetY * amount), zCoord + (side.offsetZ * amount), dimensionId);
+        return new Coord4D(
+            xCoord + (side.offsetX * amount),
+            yCoord + (side.offsetY * amount),
+            zCoord + (side.offsetZ * amount),
+            dimensionId);
     }
 
     public ItemStack getStack(IBlockAccess world) {
@@ -254,7 +264,8 @@ public class Coord4D {
     }
 
     /**
-     * A method used to find the ForgeDirection represented by the distance of the defined Coord4D. Most likely won't have many
+     * A method used to find the ForgeDirection represented by the distance of the defined Coord4D. Most likely won't
+     * have many
      * applicable uses.
      *
      * @param other - Coord4D to find the side difference of
@@ -323,7 +334,8 @@ public class Coord4D {
      * @return the chunk of this Coord4D
      */
     public boolean exists(World world) {
-        return world.getChunkProvider() == null || world.getChunkProvider().chunkExists(xCoord >> 4, zCoord >> 4);
+        return world.getChunkProvider() == null || world.getChunkProvider()
+            .chunkExists(xCoord >> 4, zCoord >> 4);
     }
 
     /**
@@ -386,11 +398,10 @@ public class Coord4D {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Coord4D &&
-                ((Coord4D) obj).xCoord == xCoord &&
-                ((Coord4D) obj).yCoord == yCoord &&
-                ((Coord4D) obj).zCoord == zCoord &&
-                ((Coord4D) obj).dimensionId == dimensionId;
+        return obj instanceof Coord4D && ((Coord4D) obj).xCoord == xCoord
+            && ((Coord4D) obj).yCoord == yCoord
+            && ((Coord4D) obj).zCoord == zCoord
+            && ((Coord4D) obj).dimensionId == dimensionId;
     }
 
     @Override

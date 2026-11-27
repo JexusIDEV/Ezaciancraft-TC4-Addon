@@ -1,28 +1,104 @@
-# mac os
-.DS_Store
+# Editors #
+## Visual Studio Code ##
+### Workspace Folder ###
+.vscode/*
 
-# forge / gradle
-.gradle
-build/
-out/
-classes/
-run/
+### Local History ###
+.history/
 
-# eclipse 
-*.launch
-.settings
-.classpath
+## Eclipse ##
 .project
-eclipse
+.classpath
+.settings/
 
+## Vim ##
+### Swap ###
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]*.s[a-rt-v][a-z]
+[._]*.ss[a-gi-z]
+[._]sw[a-p]
+
+### Session ###
+Session.vim
+Sessionx.vim
+
+### Temporary Files ###
+.netrwhist
+*~
+
+### Auto-generated Tag Files ###
+tags
+
+### Undo Persistence ###
+[._]*.un~
+
+## Eclipse ##
+### Core ###
+.classpath
+.factorypath
+.project
+.settings/
+
+## IDEA ##
+### Core ###
 .idea/
+
+# Logs #
+*.log*
+
+# Environment #
+## General ##
+*.env*
+
+## JEnv ##
+.java-version
+
+## Gradle ##
+user.properties
+
+# Artifacts #
+## Gradle ##
+bin/
+build/
+.gradle/
+
+# Debugging #
+## Gradle ##
+run/
+bin/
+out/
+
+# OS-Specific #
+## macOS ##
+*.DS_Store
+
+## Linux ##
+*.sh
+*.zsh
+*.fish
+*.ksh
+
+## Windows ##
+*.bat
+*.cmd
+*.ps1
+*.psm1
+*.psd1
+
+# Scripts #
+## Gradle ##
+!gradlew.bat
+!gradlew
+
+### Local Build Script Addons ###
+addon.local.gradle
+addon.local.gradle.kts
+addon.late.local.gradle
+addon.late.local.gradle.kts
+
+# Misc. #
 *.iml
 *.ipr
 *.iws
-
-# vscode
-
-.settings/
-.vscode/
-bin/
-.classpath
+layout.json

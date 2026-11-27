@@ -1,6 +1,9 @@
 package com.gabid.ezaciancraft.common.items.tools;
 
-import com.gabid.ezaciancraft.api.EzacianToolMaterials;
+import static com.gabid.ezaciancraft.CoreMod.MODID;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_GROWTH_HOE;
+import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -10,13 +13,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
+import com.gabid.ezaciancraft.api.EzacianToolMaterials;
+
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.common.items.equipment.ItemElementalHoe;
-
-import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_GROWTH_HOE;
-import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
 
 public class VoidGrowthHoeItem extends ItemElementalHoe implements IWarpingGear, IRepairable {
 
@@ -49,7 +51,9 @@ public class VoidGrowthHoeItem extends ItemElementalHoe implements IWarpingGear,
 
     @Override
     public void onUpdate(ItemStack stack, World level, Entity player, int a, boolean b) {
-        if (stack.isItemDamaged() && player != null && player.ticksExisted % 10 == 0 && player instanceof EntityLivingBase) {
+        if (stack.isItemDamaged() && player != null
+            && player.ticksExisted % 10 == 0
+            && player instanceof EntityLivingBase) {
             stack.damageItem(-level.rand.nextInt(3), (EntityLivingBase) player);
         }
         super.onUpdate(stack, level, player, a, b);

@@ -1,7 +1,5 @@
 package com.gabid.ezaciancraft.common.items.block;
 
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceInput;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceOutput;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlockWithMetadata;
@@ -10,7 +8,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceInput;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceOutput;
+
 public class ItemBlockWirelessEssentiaInterface extends ItemBlockWithMetadata {
+
     public ItemBlockWirelessEssentiaInterface(Block blockDummy) {
         super(blockDummy, blockDummy);
     }
@@ -21,19 +23,24 @@ public class ItemBlockWirelessEssentiaInterface extends ItemBlockWithMetadata {
     }
 
     @Override
-    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+        float hitX, float hitY, float hitZ, int metadata) {
         boolean ret = super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata);
         TileEntity te = world.getTileEntity(x, y, z);
 
         if (te instanceof TileEntityWirelessEssentiaInterfaceOutput) {
-            TileEntityWirelessEssentiaInterfaceOutput wei = (TileEntityWirelessEssentiaInterfaceOutput) world.getTileEntity(x, y, z);
-            wei.facing = ForgeDirection.getOrientation(side).getOpposite();
+            TileEntityWirelessEssentiaInterfaceOutput wei = (TileEntityWirelessEssentiaInterfaceOutput) world
+                .getTileEntity(x, y, z);
+            wei.facing = ForgeDirection.getOrientation(side)
+                .getOpposite();
             wei.metaFacing = wei.facing.ordinal();
             wei.markDirty();
             world.markBlockForUpdate(x, y, z);
         } else if (te instanceof TileEntityWirelessEssentiaInterfaceInput) {
-            TileEntityWirelessEssentiaInterfaceInput wei = (TileEntityWirelessEssentiaInterfaceInput) world.getTileEntity(x, y, z);
-            wei.facing = ForgeDirection.getOrientation(side).getOpposite();
+            TileEntityWirelessEssentiaInterfaceInput wei = (TileEntityWirelessEssentiaInterfaceInput) world
+                .getTileEntity(x, y, z);
+            wei.facing = ForgeDirection.getOrientation(side)
+                .getOpposite();
             wei.metaFacing = wei.facing.ordinal();
             wei.markDirty();
             world.markBlockForUpdate(x, y, z);

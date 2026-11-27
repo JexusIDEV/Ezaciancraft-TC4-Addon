@@ -1,21 +1,31 @@
 package com.gabid.ezaciancraft.registry;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_EZACIANCRAFT_CREATIVE_TAB;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_EZACIANCRAFT_DECORATIVES_CREATIVE_TAB;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_EZACIANCRAFT_RESOURCES_CREATIVE_TAB;
+import static com.gabid.ezaciancraft.registry.EzacianCraftItems.advancedPrimalWandStaffRod;
+import static com.gabid.ezaciancraft.registry.EzacianCraftItems.ezaciancraftTabIconItem;
+import static com.gabid.ezaciancraft.registry.EzacianCraftItems.magicAlloyCap;
+import static com.gabid.ezaciancraft.registry.EzacianCraftItems.shadowVoidMetalCap;
+
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.common.config.ConfigItems;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
-import java.util.List;
-
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.*;
-import static com.gabid.ezaciancraft.registry.EzacianCraftItems.*;
-
 public class EzacianCraftCreativeTab {
-    public static final CreativeTabs EZACIANCRAFT_TAB = new CreativeTabs(CreativeTabs.creativeTabArray.length, UNLOCALE_EZACIANCRAFT_CREATIVE_TAB) {
+
+    public static final CreativeTabs EZACIANCRAFT_TAB = new CreativeTabs(
+        CreativeTabs.creativeTabArray.length,
+        UNLOCALE_EZACIANCRAFT_CREATIVE_TAB) {
+
         @SideOnly(Side.CLIENT)
         public Item getTabIconItem() {
             return ezaciancraftTabIconItem;
@@ -24,7 +34,7 @@ public class EzacianCraftCreativeTab {
         @SuppressWarnings("unchecked")
         @Override
         public void displayAllReleventItems(List list) {
-            //shadow void metal
+            // shadow void metal
             ItemStack wand = new ItemStack(ConfigItems.itemWandCasting, 1, 50);
             ((ItemWandCasting) wand.getItem()).setCap(wand, shadowVoidMetalCap.cap);
             ((ItemWandCasting) wand.getItem()).setRod(wand, advancedPrimalWandStaffRod.rodWand);
@@ -47,7 +57,7 @@ public class EzacianCraftCreativeTab {
             staffScepter.setTagInfo("sceptre", new NBTTagByte((byte) 1));
             list.add(staffScepter);
 
-            //magic alloy
+            // magic alloy
             ItemStack wandM = new ItemStack(ConfigItems.itemWandCasting, 1, 50);
             ((ItemWandCasting) wandM.getItem()).setCap(wandM, magicAlloyCap.cap);
             ((ItemWandCasting) wandM.getItem()).setRod(wandM, advancedPrimalWandStaffRod.rodWand);
@@ -74,14 +84,20 @@ public class EzacianCraftCreativeTab {
         }
     };
 
-    public static final CreativeTabs EZACIANCRAFT_RESOURCES_TAB = new CreativeTabs(CreativeTabs.creativeTabArray.length, UNLOCALE_EZACIANCRAFT_RESOURCES_CREATIVE_TAB) {
+    public static final CreativeTabs EZACIANCRAFT_RESOURCES_TAB = new CreativeTabs(
+        CreativeTabs.creativeTabArray.length,
+        UNLOCALE_EZACIANCRAFT_RESOURCES_CREATIVE_TAB) {
+
         @SideOnly(Side.CLIENT)
         public Item getTabIconItem() {
             return ezaciancraftTabIconItem;
         }
     };
 
-    public static final CreativeTabs EZACIANCRAFT_DECORATIVES_TAB = new CreativeTabs(CreativeTabs.creativeTabArray.length, UNLOCALE_EZACIANCRAFT_DECORATIVES_CREATIVE_TAB) {
+    public static final CreativeTabs EZACIANCRAFT_DECORATIVES_TAB = new CreativeTabs(
+        CreativeTabs.creativeTabArray.length,
+        UNLOCALE_EZACIANCRAFT_DECORATIVES_CREATIVE_TAB) {
+
         @SideOnly(Side.CLIENT)
         public Item getTabIconItem() {
             return ezaciancraftTabIconItem;

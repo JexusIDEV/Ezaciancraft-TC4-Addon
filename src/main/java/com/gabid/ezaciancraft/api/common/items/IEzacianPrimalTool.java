@@ -3,6 +3,7 @@ package com.gabid.ezaciancraft.api.common.items;
 import net.minecraft.item.ItemStack;
 
 public interface IEzacianPrimalTool {
+
     void setBehaviour(ItemStack stack, int behaviour);
 
     void changeBehaviour(ItemStack stack, boolean shiftPressed);

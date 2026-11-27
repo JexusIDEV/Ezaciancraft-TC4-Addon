@@ -1,19 +1,23 @@
 package com.gabid.ezaciancraft.client.renderer.tiles;
 
-import com.gabid.ezaciancraft.api.common.blocks.tileentity.EzacianCustomJarFillableTE;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+
 import org.lwjgl.opengl.GL11;
+
+import com.gabid.ezaciancraft.api.common.blocks.tileentity.EzacianCustomJarFillableTE;
+
 import thaumcraft.client.lib.UtilsFX;
 import thaumcraft.common.blocks.BlockJar;
 import thaumcraft.common.config.Config;
 import thaumcraft.common.config.ConfigBlocks;
 
 public class EzacianCustomJarFillableTER extends TileEntitySpecialRenderer {
+
     public void renderTileEntityAt(EzacianCustomJarFillableTE tile, double x, double y, double z, float f) {
         GL11.glPushMatrix();
         GL11.glDisable(2884);
@@ -37,7 +41,8 @@ public class EzacianCustomJarFillableTER extends TileEntitySpecialRenderer {
                     GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
             }
 
-            float rot = (float) (((tile).aspectFilter.getTag().hashCode() + tile.xCoord + (tile).facing) % 4 - 2);
+            float rot = (float) (((tile).aspectFilter.getTag()
+                .hashCode() + tile.xCoord + (tile).facing) % 4 - 2);
             GL11.glPushMatrix();
             GL11.glTranslatef(0.0F, -0.4F, 0.315F);
             if (Config.crooked) {
@@ -81,7 +86,10 @@ public class EzacianCustomJarFillableTER extends TileEntitySpecialRenderer {
 
             int bright = 200;
             if (te.getWorldObj() != null) {
-                bright = Math.max(200, ConfigBlocks.blockJar.getMixedBrightnessForBlock(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord));
+                bright = Math.max(
+                    200,
+                    ConfigBlocks.blockJar
+                        .getMixedBrightnessForBlock(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord));
             }
 
             t.setBrightness(bright);

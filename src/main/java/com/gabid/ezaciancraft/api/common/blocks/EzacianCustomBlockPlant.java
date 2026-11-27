@@ -1,5 +1,10 @@
 package com.gabid.ezaciancraft.api.common.blocks;
 
+import static com.gabid.ezaciancraft.CoreMod.MODID;
+
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
@@ -13,19 +18,16 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 
-import java.util.List;
-import java.util.Random;
-
-import static com.gabid.ezaciancraft.CoreMod.MODID;
-
 public class EzacianCustomBlockPlant extends BlockBush implements IGrowable {
+
     public final String[] plantNames;
     public final IIcon[] plantIcons;
 
     protected final String blockBaseName;
     protected final EnumPlantType plantType;
 
-    public EzacianCustomBlockPlant(String _blockBaseName, EnumPlantType type, String[] plantNamesToRegister, CreativeTabs tabToRegister) {
+    public EzacianCustomBlockPlant(String _blockBaseName, EnumPlantType type, String[] plantNamesToRegister,
+        CreativeTabs tabToRegister) {
         super(Material.plants);
         this.setStepSound(EzacianCustomBlockPlant.soundTypeGrass);
         this.blockBaseName = _blockBaseName;
@@ -40,7 +42,8 @@ public class EzacianCustomBlockPlant extends BlockBush implements IGrowable {
     @Override
     public void registerBlockIcons(IIconRegister register) {
         for (int i = 0; i < this.plantNames.length; i++) {
-            this.plantIcons[i] = register.registerIcon(new ResourceLocation(MODID, this.blockBaseName + "_" + this.plantNames[i] + "Plant").toString());
+            this.plantIcons[i] = register.registerIcon(
+                new ResourceLocation(MODID, this.blockBaseName + "_" + this.plantNames[i] + "Plant").toString());
         }
     }
 
@@ -67,19 +70,19 @@ public class EzacianCustomBlockPlant extends BlockBush implements IGrowable {
         return meta;
     }
 
-    //canFertilize
+    // canFertilize
     @Override
     public boolean func_149851_a(World world, int x, int y, int z, boolean flag) {
         return true;
     }
 
-    //shouldFertilize
+    // shouldFertilize
     @Override
     public boolean func_149852_a(World world, Random rand, int x, int y, int z) {
         return true;
     }
 
-    //fertilize
+    // fertilize
     @Override
     public void func_149853_b(World world, Random random, int x, int y, int z) {
 

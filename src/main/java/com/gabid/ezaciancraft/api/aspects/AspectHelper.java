@@ -1,17 +1,16 @@
 package com.gabid.ezaciancraft.api.aspects;
 
-import thaumcraft.api.aspects.Aspect;
-
 import java.util.ArrayList;
 
-//KryptonCaptain ¡¡¡our work will not be discarded for nothing!!!
-//https://github.com/KryptonCaptain/ThaumicAlchemy/blob/dev/src/main/java/codasylph/thaumicalchemy/AspectHelper.java
+import thaumcraft.api.aspects.Aspect;
 
 public class AspectHelper {
+
     public static Aspect getCompound(final Aspect aspect1, final Aspect aspect2) {
         final ArrayList<Aspect> compounds = Aspect.getCompoundAspects();
         for (final Aspect aspect3 : compounds) {
-            if ((aspect3.getComponents()[0] == aspect1 || aspect3.getComponents()[0] == aspect2) && (aspect3.getComponents()[1] == aspect1 || aspect3.getComponents()[1] == aspect2)) {
+            if ((aspect3.getComponents()[0] == aspect1 || aspect3.getComponents()[0] == aspect2)
+                && (aspect3.getComponents()[1] == aspect1 || aspect3.getComponents()[1] == aspect2)) {
                 return aspect3;
             }
         }
@@ -21,7 +20,8 @@ public class AspectHelper {
     public static boolean compoundExists(final Aspect aspect1, final Aspect aspect2) {
         final ArrayList<Aspect> compounds = Aspect.getCompoundAspects();
         for (final Aspect aspect3 : compounds) {
-            if ((aspect3.getComponents()[0] == aspect1 || aspect3.getComponents()[0] == aspect2) && (aspect3.getComponents()[1] == aspect1 || aspect3.getComponents()[1] == aspect2)) {
+            if ((aspect3.getComponents()[0] == aspect1 || aspect3.getComponents()[0] == aspect2)
+                && (aspect3.getComponents()[1] == aspect1 || aspect3.getComponents()[1] == aspect2)) {
                 return true;
             }
         }
@@ -39,17 +39,20 @@ public class AspectHelper {
     }
 
     public static float getBlue(final Aspect a) {
-        final String color = Integer.toHexString(a.getColor()).concat("00");
+        final String color = Integer.toHexString(a.getColor())
+            .concat("00");
         return Integer.valueOf(color.substring(4, 6), 16) / 255.0f;
     }
 
-    /*public static void addNewAspectTagsToObject(Item item, int meta, AspectList aspectList) {
-        if (ThaumcraftApi.exists(item, meta) && aspectList != null) {
-            AspectList oldAsp = ThaumcraftApi.objectTags.get(Arrays.asList(item, meta));
-            ThaumcraftApi.objectTags.remove(Arrays.asList(item, meta));
-            AspectList newAsp = oldAsp.copy();
-            newAsp.add(aspectList);
-            ThaumcraftApi.objectTags.put(Arrays.asList(item, meta), newAsp);
-        }
-    }*/
+    /*
+     * public static void addNewAspectTagsToObject(Item item, int meta, AspectList aspectList) {
+     * if (ThaumcraftApi.exists(item, meta) && aspectList != null) {
+     * AspectList oldAsp = ThaumcraftApi.objectTags.get(Arrays.asList(item, meta));
+     * ThaumcraftApi.objectTags.remove(Arrays.asList(item, meta));
+     * AspectList newAsp = oldAsp.copy();
+     * newAsp.add(aspectList);
+     * ThaumcraftApi.objectTags.put(Arrays.asList(item, meta), newAsp);
+     * }
+     * }
+     */
 }

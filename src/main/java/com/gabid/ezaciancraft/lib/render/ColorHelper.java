@@ -1,6 +1,7 @@
 package com.gabid.ezaciancraft.lib.render;
 
 public class ColorHelper {
+
     public static int getFullDecimalToHex(int decimalColor) {
         String hexCode = String.format("%06X", decimalColor & 0xFFFFFF);
         return Integer.parseInt(hexCode);

@@ -1,15 +1,17 @@
 package com.gabid.ezaciancraft.lib.client.gui;
 
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
-import org.lwjgl.opengl.GL11;
-
 import java.util.Iterator;
 import java.util.List;
 
-//sorry brandon...
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.Tessellator;
+
+import org.lwjgl.opengl.GL11;
+
+// sorry brandon...
 public class EzacianGuiUtils {
+
     public static boolean isInRect(int x, int y, int xSize, int ySize, int mouseX, int mouseY) {
         return mouseX >= x && mouseX <= x + xSize && mouseY >= y && mouseY <= y + ySize;
     }
@@ -18,17 +20,20 @@ public class EzacianGuiUtils {
         drawTexturedRect(x, y, width, height, u, v, width, height, 0.0, 0.00390625);
     }
 
-    public static void drawTexturedRect(double x, double y, double width, double height, int u, int v, int uSize, int vSize, double zLevel, double pxl) {
+    public static void drawTexturedRect(double x, double y, double width, double height, int u, int v, int uSize,
+        int vSize, double zLevel, double pxl) {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
         tessellator.addVertexWithUV(x, y + height, zLevel, (double) u * pxl, (double) (v + vSize) * pxl);
-        tessellator.addVertexWithUV(x + width, y + height, zLevel, (double) (u + uSize) * pxl, (double) (v + vSize) * pxl);
+        tessellator
+            .addVertexWithUV(x + width, y + height, zLevel, (double) (u + uSize) * pxl, (double) (v + vSize) * pxl);
         tessellator.addVertexWithUV(x + width, y, zLevel, (double) (u + uSize) * pxl, (double) v * pxl);
         tessellator.addVertexWithUV(x, y, zLevel, (double) u * pxl, (double) v * pxl);
         tessellator.draw();
     }
 
-    public static void drawGradientRect(int x1, int y1, int x2, int y2, int colour1, int colour2, float fade, double scale) {
+    public static void drawGradientRect(int x1, int y1, int x2, int y2, int colour1, int colour2, float fade,
+        double scale) {
         float f = (float) (colour1 >> 24 & 255) / 255.0F * fade;
         float f1 = (float) (colour1 >> 16 & 255) / 255.0F;
         float f2 = (float) (colour1 >> 8 & 255) / 255.0F;
@@ -57,7 +62,8 @@ public class EzacianGuiUtils {
         GL11.glEnable(3553);
     }
 
-    public static void drawHoveringText(List list, int x, int y, FontRenderer font, float fade, double scale, int guiWidth, int guiHeight) {
+    public static void drawHoveringText(List list, int x, int y, FontRenderer font, float fade, double scale,
+        int guiWidth, int guiHeight) {
         if (!list.isEmpty()) {
             GL11.glPushMatrix();
             GL11.glDisable(32826);

@@ -1,5 +1,10 @@
 package com.gabid.ezaciancraft;
 
+import net.minecraft.item.ItemStack;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.gabid.ezaciancraft.client.event.RenderEvents;
 import com.gabid.ezaciancraft.common.event.EzacianCraftPlayerEvents;
 import com.gabid.ezaciancraft.common.event.EzacianCraftWandMultiblockEvent;
@@ -7,7 +12,17 @@ import com.gabid.ezaciancraft.common.network.EzacianNetworkHandler;
 import com.gabid.ezaciancraft.common.world.EzacianCraftWorldGen;
 import com.gabid.ezaciancraft.config.EzacianCraftConfiguration;
 import com.gabid.ezaciancraft.proxy.EzacianCommonProxy;
-import com.gabid.ezaciancraft.registry.*;
+import com.gabid.ezaciancraft.registry.EzacianCraftAspectTagRegistry;
+import com.gabid.ezaciancraft.registry.EzacianCraftAspects;
+import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
+import com.gabid.ezaciancraft.registry.EzacianCraftGUIContainerEvent;
+import com.gabid.ezaciancraft.registry.EzacianCraftItems;
+import com.gabid.ezaciancraft.registry.EzacianCraftRecipes;
+import com.gabid.ezaciancraft.registry.EzacianCraftRegistryIMC;
+import com.gabid.ezaciancraft.registry.EzacianCraftResearches;
+import com.gabid.ezaciancraft.registry.EzacianCraftResources;
+import com.gabid.ezaciancraft.registry.EzacianCraftTileEntities;
+
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -22,13 +37,15 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.item.ItemStack;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import thaumcraft.common.config.Config;
 
-@Mod(modid = CoreMod.MODID, version = CoreMod.VERSION, dependencies = CoreMod.DEPENDENCIES, guiFactory = "com.gabid.ezaciancraft.event.EzacianCraftGameModGuiFactory")
+@Mod(
+    modid = CoreMod.MODID,
+    version = CoreMod.VERSION,
+    dependencies = CoreMod.DEPENDENCIES,
+    guiFactory = "com.gabid.ezaciancraft.event.EzacianCraftGameModGuiFactory")
 public class CoreMod {
+
     public static final String MODID = "ezaciancraft";
     public static final String VERSION = "release-1.0.0";
     public static final String DEPENDENCIES = "required-after:Thaumcraft@[4.2.3.5,);after:Baubles@[1.0.1.10,);";
@@ -36,16 +53,21 @@ public class CoreMod {
     public static final Logger LOG = LogManager.getLogger("EZACIANCRAFT");
     @Mod.Instance(MODID)
     public static CoreMod instance;
-    @SidedProxy(modId = MODID, clientSide = "com.gabid.ezaciancraft.proxy.EzacianClientProxy", serverSide = "com.gabid.ezaciancraft.proxy.EzacianServerProxy")
+    @SidedProxy(
+        modId = MODID,
+        clientSide = "com.gabid.ezaciancraft.proxy.EzacianClientProxy",
+        serverSide = "com.gabid.ezaciancraft.proxy.EzacianServerProxy")
     public static EzacianCommonProxy proxy;
     public static EzacianCraftWandMultiblockEvent thaumcraftMultiblockEvent;
     public static EzacianCraftPlayerEvents playerEvents;
     public static RenderEvents renderEvents;
 
-    //https://github.com/mekanism/Mekanism/blob/1.7.10/src/main/java/mekanism/common/util/MekanismUtils.java#L1496
+    // https://github.com/mekanism/Mekanism/blob/1.7.10/src/main/java/mekanism/common/util/MekanismUtils.java#L1496
     public static String getModIdFromItemStack(ItemStack stack) {
         try {
-            ModContainer mod = GameData.findModOwner(GameData.getItemRegistry().getNameForObject(stack.getItem()));
+            ModContainer mod = GameData.findModOwner(
+                GameData.getItemRegistry()
+                    .getNameForObject(stack.getItem()));
             return mod == null ? "minecraft" : mod.getName();
         } catch (Exception e) {
             return "null";
@@ -77,7 +99,9 @@ public class CoreMod {
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new EzacianCraftGUIContainerEvent());
 
         EzacianCraftConfiguration.save();
-        FMLCommonHandler.instance().bus().register(instance);
+        FMLCommonHandler.instance()
+            .bus()
+            .register(instance);
 
         proxy.preInit(event);
     }

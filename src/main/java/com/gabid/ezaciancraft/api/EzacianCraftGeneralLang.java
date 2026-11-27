@@ -1,35 +1,37 @@
 package com.gabid.ezaciancraft.api;
 
-//a big table with all the lang used in the mod
+// a big table with all the lang used in the mod
 public class EzacianCraftGeneralLang {
-    //creative tab
+
+    // creative tab
     public static String UNLOCALE_EZACIANCRAFT_CREATIVE_TAB = "ezacianCraft";
     public static String UNLOCALE_EZACIANCRAFT_RESOURCES_CREATIVE_TAB = "ezacianCraftResources";
     public static String UNLOCALE_EZACIANCRAFT_DECORATIVES_CREATIVE_TAB = "ezacianCraftDecoratives";
 
-    //items
-    //*resources
-    //** ~void
+    // items
+    // *resources
+    // ** ~void
     public static String UNLOCALE_SHADOW_VOID_METAL = "shadowVoidMetal";
     public static String UNLOCALE_SHADOW_VOID_METAL_BLOCK = "shadowVoidMetalBlock";
-    public static String UNLOCALE_SHADOW_VOID_METAL_ORE = "shadowVoidMetalOre"; //the material is unnatural, but, anyway...
+    public static String UNLOCALE_SHADOW_VOID_METAL_ORE = "shadowVoidMetalOre"; // the material is unnatural, but,
+                                                                                // anyway...
     public static String UNLOCALE_VOID_SEED_ORE = "voidSeedOre";
     public static String UNLOCALE_VOID_METAL_BLOCK = "voidMetalBlock";
 
-    //** ~cristalyium
+    // ** ~cristalyium
     public static String UNLOCALE_CRUDE_CRYSTALYIUM = "crudeCrystalyium";
 
-    //**magic alloy
+    // **magic alloy
     public static String UNLOCALE_MAGIC_ALLOY = "magicAlloy";
 
-    //** other
+    // ** other
     public static String UNLOCALE_EZACIAN_PLATES_BASENAME = "ezacianPlates";
     public static String UNLOCALE_ASPECT_SEED_BASENAME = "aspectSeed";
 
-    //*wand stuff
+    // *wand stuff
     public static String UNLOCALE_ADVANCED_PRIMAL_STAFF_WAND_ROD = "advancedPrimal";
 
-    //*tools
+    // *tools
     public static String UNLOCALE_VOID_ZEPHYR_SWORD = "voidZephyrSword";
     public static String UNLOCALE_VOID_CORE_PICKAXE = "voidCorePickaxe";
     public static String UNLOCALE_VOID_STREAM_AXE = "voidStreamAxe";
@@ -37,7 +39,7 @@ public class EzacianCraftGeneralLang {
     public static String UNLOCALE_VOID_GROWTH_HOE = "voidGrowthHoe";
     public static String UNLOCALE_STAFF_OF_PRIMAL_RECONSTRUCTOR = "voidStaffOfPrimalReconstructor";
 
-    //*armor
+    // *armor
     public static String UNLOCALE_MAGIC_ALLOY_TRAVELLER_BOOTS = "magicAlloyTravellerBoots";
 
     public static String UNLOCALE_MAGIC_ALLOY_FORTRESS_ARMOR_HELMET = "magicAlloyFortressArmorHelmet";
@@ -48,7 +50,7 @@ public class EzacianCraftGeneralLang {
     public static String UNLOCALE_SHADOW_VOID_METAL_ROBES_ARMOR_CHESTPLATE = "shadowVoidMetalRobesArmorChestplate";
     public static String UNLOCALE_SHADOW_VOID_METAL_ROBES_ARMOR_LEGGINGS = "shadowVoidMetalRobesArmorLeggings";
 
-    //blocks
+    // blocks
 
     public static String UNLOCALE_EZACIAN_STONE_DECORATIVE = "ezacianStoneDecorative";
 
@@ -63,7 +65,7 @@ public class EzacianCraftGeneralLang {
     public static String UNLOCALE_MAGIC_ALLOY_JAR = "magicAlloyJar";
     public static String UNLOCALE_UPGRADED_BUFFER_TUBE = "upgradedBufferTube";
 
-    //*meta-tile blocks
+    // *meta-tile blocks
     public static String UNLOCALE_CUSTOM_BASE_JAR = "customBaseJar";
 
     public static String UNLOCALE_ALCHEMY_BLOCK_EXPERT = "alchemyBlockExpert";

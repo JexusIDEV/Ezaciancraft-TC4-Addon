@@ -1,21 +1,24 @@
-[
-  {
-    "modid": "ezaciancraft",
-    "name": "EzacianCraft - Thaumcraft Addon",
-    "description": "A Thaumcraft Addon which adds own lore and a lot of interesting machines, items and progression.\n\n¡Enjoy the mod!",
-    "version": "${version}",
-    "mcversion": "${mcversion}",
-    "url": "https://www.curseforge.com/minecraft/mc-mods/ezaciancraft",
-    "updateUrl": "https://github.com/JexusIDEV/Ezaciancraft-TC4-Addon",
-    "authorList": [
-      "GAB_ID"
-    ],
-    "credits": "anatawa12, Azanor, FML (Forge) Team",
-    "logoFile": "ezacianCraftLogo.png",
-    "screenshots": [],
-    "dependencies": [
-      "Thaumcraft",
-      "Baubles"
-    ]
-  }
-]
+{
+	"modListVersion": 2,
+	"modList": [{
+		"modid": "${modId}",
+		"name": "${modName}",
+		"description": "A Thaumcraft Addon which adds own lore and a lot of interesting machines, items and progression.\n\n?Enjoy the mod!",
+		"version": "${modVersion}",
+		"mcversion": "${minecraftVersion}",
+		"url": "https://www.curseforge.com/minecraft/mc-mods/ezaciancraft",
+		"updateUrl": "https://github.com/JexusIDEV/Ezaciancraft-TC4-Addon",
+		"authorList": ["GAB_ID"],
+		"credits": "anatawa12, Azanor, SinTho0r4s",
+		"logoFile": "ezacianCraftLogo.png",
+		"screenshots": [],
+		"parent": "",
+		"requiredMods": [],
+		"dependencies": [
+			"Thaumcraft",
+			"Baubles"
+		],
+		"dependants": [],
+		"useDependencyInformation": false
+	}]
+}

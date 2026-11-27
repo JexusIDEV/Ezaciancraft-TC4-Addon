@@ -1,11 +1,10 @@
 package com.gabid.ezaciancraft.api.common.items;
 
-import com.gabid.ezaciancraft.api.oredict.OreDictUtils;
-import com.gabid.ezaciancraft.common.items.tools.VoidCorePickaxeItem;
-import com.gabid.ezaciancraft.common.items.tools.VoidStaffOfPrimalReconstructorItem;
-import com.gabid.ezaciancraft.lib.world.BlockFinder;
-import com.gabid.ezaciancraft.lib.world.math.Coord4D;
-import cpw.mods.fml.common.eventhandler.Event;
+import static com.gabid.ezaciancraft.common.items.tools.VoidEarthMoverShovelItem.getOrientation;
+
+import java.util.List;
+import java.util.Set;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.material.Material;
@@ -32,16 +31,18 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
+
+import com.gabid.ezaciancraft.api.oredict.OreDictUtils;
+import com.gabid.ezaciancraft.common.items.tools.VoidStaffOfPrimalReconstructorItem;
+import com.gabid.ezaciancraft.lib.world.BlockFinder;
+import com.gabid.ezaciancraft.lib.world.math.Coord4D;
+
+import cpw.mods.fml.common.eventhandler.Event;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.items.equipment.ItemElementalPickaxe;
 import thaumcraft.common.lib.utils.BlockUtils;
 import thaumcraft.common.lib.utils.InventoryUtils;
 import thaumcraft.common.lib.utils.Utils;
-
-import java.util.List;
-import java.util.Set;
-
-import static com.gabid.ezaciancraft.common.items.tools.VoidEarthMoverShovelItem.getOrientation;
 
 /**
  * This class was created by <Vazkii>. It's distributed as
@@ -58,54 +59,50 @@ import static com.gabid.ezaciancraft.common.items.tools.VoidEarthMoverShovelItem
  * File Created @ [Dec 29, 2013, 6:01:31 PM (GMT)]
  */
 
-//obtained from thaumic tinkerer: https://github.com/Thaumic-Tinkerer/ThaumicTinkerer/blob/1.7.10/src/main/java/thaumic/tinkerer/common/item/kami/tool/ToolHandler.java
-//some stuff has been removed, because doesn't mix well with my ideas in my mod...
+// obtained from thaumic tinkerer:
+// https://github.com/Thaumic-Tinkerer/ThaumicTinkerer/blob/1.7.10/src/main/java/thaumic/tinkerer/common/item/kami/tool/ToolHandler.java
+// some stuff has been removed, because doesn't mix well with my ideas in my mod...
 public class EzacianToolHelper {
-    public static Material[] materialsPick = new Material[]{Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil};
-    public static Material[] materialsShovel = new Material[]{Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay};
-    public static Material[] materialsAxe = new Material[]{Material.coral, Material.leaves, Material.plants, Material.wood};
 
-    public static Material[] allMaterials = new Material[]{Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay, Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil, Material.coral, Material.leaves, Material.plants, Material.wood};
+    public static Material[] materialsPick = new Material[] { Material.rock, Material.iron, Material.ice,
+        Material.glass, Material.piston, Material.anvil };
+    public static Material[] materialsShovel = new Material[] { Material.grass, Material.ground, Material.sand,
+        Material.snow, Material.craftedSnow, Material.clay };
+    public static Material[] materialsAxe = new Material[] { Material.coral, Material.leaves, Material.plants,
+        Material.wood };
+
+    public static Material[] allMaterials = new Material[] { Material.grass, Material.ground, Material.sand,
+        Material.snow, Material.craftedSnow, Material.clay, Material.rock, Material.iron, Material.ice, Material.glass,
+        Material.piston, Material.anvil, Material.coral, Material.leaves, Material.plants, Material.wood };
 
     public static boolean isRightMaterial(Material material, Material[] materialsListing) {
-        for (Material mat : materialsListing)
-            if (material == mat)
-                return false;
+        for (Material mat : materialsListing) if (material == mat) return false;
         return true;
     }
 
-    public static boolean handleThaumcraftCluster(World world, EntityPlayer player, Block block, int meta, int fortune, int x, int y, int z) {
+    public static boolean handleThaumcraftCluster(World world, EntityPlayer player, Block block, int meta, int fortune,
+        int x, int y, int z) {
         if (world.isRemote) return false;
 
         ItemStack tool = player.getHeldItem();
 
-        if(block instanceof BlockOre) {
+        if (block instanceof BlockOre) {
             ItemStack ore = new ItemStack(block, 1, meta);
             ItemStack cluster = Utils.findSpecialMiningResult(ore, .25f, world.rand);
             ItemStack clusterStaff = Utils.findSpecialMiningResult(ore, 4f, world.rand);
 
-            if (tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem && block.getDrops(world, x, y, z, meta, fortune).isEmpty()) {
+            if (tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem
+                && block.getDrops(world, x, y, z, meta, fortune)
+                    .isEmpty()) {
                 if (clusterStaff != null) {
-                    EntityItem entityItem = new EntityItem(
-                            world,
-                            x + 0.5,
-                            y + 0.5,
-                            z + 0.5,
-                            clusterStaff.copy()
-                    );
+                    EntityItem entityItem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, clusterStaff.copy());
 
                     world.spawnEntityInWorld(entityItem);
                     return true;
                 }
             } else {
                 if (cluster != null) {
-                    EntityItem entityItem = new EntityItem(
-                            world,
-                            x + 0.5,
-                            y + 0.5,
-                            z + 0.5,
-                            cluster.copy()
-                    );
+                    EntityItem entityItem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, cluster.copy());
 
                     world.spawnEntityInWorld(entityItem);
                     return true;
@@ -115,31 +112,41 @@ public class EzacianToolHelper {
         return false;
     }
 
-    protected static void breakExtraBlock(ItemStack stack, World world, int x, int y, int z, int totalSize, EntityPlayer player, float refStrength, boolean breakSound) {
+    protected static void breakExtraBlock(ItemStack stack, World world, int x, int y, int z, int totalSize,
+        EntityPlayer player, float refStrength, boolean breakSound) {
         if (world.isAirBlock(x, y, z)) return;
 
         Block block = world.getBlock(x, y, z);
-        if (block.getMaterial() instanceof MaterialLiquid || (block.getBlockHardness(world, x, y, x) == -1 && !player.capabilities.isCreativeMode))
-            return;
+        if (block.getMaterial() instanceof MaterialLiquid
+            || (block.getBlockHardness(world, x, y, x) == -1 && !player.capabilities.isCreativeMode)) return;
 
         int meta = world.getBlockMetadata(x, y, z);
         ItemStack tool = player.getHeldItem();
 
         boolean effective = false;
 
-        for (String s : stack.getItem().getToolClasses(stack)) {
-            if (block.isToolEffective(s, meta) || stack.getItem().func_150893_a(stack, block) > 1F) effective = true;
+        for (String s : stack.getItem()
+            .getToolClasses(stack)) {
+            if (block.isToolEffective(s, meta) || stack.getItem()
+                .func_150893_a(stack, block) > 1F) effective = true;
         }
 
         if (!effective) return;
 
         float strength = ForgeHooks.blockStrength(block, player, world, x, y, z);
 
-        if (!player.canHarvestBlock(block) || !ForgeHooks.canHarvestBlock(block, player, meta) || refStrength / strength > 10f && !player.capabilities.isCreativeMode)
-            return;
+        if (!player.canHarvestBlock(block) || !ForgeHooks.canHarvestBlock(block, player, meta)
+            || refStrength / strength > 10f && !player.capabilities.isCreativeMode) return;
 
         if (!world.isRemote) {
-            BlockEvent.BreakEvent event = ForgeHooks.onBlockBreakEvent(world, world.getWorldInfo().getGameType(), (EntityPlayerMP) player, x, y, z);
+            BlockEvent.BreakEvent event = ForgeHooks.onBlockBreakEvent(
+                world,
+                world.getWorldInfo()
+                    .getGameType(),
+                (EntityPlayerMP) player,
+                x,
+                y,
+                z);
             if (event.isCanceled()) {
                 ((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
                 return;
@@ -171,10 +178,11 @@ public class EzacianToolHelper {
 
                 boolean hasCluster = handleThaumcraftCluster(world, player, block, meta, fortune, x, y, z);
 
-                if(!(tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem || tool.getItem() instanceof ItemElementalPickaxe)) {
+                if (!(tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem
+                    || tool.getItem() instanceof ItemElementalPickaxe)) {
                     block.harvestBlock(world, player, x, y, z, meta);
                 } else {
-                    if(!hasCluster) {
+                    if (!hasCluster) {
                         block.harvestBlock(world, player, x, y, z, meta);
                     } else {
                         int exp = block.getExpDrop(world, meta, EnchantmentHelper.getFortuneModifier(player));
@@ -193,7 +201,10 @@ public class EzacianToolHelper {
                 block.onBlockDestroyedByPlayer(world, x, y, z, meta);
             }
 
-            Minecraft.getMinecraft().getNetHandler().addToSendQueue(new C07PacketPlayerDigging(2, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));
+            Minecraft.getMinecraft()
+                .getNetHandler()
+                .addToSendQueue(
+                    new C07PacketPlayerDigging(2, x, y, z, Minecraft.getMinecraft().objectMouseOver.sideHit));
         }
     }
 
@@ -206,8 +217,7 @@ public class EzacianToolHelper {
         float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
         double d0 = player.prevPosX + (player.posX - player.prevPosX) * f;
         double d1 = player.prevPosY + (player.posY - player.prevPosY) * f;
-        if (!world.isRemote && player instanceof EntityPlayer)
-            d1 += 1.62D;
+        if (!world.isRemote && player instanceof EntityPlayer) d1 += 1.62D;
         double d2 = player.prevPosZ + (player.posZ - player.prevPosZ) * f;
         Vec3 vec3 = Vec3.createVectorHelper(d0, d1, d2);
         float f3 = MathHelper.cos(-f2 * 0.017453292F - (float) Math.PI);
@@ -232,7 +242,8 @@ public class EzacianToolHelper {
             for (int x = xPos - 6; x < xPos + 6; ++x) {
                 for (int y = yPos - 6; y < yPos + 6; ++y) {
                     for (int z = zPos - 6; z < zPos + 6; ++z) {
-                        ((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new S23PacketBlockChange(x, y, z, world));
+                        ((EntityPlayerMP) player).playerNetServerHandler
+                            .sendPacket(new S23PacketBlockChange(x, y, z, world));
                     }
                 }
             }
@@ -240,15 +251,17 @@ public class EzacianToolHelper {
         }
     }
 
-    public static boolean removeAOEBlocks(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int radius) {
+    public static boolean removeAOEBlocks(ItemStack stack, EntityPlayer player, World world, int x, int y, int z,
+        int radius) {
         Block block = player.worldObj.getBlock(x, y, z);
         int meta = player.worldObj.getBlockMetadata(x, y, z);
         boolean effective = false;
 
         if (block != null) {
-            for (String s : stack.getItem().getToolClasses(stack)) {
-                if (block.isToolEffective(s, meta) || stack.getItem().func_150893_a(stack, block) > 1F)
-                    effective = true;
+            for (String s : stack.getItem()
+                .getToolClasses(stack)) {
+                if (block.isToolEffective(s, meta) || stack.getItem()
+                    .func_150893_a(stack, block) > 1F) effective = true;
             }
         }
 
@@ -312,21 +325,46 @@ public class EzacianToolHelper {
         for (int xPos = x - xMin; xPos <= x + xMax; xPos++) {
             for (int yPos = y + yOffset - yMin; yPos <= y + yOffset + yMax; yPos++) {
                 for (int zPos = z - zMin; zPos <= z + zMax; zPos++) {
-                    breakExtraBlock(stack, world, xPos, yPos, zPos, radius, player, refStrength, Math.abs(x - xPos) <= 1 && Math.abs(y - yPos) <= 1 && Math.abs(z - zPos) <= 1);
-                    player.worldObj.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(player.worldObj.getBlock(x, y, z)) + (player.worldObj.getBlockMetadata(x, y, z) << 12));
+                    breakExtraBlock(
+                        stack,
+                        world,
+                        xPos,
+                        yPos,
+                        zPos,
+                        radius,
+                        player,
+                        refStrength,
+                        Math.abs(x - xPos) <= 1 && Math.abs(y - yPos) <= 1 && Math.abs(z - zPos) <= 1);
+                    player.worldObj.playAuxSFX(
+                        2001,
+                        x,
+                        y,
+                        z,
+                        Block.getIdFromBlock(player.worldObj.getBlock(x, y, z))
+                            + (player.worldObj.getBlockMetadata(x, y, z) << 12));
                 }
             }
         }
         return true;
     }
 
-    public static void removeBlocksInIteration(EntityPlayer player, World world, int x, int y, int z, int xs, int ys, int zs, int xe, int ye, int ze) {
+    public static void removeBlocksInIteration(EntityPlayer player, World world, int x, int y, int z, int xs, int ys,
+        int zs, int xe, int ye, int ze) {
         for (int x1 = xs; x1 < xe; ++x1) {
             for (int y1 = ys; y1 < ye; ++y1) {
                 for (int z1 = zs; z1 < ze; ++z1) {
                     if (x != x1 + x || y != y1 + y || z != z1 + z) {
                         Block block = world.getBlock(x1 + x, y1 + y, z1 + z);
-                        breakExtraBlock(player.getHeldItem(), world, x1 + x, y1 + y, z1 + z, 1, player, ForgeHooks.blockStrength(block, player, world, x1, y1, z1), Math.abs(x - x1) <= 1 && Math.abs(y - y1) <= 1 && Math.abs(z - z1) <= 1);
+                        breakExtraBlock(
+                            player.getHeldItem(),
+                            world,
+                            x1 + x,
+                            y1 + y,
+                            z1 + z,
+                            1,
+                            player,
+                            ForgeHooks.blockStrength(block, player, world, x1, y1, z1),
+                            Math.abs(x - x1) <= 1 && Math.abs(y - y1) <= 1 && Math.abs(z - z1) <= 1);
                     }
                 }
             }
@@ -338,13 +376,16 @@ public class EzacianToolHelper {
         if (Utils.isWoodLog(world, x, y, z)) {
             while (blck != Blocks.air) {
                 BlockUtils.breakFurthestBlock(world, x, y, z, blck, player);
-                if ((stack.isItemStackDamageable() || stack.getItemDamage() > 0) && stack.getItem() instanceof ItemTool) {
+                if ((stack.isItemStackDamageable() || stack.getItemDamage() > 0)
+                    && stack.getItem() instanceof ItemTool) {
                     stack.damageItem(1, player);
                 }
                 blck = world.getBlock(x, y, z);
             }
 
-            List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - 5, y - 1, z - 5, x + 5, y + 64, z + 5));
+            List<EntityItem> items = world.getEntitiesWithinAABB(
+                EntityItem.class,
+                AxisAlignedBB.getBoundingBox(x - 5, y - 1, z - 5, x + 5, y + 64, z + 5));
             for (EntityItem item : items) {
                 item.setPosition(x + 0.5, y + 0.5, z + 0.5);
                 item.ticksExisted += 20;
@@ -352,7 +393,7 @@ public class EzacianToolHelper {
         }
     }
 
-    //using mekanism algorithm method for the moment, maybe will use an own algorithm or something else future...
+    // using mekanism algorithm method for the moment, maybe will use an own algorithm or something else future...
     public static boolean breakVein(ItemStack stack, World world, EntityPlayer player, int x, int y, int z) {
         Block blck = world.getBlock(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
@@ -376,21 +417,23 @@ public class EzacianToolHelper {
                 isVeinableOre = true;
             }
         }
-        if (Utils.isWoodLog(world, x, y, z))
-            isVeinableWood = true;
+        if (Utils.isWoodLog(world, x, y, z)) isVeinableWood = true;
 
         Coord4D orig = new Coord4D(x, y, z, player.worldObj.provider.dimensionId);
 
         if (isVeinableWood && !player.capabilities.isCreativeMode) {
             while (blck != Blocks.air) {
                 BlockUtils.breakFurthestBlock(world, x, y, z, blck, player);
-                if ((stack.isItemStackDamageable() || stack.getItemDamage() > 0) && stack.getItem() instanceof ItemTool) {
+                if ((stack.isItemStackDamageable() || stack.getItemDamage() > 0)
+                    && stack.getItem() instanceof ItemTool) {
                     stack.damageItem(1, player);
                 }
                 blck = world.getBlock(x, y, z);
             }
 
-            List<EntityItem> items = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x - 5, y - 1, z - 5, x + 5, y + 64, z + 5));
+            List<EntityItem> items = world.getEntitiesWithinAABB(
+                EntityItem.class,
+                AxisAlignedBB.getBoundingBox(x - 5, y - 1, z - 5, x + 5, y + 64, z + 5));
             for (EntityItem item : items) {
                 item.setPosition(x + 0.5, y + 0.5, z + 0.5);
                 item.ticksExisted += 20;
@@ -399,7 +442,10 @@ public class EzacianToolHelper {
 
         if (isVeinableOre && !player.capabilities.isCreativeMode) {
             int fortune = EnchantmentHelper.getFortuneModifier(player);
-            Set<Coord4D> found = new BlockFinder(player.worldObj, itemStackBlock, new Coord4D(x, y, z, player.worldObj.provider.dimensionId)).calc();
+            Set<Coord4D> found = new BlockFinder(
+                player.worldObj,
+                itemStackBlock,
+                new Coord4D(x, y, z, player.worldObj.provider.dimensionId)).calc();
 
             for (Coord4D coord : found) {
                 if (coord.equals(orig) || stack.getItemDamage() > 3) {
@@ -412,9 +458,18 @@ public class EzacianToolHelper {
                 player.worldObj.playAuxSFXAtEntity(null, 2001, coord.xCoord, coord.yCoord, coord.zCoord, meta << 12);
                 player.worldObj.setBlockToAir(coord.xCoord, coord.yCoord, coord.zCoord);
                 block2.breakBlock(player.worldObj, coord.xCoord, coord.yCoord, coord.zCoord, blck, meta);
-                boolean hasCluster = handleThaumcraftCluster(world, player, block2, meta, fortune, coord.xCoord, coord.yCoord, coord.zCoord);
+                boolean hasCluster = handleThaumcraftCluster(
+                    world,
+                    player,
+                    block2,
+                    meta,
+                    fortune,
+                    coord.xCoord,
+                    coord.yCoord,
+                    coord.zCoord);
 
-                if (!hasCluster && (tool.getItem() instanceof ItemElementalPickaxe || tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem)) {
+                if (!hasCluster && (tool.getItem() instanceof ItemElementalPickaxe
+                    || tool.getItem() instanceof VoidStaffOfPrimalReconstructorItem)) {
                     block2.dropBlockAsItem(player.worldObj, coord.xCoord, coord.yCoord, coord.zCoord, meta, 0);
                 }
 
@@ -425,7 +480,8 @@ public class EzacianToolHelper {
     }
 
     protected static void useHoe(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side) {
-        if (player.canPlayerEdit(x, y, z, side, stack) && (!player.capabilities.isCreativeMode || stack.getItemDamage() >= 3)) {
+        if (player.canPlayerEdit(x, y, z, side, stack)
+            && (!player.capabilities.isCreativeMode || stack.getItemDamage() >= 3)) {
             UseHoeEvent event = new UseHoeEvent(player, stack, world, x, y, z);
 
             if (MinecraftForge.EVENT_BUS.post(event)) {
@@ -442,7 +498,13 @@ public class EzacianToolHelper {
 
             if (side != 0 && air && (block1 == Blocks.grass || block1 == Blocks.dirt)) {
                 Block farm = Blocks.farmland;
-                world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, farm.stepSound.getStepResourcePath(), (farm.stepSound.getVolume() + 1.0F) / 2.0F, farm.stepSound.getPitch() * 0.8F);
+                world.playSoundEffect(
+                    x + 0.5F,
+                    y + 0.5F,
+                    z + 0.5F,
+                    farm.stepSound.getStepResourcePath(),
+                    (farm.stepSound.getVolume() + 1.0F) / 2.0F,
+                    farm.stepSound.getPitch() * 0.8F);
 
                 if (!world.isRemote) {
                     world.setBlock(x, y, z, farm);
@@ -455,7 +517,8 @@ public class EzacianToolHelper {
         }
     }
 
-    public static boolean hoeInArea(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, int radius) {
+    public static boolean hoeInArea(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+        int radius) {
         for (int x1 = x - radius; x1 <= x + radius; x1++) {
             for (int z1 = z - radius; z1 <= z + radius; z1++) {
                 useHoe(stack, player, world, x1, y, z1, side);
@@ -464,7 +527,8 @@ public class EzacianToolHelper {
         return true;
     }
 
-    public static boolean placerInArea(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, int radius) {
+    public static boolean placerInArea(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+        int radius) {
         Block block = player.worldObj.getBlock(x, y, z);
         int meta = player.worldObj.getBlockMetadata(x, y, z);
 
@@ -480,7 +544,8 @@ public class EzacianToolHelper {
         return true;
     }
 
-    public static void placerBlocks(ItemStack stack, Block bi, int md, World world, EntityPlayer player, int side, int x, int y, int z, int xm, int ym, int zm, int bb, int aa) {
+    public static void placerBlocks(ItemStack stack, Block bi, int md, World world, EntityPlayer player, int side,
+        int x, int y, int z, int xm, int ym, int zm, int bb, int aa) {
         int xx = 0;
         int yy = 0;
         int zz = 0;
@@ -525,17 +590,37 @@ public class EzacianToolHelper {
         }
 
         Block b2 = world.getBlock(x + xx + xm, y + yy + ym, z + zz + zm);
-        if (world.isAirBlock(x + xx + xm, y + yy + ym, z + zz + zm) || b2 == Blocks.vine || b2 == Blocks.tallgrass || b2.getMaterial() == Material.water || b2 == Blocks.lava || b2.isReplaceable(world, x + xx + xm, y + yy + ym, z + zz + zm)) {
-            if (!player.capabilities.isCreativeMode && !InventoryUtils.consumeInventoryItem(player, Item.getItemFromBlock(bi), md)) {
-                if (bi == Blocks.grass && (player.capabilities.isCreativeMode || InventoryUtils.consumeInventoryItem(player, Item.getItemFromBlock(Blocks.dirt), 0))) {
-                    world.playSound(x + xx + xm, y + yy + ym, z + zz + zm, bi.stepSound.func_150496_b(), 0.6F, 0.9F + world.rand.nextFloat() * 0.2F, false);
+        if (world.isAirBlock(x + xx + xm, y + yy + ym, z + zz + zm) || b2 == Blocks.vine
+            || b2 == Blocks.tallgrass
+            || b2.getMaterial() == Material.water
+            || b2 == Blocks.lava
+            || b2.isReplaceable(world, x + xx + xm, y + yy + ym, z + zz + zm)) {
+            if (!player.capabilities.isCreativeMode
+                && !InventoryUtils.consumeInventoryItem(player, Item.getItemFromBlock(bi), md)) {
+                if (bi == Blocks.grass && (player.capabilities.isCreativeMode
+                    || InventoryUtils.consumeInventoryItem(player, Item.getItemFromBlock(Blocks.dirt), 0))) {
+                    world.playSound(
+                        x + xx + xm,
+                        y + yy + ym,
+                        z + zz + zm,
+                        bi.stepSound.func_150496_b(),
+                        0.6F,
+                        0.9F + world.rand.nextFloat() * 0.2F,
+                        false);
                     world.setBlock(x + xx + xm, y + yy + ym, z + zz + zm, Blocks.dirt, 0, 3);
                     stack.damageItem(1, player);
                     Thaumcraft.proxy.blockSparkle(world, x + xx + xm, y + yy + ym, z + zz + zm, 3, 4);
                     player.swingItem();
                 }
             } else {
-                world.playSound(x + xx + xm, y + yy + ym, z + zz + zm, bi.stepSound.func_150496_b(), 0.6F, 0.9F + world.rand.nextFloat() * 0.2F, false);
+                world.playSound(
+                    x + xx + xm,
+                    y + yy + ym,
+                    z + zz + zm,
+                    bi.stepSound.func_150496_b(),
+                    0.6F,
+                    0.9F + world.rand.nextFloat() * 0.2F,
+                    false);
                 world.setBlock(x + xx + xm, y + yy + ym, z + zz + zm, bi, md, 3);
                 stack.damageItem(1, player);
                 Thaumcraft.proxy.blockSparkle(world, x + xx + xm, y + yy + ym, z + zz + zm, 8401408, 4);

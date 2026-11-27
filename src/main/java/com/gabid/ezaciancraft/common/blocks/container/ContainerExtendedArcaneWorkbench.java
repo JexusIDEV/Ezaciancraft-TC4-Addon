@@ -1,7 +1,5 @@
 package com.gabid.ezaciancraft.common.blocks.container;
 
-import com.gabid.ezaciancraft.api.common.blocks.container.SlotAnyWand;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityExtendedArcaneWorkbench;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -10,23 +8,27 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+
+import com.gabid.ezaciancraft.api.common.blocks.container.SlotAnyWand;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityExtendedArcaneWorkbench;
+
 import thaumcraft.common.container.ContainerDummy;
 import thaumcraft.common.container.SlotCraftingArcaneWorkbench;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
-
-import java.util.List;
 
 public class ContainerExtendedArcaneWorkbench extends Container {
 
     protected TileEntityExtendedArcaneWorkbench arcaneWorkTE;
     protected InventoryPlayer playerInv;
 
-    public ContainerExtendedArcaneWorkbench(InventoryPlayer inventoryPlayer, TileEntityExtendedArcaneWorkbench _arcaneWorkTE) {
+    public ContainerExtendedArcaneWorkbench(InventoryPlayer inventoryPlayer,
+        TileEntityExtendedArcaneWorkbench _arcaneWorkTE) {
         this.arcaneWorkTE = _arcaneWorkTE;
         this.arcaneWorkTE.eventHandler = this;
         this.playerInv = inventoryPlayer;
-        this.addSlotToContainer(new SlotCraftingArcaneWorkbench(inventoryPlayer.player, this.arcaneWorkTE, this.arcaneWorkTE, 9, 160, 64));
+        this.addSlotToContainer(
+            new SlotCraftingArcaneWorkbench(inventoryPlayer.player, this.arcaneWorkTE, this.arcaneWorkTE, 9, 160, 64));
         this.addSlotToContainer(new SlotAnyWand(this.arcaneWorkTE, 10, 160, 24));
 
         int var6;
@@ -39,7 +41,8 @@ public class ContainerExtendedArcaneWorkbench extends Container {
 
         for (var6 = 0; var6 < 3; ++var6) {
             for (var7 = 0; var7 < 9; ++var7) {
-                this.addSlotToContainer(new Slot(inventoryPlayer, var7 + var6 * 9 + 9, 16 + var7 * 18, 151 + var6 * 18));
+                this.addSlotToContainer(
+                    new Slot(inventoryPlayer, var7 + var6 * 9 + 9, 16 + var7 * 18, 151 + var6 * 18));
             }
         }
 
@@ -53,7 +56,7 @@ public class ContainerExtendedArcaneWorkbench extends Container {
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotId) {
         ItemStack result = null;
-        Slot slot = (Slot) this.inventorySlots.get(slotId);
+        Slot slot = this.inventorySlots.get(slotId);
 
         if (slot != null && slot.getHasStack()) {
             ItemStack stackInSlot = slot.getStack();
@@ -114,11 +117,21 @@ public class ContainerExtendedArcaneWorkbench extends Container {
             ic.setInventorySlotContents(a, this.arcaneWorkTE.func_70301_a(a));
         }
 
-        this.arcaneWorkTE.setInventorySlotContentsSoftly(9, CraftingManager.getInstance().findMatchingRecipe(ic, this.arcaneWorkTE.getWorldObj()));
-        if (this.arcaneWorkTE.func_70301_a(9) == null && this.arcaneWorkTE.func_70301_a(10) != null && this.arcaneWorkTE.func_70301_a(10).getItem() instanceof ItemWandCasting) {
-            ItemWandCasting wand = (ItemWandCasting) this.arcaneWorkTE.func_70301_a(10).getItem();
-            if (wand.consumeAllVisCrafting(this.arcaneWorkTE.func_70301_a(10), this.playerInv.player, ThaumcraftCraftingManager.findMatchingArcaneRecipeAspects(this.arcaneWorkTE, this.playerInv.player), false)) {
-                this.arcaneWorkTE.setInventorySlotContentsSoftly(9, ThaumcraftCraftingManager.findMatchingArcaneRecipe(this.arcaneWorkTE, this.playerInv.player));
+        this.arcaneWorkTE.setInventorySlotContentsSoftly(
+            9,
+            CraftingManager.getInstance()
+                .findMatchingRecipe(ic, this.arcaneWorkTE.getWorldObj()));
+        if (this.arcaneWorkTE.func_70301_a(9) == null && this.arcaneWorkTE.func_70301_a(10) != null
+            && this.arcaneWorkTE.func_70301_a(10)
+                .getItem() instanceof ItemWandCasting wand) {
+            if (wand.consumeAllVisCrafting(
+                this.arcaneWorkTE.func_70301_a(10),
+                this.playerInv.player,
+                ThaumcraftCraftingManager.findMatchingArcaneRecipeAspects(this.arcaneWorkTE, this.playerInv.player),
+                false)) {
+                this.arcaneWorkTE.setInventorySlotContentsSoftly(
+                    9,
+                    ThaumcraftCraftingManager.findMatchingArcaneRecipe(this.arcaneWorkTE, this.playerInv.player));
             }
         }
     }

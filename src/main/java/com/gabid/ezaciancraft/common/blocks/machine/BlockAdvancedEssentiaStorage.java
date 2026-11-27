@@ -1,9 +1,9 @@
 package com.gabid.ezaciancraft.common.blocks.machine;
 
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAdvancedEssentiaStorage;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAdvancedEssentiaStorageInterface;
-import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
-import com.gabid.ezaciancraft.registry.EzacianCraftItems;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ADVANCED_ESSENTIA_STORAGE;
+import static com.gabid.ezaciancraft.registry.EzacianCraftTypeRenders.WIRELESS_ESSENTIA_INTERFACES_RENDER_ID;
+import static thaumcraft.common.Thaumcraft.MODID;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -14,56 +14,31 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAdvancedEssentiaStorage;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAdvancedEssentiaStorageInterface;
+import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
+
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.config.ConfigBlocks;
-import thaumcraft.common.config.ConfigItems;
-
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ADVANCED_ESSENTIA_STORAGE;
-import static com.gabid.ezaciancraft.registry.EzacianCraftTypeRenders.WIRELESS_ESSENTIA_INTERFACES_RENDER_ID;
-import static thaumcraft.common.Thaumcraft.MODID;
 
 public class BlockAdvancedEssentiaStorage extends BlockContainer {
 
     public IIcon bWEIIcon;
 
-    static Block masterBlock = EzacianCraftBlocks.alchemyBlockExpert; //0
-    static Block blockAlchemy = ConfigBlocks.blockMetalDevice; //16
-    static Block blockGreatWood = ConfigBlocks.blockWoodenDevice; //6
+    static Block masterBlock = EzacianCraftBlocks.alchemyBlockExpert; // 0
+    static Block blockAlchemy = ConfigBlocks.blockMetalDevice; // 16
+    static Block blockGreatWood = ConfigBlocks.blockWoodenDevice; // 6
 
     public static Block[][][] multiblockBlueprint = {
-            {
-                    {blockAlchemy, blockAlchemy, blockAlchemy},
-                    {blockAlchemy, blockAlchemy, blockAlchemy},
-                    {blockAlchemy, blockAlchemy, blockAlchemy}
-            },
-            {
-                    {blockGreatWood, blockAlchemy, blockGreatWood},
-                    {blockAlchemy, masterBlock, blockAlchemy},
-                    {blockGreatWood, blockAlchemy, blockGreatWood}
-            },
-            {
-                    {blockAlchemy, blockAlchemy, blockAlchemy},
-                    {blockAlchemy, blockAlchemy, blockAlchemy},
-                    {blockAlchemy, blockAlchemy, blockAlchemy}
-            }
-    };
-    public static int[][][] multiblockMetaDatas = {
-            {
-                    {9, 9, 9},
-                    {9, 3, 9},
-                    {9, 9, 9}
-            },
-            {
-                    {6, 3, 6},
-                    {3, 0, 3},
-                    {6, 3, 6}
-            },
-            {
-                    {9, 9, 9},
-                    {9, 3, 9},
-                    {9, 9, 9}
-            }
-    };
+        { { blockAlchemy, blockAlchemy, blockAlchemy }, { blockAlchemy, blockAlchemy, blockAlchemy },
+            { blockAlchemy, blockAlchemy, blockAlchemy } },
+        { { blockGreatWood, blockAlchemy, blockGreatWood }, { blockAlchemy, masterBlock, blockAlchemy },
+            { blockGreatWood, blockAlchemy, blockGreatWood } },
+        { { blockAlchemy, blockAlchemy, blockAlchemy }, { blockAlchemy, blockAlchemy, blockAlchemy },
+            { blockAlchemy, blockAlchemy, blockAlchemy } } };
+    public static int[][][] multiblockMetaDatas = { { { 9, 9, 9 }, { 9, 3, 9 }, { 9, 9, 9 } },
+        { { 6, 3, 6 }, { 3, 0, 3 }, { 6, 3, 6 } }, { { 9, 9, 9 }, { 9, 3, 9 }, { 9, 9, 9 } } };
 
     public BlockAdvancedEssentiaStorage() {
         super(Material.piston);
@@ -116,11 +91,13 @@ public class BlockAdvancedEssentiaStorage extends BlockContainer {
     @Override
     public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
         TileEntityAdvancedEssentiaStorage storageTE = findCenter(world, x, y, z);
-        if (storageTE != null && !storageTE.getExtendedAspects().aspects.isEmpty() && !player.capabilities.isCreativeMode) {
+        if (storageTE != null && !storageTE.getExtendedAspects().aspects.isEmpty()
+            && !player.capabilities.isCreativeMode) {
             int sz = 0;
-            for(AspectList ai : storageTE.getExtendedAspects().getAspectLists()) {
+            for (AspectList ai : storageTE.getExtendedAspects()
+                .getAspectLists()) {
                 int danger = ai.getAmount(ai.getAspects()[0]) / 8;
-                sz+=danger;
+                sz += danger;
             }
             int q = 0;
             if (sz > 0) {
@@ -148,10 +125,10 @@ public class BlockAdvancedEssentiaStorage extends BlockContainer {
             }
         } else {
             if (!player.capabilities.isCreativeMode) {
-                TileEntity hitTE = world.getTileEntity(x,y,z);
-                if(hitTE instanceof TileEntityAdvancedEssentiaStorage) {
+                TileEntity hitTE = world.getTileEntity(x, y, z);
+                if (hitTE instanceof TileEntityAdvancedEssentiaStorage) {
                     this.dropBlockAsItem(world, x, y, z, new ItemStack(EzacianCraftBlocks.alchemyBlockExpert, 1, 0));
-                } else if(hitTE instanceof TileEntityAdvancedEssentiaStorageInterface) {
+                } else if (hitTE instanceof TileEntityAdvancedEssentiaStorageInterface) {
                     this.dropBlockAsItem(world, x, y, z, new ItemStack(ConfigBlocks.blockMetalDevice, 1, 9));
                 } else {
                     this.dropBlockAsItem(world, x, y, z, new ItemStack(this, 1, 0));
@@ -185,7 +162,14 @@ public class BlockAdvancedEssentiaStorage extends BlockContainer {
 
                     int newMeta = multiblockMetaDatas[yo + 1][zo + 1][xo + 1];
 
-                    w.setBlock(x + xo, y + yo, z + zo, Block.getBlockFromItem(new ItemStack(multiblockBlueprint[yo+1][zo+1][xo+1], newMeta).getItem()), newMeta, 3);
+                    w.setBlock(
+                        x + xo,
+                        y + yo,
+                        z + zo,
+                        Block.getBlockFromItem(
+                            new ItemStack(multiblockBlueprint[yo + 1][zo + 1][xo + 1], newMeta).getItem()),
+                        newMeta,
+                        3);
                 }
             }
         }
@@ -195,15 +179,30 @@ public class BlockAdvancedEssentiaStorage extends BlockContainer {
         for (int xOffset = -1; xOffset <= 1; xOffset++) {
             for (int yOffset = -1; yOffset <= 1; yOffset++) {
                 for (int zOffset = -1; zOffset <= 1; zOffset++) {
-                    if(xOffset == 0 && yOffset == 0 && zOffset == 0) continue;
-                    if(storage.xCoord + xOffset == x && storage.yCoord + yOffset == y && storage.zCoord + zOffset == z) continue;
+                    if (xOffset == 0 && yOffset == 0 && zOffset == 0) continue;
+                    if (storage.xCoord + xOffset == x && storage.yCoord + yOffset == y && storage.zCoord + zOffset == z)
+                        continue;
 
                     int newMeta = multiblockMetaDatas[yOffset + 1][zOffset + 1][xOffset + 1];
-                    w.setBlock(storage.xCoord + xOffset, storage.yCoord + yOffset, storage.zCoord + zOffset, Block.getBlockFromItem(new ItemStack(multiblockBlueprint[yOffset+1][zOffset+1][xOffset+1], newMeta).getItem()), newMeta, 3);
+                    w.setBlock(
+                        storage.xCoord + xOffset,
+                        storage.yCoord + yOffset,
+                        storage.zCoord + zOffset,
+                        Block.getBlockFromItem(
+                            new ItemStack(multiblockBlueprint[yOffset + 1][zOffset + 1][xOffset + 1], newMeta)
+                                .getItem()),
+                        newMeta,
+                        3);
                 }
             }
         }
-        w.setBlock(storage.xCoord, storage.yCoord, storage.zCoord, Block.getBlockFromItem(new ItemStack(EzacianCraftBlocks.alchemyBlockExpert).getItem()), 0, 3);
+        w.setBlock(
+            storage.xCoord,
+            storage.yCoord,
+            storage.zCoord,
+            Block.getBlockFromItem(new ItemStack(EzacianCraftBlocks.alchemyBlockExpert).getItem()),
+            0,
+            3);
     }
 
     @Override
@@ -213,11 +212,11 @@ public class BlockAdvancedEssentiaStorage extends BlockContainer {
         TileEntityAdvancedEssentiaStorage centerTE = findCenter(world, x, y, z);
 
         if (centerTE != null) {
-            if(meta == 0 && !centerTE.isBreaking) {
+            if (meta == 0 && !centerTE.isBreaking) {
                 centerTE.isBreaking = true;
                 regenMultiByCenter(world, x, y, z);
                 return;
-            } else if(meta != 0 && !centerTE.isBreaking) {
+            } else if (meta != 0 && !centerTE.isBreaking) {
                 centerTE.isBreaking = true;
                 regenMultiByEdges(world, x, y, z, centerTE);
                 return;

@@ -5,6 +5,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 public class EzacianCustomItemBlockJar extends ItemBlock {
+
     public EzacianCustomItemBlockJar(Block block) {
         super(block);
     }

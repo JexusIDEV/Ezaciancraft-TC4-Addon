@@ -1,5 +1,60 @@
 package com.gabid.ezaciancraft.common.items.tools;
 
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_STAFF_OF_PRIMAL_RECONSTRUCTOR;
+import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.PRIMAL_TOOL_AOE;
+import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.PRIMAL_TOOL_BEHAVIOUR;
+import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.PRIMAL_TOOL_SUB_MODE;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianPrimalToolAOETranslation;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianPrimalToolBehaviourGrowerTranslation;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianPrimalToolBehaviourMagnetTranslation;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianPrimalToolBehaviourPlacerTranslation;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianPrimalToolBehaviourSeekerTranslation;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianPrimalToolBehaviourTranslation;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianPrimalToolBehaviourZephyrTranslation;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianPrimalToolSubModeAreaTranslation;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianPrimalToolSubModeTranslation;
+import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.ezacianPrimalToolSubModeVeinTranslation;
+import static com.gabid.ezaciancraft.api.common.items.EzacianToolHelper.hoeInArea;
+import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockOre;
+import net.minecraft.block.material.Material;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityMultiPart;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.boss.EntityDragonPart;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
+import net.minecraft.potion.Potion;
+import net.minecraft.stats.AchievementList;
+import net.minecraft.stats.StatList;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
+
 import com.gabid.ezaciancraft.api.EzacianToolMaterials;
 import com.gabid.ezaciancraft.api.common.items.EzacianToolHelper;
 import com.gabid.ezaciancraft.api.common.items.IEzacianPrimalTool;
@@ -7,26 +62,7 @@ import com.gabid.ezaciancraft.api.registry.EzacianCraftMiscRegistry;
 import com.gabid.ezaciancraft.lib.nbt.NBTHelper;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockOre;
-import net.minecraft.block.material.Material;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.*;
-import net.minecraft.entity.boss.EntityDragonPart;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityTameable;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.*;
-import net.minecraft.potion.Potion;
-import net.minecraft.stats.AchievementList;
-import net.minecraft.stats.StatList;
-import net.minecraft.util.*;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
+
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.common.Thaumcraft;
@@ -38,61 +74,50 @@ import thaumcraft.common.entities.golems.EntityGolemBase;
 import thaumcraft.common.lib.utils.EntityUtils;
 import thaumcraft.common.lib.utils.Utils;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_STAFF_OF_PRIMAL_RECONSTRUCTOR;
-import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.*;
-import static com.gabid.ezaciancraft.api.EzacianCraftTranslations.*;
-import static com.gabid.ezaciancraft.api.common.items.EzacianToolHelper.hoeInArea;
-import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
-
-public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWarpingGear, IRepairable, IEzacianPrimalTool {
+public class VoidStaffOfPrimalReconstructorItem extends ItemTool
+    implements IWarpingGear, IRepairable, IEzacianPrimalTool {
 
     private static final Set<Block> validMaterials = Sets.newHashSet(
-            Blocks.cobblestone,
-            Blocks.double_stone_slab,
-            Blocks.stone_slab,
-            Blocks.stone,
-            Blocks.sandstone,
-            Blocks.mossy_cobblestone,
-            Blocks.iron_ore,
-            Blocks.iron_block,
-            Blocks.coal_ore,
-            Blocks.gold_block,
-            Blocks.gold_ore,
-            Blocks.diamond_ore,
-            Blocks.diamond_block,
-            Blocks.ice,
-            Blocks.netherrack,
-            Blocks.lapis_ore,
-            Blocks.lapis_block,
-            Blocks.redstone_ore,
-            Blocks.lit_redstone_ore,
-            Blocks.rail,
-            Blocks.detector_rail,
-            Blocks.golden_rail,
-            Blocks.activator_rail,
-            Blocks.grass,
-            Blocks.dirt,
-            Blocks.sand,
-            Blocks.gravel,
-            Blocks.snow_layer,
-            Blocks.snow,
-            Blocks.clay,
-            Blocks.farmland,
-            Blocks.soul_sand,
-            Blocks.mycelium,
-            Blocks.planks,
-            Blocks.bookshelf,
-            Blocks.log,
-            Blocks.log2,
-            Blocks.chest,
-            Blocks.pumpkin,
-            Blocks.lit_pumpkin
-    );
+        Blocks.cobblestone,
+        Blocks.double_stone_slab,
+        Blocks.stone_slab,
+        Blocks.stone,
+        Blocks.sandstone,
+        Blocks.mossy_cobblestone,
+        Blocks.iron_ore,
+        Blocks.iron_block,
+        Blocks.coal_ore,
+        Blocks.gold_block,
+        Blocks.gold_ore,
+        Blocks.diamond_ore,
+        Blocks.diamond_block,
+        Blocks.ice,
+        Blocks.netherrack,
+        Blocks.lapis_ore,
+        Blocks.lapis_block,
+        Blocks.redstone_ore,
+        Blocks.lit_redstone_ore,
+        Blocks.rail,
+        Blocks.detector_rail,
+        Blocks.golden_rail,
+        Blocks.activator_rail,
+        Blocks.grass,
+        Blocks.dirt,
+        Blocks.sand,
+        Blocks.gravel,
+        Blocks.snow_layer,
+        Blocks.snow,
+        Blocks.clay,
+        Blocks.farmland,
+        Blocks.soul_sand,
+        Blocks.mycelium,
+        Blocks.planks,
+        Blocks.bookshelf,
+        Blocks.log,
+        Blocks.log2,
+        Blocks.chest,
+        Blocks.pumpkin,
+        Blocks.lit_pumpkin);
     protected final int generalMaxAOERadiusTool = 8;
 
     public VoidStaffOfPrimalReconstructorItem() {
@@ -113,7 +138,9 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
 
     @Override
     public void onUpdate(ItemStack stack, World level, Entity player, int a, boolean b) {
-        if (stack.isItemDamaged() && player != null && player.ticksExisted % 5 == 0 && player instanceof EntityLivingBase) {
+        if (stack.isItemDamaged() && player != null
+            && player.ticksExisted % 5 == 0
+            && player instanceof EntityLivingBase) {
             stack.damageItem(-level.rand.nextInt(10), (EntityLivingBase) player);
         }
         super.onUpdate(stack, level, player, a, b);
@@ -163,7 +190,9 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
 
         if (stack.stackTagCompound.getInteger(PRIMAL_TOOL_SUB_MODE) == 0) {
             int currentAOE = 2 * stack.stackTagCompound.getInteger(PRIMAL_TOOL_AOE) + 1;
-            tooltips.add(StatCollector.translateToLocal(ezacianPrimalToolAOETranslation) + currentAOE + "x" + currentAOE + "x" + 1);
+            tooltips.add(
+                StatCollector.translateToLocal(
+                    ezacianPrimalToolAOETranslation) + currentAOE + "x" + currentAOE + "x" + 1);
         }
     }
 
@@ -191,20 +220,21 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
     }
 
     @Override
-    public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float offsetX, float offsetY, float offsetZ) {
+    public boolean onItemUse(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side,
+        float offsetX, float offsetY, float offsetZ) {
         if (itemStack.hasTagCompound()) {
             int currentBehaviour = itemStack.stackTagCompound.getInteger(PRIMAL_TOOL_BEHAVIOUR);
             int currentSubMode = itemStack.stackTagCompound.getInteger(PRIMAL_TOOL_SUB_MODE);
             int currentAOE = itemStack.stackTagCompound.getInteger(PRIMAL_TOOL_AOE);
-            //miner seeker
+            // miner seeker
             if (currentBehaviour == 0) {
                 return this.seekMinerals(itemStack, player, world, x, y, z, side, offsetX, offsetY, offsetZ);
             }
-            //placer
+            // placer
             if (currentBehaviour == 2 && currentSubMode == 0) {
                 return EzacianToolHelper.placerInArea(itemStack, player, world, x, y, z, side, currentAOE);
             }
-            //grower
+            // grower
             if (currentBehaviour == 3) {
                 return this.growPlantsOrHoe(itemStack, player, world, x, y, z, side, offsetX, offsetY, offsetZ);
             }
@@ -219,13 +249,12 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
             int currentAOERadius = itemstack.stackTagCompound.getInteger(PRIMAL_TOOL_AOE);
 
             World world = player.worldObj;
-            Material mat = world.getBlock(x, y, z).getMaterial();
-            if (EzacianToolHelper.isRightMaterial(mat, EzacianToolHelper.allMaterials))
-                return false;
+            Material mat = world.getBlock(x, y, z)
+                .getMaterial();
+            if (EzacianToolHelper.isRightMaterial(mat, EzacianToolHelper.allMaterials)) return false;
 
             MovingObjectPosition mopBlock = EzacianToolHelper.raytraceFromEntity(world, player, true, 4.5);
-            if (mopBlock == null)
-                return false;
+            if (mopBlock == null) return false;
 
             if (currentSubMode == 0) {
                 if (currentAOERadius == 0) {
@@ -246,12 +275,13 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
         return super.onBlockStartBreak(itemstack, x, y, z, player);
     }
 
-    private void manageSingleClusterDrop(World world, EntityPlayer player, ItemStack stack, int fortune, int x, int y, int z) {
+    private void manageSingleClusterDrop(World world, EntityPlayer player, ItemStack stack, int fortune, int x, int y,
+        int z) {
         if (!world.isRemote) {
             Block block = world.getBlock(x, y, z);
             int meta = world.getBlockMetadata(x, y, z);
 
-            if(block instanceof BlockOre && block.getItemDropped(0, itemRand, 0) == Item.getItemFromBlock(block)) {
+            if (block instanceof BlockOre && block.getItemDropped(0, itemRand, 0) == Item.getItemFromBlock(block)) {
                 ItemStack ore = new ItemStack(block, 1, meta);
 
                 ItemStack cluster = Utils.findSpecialMiningResult(ore, 4f, player.worldObj.rand);
@@ -259,13 +289,7 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
                 if (cluster != null) {
                     world.setBlockToAir(x, y, z);
 
-                    EntityItem entityItem = new EntityItem(
-                            world,
-                            x + 0.5,
-                            y + 0.5,
-                            z + 0.5,
-                            cluster.copy()
-                    );
+                    EntityItem entityItem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, cluster.copy());
 
                     world.spawnEntityInWorld(entityItem);
 
@@ -282,7 +306,7 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
             int currentBehaviour = stack.stackTagCompound.getInteger(PRIMAL_TOOL_BEHAVIOUR);
             if (currentBehaviour == 1) {
                 return 160000;
-            } else if(currentBehaviour == 4) {
+            } else if (currentBehaviour == 4) {
                 return 72000;
             } else {
                 return super.getMaxItemUseDuration(stack);
@@ -325,7 +349,14 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
             int currentBehaviour = stack.stackTagCompound.getInteger(PRIMAL_TOOL_BEHAVIOUR);
 
             if (currentBehaviour == 1) {
-                ArrayList<Entity> stuff = EntityUtils.getEntitiesInRange(player.worldObj, player.posX, player.posY, player.posZ, player, EntityItem.class, 20.0);
+                ArrayList<Entity> stuff = EntityUtils.getEntitiesInRange(
+                    player.worldObj,
+                    player.posX,
+                    player.posY,
+                    player.posZ,
+                    player,
+                    EntityItem.class,
+                    20.0);
                 if (!stuff.isEmpty()) {
                     Iterator<Entity> i$ = stuff.iterator();
 
@@ -375,7 +406,17 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
                                 e.motionZ = -0.35;
                             }
 
-                            Thaumcraft.proxy.crucibleBubble(player.worldObj, (float) e.posX + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.125F, (float) e.posY + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.125F, (float) e.posZ + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.125F, 0.33F, 0.33F, 1.0F);
+                            Thaumcraft.proxy.crucibleBubble(
+                                player.worldObj,
+                                (float) e.posX
+                                    + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.125F,
+                                (float) e.posY
+                                    + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.125F,
+                                (float) e.posZ
+                                    + (player.worldObj.rand.nextFloat() - player.worldObj.rand.nextFloat()) * 0.125F,
+                                0.33F,
+                                0.33F,
+                                1.0F);
                         }
                     }
                 }
@@ -398,32 +439,24 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
                     Utils.resetFloatCounter((EntityPlayerMP) player);
                 }
 
-                List<Entity> targets = player.worldObj.getEntitiesWithinAABBExcludingEntity(
-                        player,
-                        player.boundingBox.expand(2.5, 2.5, 2.5)
-                );
+                List<Entity> targets = player.worldObj
+                    .getEntitiesWithinAABBExcludingEntity(player, player.boundingBox.expand(2.5, 2.5, 2.5));
                 int miny;
                 if (!targets.isEmpty()) {
                     for (Entity entity : targets) {
-                        if (!(entity instanceof EntityPlayer)
-                                && !entity.isDead
-                                && (player.ridingEntity == null || player.ridingEntity != entity)) {
+                        if (!(entity instanceof EntityPlayer) && !entity.isDead
+                            && (player.ridingEntity == null || player.ridingEntity != entity)) {
 
-                            Vec3 playerPos = Vec3.createVectorHelper(
-                                    player.posX, player.posY, player.posZ
-                            );
+                            Vec3 playerPos = Vec3.createVectorHelper(player.posX, player.posY, player.posZ);
 
-                            Vec3 targetPos = Vec3.createVectorHelper(
-                                    entity.posX, entity.posY, entity.posZ
-                            );
+                            Vec3 targetPos = Vec3.createVectorHelper(entity.posX, entity.posY, entity.posZ);
 
                             double distance = playerPos.distanceTo(targetPos) + 0.1;
 
                             Vec3 direction = Vec3.createVectorHelper(
-                                    targetPos.xCoord - playerPos.xCoord,
-                                    targetPos.yCoord - playerPos.yCoord,
-                                    targetPos.zCoord - playerPos.zCoord
-                            );
+                                targetPos.xCoord - playerPos.xCoord,
+                                targetPos.yCoord - playerPos.yCoord,
+                                targetPos.zCoord - playerPos.zCoord);
 
                             entity.motionX += direction.xCoord / 2.5 / distance;
                             entity.motionY += direction.yCoord / 2.5 / distance;
@@ -439,17 +472,36 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
                     }
 
                     for (int a = 0; a < 5; ++a) {
-                        Thaumcraft.proxy.smokeSpiral(player.worldObj, player.posX, player.boundingBox.minY + (double) (player.height / 2.0F), player.posZ, 1.5F, player.worldObj.rand.nextInt(360), miny, 14540253);
+                        Thaumcraft.proxy.smokeSpiral(
+                            player.worldObj,
+                            player.posX,
+                            player.boundingBox.minY + (double) (player.height / 2.0F),
+                            player.posZ,
+                            1.5F,
+                            player.worldObj.rand.nextInt(360),
+                            miny,
+                            14540253);
                     }
 
                     if (player.onGround) {
                         float r1 = player.worldObj.rand.nextFloat() * 360.0F;
                         float mx = -MathHelper.sin(r1 / 180.0F * 3.1415927F) / 5.0F;
                         float mz = MathHelper.cos(r1 / 180.0F * 3.1415927F) / 5.0F;
-                        player.worldObj.spawnParticle("smoke", player.posX, player.boundingBox.minY + 0.10000000149011612, player.posZ, mx, 0.0, mz);
+                        player.worldObj.spawnParticle(
+                            "smoke",
+                            player.posX,
+                            player.boundingBox.minY + 0.10000000149011612,
+                            player.posZ,
+                            mx,
+                            0.0,
+                            mz);
                     }
                 } else if (ticks % 20 == 0) {
-                    player.worldObj.playSoundToNearExcept(player, "thaumcraft:wind", 0.5F, 0.9F + player.worldObj.rand.nextFloat() * 0.2F);
+                    player.worldObj.playSoundToNearExcept(
+                        player,
+                        "thaumcraft:wind",
+                        0.5F,
+                        0.9F + player.worldObj.rand.nextFloat() * 0.2F);
                 }
 
                 if (ticks % 20 == 0) {
@@ -467,12 +519,19 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
             int currentBehaviour = stack.stackTagCompound.getInteger(PRIMAL_TOOL_BEHAVIOUR);
             if (currentBehaviour == 4) {
                 if (entity.isEntityAlive()) {
-                    List targets = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, entity.boundingBox.expand(1.2, 1.1, 1.2));
+                    List targets = player.worldObj
+                        .getEntitiesWithinAABBExcludingEntity(player, entity.boundingBox.expand(1.2, 1.1, 1.2));
                     int count = 0;
                     if (targets.size() > 1) {
                         for (Object target : targets) {
                             Entity ent = (Entity) target;
-                            if (!ent.isDead && (!(ent instanceof EntityGolemBase) || !((EntityGolemBase) ent).getOwnerName().equals(player.getCommandSenderName())) && (!(ent instanceof EntityTameable) || !((EntityTameable) ent).func_152113_b().equals(player.getCommandSenderName())) && ent instanceof EntityLiving && ent.getEntityId() != entity.getEntityId()) {
+                            if (!ent.isDead
+                                && (!(ent instanceof EntityGolemBase) || !((EntityGolemBase) ent).getOwnerName()
+                                    .equals(player.getCommandSenderName()))
+                                && (!(ent instanceof EntityTameable) || !((EntityTameable) ent).func_152113_b()
+                                    .equals(player.getCommandSenderName()))
+                                && ent instanceof EntityLiving
+                                && ent.getEntityId() != entity.getEntityId()) {
                                 if (ent.isEntityAlive()) {
                                     this.attackTargetEntityWithCurrentItem(ent, player);
                                     ++count;
@@ -481,7 +540,11 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
                         }
 
                         if (count > 0 && !player.worldObj.isRemote) {
-                            player.worldObj.playSoundAtEntity(entity, "thaumcraft:swing", 1.0F, 0.9F + player.worldObj.rand.nextFloat() * 0.2F);
+                            player.worldObj.playSoundAtEntity(
+                                entity,
+                                "thaumcraft:swing",
+                                1.0F,
+                                0.9F + player.worldObj.rand.nextFloat() * 0.2F);
                         }
                     }
                 }
@@ -494,7 +557,8 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
     public void attackTargetEntityWithCurrentItem(Entity par1Entity, EntityPlayer player) {
         if (!MinecraftForge.EVENT_BUS.post(new AttackEntityEvent(player, par1Entity))) {
             if (par1Entity.canAttackWithItem() && !par1Entity.hitByEntity(player)) {
-                float f = (float) player.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+                float f = (float) player.getEntityAttribute(SharedMonsterAttributes.attackDamage)
+                    .getAttributeValue();
                 int i = 0;
                 float f1 = 0.0F;
                 if (par1Entity instanceof EntityLivingBase) {
@@ -507,7 +571,12 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
                 }
 
                 if (f > 0.0F || f1 > 0.0F) {
-                    boolean flag = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness) && player.ridingEntity == null && par1Entity instanceof EntityLivingBase;
+                    boolean flag = player.fallDistance > 0.0F && !player.onGround
+                        && !player.isOnLadder()
+                        && !player.isInWater()
+                        && !player.isPotionActive(Potion.blindness)
+                        && player.ridingEntity == null
+                        && par1Entity instanceof EntityLivingBase;
                     if (flag && f > 0.0F) {
                         f *= 1.5F;
                     }
@@ -523,7 +592,10 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
                     boolean flag2 = par1Entity.attackEntityFrom(DamageSource.causeMobDamage(player), f);
                     if (flag2) {
                         if (i > 0) {
-                            par1Entity.addVelocity(-MathHelper.sin(player.rotationYaw * 3.1415927F / 180.0F) * (float) i * 0.5F, 0.1, MathHelper.sin(player.rotationYaw * 3.1415927F / 180.0F) * (float) i * 0.5F);
+                            par1Entity.addVelocity(
+                                -MathHelper.sin(player.rotationYaw * 3.1415927F / 180.0F) * (float) i * 0.5F,
+                                0.1,
+                                MathHelper.sin(player.rotationYaw * 3.1415927F / 180.0F) * (float) i * 0.5F);
                             player.motionX *= 0.6;
                             player.motionZ *= 0.6;
                             player.setSprinting(false);
@@ -585,9 +657,11 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
         }
 
         if (behaviour > -1 && behaviour < 5) {
-            stack.getTagCompound().setInteger(PRIMAL_TOOL_BEHAVIOUR, behaviour);
+            stack.getTagCompound()
+                .setInteger(PRIMAL_TOOL_BEHAVIOUR, behaviour);
         } else {
-            stack.getTagCompound().setInteger(PRIMAL_TOOL_BEHAVIOUR, 0);
+            stack.getTagCompound()
+                .setInteger(PRIMAL_TOOL_BEHAVIOUR, 0);
         }
     }
 
@@ -596,8 +670,9 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
         if (!NBTHelper.containerNBTIsNotNull(stack)) {
             NBTHelper.setDefaultContainerNBT(stack, PRIMAL_TOOL_BEHAVIOUR, 0);
         }
-        int current = stack.getTagCompound().getInteger(PRIMAL_TOOL_BEHAVIOUR);
-        if(shiftPressed) {
+        int current = stack.getTagCompound()
+            .getInteger(PRIMAL_TOOL_BEHAVIOUR);
+        if (shiftPressed) {
             current--;
         } else {
             current++;
@@ -610,7 +685,8 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
         if (!NBTHelper.containerNBTIsNotNull(stack)) {
             NBTHelper.setDefaultContainerNBT(stack, PRIMAL_TOOL_BEHAVIOUR, 0);
         }
-        return stack.getTagCompound().getInteger(PRIMAL_TOOL_BEHAVIOUR);
+        return stack.getTagCompound()
+            .getInteger(PRIMAL_TOOL_BEHAVIOUR);
     }
 
     @Override
@@ -620,9 +696,11 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
         }
 
         if (subMode > -1 && subMode < 2) {
-            stack.getTagCompound().setInteger(PRIMAL_TOOL_SUB_MODE, subMode);
+            stack.getTagCompound()
+                .setInteger(PRIMAL_TOOL_SUB_MODE, subMode);
         } else {
-            stack.getTagCompound().setInteger(PRIMAL_TOOL_SUB_MODE, 0);
+            stack.getTagCompound()
+                .setInteger(PRIMAL_TOOL_SUB_MODE, 0);
         }
     }
 
@@ -631,8 +709,9 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
         if (!NBTHelper.containerNBTIsNotNull(stack)) {
             NBTHelper.setDefaultContainerNBT(stack, PRIMAL_TOOL_SUB_MODE, 0);
         }
-        int current = stack.getTagCompound().getInteger(PRIMAL_TOOL_SUB_MODE);
-        if(shiftPressed) {
+        int current = stack.getTagCompound()
+            .getInteger(PRIMAL_TOOL_SUB_MODE);
+        if (shiftPressed) {
             current--;
         } else {
             current++;
@@ -645,7 +724,8 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
         if (!NBTHelper.containerNBTIsNotNull(stack)) {
             NBTHelper.setDefaultContainerNBT(stack, PRIMAL_TOOL_SUB_MODE, 0);
         }
-        return stack.getTagCompound().getInteger(PRIMAL_TOOL_SUB_MODE);
+        return stack.getTagCompound()
+            .getInteger(PRIMAL_TOOL_SUB_MODE);
     }
 
     @Override
@@ -655,9 +735,11 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
         }
 
         if (aoe > -1 && aoe < this.generalMaxAOERadiusTool) {
-            stack.getTagCompound().setInteger(PRIMAL_TOOL_AOE, aoe);
+            stack.getTagCompound()
+                .setInteger(PRIMAL_TOOL_AOE, aoe);
         } else {
-            stack.getTagCompound().setInteger(PRIMAL_TOOL_AOE, 0);
+            stack.getTagCompound()
+                .setInteger(PRIMAL_TOOL_AOE, 0);
         }
     }
 
@@ -666,8 +748,9 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
         if (!NBTHelper.containerNBTIsNotNull(stack)) {
             NBTHelper.setDefaultContainerNBT(stack, PRIMAL_TOOL_AOE, 0);
         }
-        int current = stack.getTagCompound().getInteger(PRIMAL_TOOL_AOE);
-        if(shiftPressed) {
+        int current = stack.getTagCompound()
+            .getInteger(PRIMAL_TOOL_AOE);
+        if (shiftPressed) {
             current--;
         } else {
             current++;
@@ -680,12 +763,20 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
         if (!NBTHelper.containerNBTIsNotNull(stack)) {
             NBTHelper.setDefaultContainerNBT(stack, PRIMAL_TOOL_AOE, 0);
         }
-        return stack.getTagCompound().getInteger(PRIMAL_TOOL_AOE);
+        return stack.getTagCompound()
+            .getInteger(PRIMAL_TOOL_AOE);
     }
 
-    private boolean seekMinerals(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float offsetX, float offsetY, float offsetZ) {
+    private boolean seekMinerals(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side,
+        float offsetX, float offsetY, float offsetZ) {
         if (!world.isRemote) {
-            world.playSoundEffect((double) x + 0.5, (double) y + 0.5, (double) z + 0.5, "thaumcraft:wandfail", 0.2F, 0.2F + world.rand.nextFloat() * 0.2F);
+            world.playSoundEffect(
+                (double) x + 0.5,
+                (double) y + 0.5,
+                (double) z + 0.5,
+                "thaumcraft:wandfail",
+                0.2F,
+                0.2F + world.rand.nextFloat() * 0.2F);
         } else {
             Thaumcraft.instance.renderEventHandler.startScan(player, x, y, z, System.currentTimeMillis() + 5000L, 8);
             player.swingItem();
@@ -694,7 +785,8 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
         return super.onItemUse(itemStack, player, world, x, y, z, side, offsetX, offsetY, offsetZ);
     }
 
-    private boolean growPlantsOrHoe(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float offsetX, float offsetY, float offsetZ) {
+    private boolean growPlantsOrHoe(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z,
+        int side, float offsetX, float offsetY, float offsetZ) {
         int currentAOE = itemStack.stackTagCompound.getInteger(PRIMAL_TOOL_AOE);
         int currentSubMode = itemStack.stackTagCompound.getInteger(PRIMAL_TOOL_SUB_MODE);
         if (player.isSneaking() && currentSubMode == 0) {
@@ -719,24 +811,32 @@ public class VoidStaffOfPrimalReconstructorItem extends ItemTool implements IWar
                 if (!did) {
                     Block bi = world.getBlock(x, y, z);
                     md = world.getBlockMetadata(x, y, z);
-                    if (bi == ConfigBlocks.blockCustomPlant && md == 0 && itemStack.getItemDamage() + 20 <= itemStack.getMaxDamage()) {
+                    if (bi == ConfigBlocks.blockCustomPlant && md == 0
+                        && itemStack.getItemDamage() + 20 <= itemStack.getMaxDamage()) {
                         ((BlockCustomPlant) bi).growGreatTree(world, x, y, z, world.rand);
                         itemStack.damageItem(world.rand.nextInt(5), player);
                         Thaumcraft.proxy.blockSparkle(world, x, y, z, 0, 2);
                         did = true;
-                    } else if (bi == ConfigBlocks.blockCustomPlant && md == 1 && itemStack.getItemDamage() + 150 <= itemStack.getMaxDamage()) {
-                        ((BlockCustomPlant) bi).growSilverTree(world, x, y, z, world.rand);
-                        itemStack.damageItem(world.rand.nextInt(25), player);
-                        Thaumcraft.proxy.blockSparkle(world, x, y, z, 0, 2);
-                        did = true;
-                    }
+                    } else if (bi == ConfigBlocks.blockCustomPlant && md == 1
+                        && itemStack.getItemDamage() + 150 <= itemStack.getMaxDamage()) {
+                            ((BlockCustomPlant) bi).growSilverTree(world, x, y, z, world.rand);
+                            itemStack.damageItem(world.rand.nextInt(25), player);
+                            Thaumcraft.proxy.blockSparkle(world, x, y, z, 0, 2);
+                            did = true;
+                        }
                 } else {
                     itemStack.damageItem(1, player);
                     Thaumcraft.proxy.blockSparkle(world, x, y, z, 0, 3);
                 }
 
                 if (did) {
-                    world.playSoundEffect((double) x + 0.5, (double) y + 0.5, (double) z + 0.5, "thaumcraft:wand", 0.75F, 0.9F + world.rand.nextFloat() * 0.2F);
+                    world.playSoundEffect(
+                        (double) x + 0.5,
+                        (double) y + 0.5,
+                        (double) z + 0.5,
+                        "thaumcraft:wand",
+                        0.75F,
+                        0.9F + world.rand.nextFloat() * 0.2F);
                 }
             }
             return did;

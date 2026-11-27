@@ -1,26 +1,30 @@
 package com.gabid.ezaciancraft.client.renderer.tiles;
 
-import com.gabid.ezaciancraft.common.blocks.vegetal.BlockAspectCrop;
-import com.gabid.ezaciancraft.common.blocks.vegetal.TileEntityAspectCrop;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+
 import org.lwjgl.opengl.GL11;
+
+import com.gabid.ezaciancraft.common.blocks.vegetal.BlockAspectCrop;
+import com.gabid.ezaciancraft.common.blocks.vegetal.TileEntityAspectCrop;
 
 public class AspectedCropBlockTileEntityRenderer extends TileEntitySpecialRenderer {
 
     private void renderPlant(TileEntityAspectCrop te, double x, double y, double z, float t) {
-        if(te.hasWorldObj()) {
+        if (te.hasWorldObj()) {
             Tessellator tes = Tessellator.instance;
             BlockAspectCrop cropBlock = (BlockAspectCrop) te.blockType;
             int color;
-            int currentMeta = te.getWorldObj().getBlockMetadata(te.xCoord, te.yCoord, te.zCoord);
+            int currentMeta = te.getWorldObj()
+                .getBlockMetadata(te.xCoord, te.yCoord, te.zCoord);
             float scale = 0.5f;
 
             if (te.getMainAspect() != null) {
-                color = te.getMainAspect().getColor();
+                color = te.getMainAspect()
+                    .getColor();
             } else {
                 color = 0xffffff;
             }
@@ -30,7 +34,7 @@ public class AspectedCropBlockTileEntityRenderer extends TileEntitySpecialRender
             float b = (color & 255) / 255.0F;
 
             GL11.glPushMatrix();
-            GL11.glTranslated(x+0.5, y, z+0.5);
+            GL11.glTranslated(x + 0.5, y, z + 0.5);
 
             bindTexture(TextureMap.locationBlocksTexture);
 

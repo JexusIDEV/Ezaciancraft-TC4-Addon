@@ -1,23 +1,28 @@
 package com.gabid.ezaciancraft.client.renderer.tiles;
 
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityExtendedArcaneWorkbench;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
+
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityExtendedArcaneWorkbench;
+
 import thaumcraft.common.items.wands.ItemWandCasting;
 
 public class ExtendedArcaneWorkbenchTileEntityRenderer extends TileEntitySpecialRenderer {
 
-
-    public void renderTEAndWand(TileEntityExtendedArcaneWorkbench arcaneWorkbenchTE, double x, double y, double z, float ticks) {
-        if (arcaneWorkbenchTE.func_70301_a(10) != null && arcaneWorkbenchTE.func_70301_a(10).getItem() instanceof ItemWandCasting) {
+    public void renderTEAndWand(TileEntityExtendedArcaneWorkbench arcaneWorkbenchTE, double x, double y, double z,
+        float ticks) {
+        if (arcaneWorkbenchTE.func_70301_a(10) != null && arcaneWorkbenchTE.func_70301_a(10)
+            .getItem() instanceof ItemWandCasting) {
             GL11.glPushMatrix();
 
-            ItemStack copyWand = arcaneWorkbenchTE.func_70301_a(10).copy();
+            ItemStack copyWand = arcaneWorkbenchTE.func_70301_a(10)
+                .copy();
             copyWand.stackSize = 1;
             ItemWandCasting wandItem = (ItemWandCasting) copyWand.getItem();
             EntityItem entItem = new EntityItem(arcaneWorkbenchTE.getWorldObj(), 0, 0, 0, copyWand);

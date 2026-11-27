@@ -1,17 +1,20 @@
 package com.gabid.ezaciancraft.api.aspects;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-///@api An API Layer used for creating lists of lists as a AspectList of a single type of aspect each one;
- /// also used get near "infinite" amount of essentia-aspect without troubles with byte overflow in one aspectlist for other aspects
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+
+/// @api An API Layer used for creating lists of lists as a AspectList of a single type of aspect each one;
+/// also used get near "infinite" amount of essentia-aspect without troubles with byte overflow in one aspectlist for
+/// other aspects
 public class ExtendedAspectList {
+
     public Map<Aspect, AspectList> aspects;
 
     public ExtendedAspectList() {
@@ -38,7 +41,8 @@ public class ExtendedAspectList {
     }
 
     public AspectList[] getAspectLists() {
-        return this.aspects.values().toArray(new AspectList[0]);
+        return this.aspects.values()
+            .toArray(new AspectList[0]);
     }
 
     public Aspect[] getAspects(Aspect asp) {
@@ -60,7 +64,8 @@ public class ExtendedAspectList {
 
         for (Map.Entry<Aspect, AspectList> entry : other.aspects.entrySet()) {
             Aspect asp = entry.getKey();
-            int amount = entry.getValue().getAmount(asp);
+            int amount = entry.getValue()
+                .getAmount(asp);
 
             this.addAspect(asp, amount);
         }
@@ -86,7 +91,8 @@ public class ExtendedAspectList {
 
         for (Map.Entry<Aspect, AspectList> entry : other.aspects.entrySet()) {
             Aspect asp = entry.getKey();
-            int amount = entry.getValue().getAmount(asp);
+            int amount = entry.getValue()
+                .getAmount(asp);
 
             this.removeAspect(asp, amount);
         }
@@ -103,12 +109,12 @@ public class ExtendedAspectList {
     public void writeToNBT(NBTTagCompound mainTag) {
         NBTTagList listTag = new NBTTagList();
 
-        for(AspectList ai : this.aspects.values()) {
-            if(ai != null && ai.size() > 0) {
+        for (AspectList ai : this.aspects.values()) {
+            if (ai != null && ai.size() > 0) {
                 Aspect asp = ai.getAspects()[0];
                 int amount = ai.getAmount(asp);
 
-                if(asp != null  && amount > 0) {
+                if (asp != null && amount > 0) {
                     NBTTagCompound aspectKey = new NBTTagCompound();
                     aspectKey.setString("key", asp.getTag());
                     aspectKey.setInteger("amount", ai.getAmount(asp));
@@ -121,7 +127,7 @@ public class ExtendedAspectList {
     }
 
     public void readFromNBT(NBTTagCompound tag) {
-        if(tag.hasKey("AspectLists")) {
+        if (tag.hasKey("AspectLists")) {
             this.aspects.clear();
 
             NBTTagList listTag = tag.getTagList("AspectLists", 10);

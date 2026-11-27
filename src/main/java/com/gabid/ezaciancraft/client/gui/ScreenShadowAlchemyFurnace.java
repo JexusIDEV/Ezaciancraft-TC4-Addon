@@ -1,33 +1,36 @@
 package com.gabid.ezaciancraft.client.gui;
 
-import com.gabid.ezaciancraft.api.EzacianCraftTranslations;
-import com.gabid.ezaciancraft.common.blocks.container.ContainerShadowAlchemyFurnace;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityShadowAlchemyFurnace;
-import com.gabid.ezaciancraft.lib.client.gui.EzacianGuiUtils;
-import com.gabid.ezaciancraft.lib.math.EzacianGuiContainerMathHelper;
-import com.gabid.ezaciancraft.lib.render.ColorHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.StatCollector;
-import org.lwjgl.opengl.GL11;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.client.lib.UtilsFX;
+import static com.gabid.ezaciancraft.CoreMod.MODID;
+import static com.gabid.ezaciancraft.lib.math.EzacianGuiContainerMathHelper.getScaledValue;
+import static java.lang.String.format;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.lib.math.EzacianGuiContainerMathHelper.getScaledValue;
-import static java.lang.String.format;
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_COLOR;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
+
+import com.gabid.ezaciancraft.api.EzacianCraftTranslations;
+import com.gabid.ezaciancraft.common.blocks.container.ContainerShadowAlchemyFurnace;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityShadowAlchemyFurnace;
+import com.gabid.ezaciancraft.lib.client.gui.EzacianGuiUtils;
+import com.gabid.ezaciancraft.lib.math.EzacianGuiContainerMathHelper;
+import com.gabid.ezaciancraft.lib.render.ColorHelper;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.client.lib.UtilsFX;
 
 @SideOnly(Side.CLIENT)
 public class ScreenShadowAlchemyFurnace extends GuiContainer {
+
     private static final String GUI_TEXTURE_PATH = "textures/gui/shadowAlchemyFurnace_gui.png";
     public final TileEntityShadowAlchemyFurnace furnaceTE;
     private final HashMap<String, String> visTooltip = new HashMap<>();
@@ -42,7 +45,12 @@ public class ScreenShadowAlchemyFurnace extends GuiContainer {
     @Override
     public void initGui() {
         super.initGui();
-        this.progressTooltip.add(format("Progress: %d%%", EzacianGuiContainerMathHelper.getPercentageValue(this.furnaceTE.getFurnaceCookTime(), this.furnaceTE.getMaxFurnaceCookTime()) * 100));
+        this.progressTooltip.add(
+            format(
+                "Progress: %d%%",
+                EzacianGuiContainerMathHelper
+                    .getPercentageValue(this.furnaceTE.getFurnaceCookTime(), this.furnaceTE.getMaxFurnaceCookTime())
+                    * 100));
     }
 
     @Override
@@ -69,17 +77,28 @@ public class ScreenShadowAlchemyFurnace extends GuiContainer {
     @Override
     public void drawScreen(int x, int y, float ticks) {
         super.drawScreen(x, y, ticks);
-        //vis storage
+        // vis storage
         if (EzacianGuiUtils.isInRect(63, 20, 8, 69, x - this.guiLeft, y - this.guiTop)) {
-            this.visTooltip.put("AmountVis", StatCollector.translateToLocal(EzacianCraftTranslations.shadowAlchemyFurnaceVisCapacityAmount) + this.furnaceTE.getEssentiaAmountVis() + " / " + this.furnaceTE.getEssentiaMaxVis() + " " + StatCollector.translateToLocal(EzacianCraftTranslations.visTranslation));
-            this.drawHoveringText(Collections.singletonList(this.visTooltip.get("AmountVis")), x, y, this.fontRendererObj);
+            this.visTooltip.put(
+                "AmountVis",
+                StatCollector.translateToLocal(EzacianCraftTranslations.shadowAlchemyFurnaceVisCapacityAmount)
+                    + this.furnaceTE.getEssentiaAmountVis()
+                    + " / "
+                    + this.furnaceTE.getEssentiaMaxVis()
+                    + " "
+                    + StatCollector.translateToLocal(EzacianCraftTranslations.visTranslation));
+            this.drawHoveringText(
+                Collections.singletonList(this.visTooltip.get("AmountVis")),
+                x,
+                y,
+                this.fontRendererObj);
         } else {
             this.visTooltip.remove("AmountVis");
         }
 
-        //burn time
+        // burn time
         int burn;
-        if(this.furnaceTE.getCentiVisHeat() > 0) {
+        if (this.furnaceTE.getCentiVisHeat() > 0) {
             burn = 100;
         } else {
             if (this.furnaceTE.getMaxFurnaceBurnTime() > 0) {
@@ -89,10 +108,13 @@ public class ScreenShadowAlchemyFurnace extends GuiContainer {
             }
         }
         if (EzacianGuiUtils.isInRect(82, 43, 20, 26, x - this.guiLeft, y - this.guiTop)) {
-            this.drawCreativeTabHoveringText(StatCollector.translateToLocal("gui.shadowAlchemyFurnace.burnProgress") + burn + "%", x, y);
+            this.drawCreativeTabHoveringText(
+                StatCollector.translateToLocal("gui.shadowAlchemyFurnace.burnProgress") + burn + "%",
+                x,
+                y);
         }
 
-        //progress cook bar
+        // progress cook bar
         int progress;
         if (this.furnaceTE.getMaxFurnaceCookTime() > 0) {
             progress = (this.furnaceTE.getFurnaceCookTime() * 100) / this.furnaceTE.getMaxFurnaceCookTime();
@@ -100,32 +122,56 @@ public class ScreenShadowAlchemyFurnace extends GuiContainer {
             progress = 0;
         }
         if (EzacianGuiUtils.isInRect(106, 30, 6, 49, x - this.guiLeft, y - this.guiTop)) {
-            this.drawCreativeTabHoveringText(StatCollector.translateToLocal("gui.shadowAlchemyFurnace.cookProgress") + progress + "%", x, y);
+            this.drawCreativeTabHoveringText(
+                StatCollector.translateToLocal("gui.shadowAlchemyFurnace.cookProgress") + progress + "%",
+                x,
+                y);
         }
 
-        //centivis
+        // centivis
         if (EzacianGuiUtils.isInRect(154, 28, 5, 51, x - this.guiLeft, y - this.guiTop)) {
             this.drawCreativeTabHoveringText(this.furnaceTE.getCentiVisHeat() + " " + Aspect.FIRE.getName(), x, y);
         }
         if (EzacianGuiUtils.isInRect(162, 28, 5, 51, x - this.guiLeft, y - this.guiTop)) {
-            this.drawCreativeTabHoveringText(this.furnaceTE.getCentiVisLiquidity() + " " + Aspect.WATER.getName(), x, y);
+            this.drawCreativeTabHoveringText(
+                this.furnaceTE.getCentiVisLiquidity() + " " + Aspect.WATER.getName(),
+                x,
+                y);
         }
         if (EzacianGuiUtils.isInRect(170, 28, 5, 51, x - this.guiLeft, y - this.guiTop)) {
-            this.drawCreativeTabHoveringText(this.furnaceTE.getCentiVisDestruction() + " " + Aspect.ENTROPY.getName(), x, y);
+            this.drawCreativeTabHoveringText(
+                this.furnaceTE.getCentiVisDestruction() + " " + Aspect.ENTROPY.getName(),
+                x,
+                y);
         }
     }
 
     private void renderVis() {
         int scaledVis = getScaledValue(this.furnaceTE.getEssentiaAmountVis(), this.furnaceTE.getEssentiaMaxVis(), 69);
-        this.drawTexturedModalRect(this.guiLeft + 63, this.guiTop + 20 + (69 - scaledVis), 205, 69 - scaledVis, 8, scaledVis);
+        this.drawTexturedModalRect(
+            this.guiLeft + 63,
+            this.guiTop + 20 + (69 - scaledVis),
+            205,
+            69 - scaledVis,
+            8,
+            scaledVis);
         this.drawTexturedModalRect(this.guiLeft + 62, this.guiTop + 15, 194, 0, 10, 79);
     }
 
     private void renderBurn() {
-        if(this.furnaceTE.getCentiVisHeat() <= 0) {
+        if (this.furnaceTE.getCentiVisHeat() <= 0) {
             if (this.furnaceTE.getMaxFurnaceBurnTime() > 0) {
-                int scaledBurn = getScaledValue(this.furnaceTE.getFurnaceBurnTime(), this.furnaceTE.getMaxFurnaceBurnTime(), 20);
-                this.drawTexturedModalRect(this.guiLeft + 84, this.guiTop + 46 + (20 - scaledBurn), 177, 20 - scaledBurn, 16, scaledBurn);
+                int scaledBurn = getScaledValue(
+                    this.furnaceTE.getFurnaceBurnTime(),
+                    this.furnaceTE.getMaxFurnaceBurnTime(),
+                    20);
+                this.drawTexturedModalRect(
+                    this.guiLeft + 84,
+                    this.guiTop + 46 + (20 - scaledBurn),
+                    177,
+                    20 - scaledBurn,
+                    16,
+                    scaledBurn);
             }
         } else {
             this.drawTexturedModalRect(this.guiLeft + 84, this.guiTop + 46, 177, 0, 16, 20);
@@ -133,8 +179,17 @@ public class ScreenShadowAlchemyFurnace extends GuiContainer {
     }
 
     private void renderProgress() {
-        int scaledProgress = getScaledValue(this.furnaceTE.getFurnaceCookTime(), this.furnaceTE.getMaxFurnaceCookTime(), 49);
-        this.drawTexturedModalRect(this.guiLeft + 106, this.guiTop + 30 + (49 - scaledProgress), 214, 49 - scaledProgress, 6, scaledProgress);
+        int scaledProgress = getScaledValue(
+            this.furnaceTE.getFurnaceCookTime(),
+            this.furnaceTE.getMaxFurnaceCookTime(),
+            49);
+        this.drawTexturedModalRect(
+            this.guiLeft + 106,
+            this.guiTop + 30 + (49 - scaledProgress),
+            214,
+            49 - scaledProgress,
+            6,
+            scaledProgress);
     }
 
     private void renderCentiVisHeat() {
@@ -144,7 +199,13 @@ public class ScreenShadowAlchemyFurnace extends GuiContainer {
         float g = ColorHelper.getGreenDecimalToHexFloat(colorExpect);
         float b = ColorHelper.getBlueDecimalToHexFloat(colorExpect);
         GL11.glColor3f(r, g, b);
-        this.drawTexturedModalRect(this.guiLeft + 154, this.guiTop + 31 + (45 - scaledVis), 227, 45 - scaledVis, 5, scaledVis);
+        this.drawTexturedModalRect(
+            this.guiLeft + 154,
+            this.guiTop + 31 + (45 - scaledVis),
+            227,
+            45 - scaledVis,
+            5,
+            scaledVis);
         GL11.glColor3f(1f, 1f, 1f);
         this.drawTexturedModalRect(this.guiLeft + 154, this.guiTop + 28, 221, 0, 5, 51);
     }
@@ -156,19 +217,34 @@ public class ScreenShadowAlchemyFurnace extends GuiContainer {
         float g = ColorHelper.getGreenDecimalToHexFloat(colorExpect);
         float b = ColorHelper.getBlueDecimalToHexFloat(colorExpect);
         GL11.glColor3f(r, g, b);
-        this.drawTexturedModalRect(this.guiLeft + 162, this.guiTop + 31 + (45 - scaledVis), 227, 45 - scaledVis, 5, scaledVis);
+        this.drawTexturedModalRect(
+            this.guiLeft + 162,
+            this.guiTop + 31 + (45 - scaledVis),
+            227,
+            45 - scaledVis,
+            5,
+            scaledVis);
         GL11.glColor3f(1f, 1f, 1f);
         this.drawTexturedModalRect(this.guiLeft + 162, this.guiTop + 28, 221, 0, 5, 51);
     }
 
     private void renderCentiVisDestroy() {
-        int scaledVis = getScaledValue(this.furnaceTE.getCentiVisDestruction(), this.furnaceTE.getMaxCentivisUnit(), 45);
+        int scaledVis = getScaledValue(
+            this.furnaceTE.getCentiVisDestruction(),
+            this.furnaceTE.getMaxCentivisUnit(),
+            45);
         int colorExpect = Aspect.ENTROPY.getColor();
         float r = ColorHelper.getRedDecimalToHexFloat(colorExpect);
         float g = ColorHelper.getGreenDecimalToHexFloat(colorExpect);
         float b = ColorHelper.getBlueDecimalToHexFloat(colorExpect);
         GL11.glColor3f(r, g, b);
-        this.drawTexturedModalRect(this.guiLeft + 170, this.guiTop + 31 + (45 - scaledVis), 227, 45 - scaledVis, 5, scaledVis);
+        this.drawTexturedModalRect(
+            this.guiLeft + 170,
+            this.guiTop + 31 + (45 - scaledVis),
+            227,
+            45 - scaledVis,
+            5,
+            scaledVis);
         GL11.glColor3f(1f, 1f, 1f);
         this.drawTexturedModalRect(this.guiLeft + 170, this.guiTop + 28, 221, 0, 5, 51);
     }

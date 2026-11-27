@@ -1,10 +1,12 @@
 package com.gabid.ezaciancraft.api.common.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import static com.gabid.ezaciancraft.CoreMod.MODID;
+
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,12 +18,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import static com.gabid.ezaciancraft.CoreMod.MODID;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EzacianCustomBlockCrop extends BlockCrops {
+
     public final String cropName;
     protected final Item cropSeedItem;
     protected final Item cropResult;
@@ -30,7 +31,8 @@ public class EzacianCustomBlockCrop extends BlockCrops {
     public int lightRequiredToGrow;
     public int renderTypeId;
 
-    public EzacianCustomBlockCrop(String _cropName, int _stages, Item _cropSeedItem, Item _cropResult, int _lightRequiredToGrow, int _renderTypeId) {
+    public EzacianCustomBlockCrop(String _cropName, int _stages, Item _cropSeedItem, Item _cropResult,
+        int _lightRequiredToGrow, int _renderTypeId) {
         super();
         this.setStepSound(EzacianCustomBlockCrop.soundTypeGrass);
         this.cropName = _cropName;
@@ -89,10 +91,12 @@ public class EzacianCustomBlockCrop extends BlockCrops {
             for (int i1 = y - 1; i1 <= y + 1; ++i1) {
                 float f1 = 0.0F;
 
-                if (world.getBlock(l, y - 1, i1).canSustainPlant(world, l, y - 1, i1, ForgeDirection.UP, this)) {
+                if (world.getBlock(l, y - 1, i1)
+                    .canSustainPlant(world, l, y - 1, i1, ForgeDirection.UP, this)) {
                     f1 = 1.0F;
 
-                    if (world.getBlock(l, y - 1, i1).isFertile(world, l, y - 1, i1)) {
+                    if (world.getBlock(l, y - 1, i1)
+                        .isFertile(world, l, y - 1, i1)) {
                         f1 = 3.0F;
                     }
                 }
@@ -109,13 +113,13 @@ public class EzacianCustomBlockCrop extends BlockCrops {
         return f;
     }
 
-    //seeds
+    // seeds
     @Override
     protected Item func_149866_i() {
         return this.cropSeedItem;
     }
 
-    //crop developed item
+    // crop developed item
     @Override
     protected Item func_149865_P() {
         return this.cropResult;
@@ -144,7 +148,8 @@ public class EzacianCustomBlockCrop extends BlockCrops {
         this.plantStagesIcons = new IIcon[this.stages];
 
         for (int i = 0; i < this.plantStagesIcons.length; ++i) {
-            this.plantStagesIcons[i] = register.registerIcon(new ResourceLocation(MODID, this.cropName + "_stage_" + i).toString());
+            this.plantStagesIcons[i] = register
+                .registerIcon(new ResourceLocation(MODID, this.cropName + "_stage_" + i).toString());
         }
     }
 
@@ -157,7 +162,7 @@ public class EzacianCustomBlockCrop extends BlockCrops {
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
         ArrayList<ItemStack> ret = super.getDrops(world, x, y, z, metadata, fortune);
 
-        if(this.cropResult != null || this.cropSeedItem != null) {
+        if (this.cropResult != null || this.cropSeedItem != null) {
             if (metadata >= this.stages - 1) {
                 for (int i = 0; i < 3 + fortune; ++i) {
                     if (world.rand.nextInt(15) <= metadata) {
@@ -169,33 +174,32 @@ public class EzacianCustomBlockCrop extends BlockCrops {
         return ret;
     }
 
-    //fertilize, the BlockCrops method
+    // fertilize, the BlockCrops method
     @Override
     public void func_149863_m(World world, int x, int y, int z) {
         int l = world.getBlockMetadata(x, y, z) + MathHelper.getRandomIntegerInRange(world.rand, 2, 5);
 
-        if (l > this.stages-1)
-        {
-            l = this.stages-1;
+        if (l > this.stages - 1) {
+            l = this.stages - 1;
         }
 
         world.setBlockMetadataWithNotify(x, y, z, l, 3);
     }
 
-    //can fertilize
+    // can fertilize
     @Override
     public boolean func_149851_a(World world, int x, int y, int z, boolean flag) {
         int meta = world.getBlockMetadata(x, y, z);
-        return meta < this.stages-1;
+        return meta < this.stages - 1;
     }
 
-    //should fertilize
+    // should fertilize
     @Override
     public boolean func_149852_a(World world, Random rand, int x, int y, int z) {
         return super.func_149852_a(world, rand, x, y, z);
     }
 
-    //fertilize, the IGrowable method
+    // fertilize, the IGrowable method
     @Override
     public void func_149853_b(World world, Random rand, int x, int y, int z) {
         super.func_149853_b(world, rand, x, y, z);

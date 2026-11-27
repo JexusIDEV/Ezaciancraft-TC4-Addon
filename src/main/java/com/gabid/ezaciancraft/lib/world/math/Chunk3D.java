@@ -5,9 +5,10 @@ import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 
-//more apizzz
-//https://github.com/mekanism/Mekanism/blob/1.7.10/src/main/java/mekanism/api/Chunk3D.java
+// more apizzz
+// https://github.com/mekanism/Mekanism/blob/1.7.10/src/main/java/mekanism/api/Chunk3D.java
 public class Chunk3D {
+
     public int dimensionId;
 
     public int xCoord;
@@ -58,7 +59,8 @@ public class Chunk3D {
      * @return if the chunk exists
      */
     public boolean exists(World world) {
-        return world.getChunkProvider().chunkExists(xCoord, zCoord);
+        return world.getChunkProvider()
+            .chunkExists(xCoord, zCoord);
     }
 
     /**
@@ -92,10 +94,9 @@ public class Chunk3D {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Chunk3D &&
-                ((Chunk3D) obj).xCoord == xCoord &&
-                ((Chunk3D) obj).zCoord == zCoord &&
-                ((Chunk3D) obj).dimensionId == dimensionId;
+        return obj instanceof Chunk3D && ((Chunk3D) obj).xCoord == xCoord
+            && ((Chunk3D) obj).zCoord == zCoord
+            && ((Chunk3D) obj).dimensionId == dimensionId;
     }
 
     @Override

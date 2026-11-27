@@ -1,25 +1,25 @@
 package com.gabid.ezaciancraft.common.blocks.tileentity;
 
-import com.gabid.ezaciancraft.api.essentia.EzacianEssentiaWirelessHandler;
+import static com.gabid.ezaciancraft.config.EzacianCraftConfiguration.wirelessOutputInterfaceWorkRadius;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.scoreboard.Score;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import com.gabid.ezaciancraft.api.essentia.EzacianEssentiaWirelessHandler;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
 import thaumcraft.api.aspects.IEssentiaTransport;
-import thaumcraft.common.tiles.TileMirrorEssentia;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.gabid.ezaciancraft.CoreMod.LOG;
-import static com.gabid.ezaciancraft.config.EzacianCraftConfiguration.wirelessOutputInterfaceWorkRadius;
-
-public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft implements IEssentiaTransport, IAspectContainer {
+public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft
+    implements IEssentiaTransport, IAspectContainer {
 
     public int metaFacing = 3;
     public ForgeDirection facing = ForgeDirection.NORTH;
@@ -44,11 +44,9 @@ public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft im
     public void writeCustomNBT(NBTTagCompound nbttagcompound) {
         nbttagcompound.setInteger("storedVis", this.storedAmount);
 
-        if (this.storedAspect != null)
-            nbttagcompound.setString("storedAspect", this.storedAspect.getTag());
+        if (this.storedAspect != null) nbttagcompound.setString("storedAspect", this.storedAspect.getTag());
 
-        if (this.essentiaList != null)
-            this.essentiaList.writeToNBT(nbttagcompound);
+        if (this.essentiaList != null) this.essentiaList.writeToNBT(nbttagcompound);
 
         nbttagcompound.setInteger("facing", this.facing.ordinal());
         nbttagcompound.setInteger("meta", this.blockMetadata);
@@ -92,8 +90,9 @@ public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft im
 
     @Override
     public Aspect getSuctionType(ForgeDirection forgeDirection) {
-        TileEntity pipeToFind = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing);
-        if(pipeToFind instanceof IEssentiaTransport) {
+        TileEntity pipeToFind = ThaumcraftApiHelper
+            .getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing);
+        if (pipeToFind instanceof IEssentiaTransport) {
             return ((IEssentiaTransport) pipeToFind).getSuctionType(this.facing.getOpposite());
         }
         return null;
@@ -140,10 +139,18 @@ public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft im
         this.hasRedstone = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
         if (!this.worldObj.isRemote && this.ticks++ % 5 == 0) {
             this.fillInterface();
-            if (((this.storedAspect != null && this.essentiaList.visSize() > 0) || this.storedAmount > 0) && !this.hasRedstone) {
-                this.essentiaSources = EzacianEssentiaWirelessHandler.getNearestEssentiaHandler(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing.getOpposite(), wirelessOutputInterfaceWorkRadius);
-                if(!this.essentiaSources.isEmpty()) {
-                    EzacianEssentiaWirelessHandler.fillEssentiaWireless(this, this.worldObj, this.essentiaSources, this.facing, 1);
+            if (((this.storedAspect != null && this.essentiaList.visSize() > 0) || this.storedAmount > 0)
+                && !this.hasRedstone) {
+                this.essentiaSources = EzacianEssentiaWirelessHandler.getNearestEssentiaHandler(
+                    this.worldObj,
+                    this.xCoord,
+                    this.yCoord,
+                    this.zCoord,
+                    this.facing.getOpposite(),
+                    wirelessOutputInterfaceWorkRadius);
+                if (!this.essentiaSources.isEmpty()) {
+                    EzacianEssentiaWirelessHandler
+                        .fillEssentiaWireless(this, this.worldObj, this.essentiaSources, this.facing, 1);
                 }
             }
         }
@@ -179,7 +186,8 @@ public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft im
                 this.storedAmount += added;
                 amount -= added;
             }
-            this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+            this.getWorldObj()
+                .markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             this.markDirty();
         }
         return amount;
@@ -194,7 +202,8 @@ public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft im
                 this.storedAspect = null;
                 this.storedAmount = 0;
             }
-            this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+            this.getWorldObj()
+                .markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             this.markDirty();
             return true;
         } else {
@@ -234,17 +243,20 @@ public class TileEntityWirelessEssentiaInterfaceOutput extends TileThaumcraft im
         TileEntity tubeTE;
         IEssentiaTransport iETube;
 
-        tubeTE = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing);
-        if(tubeTE instanceof IEssentiaTransport) {
+        tubeTE = ThaumcraftApiHelper
+            .getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing);
+        if (tubeTE instanceof IEssentiaTransport) {
             iETube = (IEssentiaTransport) tubeTE;
-            if(iETube.getEssentiaAmount(this.facing.getOpposite()) > 0 && iETube.getSuctionAmount(this.facing.getOpposite()) < this.getSuctionAmount(this.facing) && this.getSuctionAmount(this.facing) >= iETube.getMinimumSuction()) {
+            if (iETube.getEssentiaAmount(this.facing.getOpposite()) > 0
+                && iETube.getSuctionAmount(this.facing.getOpposite()) < this.getSuctionAmount(this.facing)
+                && this.getSuctionAmount(this.facing) >= iETube.getMinimumSuction()) {
                 Aspect aspect;
                 if (this.storedAspect != null && this.storedAmount > 0) {
                     aspect = this.storedAspect;
                 } else {
                     aspect = iETube.getEssentiaType(this.facing.getOpposite());
                 }
-                if(this.getStoredAmount() < this.getMaxAmount()) {
+                if (this.getStoredAmount() < this.getMaxAmount()) {
                     this.addToContainer(aspect, iETube.takeEssentia(aspect, 1, this.facing.getOpposite()));
                 }
             }

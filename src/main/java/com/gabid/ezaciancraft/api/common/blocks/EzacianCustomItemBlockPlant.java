@@ -1,7 +1,5 @@
 package com.gabid.ezaciancraft.api.common.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -9,7 +7,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class EzacianCustomItemBlockPlant extends ItemBlock {
+
     protected final EzacianCustomBlockPlant plant;
 
     public EzacianCustomItemBlockPlant(Block _plant) {
@@ -41,13 +43,13 @@ public class EzacianCustomItemBlockPlant extends ItemBlock {
     }
 
     @Override
-    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
+    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+        float hitX, float hitY, float hitZ, int metadata) {
         boolean placed = super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata);
         if (placed) {
             try {
                 world.setBlockMetadataWithNotify(x, y, z, this.getDamage(stack), side);
-            } catch (Exception var14) {
-            }
+            } catch (Exception var14) {}
         }
         return placed;
     }

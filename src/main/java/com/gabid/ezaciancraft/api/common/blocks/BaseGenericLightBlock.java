@@ -5,9 +5,11 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.world.IBlockAccess;
 
 public class BaseGenericLightBlock extends BaseGenericBlock {
+
     protected int lightPotency;
 
-    public BaseGenericLightBlock(Material material, String _unlocName, float blockHardness, float explosionResistance, SoundType sound, CreativeTabs tab,int _lightPotency) {
+    public BaseGenericLightBlock(Material material, String _unlocName, float blockHardness, float explosionResistance,
+        SoundType sound, CreativeTabs tab, int _lightPotency) {
         super(material, _unlocName, blockHardness, explosionResistance, sound, tab);
         this.lightPotency = _lightPotency;
     }

@@ -1,19 +1,25 @@
 package com.gabid.ezaciancraft.common.blocks.tileentity;
 
-import com.gabid.ezaciancraft.api.essentia.EzacianEssentiaWirelessHandler;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.util.ForgeDirection;
-import thaumcraft.api.ThaumcraftApiHelper;
-import thaumcraft.api.TileThaumcraft;
-import thaumcraft.api.aspects.*;
+import static com.gabid.ezaciancraft.config.EzacianCraftConfiguration.wirelessInputInterfaceWorkRadius;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.gabid.ezaciancraft.config.EzacianCraftConfiguration.wirelessInputInterfaceWorkRadius;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileEntityWirelessEssentiaInterfaceInput extends TileThaumcraft implements IEssentiaTransport, IAspectContainer {
+import com.gabid.ezaciancraft.api.essentia.EzacianEssentiaWirelessHandler;
+
+import thaumcraft.api.ThaumcraftApiHelper;
+import thaumcraft.api.TileThaumcraft;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.aspects.IAspectContainer;
+import thaumcraft.api.aspects.IEssentiaTransport;
+
+public class TileEntityWirelessEssentiaInterfaceInput extends TileThaumcraft
+    implements IEssentiaTransport, IAspectContainer {
 
     public int metaFacing = 3;
     public ForgeDirection facing = ForgeDirection.NORTH;
@@ -28,13 +34,11 @@ public class TileEntityWirelessEssentiaInterfaceInput extends TileThaumcraft imp
 
     protected long ticks;
 
-    public TileEntityWirelessEssentiaInterfaceInput() {
-    }
+    public TileEntityWirelessEssentiaInterfaceInput() {}
 
     @Override
     public void writeCustomNBT(NBTTagCompound nbttagcompound) {
-        if (this.essentiaList != null)
-            this.essentiaList.writeToNBT(nbttagcompound);
+        if (this.essentiaList != null) this.essentiaList.writeToNBT(nbttagcompound);
         nbttagcompound.setInteger("currentStoredVis", this.currentStoredVis);
 
         nbttagcompound.setInteger("facing", this.facing.ordinal());
@@ -77,8 +81,9 @@ public class TileEntityWirelessEssentiaInterfaceInput extends TileThaumcraft imp
 
     @Override
     public Aspect getSuctionType(ForgeDirection forgeDirection) {
-        TileEntity pipeToFind = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing);
-        if(pipeToFind instanceof IEssentiaTransport) {
+        TileEntity pipeToFind = ThaumcraftApiHelper
+            .getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing);
+        if (pipeToFind instanceof IEssentiaTransport) {
             return ((IEssentiaTransport) pipeToFind).getSuctionType(this.facing.getOpposite());
         }
         return null;
@@ -86,7 +91,10 @@ public class TileEntityWirelessEssentiaInterfaceInput extends TileThaumcraft imp
 
     @Override
     public Aspect getEssentiaType(ForgeDirection forgeDirection) {
-        return this.essentiaList.size() > 0 ? this.essentiaList.getAspects()[this.worldObj.rand.nextInt(this.essentiaList.getAspects().length)] : null;    }
+        return this.essentiaList.size() > 0
+            ? this.essentiaList.getAspects()[this.worldObj.rand.nextInt(this.essentiaList.getAspects().length)]
+            : null;
+    }
 
     @Override
     public int getEssentiaAmount(ForgeDirection forgeDirection) {
@@ -110,8 +118,9 @@ public class TileEntityWirelessEssentiaInterfaceInput extends TileThaumcraft imp
 
     @Override
     public int getSuctionAmount(ForgeDirection forgeDirection) {
-        TileEntity pipeToFind = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing);
-        if(pipeToFind instanceof IEssentiaTransport) {
+        TileEntity pipeToFind = ThaumcraftApiHelper
+            .getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing);
+        if (pipeToFind instanceof IEssentiaTransport) {
             return ((IEssentiaTransport) pipeToFind).getSuctionAmount(forgeDirection) - 1;
         }
         return 1;
@@ -126,10 +135,18 @@ public class TileEntityWirelessEssentiaInterfaceInput extends TileThaumcraft imp
     public void updateEntity() {
         super.updateEntity();
         this.hasRedstone = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
-        if(!this.worldObj.isRemote && this.ticks++ % 5 == 0) {
-            if ((this.essentiaList.visSize() >= 0 || this.currentStoredVis < this.maxCapacityEssentiaVis) && !this.hasRedstone) {
-                this.essentiaSources = EzacianEssentiaWirelessHandler.getNearestEssentiaHandler(this.worldObj, this.xCoord, this.yCoord, this.zCoord, this.facing.getOpposite(), wirelessInputInterfaceWorkRadius);
-                EzacianEssentiaWirelessHandler.drainEssentiaWireless(this, this.worldObj, this.essentiaSources, this.facing, 1);
+        if (!this.worldObj.isRemote && this.ticks++ % 5 == 0) {
+            if ((this.essentiaList.visSize() >= 0 || this.currentStoredVis < this.maxCapacityEssentiaVis)
+                && !this.hasRedstone) {
+                this.essentiaSources = EzacianEssentiaWirelessHandler.getNearestEssentiaHandler(
+                    this.worldObj,
+                    this.xCoord,
+                    this.yCoord,
+                    this.zCoord,
+                    this.facing.getOpposite(),
+                    wirelessInputInterfaceWorkRadius);
+                EzacianEssentiaWirelessHandler
+                    .drainEssentiaWireless(this, this.worldObj, this.essentiaSources, this.facing, 1);
             }
         }
     }
@@ -158,7 +175,8 @@ public class TileEntityWirelessEssentiaInterfaceInput extends TileThaumcraft imp
                 this.currentStoredVis += added;
                 amount -= added;
             }
-            this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+            this.getWorldObj()
+                .markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             this.markDirty();
         }
         return amount;

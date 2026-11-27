@@ -1,5 +1,11 @@
 package com.gabid.ezaciancraft.common.items.debug;
 
+import static com.gabid.ezaciancraft.CoreMod.MODID;
+import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
+
+import java.util.Collection;
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -8,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
 import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchCategoryList;
 import thaumcraft.api.research.ResearchItem;
@@ -16,13 +23,7 @@ import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketSyncResearch;
 import thaumcraft.common.lib.research.ResearchManager;
 
-import java.util.Collection;
-import java.util.List;
-
-import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
-
-///@api Item Used for creative players, which helps to get cheat commands for various utilities
+/// @api Item Used for creative players, which helps to get cheat commands for various utilities
 public class ItemDebugger extends Item {
 
     public ItemDebugger() {
@@ -69,7 +70,8 @@ public class ItemDebugger extends Item {
                         Collection<ResearchItem> rl = _cat.research.values();
                         for (ResearchItem ri : rl) {
                             if (!ResearchManager.isResearchComplete(player.getDisplayName(), ri.key)) {
-                                Thaumcraft.proxy.getResearchManager().completeResearch(player, ri.key);
+                                Thaumcraft.proxy.getResearchManager()
+                                    .completeResearch(player, ri.key);
                             }
                         }
                     }
@@ -91,8 +93,10 @@ public class ItemDebugger extends Item {
                         Collection<ResearchItem> rl = _cat.research.values();
                         for (ResearchItem ri : rl) {
                             if (!ResearchManager.isResearchComplete(player.getDisplayName(), ri.key)) {
-                                if(ri.key.equals("RESEARCHER1") || ri.key.equals("RESEARCHER2") || ri.key.equals("RESEARCHDUPE")) {
-                                    Thaumcraft.proxy.getResearchManager().completeResearch(player, ri.key);
+                                if (ri.key.equals("RESEARCHER1") || ri.key.equals("RESEARCHER2")
+                                    || ri.key.equals("RESEARCHDUPE")) {
+                                    Thaumcraft.proxy.getResearchManager()
+                                        .completeResearch(player, ri.key);
                                 }
                             }
                         }

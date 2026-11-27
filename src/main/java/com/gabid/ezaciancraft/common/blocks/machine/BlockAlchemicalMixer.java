@@ -1,8 +1,9 @@
 package com.gabid.ezaciancraft.common.blocks.machine;
 
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAlchemicalMixer;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ALCHEMICAL_MIXER;
+import static com.gabid.ezaciancraft.registry.EzacianCraftTypeRenders.ALCHEMICAL_MIXER_RENDER_ID;
+import static thaumcraft.common.Thaumcraft.MODID;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -17,9 +18,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ALCHEMICAL_MIXER;
-import static com.gabid.ezaciancraft.registry.EzacianCraftTypeRenders.ALCHEMICAL_MIXER_RENDER_ID;
-import static thaumcraft.common.Thaumcraft.MODID;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAlchemicalMixer;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockAlchemicalMixer extends BlockContainer {
 
@@ -61,7 +63,8 @@ public class BlockAlchemicalMixer extends BlockContainer {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_, int p_149646_5_) {
+    public boolean shouldSideBeRendered(IBlockAccess p_149646_1_, int p_149646_2_, int p_149646_3_, int p_149646_4_,
+        int p_149646_5_) {
         return true;
     }
 
@@ -73,9 +76,9 @@ public class BlockAlchemicalMixer extends BlockContainer {
     @Override
     public int getComparatorInputOverride(World level, int x, int y, int z, int side) {
         TileEntity te = level.getTileEntity(x, y, z);
-        if (te instanceof TileEntityAlchemicalMixer) {
-            TileEntityAlchemicalMixer alchemicalTE = (TileEntityAlchemicalMixer) te;
-            int stored = alchemicalTE.getAspects().size();
+        if (te instanceof TileEntityAlchemicalMixer alchemicalTE) {
+            int stored = alchemicalTE.getAspects()
+                .size();
             if (stored > 0) {
                 return stored * 5;
             } else {
@@ -118,16 +121,18 @@ public class BlockAlchemicalMixer extends BlockContainer {
         }
     }
 
-    //magic numbers? nahhhhh
+    // magic numbers? nahhhhh
 
     @Override
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World p_149633_1_, int p_149633_2_, int p_149633_3_, int p_149633_4_) {
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World p_149633_1_, int p_149633_2_, int p_149633_3_,
+        int p_149633_4_) {
         this.setBlockBounds(0.185f, 0.125f, 0.185f, 0.815f, 0.875f, 0.815f);
         return super.getSelectedBoundingBoxFromPool(p_149633_1_, p_149633_2_, p_149633_3_, p_149633_4_);
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_) {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_,
+        int p_149668_4_) {
         this.setBlockBounds(0.185f, 0.125f, 0.185f, 0.815f, 0.875f, 0.815f);
         return super.getCollisionBoundingBoxFromPool(p_149668_1_, p_149668_2_, p_149668_3_, p_149668_4_);
     }

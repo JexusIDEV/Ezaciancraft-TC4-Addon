@@ -1,12 +1,14 @@
 package com.gabid.ezaciancraft.client.renderer.items.blocks;
 
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAlchemicalMixer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
 
-//this is really for itemBlock...
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAlchemicalMixer;
+
+// this is really for itemBlock...
 public class AlchemicalMixerBlockRender implements IItemRenderer {
 
     public AlchemicalMixerBlockRender() {

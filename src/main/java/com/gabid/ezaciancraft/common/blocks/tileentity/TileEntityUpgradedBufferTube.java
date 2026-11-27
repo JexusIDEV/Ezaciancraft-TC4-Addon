@@ -1,9 +1,10 @@
 package com.gabid.ezaciancraft.common.blocks.tileentity;
 
-import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import lombok.Getter;
+import lombok.Setter;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.IEssentiaTransport;
@@ -12,6 +13,7 @@ import thaumcraft.common.tiles.TileTubeBuffer;
 @Setter
 @Getter
 public class TileEntityUpgradedBufferTube extends TileTubeBuffer {
+
     public int maxAmount = 32;
     protected int ticks;
 
@@ -54,7 +56,9 @@ public class TileEntityUpgradedBufferTube extends TileTubeBuffer {
             te = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, dir);
             if (te != null) {
                 transport = (IEssentiaTransport) te;
-                if (transport.getEssentiaAmount(dir.getOpposite()) > 0 && transport.getSuctionAmount(dir.getOpposite()) < this.getSuctionAmount(dir) && this.getSuctionAmount(dir) >= transport.getMinimumSuction()) {
+                if (transport.getEssentiaAmount(dir.getOpposite()) > 0
+                    && transport.getSuctionAmount(dir.getOpposite()) < this.getSuctionAmount(dir)
+                    && this.getSuctionAmount(dir) >= transport.getMinimumSuction()) {
                     Aspect ta = transport.getEssentiaType(dir.getOpposite());
                     this.addToContainer(ta, transport.takeEssentia(ta, 1, dir.getOpposite()));
                     return;

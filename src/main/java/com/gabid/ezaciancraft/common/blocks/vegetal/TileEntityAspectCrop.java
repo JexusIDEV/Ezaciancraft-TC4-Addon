@@ -1,17 +1,15 @@
 package com.gabid.ezaciancraft.common.blocks.vegetal;
 
+import java.util.Random;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
 import thaumcraft.api.TileThaumcraft;
-import thaumcraft.api.WorldCoordinates;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
-
-import java.util.Random;
-
-import static com.gabid.ezaciancraft.common.blocks.vegetal.BlockAspectCrop.aspectCoordsData;
 
 public class TileEntityAspectCrop extends TileThaumcraft implements IAspectContainer {
 
@@ -25,8 +23,7 @@ public class TileEntityAspectCrop extends TileThaumcraft implements IAspectConta
     @Override
     public void writeCustomNBT(NBTTagCompound nbttagcompound) {
         super.writeCustomNBT(nbttagcompound);
-        if(this.mainAspect != null)
-            nbttagcompound.setString("aspect", this.mainAspect.getTag());
+        if (this.mainAspect != null) nbttagcompound.setString("aspect", this.mainAspect.getTag());
         nbttagcompound.setInteger("amount", this.aspectAmount);
     }
 
@@ -52,17 +49,22 @@ public class TileEntityAspectCrop extends TileThaumcraft implements IAspectConta
     }
 
     public void setCropAspect(Aspect aspect) {
-        if(!this.worldObj.isRemote) {
+        if (!this.worldObj.isRemote) {
             this.mainAspect = aspect;
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             this.markDirty();
-            this.worldObj.markBlockRangeForRenderUpdate(this.xCoord, this.yCoord, this.zCoord, this.xCoord, this.yCoord, this.zCoord);
+            this.worldObj.markBlockRangeForRenderUpdate(
+                this.xCoord,
+                this.yCoord,
+                this.zCoord,
+                this.xCoord,
+                this.yCoord,
+                this.zCoord);
         }
     }
 
     @Override
-    public void setAspects(AspectList aspectList) {
-    }
+    public void setAspects(AspectList aspectList) {}
 
     @Override
     public boolean doesContainerAccept(Aspect aspect) {
@@ -107,13 +109,19 @@ public class TileEntityAspectCrop extends TileThaumcraft implements IAspectConta
     }
 
     public void addAspect(int amt) {
-        if(this.worldObj.isRemote) return;
-        if(this.mainAspect == null) return;
-        if(this.aspectAmount + amt > 8) return;
+        if (this.worldObj.isRemote) return;
+        if (this.mainAspect == null) return;
+        if (this.aspectAmount + amt > 8) return;
         this.aspectAmount += amt;
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         this.markDirty();
-        this.worldObj.markBlockRangeForRenderUpdate(this.xCoord, this.yCoord, this.zCoord, this.xCoord, this.yCoord, this.zCoord);
+        this.worldObj.markBlockRangeForRenderUpdate(
+            this.xCoord,
+            this.yCoord,
+            this.zCoord,
+            this.xCoord,
+            this.yCoord,
+            this.zCoord);
     }
 
     public Aspect getMainAspect() {
@@ -130,15 +138,21 @@ public class TileEntityAspectCrop extends TileThaumcraft implements IAspectConta
 
     public void onGrow(int meta, int stages, int x, int y, int z, World world, Random rand) {
         int grows = MathHelper.getRandomIntegerInRange(rand, 1, 3);
-        if(meta < stages-1) {
+        if (meta < stages - 1) {
             meta += grows;
             world.setBlockMetadataWithNotify(x, y, z, meta, 2);
             this.markDirty();
             world.markBlockRangeForRenderUpdate(x, y, z, x, y, z);
         } else {
-            world.setBlockMetadataWithNotify(x, y, z, meta, stages-1);
+            world.setBlockMetadataWithNotify(x, y, z, meta, stages - 1);
             this.markDirty();
-            world.markBlockRangeForRenderUpdate(this.xCoord, this.yCoord, this.zCoord, this.xCoord, this.yCoord, this.zCoord);
+            world.markBlockRangeForRenderUpdate(
+                this.xCoord,
+                this.yCoord,
+                this.zCoord,
+                this.xCoord,
+                this.yCoord,
+                this.zCoord);
         }
     }
 }

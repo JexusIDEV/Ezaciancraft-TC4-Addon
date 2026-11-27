@@ -1,16 +1,19 @@
 package com.gabid.ezaciancraft.common.network;
 
+import static com.gabid.ezaciancraft.CoreMod.MODID;
+
+import net.minecraft.entity.player.EntityPlayerMP;
+
 import com.gabid.ezaciancraft.common.network.client.PacketUpdateEzacianModeTool;
 import com.gabid.ezaciancraft.common.network.client.PacketUpdateEzacianPrimalModeTool;
+
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayerMP;
-
-import static com.gabid.ezaciancraft.CoreMod.MODID;
 
 public class EzacianNetworkHandler {
+
     private static SimpleNetworkWrapper INSTANCE;
     private static int id = 0;
 

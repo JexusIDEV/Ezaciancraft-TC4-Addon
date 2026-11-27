@@ -1,8 +1,8 @@
 package com.gabid.ezaciancraft.api;
 
-
 public class EzacianCraftTranslations {
-    //generic Ezacian Tools
+
+    // generic Ezacian Tools
     public static final String ezacianToolModeTranslation = "desc.ezacianTool.mode";
 
     public static final String ezacianToolModeSingleTranslation = "desc.ezacianTool.mode.0";
@@ -10,7 +10,7 @@ public class EzacianCraftTranslations {
     public static final String ezacianToolModeColumnTranslation = "desc.ezacianTool.mode.2";
     public static final String ezacianToolModeTreeTranslation = "desc.ezacianTool.mode.3";
 
-    //primal Ezacian Reconstructor
+    // primal Ezacian Reconstructor
     public static final String ezacianPrimalToolBehaviourTranslation = "desc.primalEzacianTool.behaviour";
     public static final String ezacianPrimalToolSubModeTranslation = "desc.primalEzacianTool.subMode";
     public static final String ezacianPrimalToolAOETranslation = "desc.primalEzacianTool.aoe";
@@ -24,10 +24,10 @@ public class EzacianCraftTranslations {
     public static final String ezacianPrimalToolSubModeAreaTranslation = "desc.primalEzacianTool.subMode.0";
     public static final String ezacianPrimalToolSubModeVeinTranslation = "desc.primalEzacianTool.subMode.1";
 
-    //gui
+    // gui
     public static final String shadowAlchemyFurnaceVisCapacityAmount = "gui.shadowAlchemyFurnace.visCapacity";
 
-    //other
+    // other
     public static final String visTranslation = "baseText.vis";
 
 }

@@ -1,9 +1,11 @@
 package com.gabid.ezaciancraft.api.common.blocks.tileentity;
 
-import com.gabid.ezaciancraft.lib.math.EzacianMathHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import com.gabid.ezaciancraft.lib.math.EzacianMathHelper;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -11,6 +13,7 @@ import thaumcraft.api.aspects.IAspectSource;
 import thaumcraft.api.aspects.IEssentiaTransport;
 
 public class EzacianCustomJarFillableTE extends EzacianCustomJarBaseTE implements IAspectSource, IEssentiaTransport {
+
     public Aspect aspect;
     public Aspect aspectFilter;
     public int amount;
@@ -83,8 +86,7 @@ public class EzacianCustomJarFillableTE extends EzacianCustomJarBaseTE implement
     }
 
     @Override
-    public void setAspects(AspectList aspects) {
-    }
+    public void setAspects(AspectList aspects) {}
 
     @Override
     public int addToContainer(Aspect tt, int am) {
@@ -95,7 +97,8 @@ public class EzacianCustomJarFillableTE extends EzacianCustomJarBaseTE implement
                 this.amount += added;
                 am -= added;
             }
-            this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+            this.getWorldObj()
+                .markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             this.markDirty();
         }
         return am;
@@ -109,7 +112,8 @@ public class EzacianCustomJarFillableTE extends EzacianCustomJarBaseTE implement
                 this.aspect = null;
                 this.amount = 0;
             }
-            this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+            this.getWorldObj()
+                .markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             this.markDirty();
             return true;
         } else {
@@ -166,8 +170,7 @@ public class EzacianCustomJarFillableTE extends EzacianCustomJarBaseTE implement
     }
 
     @Override
-    public void setSuction(Aspect aspect, int amount) {
-    }
+    public void setSuction(Aspect aspect, int amount) {}
 
     @Override
     public boolean renderExtendedTube() {
@@ -209,7 +212,8 @@ public class EzacianCustomJarFillableTE extends EzacianCustomJarBaseTE implement
     }
 
     protected void fillJar() {
-        TileEntity te = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.UP);
+        TileEntity te = ThaumcraftApiHelper
+            .getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.UP);
         if (te != null) {
             IEssentiaTransport ic = (IEssentiaTransport) te;
             if (!ic.canOutputTo(ForgeDirection.DOWN)) {
@@ -221,9 +225,11 @@ public class EzacianCustomJarFillableTE extends EzacianCustomJarBaseTE implement
                 ta = this.aspectFilter;
             } else if (this.aspect != null && this.amount > 0) {
                 ta = this.aspect;
-            } else if (ic.getEssentiaAmount(ForgeDirection.DOWN) > 0 && ic.getSuctionAmount(ForgeDirection.DOWN) < this.getSuctionAmount(ForgeDirection.UP) && this.getSuctionAmount(ForgeDirection.UP) >= ic.getMinimumSuction()) {
-                ta = ic.getEssentiaType(ForgeDirection.DOWN);
-            }
+            } else if (ic.getEssentiaAmount(ForgeDirection.DOWN) > 0
+                && ic.getSuctionAmount(ForgeDirection.DOWN) < this.getSuctionAmount(ForgeDirection.UP)
+                && this.getSuctionAmount(ForgeDirection.UP) >= ic.getMinimumSuction()) {
+                    ta = ic.getEssentiaType(ForgeDirection.DOWN);
+                }
 
             if (ta != null && ic.getSuctionAmount(ForgeDirection.DOWN) < this.getSuctionAmount(ForgeDirection.UP)) {
                 this.addToContainer(ta, ic.takeEssentia(ta, 1, ForgeDirection.DOWN));

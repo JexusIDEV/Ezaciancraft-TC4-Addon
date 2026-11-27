@@ -1,22 +1,26 @@
 package com.gabid.ezaciancraft.client.event;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+
+import org.lwjgl.input.Keyboard;
+
 import com.gabid.ezaciancraft.api.common.items.IEzacianPrimalTool;
 import com.gabid.ezaciancraft.api.common.items.IEzacianTool;
 import com.gabid.ezaciancraft.common.network.EzacianNetworkHandler;
 import com.gabid.ezaciancraft.common.network.client.PacketUpdateEzacianModeTool;
 import com.gabid.ezaciancraft.common.network.client.PacketUpdateEzacianPrimalModeTool;
+
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import org.lwjgl.input.Keyboard;
 
 public class KeyHandlerInput {
+
     public KeyBinding kb_CETM = new KeyBinding("Change Ezacian Tool Mode", 36, "key.categories.misc");
     public boolean kb_CETM_IsPressed = false;
 
@@ -44,8 +48,7 @@ public class KeyHandlerInput {
             EntityPlayer player = Minecraft.getMinecraft().thePlayer;
             if (player != null) {
                 ItemStack toolStack = player.getHeldItem();
-                if (toolStack != null && toolStack.getItem() instanceof IEzacianTool) {
-                    IEzacianTool toolItem = (IEzacianTool) toolStack.getItem();
+                if (toolStack != null && toolStack.getItem() instanceof IEzacianTool toolItem) {
                     toolItem.changeMode(toolStack);
                     EzacianNetworkHandler.sendToServer(new PacketUpdateEzacianModeTool(toolItem.getMode(toolStack)));
                 }
@@ -59,10 +62,15 @@ public class KeyHandlerInput {
             EntityPlayer player = Minecraft.getMinecraft().thePlayer;
             if (player != null) {
                 ItemStack toolStack = player.getHeldItem();
-                if (toolStack != null && toolStack.getItem() instanceof IEzacianPrimalTool) {
-                    IEzacianPrimalTool toolItem = (IEzacianPrimalTool) toolStack.getItem();
-                    toolItem.changeBehaviour(toolStack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT));
-                    EzacianNetworkHandler.sendToServer(new PacketUpdateEzacianPrimalModeTool(toolItem.getBehaviour(toolStack), toolItem.getSubMode(toolStack), toolItem.getAOE(toolStack)));
+                if (toolStack != null && toolStack.getItem() instanceof IEzacianPrimalTool toolItem) {
+                    toolItem.changeBehaviour(
+                        toolStack,
+                        Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT));
+                    EzacianNetworkHandler.sendToServer(
+                        new PacketUpdateEzacianPrimalModeTool(
+                            toolItem.getBehaviour(toolStack),
+                            toolItem.getSubMode(toolStack),
+                            toolItem.getAOE(toolStack)));
                 }
             }
         } else {
@@ -74,10 +82,15 @@ public class KeyHandlerInput {
             EntityPlayer player = Minecraft.getMinecraft().thePlayer;
             if (player != null) {
                 ItemStack toolStack = player.getHeldItem();
-                if (toolStack != null && toolStack.getItem() instanceof IEzacianPrimalTool) {
-                    IEzacianPrimalTool toolItem = (IEzacianPrimalTool) toolStack.getItem();
-                    toolItem.changeSubMode(toolStack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT));
-                    EzacianNetworkHandler.sendToServer(new PacketUpdateEzacianPrimalModeTool(toolItem.getBehaviour(toolStack), toolItem.getSubMode(toolStack), toolItem.getAOE(toolStack)));
+                if (toolStack != null && toolStack.getItem() instanceof IEzacianPrimalTool toolItem) {
+                    toolItem.changeSubMode(
+                        toolStack,
+                        Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT));
+                    EzacianNetworkHandler.sendToServer(
+                        new PacketUpdateEzacianPrimalModeTool(
+                            toolItem.getBehaviour(toolStack),
+                            toolItem.getSubMode(toolStack),
+                            toolItem.getAOE(toolStack)));
                 }
             }
         } else {
@@ -89,10 +102,15 @@ public class KeyHandlerInput {
             EntityPlayer player = Minecraft.getMinecraft().thePlayer;
             if (player != null) {
                 ItemStack toolStack = player.getHeldItem();
-                if (toolStack != null && toolStack.getItem() instanceof IEzacianPrimalTool) {
-                    IEzacianPrimalTool toolItem = (IEzacianPrimalTool) toolStack.getItem();
-                    toolItem.changeAOE(toolStack, Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT));
-                    EzacianNetworkHandler.sendToServer(new PacketUpdateEzacianPrimalModeTool(toolItem.getBehaviour(toolStack), toolItem.getSubMode(toolStack), toolItem.getAOE(toolStack)));
+                if (toolStack != null && toolStack.getItem() instanceof IEzacianPrimalTool toolItem) {
+                    toolItem.changeAOE(
+                        toolStack,
+                        Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT));
+                    EzacianNetworkHandler.sendToServer(
+                        new PacketUpdateEzacianPrimalModeTool(
+                            toolItem.getBehaviour(toolStack),
+                            toolItem.getSubMode(toolStack),
+                            toolItem.getAOE(toolStack)));
                 }
             }
         } else {

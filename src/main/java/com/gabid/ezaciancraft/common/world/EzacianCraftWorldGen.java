@@ -1,21 +1,24 @@
 package com.gabid.ezaciancraft.common.world;
 
-import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
-import com.gabid.ezaciancraft.registry.EzacianCraftResources;
-import cpw.mods.fml.common.IWorldGenerator;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
-import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 
-import java.util.Random;
+import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
+import com.gabid.ezaciancraft.registry.EzacianCraftResources;
+
+import cpw.mods.fml.common.IWorldGenerator;
+import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 
 public class EzacianCraftWorldGen implements IWorldGenerator {
 
     @Override
-    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator,
+        IChunkProvider chunkProvider) {
         int x = chunkX * 16;
         int z = chunkZ * 16;
 
@@ -33,14 +36,34 @@ public class EzacianCraftWorldGen implements IWorldGenerator {
     }
 
     private void generateInOverworld(World world, int chunkX, int chunkZ, Random random) {
-        //void seed and shadow ore gen
+        // void seed and shadow ore gen
         if (world.provider.getBiomeGenForCoords(chunkX, chunkZ) == ThaumcraftWorldGenerator.biomeTaint) {
             this.addOre(EzacianCraftBlocks.voidSeedOre, world, random, chunkX, chunkZ, 1, 6, 8, 6, 16);
-            this.addOre(EzacianCraftResources.shadowVoidMetalResources.getResourceOreBlock(), world, random, chunkX, chunkZ, 1, 8, 4, 1, 8);
+            this.addOre(
+                EzacianCraftResources.shadowVoidMetalResources.getResourceOreBlock(),
+                world,
+                random,
+                chunkX,
+                chunkZ,
+                1,
+                8,
+                4,
+                1,
+                8);
         }
 
-        //crystalyium gen
-        this.addOre(EzacianCraftResources.crudeCrystalyiumResources.getResourceOreBlock(), world, random, chunkX, chunkZ, 1, 4, 4, 8, 12);
+        // crystalyium gen
+        this.addOre(
+            EzacianCraftResources.crudeCrystalyiumResources.getResourceOreBlock(),
+            world,
+            random,
+            chunkX,
+            chunkZ,
+            1,
+            4,
+            4,
+            8,
+            12);
     }
 
     private void generateInNether(World world, int chunkX, int chunkZ, Random random) {
@@ -51,12 +74,14 @@ public class EzacianCraftWorldGen implements IWorldGenerator {
 
     }
 
-    public void addOre(Block block, World world, Random random, int chunkXPos, int chunkZPos, int minVeinSize, int maxVeinSize, int chancesToSpawn, int minY, int maxY) {
+    public void addOre(Block block, World world, Random random, int chunkXPos, int chunkZPos, int minVeinSize,
+        int maxVeinSize, int chancesToSpawn, int minY, int maxY) {
         for (int i = 0; i < chancesToSpawn; ++i) {
             int posX = chunkXPos + random.nextInt(16);
             int posY = minY + random.nextInt(maxY - minY);
             int posZ = chunkZPos + random.nextInt(16);
-            new WorldGenMinable(block, 0, minVeinSize + random.nextInt(maxVeinSize - minVeinSize), Blocks.stone).generate(world, random, posX, posY, posZ);
+            new WorldGenMinable(block, 0, minVeinSize + random.nextInt(maxVeinSize - minVeinSize), Blocks.stone)
+                .generate(world, random, posX, posY, posZ);
         }
     }
 }

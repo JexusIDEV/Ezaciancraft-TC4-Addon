@@ -1,13 +1,15 @@
 package com.gabid.ezaciancraft.lib.network;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 import com.gabid.ezaciancraft.CoreMod;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayer;
 
-///api Base packet, used for creating a modular way of client or server ones
+/// api Base packet, used for creating a modular way of client or server ones
 public abstract class EzacianBasePacket<REQ extends IMessage> implements IMessage, IMessageHandler<REQ, REQ> {
 
     @Override

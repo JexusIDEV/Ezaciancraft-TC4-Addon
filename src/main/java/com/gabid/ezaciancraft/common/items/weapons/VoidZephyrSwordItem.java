@@ -1,7 +1,11 @@
 package com.gabid.ezaciancraft.common.items.weapons;
 
-import com.gabid.ezaciancraft.api.EzacianToolMaterials;
-import com.google.common.collect.Multimap;
+import static com.gabid.ezaciancraft.CoreMod.MODID;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_ZEPHYR_SWORD;
+import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
+
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,14 +22,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
+import com.gabid.ezaciancraft.api.EzacianToolMaterials;
+import com.google.common.collect.Multimap;
+
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.common.items.equipment.ItemElementalSword;
-
-import java.util.List;
-
-import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_VOID_ZEPHYR_SWORD;
-import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
 
 public class VoidZephyrSwordItem extends ItemElementalSword implements IWarpingGear {
 
@@ -60,7 +62,9 @@ public class VoidZephyrSwordItem extends ItemElementalSword implements IWarpingG
 
     @Override
     public void onUpdate(ItemStack stack, World level, Entity player, int a, boolean b) {
-        if (stack.isItemDamaged() && player != null && player.ticksExisted % 10 == 0 && player instanceof EntityLivingBase) {
+        if (stack.isItemDamaged() && player != null
+            && player.ticksExisted % 10 == 0
+            && player instanceof EntityLivingBase) {
             stack.damageItem(-1, (EntityLivingBase) player);
         }
         super.onUpdate(stack, level, player, a, b);
@@ -68,7 +72,9 @@ public class VoidZephyrSwordItem extends ItemElementalSword implements IWarpingG
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase playerHitter) {
-        if (!target.worldObj.isRemote && (!(target instanceof EntityPlayer) || !(playerHitter instanceof EntityPlayer) || MinecraftServer.getServer().isPVPEnabled())) {
+        if (!target.worldObj.isRemote && (!(target instanceof EntityPlayer) || !(playerHitter instanceof EntityPlayer)
+            || MinecraftServer.getServer()
+                .isPVPEnabled())) {
             target.isPotionApplicable(new PotionEffect(Potion.weakness.getId(), 60));
         }
         return super.hitEntity(stack, target, playerHitter);
@@ -84,7 +90,9 @@ public class VoidZephyrSwordItem extends ItemElementalSword implements IWarpingG
     public Multimap getAttributeModifiers(ItemStack stack) {
         Multimap multimap = super.getItemAttributeModifiers();
         multimap.clear();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", 12, 0));
+        multimap.put(
+            SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(),
+            new AttributeModifier(field_111210_e, "Weapon modifier", 12, 0));
         return multimap;
     }
 }

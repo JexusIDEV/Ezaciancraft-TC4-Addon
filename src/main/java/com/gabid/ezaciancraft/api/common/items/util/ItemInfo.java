@@ -3,8 +3,9 @@ package com.gabid.ezaciancraft.api.common.items.util;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-//https://github.com/mekanism/Mekanism/blob/1.7.10/src/main/java/mekanism/api/util/ItemInfo.java
+// https://github.com/mekanism/Mekanism/blob/1.7.10/src/main/java/mekanism/api/util/ItemInfo.java
 public class ItemInfo {
+
     public Item item;
     public int meta;
 
@@ -19,9 +20,7 @@ public class ItemInfo {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof ItemInfo &&
-                ((ItemInfo) obj).item == item &&
-                ((ItemInfo) obj).meta == meta;
+        return obj instanceof ItemInfo && ((ItemInfo) obj).item == item && ((ItemInfo) obj).meta == meta;
     }
 
     @Override

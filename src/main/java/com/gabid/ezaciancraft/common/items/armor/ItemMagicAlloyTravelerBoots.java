@@ -1,6 +1,12 @@
 package com.gabid.ezaciancraft.common.items.armor;
 
-import com.gabid.ezaciancraft.api.registry.EzacianCraftMiscRegistry;
+import static com.gabid.ezaciancraft.CoreMod.MODID;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_MAGIC_ALLOY_TRAVELLER_BOOTS;
+import static com.gabid.ezaciancraft.api.EzacianToolMaterials.armorMagicAlloyMaterial;
+import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
+
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,33 +19,30 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
+import com.gabid.ezaciancraft.api.registry.EzacianCraftMiscRegistry;
+
 import thaumcraft.api.IRepairable;
 import thaumcraft.api.IRunicArmor;
 import thaumcraft.api.IVisDiscountGear;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.api.aspects.Aspect;
 
-import java.util.List;
-
-import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_MAGIC_ALLOY_TRAVELLER_BOOTS;
-import static com.gabid.ezaciancraft.api.EzacianToolMaterials.armorMagicAlloyMaterial;
-import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_TAB;
-
-public class ItemMagicAlloyTravelerBoots extends ItemArmor implements IRepairable, IRunicArmor, IVisDiscountGear, IWarpingGear {
+public class ItemMagicAlloyTravelerBoots extends ItemArmor
+    implements IRepairable, IRunicArmor, IVisDiscountGear, IWarpingGear {
 
     private IIcon bootsItemIcon;
 
     public ItemMagicAlloyTravelerBoots() {
         super(armorMagicAlloyMaterial, 4, 3);
         this.setCreativeTab(EZACIANCRAFT_TAB);
-        this.setMaxDamage(armorMagicAlloyMaterial.getDurability(0)/4);
+        this.setMaxDamage(armorMagicAlloyMaterial.getDurability(0) / 4);
         this.setUnlocalizedName(UNLOCALE_MAGIC_ALLOY_TRAVELLER_BOOTS);
     }
 
     @Override
     public void registerIcons(IIconRegister register) {
-        this.bootsItemIcon = register.registerIcon(new ResourceLocation(MODID,"magicAlloyTravellerBoots").toString());
+        this.bootsItemIcon = register.registerIcon(new ResourceLocation(MODID, "magicAlloyTravellerBoots").toString());
     }
 
     @Override
@@ -64,7 +67,9 @@ public class ItemMagicAlloyTravelerBoots extends ItemArmor implements IRepairabl
 
     @Override
     public void onUpdate(ItemStack stack, World level, Entity player, int a, boolean b) {
-        if (stack.isItemDamaged() && player != null && player.ticksExisted % 80 == 0 && player instanceof EntityLivingBase) {
+        if (stack.isItemDamaged() && player != null
+            && player.ticksExisted % 80 == 0
+            && player instanceof EntityLivingBase) {
             stack.damageItem(-1, (EntityLivingBase) player);
         }
         super.onUpdate(stack, level, player, a, b);
@@ -105,7 +110,11 @@ public class ItemMagicAlloyTravelerBoots extends ItemArmor implements IRepairabl
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean flag) {
-        list.add(EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount") + ": " + this.getVisDiscount(stack, player, (Aspect)null) + "%");
+        list.add(
+            EnumChatFormatting.DARK_PURPLE + StatCollector.translateToLocal("tc.visdiscount")
+                + ": "
+                + this.getVisDiscount(stack, player, null)
+                + "%");
         super.addInformation(stack, player, list, flag);
     }
 }

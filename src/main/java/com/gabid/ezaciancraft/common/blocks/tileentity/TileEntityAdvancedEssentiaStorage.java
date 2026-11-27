@@ -1,17 +1,21 @@
 package com.gabid.ezaciancraft.common.blocks.tileentity;
 
-import com.gabid.ezaciancraft.api.aspects.ExtendedAspectList;
-import com.gabid.ezaciancraft.api.aspects.IExtendedAspectContainer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import com.gabid.ezaciancraft.api.aspects.ExtendedAspectList;
+import com.gabid.ezaciancraft.api.aspects.IExtendedAspectContainer;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IEssentiaTransport;
 
-public class TileEntityAdvancedEssentiaStorage extends TileThaumcraft implements IEssentiaTransport, IExtendedAspectContainer {
+public class TileEntityAdvancedEssentiaStorage extends TileThaumcraft
+    implements IEssentiaTransport, IExtendedAspectContainer {
+
     public final ExtendedAspectList aspects = new ExtendedAspectList();
     public boolean isBreaking = false;
 
@@ -40,8 +44,7 @@ public class TileEntityAdvancedEssentiaStorage extends TileThaumcraft implements
     }
 
     @Override
-    public void setAspects(AspectList aspectList) {
-    }
+    public void setAspects(AspectList aspectList) {}
 
     @Override
     public boolean doesContainerAccept(Aspect aspect) {
@@ -149,11 +152,10 @@ public class TileEntityAdvancedEssentiaStorage extends TileThaumcraft implements
 
     @Override
     public Aspect getEssentiaType(ForgeDirection forgeDirection) {
-        TileEntity te = ThaumcraftApiHelper.getConnectableTile(
-                this.worldObj, this.xCoord, this.yCoord, this.zCoord, forgeDirection);
+        TileEntity te = ThaumcraftApiHelper
+            .getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, forgeDirection);
 
-        if (te instanceof IEssentiaTransport) {
-            IEssentiaTransport other = (IEssentiaTransport) te;
+        if (te instanceof IEssentiaTransport other) {
 
             Aspect requested = other.getSuctionType(forgeDirection.getOpposite());
 
@@ -187,7 +189,8 @@ public class TileEntityAdvancedEssentiaStorage extends TileThaumcraft implements
         Aspect best = null;
         int max = 0;
 
-        for (Aspect asp : this.getExtendedAspects().getStoredAspects()) {
+        for (Aspect asp : this.getExtendedAspects()
+            .getStoredAspects()) {
             int amt = this.aspects.getAmount(asp);
             if (amt > max) {
                 max = amt;

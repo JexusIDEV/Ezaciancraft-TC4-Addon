@@ -1,18 +1,20 @@
 package com.gabid.ezaciancraft.client.renderer.items;
 
+import static com.gabid.ezaciancraft.CoreMod.MODID;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
-import org.lwjgl.opengl.GL11;
 
-import static com.gabid.ezaciancraft.CoreMod.MODID;
+import org.lwjgl.opengl.GL11;
 
 public class VoidStaffOfPrimalReconstructorRenderer implements IItemRenderer {
 
-    private static final IModelCustom staffModel = AdvancedModelLoader.loadModel(new ResourceLocation(MODID, "models/items/staff.obj"));
+    private static final IModelCustom staffModel = AdvancedModelLoader
+        .loadModel(new ResourceLocation(MODID, "models/items/staff.obj"));
     private static final ResourceLocation staffTexture = new ResourceLocation(MODID, "textures/models/staff_atlas.png");
 
     @Override

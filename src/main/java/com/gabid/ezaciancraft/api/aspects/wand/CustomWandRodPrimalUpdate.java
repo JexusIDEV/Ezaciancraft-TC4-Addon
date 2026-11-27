@@ -1,12 +1,13 @@
 package com.gabid.ezaciancraft.api.aspects.wand;
 
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.wands.IWandRodOnUpdate;
 import thaumcraft.common.items.wands.ItemWandCasting;
-
-import java.util.ArrayList;
 
 public class CustomWandRodPrimalUpdate implements IWandRodOnUpdate {
 
@@ -14,7 +15,7 @@ public class CustomWandRodPrimalUpdate implements IWandRodOnUpdate {
     public int ticksToUpdateOneAspect;
     public int ticksToUpdateAspects;
 
-    //primals for a full wand aspects, aspect is for single
+    // primals for a full wand aspects, aspect is for single
     protected Aspect aspect;
     protected ArrayList<Aspect> primals;
 
@@ -32,20 +33,24 @@ public class CustomWandRodPrimalUpdate implements IWandRodOnUpdate {
 
     public void onUpdate(ItemStack itemstack, EntityPlayer player) {
         if (this.aspect != null) {
-            if (player.ticksExisted % this.ticksToUpdateOneAspect == 0 && ((ItemWandCasting) itemstack.getItem()).getVis(itemstack, this.aspect) < ((ItemWandCasting) itemstack.getItem()).getMaxVis(itemstack) * this.maxAspectsPercentage) {
+            if (player.ticksExisted % this.ticksToUpdateOneAspect == 0
+                && ((ItemWandCasting) itemstack.getItem()).getVis(itemstack, this.aspect)
+                    < ((ItemWandCasting) itemstack.getItem()).getMaxVis(itemstack) * this.maxAspectsPercentage) {
                 ((ItemWandCasting) itemstack.getItem()).addVis(itemstack, this.aspect, 1, true);
             }
         } else if (player.ticksExisted % this.ticksToUpdateAspects == 0) {
             ArrayList<Aspect> aspects = new ArrayList<>();
 
             for (Aspect as : this.primals) {
-                if (((ItemWandCasting) itemstack.getItem()).getVis(itemstack, as) < ((ItemWandCasting) itemstack.getItem()).getMaxVis(itemstack) * this.maxAspectsPercentage) {
+                if (((ItemWandCasting) itemstack.getItem()).getVis(itemstack, as)
+                    < ((ItemWandCasting) itemstack.getItem()).getMaxVis(itemstack) * this.maxAspectsPercentage) {
                     aspects.add(as);
                 }
             }
 
             if (!aspects.isEmpty()) {
-                ((ItemWandCasting) itemstack.getItem()).addVis(itemstack, aspects.get(player.worldObj.rand.nextInt(aspects.size())), 1, true);
+                ((ItemWandCasting) itemstack.getItem())
+                    .addVis(itemstack, aspects.get(player.worldObj.rand.nextInt(aspects.size())), 1, true);
             }
         }
 

@@ -1,10 +1,10 @@
 package com.gabid.ezaciancraft.api.common.blocks;
 
+import java.util.Random;
+
 import net.minecraft.block.BlockOre;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
-
-import java.util.Random;
 
 public class CustomBlockOre extends BlockOre {
 

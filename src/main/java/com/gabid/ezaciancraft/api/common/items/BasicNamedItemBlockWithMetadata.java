@@ -5,6 +5,7 @@ import net.minecraft.item.ItemBlockWithMetadata;
 import net.minecraft.item.ItemStack;
 
 public class BasicNamedItemBlockWithMetadata extends ItemBlockWithMetadata {
+
     public BasicNamedItemBlockWithMetadata(Block blockDummy) {
         super(blockDummy, blockDummy);
     }

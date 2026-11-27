@@ -1,9 +1,11 @@
 package com.gabid.ezaciancraft.common.items.vegetal;
 
-import com.gabid.ezaciancraft.common.blocks.vegetal.TileEntityAspectCrop;
-import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import static com.gabid.ezaciancraft.CoreMod.MODID;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ASPECT_SEED_BASENAME;
+import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_RESOURCES_TAB;
+
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,18 +20,19 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import com.gabid.ezaciancraft.common.blocks.vegetal.TileEntityAspectCrop;
+import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IEssentiaContainerItem;
 import thaumcraft.common.Thaumcraft;
 
-import java.util.List;
-
-import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ASPECT_SEED_BASENAME;
-import static com.gabid.ezaciancraft.registry.EzacianCraftCreativeTab.EZACIANCRAFT_RESOURCES_TAB;
-
 public class ItemAspectSeed extends ItemSeeds implements IEssentiaContainerItem {
+
     protected IIcon[] seedIcons = new IIcon[2];
 
     public ItemAspectSeed() {
@@ -41,23 +44,24 @@ public class ItemAspectSeed extends ItemSeeds implements IEssentiaContainerItem 
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float a, float b, float c) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float a,
+        float b, float c) {
         if (side != 1) {
             return false;
         } else if (player.canPlayerEdit(x, y, z, side, stack) && player.canPlayerEdit(x, y + 1, z, side, stack)) {
-            if (world.getBlock(x, y, z).canSustainPlant(world, x, y, z, ForgeDirection.UP, this) && world.isAirBlock(x, y + 1, z))
-            {
+            if (world.getBlock(x, y, z)
+                .canSustainPlant(world, x, y, z, ForgeDirection.UP, this) && world.isAirBlock(x, y + 1, z)) {
                 world.setBlock(x, y + 1, z, EzacianCraftBlocks.aspectCrop, 0, 3);
-                TileEntity te = world.getTileEntity(x, y+1, z);
+                TileEntity te = world.getTileEntity(x, y + 1, z);
 
                 if (te instanceof TileEntityAspectCrop) {
-                    ((TileEntityAspectCrop) te).setCropAspect(this.getAspects(stack).getAspects()[0]);
+                    ((TileEntityAspectCrop) te).setCropAspect(
+                        this.getAspects(stack)
+                            .getAspects()[0]);
                 }
                 --stack.stackSize;
                 return true;
-            }
-            else
-            {
+            } else {
                 return false;
             }
         } else {
@@ -68,9 +72,14 @@ public class ItemAspectSeed extends ItemSeeds implements IEssentiaContainerItem 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer plyr, List list, boolean flag) {
         super.addInformation(stack, plyr, list, flag);
-        if(this.getAspects(stack) != null) {
-            if (Thaumcraft.proxy.playerKnowledge.hasDiscoveredAspect(plyr.getDisplayName(), this.getAspects(stack).getAspects()[0])) {
-                list.add(this.getAspects(stack).getAspects()[0].getName());
+        if (this.getAspects(stack) != null) {
+            if (Thaumcraft.proxy.playerKnowledge.hasDiscoveredAspect(
+                plyr.getDisplayName(),
+                this.getAspects(stack)
+                    .getAspects()[0])) {
+                list.add(
+                    this.getAspects(stack)
+                        .getAspects()[0].getName());
             } else {
                 list.add(StatCollector.translateToLocal("tc.aspect.unknown"));
             }
@@ -117,9 +126,10 @@ public class ItemAspectSeed extends ItemSeeds implements IEssentiaContainerItem 
     }
 
     public int getAspectSeedColor(ItemStack stackSeed) {
-        if(stackSeed != null) {
-            if(this.getAspects(stackSeed) != null) {
-                return this.getAspects(stackSeed).getAspects()[0].getColor();
+        if (stackSeed != null) {
+            if (this.getAspects(stackSeed) != null) {
+                return this.getAspects(stackSeed)
+                    .getAspects()[0].getColor();
             }
         }
         return 0xffffff;
@@ -137,7 +147,7 @@ public class ItemAspectSeed extends ItemSeeds implements IEssentiaContainerItem 
 
     @Override
     public void setAspects(ItemStack itemStack, AspectList aspectList) {
-        if(!itemStack.hasTagCompound()) {
+        if (!itemStack.hasTagCompound()) {
             itemStack.setTagCompound(new NBTTagCompound());
         }
         aspectList.writeToNBT(itemStack.getTagCompound());

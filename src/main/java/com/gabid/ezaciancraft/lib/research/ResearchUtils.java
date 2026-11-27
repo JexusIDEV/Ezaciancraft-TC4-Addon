@@ -1,11 +1,12 @@
 package com.gabid.ezaciancraft.lib.research;
 
-import thaumcraft.api.research.ResearchPage;
-
 import static com.gabid.ezaciancraft.CoreMod.MODID;
 
-///api helper or utils used for creating an easier way to create page research entries in the thaumonomicon
+import thaumcraft.api.research.ResearchPage;
+
+/// api helper or utils used for creating an easier way to create page research entries in the thaumonomicon
 public class ResearchUtils {
+
     public static ResearchPage createPageTranslation(String entryName) {
         return new ResearchPage(MODID + ".research_page." + entryName.toUpperCase());
     }
@@ -22,7 +23,8 @@ public class ResearchUtils {
         ResearchPage[] researchPagesToRegister = new ResearchPage[size];
         int id = 1;
         for (int page = 0; page < size; page++) {
-            researchPagesToRegister[page] = new ResearchPage(MODID + ".research_page." + entryName.toUpperCase() + "." + id);
+            researchPagesToRegister[page] = new ResearchPage(
+                MODID + ".research_page." + entryName.toUpperCase() + "." + id);
             id++;
         }
         return researchPagesToRegister;

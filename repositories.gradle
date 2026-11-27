@@ -1,0 +1,25 @@
+// Add any additional repositories for your dependencies here.
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+    maven {
+        // location of the maven that hosts JEI files
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl"
+    }
+    maven {
+        name = "Curseforge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
+    maven {
+        url "https://cursemaven.com"
+    }
+    maven { url "https://maven.latmod.com/" }
+}

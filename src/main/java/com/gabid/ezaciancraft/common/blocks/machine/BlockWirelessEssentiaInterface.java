@@ -1,7 +1,11 @@
 package com.gabid.ezaciancraft.common.blocks.machine;
 
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceInput;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceOutput;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_WIRELESS_ESSENTIA_INTERFACE;
+import static com.gabid.ezaciancraft.registry.EzacianCraftTypeRenders.WIRELESS_ESSENTIA_INTERFACES_RENDER_ID;
+import static thaumcraft.common.Thaumcraft.MODID;
+
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -16,11 +20,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import java.util.List;
-
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_WIRELESS_ESSENTIA_INTERFACE;
-import static com.gabid.ezaciancraft.registry.EzacianCraftTypeRenders.WIRELESS_ESSENTIA_INTERFACES_RENDER_ID;
-import static thaumcraft.common.Thaumcraft.MODID;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceInput;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceOutput;
 
 public class BlockWirelessEssentiaInterface extends BlockContainer {
 
@@ -77,8 +78,7 @@ public class BlockWirelessEssentiaInterface extends BlockContainer {
     @Override
     public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof TileEntityWirelessEssentiaInterfaceInput) {
-            TileEntityWirelessEssentiaInterfaceInput wei = (TileEntityWirelessEssentiaInterfaceInput) te;
+        if (te instanceof TileEntityWirelessEssentiaInterfaceInput wei) {
             ForgeDirection facing = wei.facing;
             switch (facing) {
                 case NORTH:
@@ -100,8 +100,7 @@ public class BlockWirelessEssentiaInterface extends BlockContainer {
                     this.setBlockBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
                     break;
             }
-        } else if (te instanceof TileEntityWirelessEssentiaInterfaceOutput) {
-            TileEntityWirelessEssentiaInterfaceOutput wei = (TileEntityWirelessEssentiaInterfaceOutput) te;
+        } else if (te instanceof TileEntityWirelessEssentiaInterfaceOutput wei) {
             ForgeDirection facing = wei.facing;
             switch (facing) {
                 case NORTH:
@@ -130,8 +129,7 @@ public class BlockWirelessEssentiaInterface extends BlockContainer {
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof TileEntityWirelessEssentiaInterfaceInput) {
-            TileEntityWirelessEssentiaInterfaceInput wei = (TileEntityWirelessEssentiaInterfaceInput) te;
+        if (te instanceof TileEntityWirelessEssentiaInterfaceInput wei) {
             ForgeDirection facing = wei.facing;
             switch (facing) {
                 case NORTH:
@@ -153,8 +151,7 @@ public class BlockWirelessEssentiaInterface extends BlockContainer {
                     this.setBlockBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
                     break;
             }
-        } else if (te instanceof TileEntityWirelessEssentiaInterfaceOutput) {
-            TileEntityWirelessEssentiaInterfaceOutput wei = (TileEntityWirelessEssentiaInterfaceOutput) te;
+        } else if (te instanceof TileEntityWirelessEssentiaInterfaceOutput wei) {
             ForgeDirection facing = wei.facing;
             switch (facing) {
                 case NORTH:

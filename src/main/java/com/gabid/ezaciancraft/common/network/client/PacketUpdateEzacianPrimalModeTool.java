@@ -1,13 +1,15 @@
 package com.gabid.ezaciancraft.common.network.client;
 
-import com.gabid.ezaciancraft.api.common.items.IEzacianPrimalTool;
-import com.gabid.ezaciancraft.lib.nbt.NBTHelper;
-import com.gabid.ezaciancraft.lib.network.EzacianBasePacket;
-import io.netty.buffer.ByteBuf;
+import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.*;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.*;
+import com.gabid.ezaciancraft.api.common.items.IEzacianPrimalTool;
+import com.gabid.ezaciancraft.lib.nbt.NBTHelper;
+import com.gabid.ezaciancraft.lib.network.EzacianBasePacket;
+
+import io.netty.buffer.ByteBuf;
 
 public class PacketUpdateEzacianPrimalModeTool extends EzacianBasePacket<PacketUpdateEzacianPrimalModeTool> {
 
@@ -15,8 +17,7 @@ public class PacketUpdateEzacianPrimalModeTool extends EzacianBasePacket<PacketU
     private int toolSubMode;
     private int toolAOE;
 
-    public PacketUpdateEzacianPrimalModeTool() {
-    }
+    public PacketUpdateEzacianPrimalModeTool() {}
 
     public PacketUpdateEzacianPrimalModeTool(int _toolBehaviour, int _toolSubMode, int _toolAOE) {
         this.toolBehaviour = _toolBehaviour;
@@ -38,9 +39,12 @@ public class PacketUpdateEzacianPrimalModeTool extends EzacianBasePacket<PacketU
                 NBTHelper.setDefaultContainerNBT(ezacianToolStack, PRIMAL_TOOL_SUB_MODE, message.toolSubMode);
                 NBTHelper.setDefaultContainerNBT(ezacianToolStack, PRIMAL_TOOL_AOE, message.toolAOE);
             }
-            ezacianToolStack.getTagCompound().setInteger(PRIMAL_TOOL_BEHAVIOUR, message.toolBehaviour);
-            ezacianToolStack.getTagCompound().setInteger(PRIMAL_TOOL_SUB_MODE, message.toolSubMode);
-            ezacianToolStack.getTagCompound().setInteger(PRIMAL_TOOL_AOE, message.toolAOE);
+            ezacianToolStack.getTagCompound()
+                .setInteger(PRIMAL_TOOL_BEHAVIOUR, message.toolBehaviour);
+            ezacianToolStack.getTagCompound()
+                .setInteger(PRIMAL_TOOL_SUB_MODE, message.toolSubMode);
+            ezacianToolStack.getTagCompound()
+                .setInteger(PRIMAL_TOOL_AOE, message.toolAOE);
             player.worldObj.playSoundAtEntity(player, "thaumcraft:cameraticks", 0.3f, 1f);
         }
     }

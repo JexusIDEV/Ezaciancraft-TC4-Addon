@@ -3,6 +3,7 @@ package com.gabid.ezaciancraft.common.blocks.tileentity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
@@ -60,11 +61,11 @@ public class TileEntityAdvancedEssentiaStorageInterface extends TileThaumcraft i
     @Override
     public Aspect getSuctionType(ForgeDirection forgeDirection) {
         TileEntity pipeToFind;
-        for(ForgeDirection dirSearch : ForgeDirection.VALID_DIRECTIONS) {
-            if(dirSearch == forgeDirection) {
-                pipeToFind = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, forgeDirection);
-                if(pipeToFind instanceof TileTube) {
-                    TileTube tube = (TileTube) pipeToFind;
+        for (ForgeDirection dirSearch : ForgeDirection.VALID_DIRECTIONS) {
+            if (dirSearch == forgeDirection) {
+                pipeToFind = ThaumcraftApiHelper
+                    .getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, forgeDirection);
+                if (pipeToFind instanceof TileTube tube) {
                     return tube.getSuctionType(forgeDirection.getOpposite());
                 }
             }
@@ -74,9 +75,9 @@ public class TileEntityAdvancedEssentiaStorageInterface extends TileThaumcraft i
 
     @Override
     public int getSuctionAmount(ForgeDirection forgeDirection) {
-        if(this.blockMetadata == 1) {
+        if (this.blockMetadata == 1) {
             return 128;
-        } else if(this.blockMetadata == 2) {
+        } else if (this.blockMetadata == 2) {
             return 0;
         } else {
             return 0;
@@ -121,11 +122,10 @@ public class TileEntityAdvancedEssentiaStorageInterface extends TileThaumcraft i
         TileEntityAdvancedEssentiaStorage storage = getStorageReference();
         if (storage == null) return null;
 
-        TileEntity te = ThaumcraftApiHelper.getConnectableTile(
-                this.worldObj, this.xCoord, this.yCoord, this.zCoord, dir);
+        TileEntity te = ThaumcraftApiHelper
+            .getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, dir);
 
-        if (te instanceof IEssentiaTransport) {
-            IEssentiaTransport other = (IEssentiaTransport) te;
+        if (te instanceof IEssentiaTransport other) {
             Aspect requested = other.getSuctionType(dir.getOpposite());
 
             if (requested != null && storage.aspects.getAmount(requested) > 0) {
@@ -139,11 +139,11 @@ public class TileEntityAdvancedEssentiaStorageInterface extends TileThaumcraft i
     @Override
     public int getEssentiaAmount(ForgeDirection forgeDirection) {
         TileEntity pipeToFind;
-        for(ForgeDirection dirSearch : ForgeDirection.VALID_DIRECTIONS) {
-            if(dirSearch == forgeDirection) {
-                pipeToFind = ThaumcraftApiHelper.getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, forgeDirection);
-                if(pipeToFind instanceof TileTube) {
-                    TileTube tube = (TileTube) pipeToFind;
+        for (ForgeDirection dirSearch : ForgeDirection.VALID_DIRECTIONS) {
+            if (dirSearch == forgeDirection) {
+                pipeToFind = ThaumcraftApiHelper
+                    .getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, forgeDirection);
+                if (pipeToFind instanceof TileTube tube) {
                     return tube.getEssentiaAmount(forgeDirection.getOpposite());
                 }
             }
@@ -163,9 +163,9 @@ public class TileEntityAdvancedEssentiaStorageInterface extends TileThaumcraft i
 
     @Override
     public void updateEntity() {
-        if(!this.worldObj.isRemote) {
-            if(this.ticks++ % 5 == 0) {
-                if(this.getStorageReference() != null && this.blockMetadata == 1) {
+        if (!this.worldObj.isRemote) {
+            if (this.ticks++ % 5 == 0) {
+                if (this.getStorageReference() != null && this.blockMetadata == 1) {
                     this.insertToContainer();
                 }
             }
@@ -176,11 +176,10 @@ public class TileEntityAdvancedEssentiaStorageInterface extends TileThaumcraft i
     private void insertToContainer() {
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
             if (!this.canInputFrom(dir)) continue;
-            TileEntity te = ThaumcraftApiHelper.getConnectableTile(
-                    this.worldObj, this.xCoord, this.yCoord, this.zCoord, dir);
+            TileEntity te = ThaumcraftApiHelper
+                .getConnectableTile(this.worldObj, this.xCoord, this.yCoord, this.zCoord, dir);
 
-            if (te instanceof TileTube) {
-                TileTube other = (TileTube) te;
+            if (te instanceof TileTube other) {
                 Aspect aspect = other.getEssentiaType(dir.getOpposite());
 
                 if (aspect == null) continue;
@@ -188,7 +187,8 @@ public class TileEntityAdvancedEssentiaStorageInterface extends TileThaumcraft i
                 if (other.getSuctionAmount(dir.getOpposite()) < this.getSuctionAmount(dir)) {
                     int taken = other.takeEssentia(aspect, 1, dir.getOpposite());
                     if (taken > 0) {
-                        this.getStorageReference().addToContainer(aspect, taken);
+                        this.getStorageReference()
+                            .addToContainer(aspect, taken);
                     }
                 }
             }
@@ -197,9 +197,7 @@ public class TileEntityAdvancedEssentiaStorageInterface extends TileThaumcraft i
 
     public TileEntityAdvancedEssentiaStorage getStorageReference() {
         TileEntity te = this.worldObj.getTileEntity(this.masterX, this.masterY, this.masterZ);
-        return (te instanceof TileEntityAdvancedEssentiaStorage)
-                ? (TileEntityAdvancedEssentiaStorage) te
-                : null;
+        return (te instanceof TileEntityAdvancedEssentiaStorage) ? (TileEntityAdvancedEssentiaStorage) te : null;
     }
 
     public void setMasterPos(int masX, int masY, int masZ) {

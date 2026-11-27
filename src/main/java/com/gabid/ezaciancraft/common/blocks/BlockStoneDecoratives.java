@@ -1,5 +1,10 @@
 package com.gabid.ezaciancraft.common.blocks;
 
+import static com.gabid.ezaciancraft.CoreMod.MODID;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_EZACIAN_STONE_DECORATIVE;
+
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -10,11 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
-import java.util.List;
-
-import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_EZACIAN_STONE_DECORATIVE;
 
 public class BlockStoneDecoratives extends Block {
 
@@ -34,7 +34,8 @@ public class BlockStoneDecoratives extends Block {
     @Override
     public void registerBlockIcons(IIconRegister register) {
         super.registerBlockIcons(register);
-        this.ezacianChiseledSymbol = register.registerIcon(new ResourceLocation(MODID, "ezacianDecorartiveBlock_0").toString());
+        this.ezacianChiseledSymbol = register
+            .registerIcon(new ResourceLocation(MODID, "ezacianDecorartiveBlock_0").toString());
     }
 
     @Override
@@ -58,7 +59,8 @@ public class BlockStoneDecoratives extends Block {
     }
 
     @Override
-    public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
+    public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX,
+        double explosionY, double explosionZ) {
         int meta = world.getBlockMetadata(x, y, z);
         switch (meta) {
             case 0:

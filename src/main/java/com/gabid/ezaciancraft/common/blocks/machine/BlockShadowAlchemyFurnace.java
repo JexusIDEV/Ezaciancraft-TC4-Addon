@@ -1,10 +1,10 @@
 package com.gabid.ezaciancraft.common.blocks.machine;
 
-import com.gabid.ezaciancraft.CoreMod;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityShadowAlchemyFurnace;
-import com.gabid.ezaciancraft.registry.EzacianCraftGUIContainerEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import static com.gabid.ezaciancraft.CoreMod.MODID;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_SHADOW_ALCHEMY_FURNACE;
+
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -21,14 +21,16 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import com.gabid.ezaciancraft.CoreMod;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityShadowAlchemyFurnace;
+import com.gabid.ezaciancraft.registry.EzacianCraftGUIContainerEvent;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.lib.utils.InventoryUtils;
 import thaumcraft.common.tiles.TileAlchemyFurnace;
-
-import java.util.Random;
-
-import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_SHADOW_ALCHEMY_FURNACE;
 
 public class BlockShadowAlchemyFurnace extends BlockContainer {
 
@@ -45,25 +47,32 @@ public class BlockShadowAlchemyFurnace extends BlockContainer {
 
     @Override
     public void registerBlockIcons(IIconRegister register) {
-        this.shadowAlchemyFurnaceIcons[0] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_SHADOW_ALCHEMY_FURNACE + "_front_off").toString());
-        this.shadowAlchemyFurnaceIcons[1] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_SHADOW_ALCHEMY_FURNACE + "_front_on").toString());
-        this.shadowAlchemyFurnaceIcons[2] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_SHADOW_ALCHEMY_FURNACE + "_side").toString());
-        this.shadowAlchemyFurnaceIcons[3] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_SHADOW_ALCHEMY_FURNACE + "_bottom").toString());
-        this.shadowAlchemyFurnaceIcons[4] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_SHADOW_ALCHEMY_FURNACE + "_top").toString());
-        this.shadowAlchemyFurnaceIcons[5] = register.registerIcon(new ResourceLocation(MODID, UNLOCALE_SHADOW_ALCHEMY_FURNACE + "_top_filled").toString());
+        this.shadowAlchemyFurnaceIcons[0] = register
+            .registerIcon(new ResourceLocation(MODID, UNLOCALE_SHADOW_ALCHEMY_FURNACE + "_front_off").toString());
+        this.shadowAlchemyFurnaceIcons[1] = register
+            .registerIcon(new ResourceLocation(MODID, UNLOCALE_SHADOW_ALCHEMY_FURNACE + "_front_on").toString());
+        this.shadowAlchemyFurnaceIcons[2] = register
+            .registerIcon(new ResourceLocation(MODID, UNLOCALE_SHADOW_ALCHEMY_FURNACE + "_side").toString());
+        this.shadowAlchemyFurnaceIcons[3] = register
+            .registerIcon(new ResourceLocation(MODID, UNLOCALE_SHADOW_ALCHEMY_FURNACE + "_bottom").toString());
+        this.shadowAlchemyFurnaceIcons[4] = register
+            .registerIcon(new ResourceLocation(MODID, UNLOCALE_SHADOW_ALCHEMY_FURNACE + "_top").toString());
+        this.shadowAlchemyFurnaceIcons[5] = register
+            .registerIcon(new ResourceLocation(MODID, UNLOCALE_SHADOW_ALCHEMY_FURNACE + "_top_filled").toString());
     }
 
     @Override
     public IIcon getIcon(int side, int meta) {
-        return side == 0 ? this.shadowAlchemyFurnaceIcons[3] : side == 1 ? this.shadowAlchemyFurnaceIcons[4] : side == 3 ? this.shadowAlchemyFurnaceIcons[0] : this.shadowAlchemyFurnaceIcons[2];
+        return side == 0 ? this.shadowAlchemyFurnaceIcons[3]
+            : side == 1 ? this.shadowAlchemyFurnaceIcons[4]
+                : side == 3 ? this.shadowAlchemyFurnaceIcons[0] : this.shadowAlchemyFurnaceIcons[2];
     }
 
     @Override
     public IIcon getIcon(IBlockAccess access, int x, int y, int z, int side) {
         int meta = access.getBlockMetadata(x, y, z);
         TileEntity te = access.getTileEntity(x, y, z);
-        if (te instanceof TileEntityShadowAlchemyFurnace) {
-            TileEntityShadowAlchemyFurnace furnaceTE = (TileEntityShadowAlchemyFurnace) te;
+        if (te instanceof TileEntityShadowAlchemyFurnace furnaceTE) {
             if (side == 0) {
                 return this.shadowAlchemyFurnaceIcons[3];
             } else if (side == 1) {
@@ -114,8 +123,7 @@ public class BlockShadowAlchemyFurnace extends BlockContainer {
     @Override
     public int getLightValue(IBlockAccess access, int x, int y, int z) {
         TileEntity te = access.getTileEntity(x, y, z);
-        if (te instanceof TileEntityShadowAlchemyFurnace) {
-            TileEntityShadowAlchemyFurnace furnaceTE = (TileEntityShadowAlchemyFurnace) te;
+        if (te instanceof TileEntityShadowAlchemyFurnace furnaceTE) {
             if (furnaceTE.getFurnaceBurnTime() > 0) {
                 return 12;
             } else {
@@ -137,11 +145,18 @@ public class BlockShadowAlchemyFurnace extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float a, float b, float c) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float a, float b,
+        float c) {
         TileEntity te = world.getTileEntity(x, y, z);
         if (te instanceof TileEntityShadowAlchemyFurnace) {
             if (!player.isSneaking()) {
-                player.openGui(CoreMod.instance, EzacianCraftGUIContainerEvent.GuiID.SHADOW_ALCHEMY_FURNACE.ordinal(), world, x, y, z);
+                player.openGui(
+                    CoreMod.instance,
+                    EzacianCraftGUIContainerEvent.GuiID.SHADOW_ALCHEMY_FURNACE.ordinal(),
+                    world,
+                    x,
+                    y,
+                    z);
                 return true;
             }
         }
@@ -149,15 +164,15 @@ public class BlockShadowAlchemyFurnace extends BlockContainer {
     }
 
     @Override
-    public void onBlockDestroyedByPlayer(World p_149664_1_, int p_149664_2_, int p_149664_3_, int p_149664_4_, int p_149664_5_) {
+    public void onBlockDestroyedByPlayer(World p_149664_1_, int p_149664_2_, int p_149664_3_, int p_149664_4_,
+        int p_149664_5_) {
         super.onBlockDestroyedByPlayer(p_149664_1_, p_149664_2_, p_149664_3_, p_149664_4_, p_149664_5_);
     }
 
     @Override
     public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof TileEntityShadowAlchemyFurnace) {
-            TileEntityShadowAlchemyFurnace furnaceTE = (TileEntityShadowAlchemyFurnace) te;
+        if (te instanceof TileEntityShadowAlchemyFurnace furnaceTE) {
             if (furnaceTE.getEssentiaAmountVis() > 0 && !player.capabilities.isCreativeMode) {
                 int sz = furnaceTE.visAspects.visSize() / 16;
                 int q = 0;
@@ -198,8 +213,7 @@ public class BlockShadowAlchemyFurnace extends BlockContainer {
     public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         TileEntity te = world.getTileEntity(x, y, z);
         TileEntity teAbove = world.getTileEntity(x, y + 1, z);
-        if (te instanceof TileEntityShadowAlchemyFurnace) {
-            TileEntityShadowAlchemyFurnace furnaceTE = (TileEntityShadowAlchemyFurnace) te;
+        if (te instanceof TileEntityShadowAlchemyFurnace furnaceTE) {
             furnaceTE.getBellows();
         }
     }

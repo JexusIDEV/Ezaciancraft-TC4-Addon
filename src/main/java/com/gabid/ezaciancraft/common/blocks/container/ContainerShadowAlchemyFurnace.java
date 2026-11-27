@@ -1,19 +1,22 @@
 package com.gabid.ezaciancraft.common.blocks.container;
 
-import com.gabid.ezaciancraft.api.common.blocks.container.FuelSlot;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityShadowAlchemyFurnace;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
+import com.gabid.ezaciancraft.api.common.blocks.container.FuelSlot;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityShadowAlchemyFurnace;
+
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.container.SlotLimitedHasAspects;
 import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.TileAlchemyFurnace;
 
 public class ContainerShadowAlchemyFurnace extends Container {
+
     private final TileEntityShadowAlchemyFurnace furnaceTE;
 
     protected int lastEssentiaAmountVis;
@@ -134,7 +137,7 @@ public class ContainerShadowAlchemyFurnace extends Container {
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotId) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.inventorySlots.get(slotId);
+        Slot slot = this.inventorySlots.get(slotId);
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
@@ -142,7 +145,8 @@ public class ContainerShadowAlchemyFurnace extends Container {
                 AspectList al = ThaumcraftCraftingManager.getObjectTags(itemstack1);
                 al = ThaumcraftCraftingManager.getBonusTags(itemstack1, al);
                 if (TileAlchemyFurnace.isItemFuel(itemstack1)) {
-                    if (!this.mergeItemStack(itemstack1, 1, 2, false) && !this.mergeItemStack(itemstack1, 0, 1, false)) {
+                    if (!this.mergeItemStack(itemstack1, 1, 2, false)
+                        && !this.mergeItemStack(itemstack1, 0, 1, false)) {
                         return null;
                     }
                 } else if (al.size() > 0) {

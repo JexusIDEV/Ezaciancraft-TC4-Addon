@@ -1,8 +1,5 @@
 package com.gabid.ezaciancraft.client.renderer.items.blocks;
 
-import com.gabid.ezaciancraft.api.common.blocks.tileentity.EzacianCustomJarFillableTE;
-import com.gabid.ezaciancraft.api.common.blocks.tileentity.EzacianCustomJarFillableVoidTE;
-import com.gabid.ezaciancraft.api.common.items.EzacianCustomItemJarFilled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -10,11 +7,18 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
+
+import com.gabid.ezaciancraft.api.common.blocks.tileentity.EzacianCustomJarFillableTE;
+import com.gabid.ezaciancraft.api.common.blocks.tileentity.EzacianCustomJarFillableVoidTE;
+import com.gabid.ezaciancraft.api.common.items.EzacianCustomItemJarFilled;
+
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
 public class EzacianCustomItemJarFilledRenderer implements IItemRenderer {
+
     RenderBlocks renderBlocks = new RenderBlocks();
 
     @Override
@@ -29,8 +33,7 @@ public class EzacianCustomItemJarFilledRenderer implements IItemRenderer {
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-        if (item.getItem() instanceof EzacianCustomItemJarFilled) {
-            EzacianCustomItemJarFilled jarItem = (EzacianCustomItemJarFilled) item.getItem();
+        if (item.getItem() instanceof EzacianCustomItemJarFilled jarItem) {
             if (type == ItemRenderType.ENTITY) {
                 GL11.glScalef(0.5f, 0.5f, 0.5f);
                 GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
@@ -51,7 +54,9 @@ public class EzacianCustomItemJarFilledRenderer implements IItemRenderer {
                 }
             }
 
-            jarTE.setMaxAmount(jarItem.getBlockJar().getNewEssentiaMaxAmount());
+            jarTE.setMaxAmount(
+                jarItem.getBlockJar()
+                    .getNewEssentiaMaxAmount());
             AspectList aspects = jarItem.getAspects(item);
             if (aspects != null && aspects.size() == 1) {
                 jarTE.amount = aspects.getAmount(aspects.getAspects()[0]);
@@ -59,7 +64,8 @@ public class EzacianCustomItemJarFilledRenderer implements IItemRenderer {
             }
 
             if (item.stackTagCompound != null) {
-                String tf = item.getTagCompound().getString("AspectFilter");
+                String tf = item.getTagCompound()
+                    .getString("AspectFilter");
                 if (tf != null) {
                     jarTE.aspectFilter = Aspect.getAspect(tf);
                 }

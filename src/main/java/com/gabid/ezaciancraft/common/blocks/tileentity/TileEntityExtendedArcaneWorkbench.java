@@ -1,20 +1,20 @@
 package com.gabid.ezaciancraft.common.blocks.tileentity;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
-import thaumcraft.common.items.wands.ItemWandCasting;
-import thaumcraft.common.tiles.TileArcaneWorkbench;
-
 import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_EXTENDED_ARCANE_WORKBENCH;
 import static com.gabid.ezaciancraft.common.blocks.machine.BlockExtendedArcaneWorkbench.multiblockBlueprint;
 import static com.gabid.ezaciancraft.common.blocks.machine.BlockExtendedArcaneWorkbench.multiblockMetaDatas;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
+
+import thaumcraft.common.items.wands.ItemWandCasting;
+import thaumcraft.common.tiles.TileArcaneWorkbench;
+
 public class TileEntityExtendedArcaneWorkbench extends TileArcaneWorkbench {
 
-    public TileEntityExtendedArcaneWorkbench() {
-    }
+    public TileEntityExtendedArcaneWorkbench() {}
 
     @Override
     public String getInventoryName() {
@@ -49,7 +49,8 @@ public class TileEntityExtendedArcaneWorkbench extends TileArcaneWorkbench {
     @Override
     public boolean func_94041_b(int i, ItemStack itemstack) {
         if (i == 10) {
-            return this.func_70301_a(10).getItem() instanceof ItemWandCasting;
+            return this.func_70301_a(10)
+                .getItem() instanceof ItemWandCasting;
         } else {
             return true;
         }
@@ -69,12 +70,22 @@ public class TileEntityExtendedArcaneWorkbench extends TileArcaneWorkbench {
         int z = this.zCoord;
         for (int xOffset = -1; xOffset <= 1; xOffset++) {
             for (int zOffset = -1; zOffset <= 1; zOffset++) {
-                if (this.getWorldObj().getBlock(x + xOffset, y, z + zOffset) == this.getBlockType()) {
-                    int currentBlockMeta = this.getWorldObj().getBlockMetadata(x + xOffset, y, z + zOffset);
-                    this.getWorldObj().setBlock(x + xOffset, y, z + zOffset, Block.getBlockFromItem(new ItemStack(multiblockBlueprint[currentBlockMeta]).getItem()), multiblockMetaDatas[currentBlockMeta], 3);
+                if (this.getWorldObj()
+                    .getBlock(x + xOffset, y, z + zOffset) == this.getBlockType()) {
+                    int currentBlockMeta = this.getWorldObj()
+                        .getBlockMetadata(x + xOffset, y, z + zOffset);
+                    this.getWorldObj()
+                        .setBlock(
+                            x + xOffset,
+                            y,
+                            z + zOffset,
+                            Block.getBlockFromItem(new ItemStack(multiblockBlueprint[currentBlockMeta]).getItem()),
+                            multiblockMetaDatas[currentBlockMeta],
+                            3);
                 }
             }
         }
-        this.getWorldObj().playSoundEffect(x + .5f, y + .5f, z + .5f, "thaumcraft:craftfail", 1f, 1f);
+        this.getWorldObj()
+            .playSoundEffect(x + .5f, y + .5f, z + .5f, "thaumcraft:craftfail", 1f, 1f);
     }
 }

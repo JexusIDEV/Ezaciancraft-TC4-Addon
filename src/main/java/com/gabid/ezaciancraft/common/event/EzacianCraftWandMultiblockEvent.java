@@ -1,16 +1,20 @@
 package com.gabid.ezaciancraft.common.event;
 
-import com.gabid.ezaciancraft.api.InterfaceTypesAndStates;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAdvancedEssentiaStorage;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAdvancedEssentiaStorageInterface;
-import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
-import cpw.mods.fml.common.network.NetworkRegistry;
+import static com.gabid.ezaciancraft.lib.EzacianArrayLibHelper.all2DArrayTrue;
+import static com.gabid.ezaciancraft.lib.EzacianArrayLibHelper.all3DArrayTrue;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAdvancedEssentiaStorage;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAdvancedEssentiaStorageInterface;
+import com.gabid.ezaciancraft.registry.EzacianCraftBlocks;
+
+import cpw.mods.fml.common.network.NetworkRegistry;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.wands.IWandTriggerManager;
@@ -20,24 +24,22 @@ import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.fx.PacketFXBlockSparkle;
 import thaumcraft.common.lib.research.ResearchManager;
 
-import static com.gabid.ezaciancraft.lib.EzacianArrayLibHelper.all2DArrayTrue;
-import static com.gabid.ezaciancraft.lib.EzacianArrayLibHelper.all3DArrayTrue;
-
 public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
 
-    public EzacianCraftWandMultiblockEvent() {
-    }
+    public EzacianCraftWandMultiblockEvent() {}
 
-    private static boolean createAdvancedArcaneWorkbench(ItemStack wand, EntityPlayer player, World world, int x, int y, int z) {
+    private static boolean createAdvancedArcaneWorkbench(ItemStack wand, EntityPlayer player, World world, int x, int y,
+        int z) {
         Block masterBlock = EzacianCraftBlocks.ezacianStoneDecorativeBlocks;
         Block arcaneDeco = ConfigBlocks.blockCosmeticSolid;
-        Block[][] multiblockBlueprint = {{arcaneDeco, arcaneDeco, arcaneDeco}, {arcaneDeco, masterBlock, arcaneDeco}, {arcaneDeco, arcaneDeco, arcaneDeco}}; //3x3x1
-        int[][] multiblockMetaDatas = {{7, 6, 7}, {6, 0, 6}, {7, 6, 7}};
+        Block[][] multiblockBlueprint = { { arcaneDeco, arcaneDeco, arcaneDeco },
+            { arcaneDeco, masterBlock, arcaneDeco }, { arcaneDeco, arcaneDeco, arcaneDeco } }; // 3x3x1
+        int[][] multiblockMetaDatas = { { 7, 6, 7 }, { 6, 0, 6 }, { 7, 6, 7 } };
 
         Block hitBlock = world.getBlock(x, y, z);
         int hitMeta = world.getBlockMetadata(x, y, z);
 
-        boolean[][] blueprintValidation = {{false, false, false}, {false, false, false}, {false, false, false}};
+        boolean[][] blueprintValidation = { { false, false, false }, { false, false, false }, { false, false, false } };
 
         for (int xOffset = -1; xOffset <= 1; xOffset++) {
             for (int zOffset = -1; zOffset <= 1; zOffset++) {
@@ -48,7 +50,8 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
                 int arrayZOffset = zOffset + 1;
 
                 if (hitBlock == masterBlock && hitMeta == 0) {
-                    if (multiblockBlueprint[arrayXOffset][arrayZOffset] == currentBlock && multiblockMetaDatas[arrayXOffset][arrayZOffset] == currentBlockMeta) {
+                    if (multiblockBlueprint[arrayXOffset][arrayZOffset] == currentBlock
+                        && multiblockMetaDatas[arrayXOffset][arrayZOffset] == currentBlockMeta) {
                         blueprintValidation[arrayXOffset][arrayZOffset] = true;
                     }
                 }
@@ -56,19 +59,23 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
         }
 
         ItemWandCasting wandItem = (ItemWandCasting) wand.getItem();
-        boolean hasEnoughVisToPerform = wandItem.consumeAllVisCrafting(wand, player, new AspectList()
-                        .add(Aspect.FIRE, 75)
-                        .add(Aspect.ORDER, 75)
-                        .add(Aspect.WATER, 75)
-                        .add(Aspect.AIR, 75)
-                        .add(Aspect.EARTH, 75)
-                        .add(Aspect.ENTROPY, 75)
-                , true);
+        boolean hasEnoughVisToPerform = wandItem.consumeAllVisCrafting(
+            wand,
+            player,
+            new AspectList().add(Aspect.FIRE, 75)
+                .add(Aspect.ORDER, 75)
+                .add(Aspect.WATER, 75)
+                .add(Aspect.AIR, 75)
+                .add(Aspect.EARTH, 75)
+                .add(Aspect.ENTROPY, 75),
+            true);
         boolean blueprintValidated = all2DArrayTrue(blueprintValidation);
 
         if (blueprintValidated && hasEnoughVisToPerform) {
             if (world.isRemote) {
-                PacketHandler.INSTANCE.sendToAllAround(new PacketFXBlockSparkle(x, y, z, -9999), new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 32.0));
+                PacketHandler.INSTANCE.sendToAllAround(
+                    new PacketFXBlockSparkle(x, y, z, -9999),
+                    new NetworkRegistry.TargetPoint(world.provider.dimensionId, x, y, z, 32.0));
             } else {
                 return replaceAdvancedArcaneWorkbench(world, x, y, z);
             }
@@ -80,7 +87,8 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
         int metaIterator = 0;
         for (int xOffset = -1; xOffset <= 1; xOffset++) {
             for (int zOffset = -1; zOffset <= 1; zOffset++) {
-                world.setBlock(x + xOffset, y, z + zOffset, EzacianCraftBlocks.extendedArcaneWorkbench, metaIterator, 3);
+                world
+                    .setBlock(x + xOffset, y, z + zOffset, EzacianCraftBlocks.extendedArcaneWorkbench, metaIterator, 3);
                 world.markBlockForUpdate(x + xOffset, y, z + zOffset);
                 metaIterator++;
             }
@@ -89,74 +97,37 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
         return true;
     }
 
-    public static boolean createAdvancedEssentiaStorage(ItemStack wand, EntityPlayer player, World world, int hitX, int hitY, int hitZ) {
-        Block masterBlock = EzacianCraftBlocks.alchemyBlockExpert; //0
-        Block blockAlchemy = ConfigBlocks.blockMetalDevice; //16
-        Block blockGreatWood = ConfigBlocks.blockWoodenDevice; //6
+    public static boolean createAdvancedEssentiaStorage(ItemStack wand, EntityPlayer player, World world, int hitX,
+        int hitY, int hitZ) {
+        Block masterBlock = EzacianCraftBlocks.alchemyBlockExpert; // 0
+        Block blockAlchemy = ConfigBlocks.blockMetalDevice; // 16
+        Block blockGreatWood = ConfigBlocks.blockWoodenDevice; // 6
 
         Block[][][] multiblockBlueprint = {
-                {
-                    {blockAlchemy, blockAlchemy, blockAlchemy},
-                    {blockAlchemy, blockAlchemy, blockAlchemy},
-                    {blockAlchemy, blockAlchemy, blockAlchemy}
-                },
-                {
-                    {blockGreatWood, blockAlchemy, blockGreatWood},
-                    {blockAlchemy, masterBlock, blockAlchemy},
-                    {blockGreatWood, blockAlchemy, blockGreatWood}
-                },
-                {
-                    {blockAlchemy, blockAlchemy, blockAlchemy},
-                    {blockAlchemy, blockAlchemy, blockAlchemy},
-                    {blockAlchemy, blockAlchemy, blockAlchemy}
-                }
-        };
-        int[][][] multiblockMetaDatas = {
-                {
-                    {9, 9, 9},
-                    {9, 3, 9},
-                    {9, 9, 9}
-                },
-                {
-                    {6, 3, 6},
-                    {3, 0, 3},
-                    {6, 3, 6}
-                },
-                {
-                    {9, 9, 9},
-                    {9, 3, 9},
-                    {9, 9, 9}
-                }
-        };
+            { { blockAlchemy, blockAlchemy, blockAlchemy }, { blockAlchemy, blockAlchemy, blockAlchemy },
+                { blockAlchemy, blockAlchemy, blockAlchemy } },
+            { { blockGreatWood, blockAlchemy, blockGreatWood }, { blockAlchemy, masterBlock, blockAlchemy },
+                { blockGreatWood, blockAlchemy, blockGreatWood } },
+            { { blockAlchemy, blockAlchemy, blockAlchemy }, { blockAlchemy, blockAlchemy, blockAlchemy },
+                { blockAlchemy, blockAlchemy, blockAlchemy } } };
+        int[][][] multiblockMetaDatas = { { { 9, 9, 9 }, { 9, 3, 9 }, { 9, 9, 9 } },
+            { { 6, 3, 6 }, { 3, 0, 3 }, { 6, 3, 6 } }, { { 9, 9, 9 }, { 9, 3, 9 }, { 9, 9, 9 } } };
 
         boolean[][][] blueprintValidation = {
-                {
-                        {false, false, false},
-                        {false, false, false},
-                        {false, false, false}
-                },
-                {
-                        {false, false, false},
-                        {false, false, false},
-                        {false, false, false}
-                },
-                {
-                        {false, false, false},
-                        {false, false, false},
-                        {false, false, false}
-                }
-        };
+            { { false, false, false }, { false, false, false }, { false, false, false } },
+            { { false, false, false }, { false, false, false }, { false, false, false } },
+            { { false, false, false }, { false, false, false }, { false, false, false } } };
 
         int masterX = 0;
         int masterY = 0;
         int masterZ = 0;
 
-        //search the center
-        for(int searchX=-1; searchX <= 1; searchX++) {
-            for(int searchY=-1; searchY <= 1; searchY++) {
-                for(int searchZ=-1; searchZ <= 1; searchZ++) {
+        // search the center
+        for (int searchX = -1; searchX <= 1; searchX++) {
+            for (int searchY = -1; searchY <= 1; searchY++) {
+                for (int searchZ = -1; searchZ <= 1; searchZ++) {
                     Block searchMasterBlock = world.getBlock(hitX + searchX, hitY + searchY, hitZ + searchZ);
-                    if(searchMasterBlock != null && searchMasterBlock == masterBlock) {
+                    if (searchMasterBlock != null && searchMasterBlock == masterBlock) {
                         masterX = hitX + searchX;
                         masterY = hitY + searchY;
                         masterZ = hitZ + searchZ;
@@ -165,10 +136,10 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
             }
         }
 
-        //do the real check
-        for(int searchX=-1; searchX <= 1; searchX++) {
-            for(int searchY=-1; searchY <= 1; searchY++) {
-                for(int searchZ=-1; searchZ <= 1; searchZ++) {
+        // do the real check
+        for (int searchX = -1; searchX <= 1; searchX++) {
+            for (int searchY = -1; searchY <= 1; searchY++) {
+                for (int searchZ = -1; searchZ <= 1; searchZ++) {
                     int mSearchX = masterX + searchX;
                     int mSearchY = masterY + searchY;
                     int mSearchZ = masterZ + searchZ;
@@ -179,7 +150,8 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
 
                     Block searchedBlock = world.getBlock(mSearchX, mSearchY, mSearchZ);
                     int currentMetaBlock = world.getBlockMetadata(mSearchX, mSearchY, mSearchZ);
-                    if(multiblockBlueprint[positiveSearchY][positiveSearchZ][positiveSearchX] == searchedBlock && multiblockMetaDatas[positiveSearchY][positiveSearchZ][positiveSearchX] == currentMetaBlock) {
+                    if (multiblockBlueprint[positiveSearchY][positiveSearchZ][positiveSearchX] == searchedBlock
+                        && multiblockMetaDatas[positiveSearchY][positiveSearchZ][positiveSearchX] == currentMetaBlock) {
                         blueprintValidation[positiveSearchY][positiveSearchZ][positiveSearchX] = true;
                     }
                 }
@@ -187,14 +159,16 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
         }
 
         ItemWandCasting wandItem = (ItemWandCasting) wand.getItem();
-        boolean hasEnoughVisToPerform = wandItem.consumeAllVisCrafting(wand, player, new AspectList()
-                        .add(Aspect.FIRE, 125)
-                        .add(Aspect.ORDER, 125)
-                        .add(Aspect.WATER, 125)
-                        .add(Aspect.AIR, 125)
-                        .add(Aspect.EARTH, 125)
-                        .add(Aspect.ENTROPY, 125)
-                , true);
+        boolean hasEnoughVisToPerform = wandItem.consumeAllVisCrafting(
+            wand,
+            player,
+            new AspectList().add(Aspect.FIRE, 125)
+                .add(Aspect.ORDER, 125)
+                .add(Aspect.WATER, 125)
+                .add(Aspect.AIR, 125)
+                .add(Aspect.EARTH, 125)
+                .add(Aspect.ENTROPY, 125),
+            true);
         boolean blueprintValidated = all3DArrayTrue(blueprintValidation);
 
         if (blueprintValidated && hasEnoughVisToPerform) {
@@ -208,43 +182,19 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
     private static boolean replaceAdvancedEssentiaStorage(World world, int x, int y, int z) {
         Block realAdvancedEssentiaStorage = EzacianCraftBlocks.advancedEssentiaStorage;
         Block[][][] multiblockBlueprintFormed = {
-                {
-                        {realAdvancedEssentiaStorage, realAdvancedEssentiaStorage, realAdvancedEssentiaStorage},
-                        {realAdvancedEssentiaStorage, null, realAdvancedEssentiaStorage},
-                        {realAdvancedEssentiaStorage, realAdvancedEssentiaStorage, realAdvancedEssentiaStorage}
-                },
-                {
-                        {null, null, null},
-                        {null, realAdvancedEssentiaStorage, null},
-                        {null, null, null}
-                },
-                {
-                        {realAdvancedEssentiaStorage, realAdvancedEssentiaStorage, realAdvancedEssentiaStorage},
-                        {realAdvancedEssentiaStorage, null, realAdvancedEssentiaStorage},
-                        {realAdvancedEssentiaStorage, realAdvancedEssentiaStorage, realAdvancedEssentiaStorage}
-                }
-        };
-        int[][][] multiblockMetaDatas = {
-                {
-                        {1, 1, 1},
-                        {1, 0, 1},
-                        {1, 1, 1}
-                },
-                {
-                        {0, 0, 0},
-                        {0, 0, 0},
-                        {0, 0, 0}
-                },
-                {
-                        {2, 2, 2},
-                        {2, 0, 2},
-                        {2, 2, 2}
-                }
-        };
+            { { realAdvancedEssentiaStorage, realAdvancedEssentiaStorage, realAdvancedEssentiaStorage },
+                { realAdvancedEssentiaStorage, null, realAdvancedEssentiaStorage },
+                { realAdvancedEssentiaStorage, realAdvancedEssentiaStorage, realAdvancedEssentiaStorage } },
+            { { null, null, null }, { null, realAdvancedEssentiaStorage, null }, { null, null, null } },
+            { { realAdvancedEssentiaStorage, realAdvancedEssentiaStorage, realAdvancedEssentiaStorage },
+                { realAdvancedEssentiaStorage, null, realAdvancedEssentiaStorage },
+                { realAdvancedEssentiaStorage, realAdvancedEssentiaStorage, realAdvancedEssentiaStorage } } };
+        int[][][] multiblockMetaDatas = { { { 1, 1, 1 }, { 1, 0, 1 }, { 1, 1, 1 } },
+            { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } }, { { 2, 2, 2 }, { 2, 0, 2 }, { 2, 2, 2 } } };
 
-        for(int searchX = -1; searchX <= 1; searchX++) {
-            for(int searchY=-1; searchY <= 1; searchY++) {
-                for(int searchZ=-1; searchZ <= 1; searchZ++) {
+        for (int searchX = -1; searchX <= 1; searchX++) {
+            for (int searchY = -1; searchY <= 1; searchY++) {
+                for (int searchZ = -1; searchZ <= 1; searchZ++) {
                     int mSearchX = x + searchX;
                     int mSearchY = y + searchY;
                     int mSearchZ = z + searchZ;
@@ -253,8 +203,14 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
                     int positiveSearchY = searchY + 1;
                     int positiveSearchZ = searchZ + 1;
 
-                    if(multiblockBlueprintFormed[positiveSearchY][positiveSearchZ][positiveSearchX] != null) {
-                        world.setBlock(mSearchX, mSearchY, mSearchZ, multiblockBlueprintFormed[positiveSearchY][positiveSearchZ][positiveSearchX], multiblockMetaDatas[positiveSearchY][positiveSearchZ][positiveSearchX], 3);
+                    if (multiblockBlueprintFormed[positiveSearchY][positiveSearchZ][positiveSearchX] != null) {
+                        world.setBlock(
+                            mSearchX,
+                            mSearchY,
+                            mSearchZ,
+                            multiblockBlueprintFormed[positiveSearchY][positiveSearchZ][positiveSearchX],
+                            multiblockMetaDatas[positiveSearchY][positiveSearchZ][positiveSearchX],
+                            3);
                         world.markBlockForUpdate(mSearchX, mSearchY, mSearchZ);
                     } else {
                         world.setBlock(mSearchX, mSearchY, mSearchZ, Blocks.air, 0, 3);
@@ -265,12 +221,11 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
 
         TileEntity realMasterTE = world.getTileEntity(x, y, z);
         TileEntityAdvancedEssentiaStorage storageTE;
-        if(realMasterTE instanceof TileEntityAdvancedEssentiaStorage)
+        if (realMasterTE instanceof TileEntityAdvancedEssentiaStorage)
             storageTE = (TileEntityAdvancedEssentiaStorage) realMasterTE;
-        else
-            return false;
+        else return false;
 
-        for(int searchX = -1; searchX <= 1; searchX++) {
+        for (int searchX = -1; searchX <= 1; searchX++) {
             for (int searchY = -1; searchY <= 1; searchY++) {
                 for (int searchZ = -1; searchZ <= 1; searchZ++) {
                     int mSearchX = x + searchX;
@@ -278,8 +233,7 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
                     int mSearchZ = z + searchZ;
 
                     TileEntity currentTE = world.getTileEntity(mSearchX, mSearchY, mSearchZ);
-                    if(currentTE instanceof TileEntityAdvancedEssentiaStorageInterface) {
-                        TileEntityAdvancedEssentiaStorageInterface interfaceTE = (TileEntityAdvancedEssentiaStorageInterface) currentTE;
+                    if (currentTE instanceof TileEntityAdvancedEssentiaStorageInterface interfaceTE) {
                         interfaceTE.setMasterPos(storageTE.xCoord, storageTE.yCoord, storageTE.zCoord);
                         world.markBlockForUpdate(storageTE.xCoord, storageTE.yCoord, storageTE.zCoord);
                     }
@@ -293,7 +247,8 @@ public class EzacianCraftWandMultiblockEvent implements IWandTriggerManager {
     }
 
     @Override
-    public boolean performTrigger(World world, ItemStack wand, EntityPlayer player, int x, int y, int z, int side, int event) {
+    public boolean performTrigger(World world, ItemStack wand, EntityPlayer player, int x, int y, int z, int side,
+        int event) {
         switch (event) {
             case 0:
                 if (ResearchManager.isResearchComplete(player.getDisplayName(), "ADVANCED_ARCANE_WORKBENCH")) {

@@ -1,18 +1,9 @@
 package com.gabid.ezaciancraft.api.common.items;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
-import thaumcraft.common.items.armor.ItemCultistRobeArmor;
-import thaumcraft.common.items.armor.ItemFortressArmor;
-import thaumcraft.common.items.armor.ItemRobeArmor;
-import thaumcraft.common.items.armor.ItemVoidRobeArmor;
 
-import java.util.List;
+import thaumcraft.common.items.armor.ItemVoidRobeArmor;
 
 public class ItemCustomRobesArmor extends ItemVoidRobeArmor {
 
@@ -31,7 +22,8 @@ public class ItemCustomRobesArmor extends ItemVoidRobeArmor {
             return this.color;
         } else {
             NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
-            return nbttagcompound1 == null ? this.color : (nbttagcompound1.hasKey("color") ? nbttagcompound1.getInteger("color") : 6961280);
+            return nbttagcompound1 == null ? this.color
+                : (nbttagcompound1.hasKey("color") ? nbttagcompound1.getInteger("color") : 6961280);
         }
     }
 

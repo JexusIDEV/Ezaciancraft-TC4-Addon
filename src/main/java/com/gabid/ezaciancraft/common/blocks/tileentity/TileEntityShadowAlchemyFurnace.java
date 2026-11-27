@@ -1,14 +1,15 @@
 package com.gabid.ezaciancraft.common.blocks.tileentity;
 
-import com.gabid.ezaciancraft.lib.nbt.NBTHelper;
-import lombok.Getter;
-import lombok.Setter;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_SHADOW_ALCHEMY_FURNACE;
+import static com.gabid.ezaciancraft.config.EzacianCraftConfiguration.*;
+import static net.minecraft.tileentity.TileEntityFurnace.isItemFuel;
+import static net.minecraftforge.common.util.ForgeDirection.UP;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -17,6 +18,11 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import com.gabid.ezaciancraft.lib.nbt.NBTHelper;
+
+import lombok.Getter;
+import lombok.Setter;
 import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -25,22 +31,19 @@ import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
 import thaumcraft.common.tiles.TileAlembic;
 import thaumcraft.common.tiles.TileBellows;
 
-import static com.gabid.ezaciancraft.config.EzacianCraftConfiguration.*;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_SHADOW_ALCHEMY_FURNACE;
-import static net.minecraft.tileentity.TileEntityFurnace.isItemFuel;
-import static net.minecraftforge.common.util.ForgeDirection.UP;
-
 @Getter
 @Setter
 public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements ISidedInventory {
-    //sided container and itemstack interface
-    private static final int[] inputSidesSlots = new int[]{0, 1};
-    //essentia
+
+    // sided container and itemstack interface
+    private static final int[] inputSidesSlots = new int[] { 0, 1 };
+    // essentia
     public AspectList visAspects = new AspectList();
-    protected int alembicDistillationHeightLimit = alembicsMaxHeight; //how many alembics the furnace can handle and fill
+    protected int alembicDistillationHeightLimit = alembicsMaxHeight; // how many alembics the furnace can handle and
+                                                                      // fill
     protected int essentiaMaxVis = visMaxCapacity;
     protected int essentiaAmountVis = 0;
-    //item smelting and what
+    // item smelting and what
     protected boolean isBurning = false;
     protected boolean isProcessing = false;
     protected int furnaceBurnTime = 0;
@@ -48,19 +51,18 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
     protected int furnaceCookTime = 0;
     protected int maxFurnaceCookTime;
     protected float speedBurnMultiplier = 1;
-    //centivis
+    // centivis
     protected int centiVisHeat = 0;
     protected int centiVisLiquidity = 0;
     protected int centiVisDestruction = 0;
     protected int maxCentivisUnit = 500;
-    //extra
+    // extra
     private int ticks = 0;
     private int bellowsAmount = 0;
     private String customName;
     private ItemStack[] furnaceItemStacks = new ItemStack[2];
 
-    public TileEntityShadowAlchemyFurnace() {
-    }
+    public TileEntityShadowAlchemyFurnace() {}
 
     @Override
     public void readFromNBT(NBTTagCompound nbtCompound) {
@@ -91,7 +93,7 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
         this.visAspects.writeToNBT(nbttagcompound);
     }
 
-    //nbt what thaumcraft registers after the base methods are called
+    // nbt what thaumcraft registers after the base methods are called
     @Override
     public void readCustomNBT(NBTTagCompound nbttagcompound) {
         this.furnaceBurnTime = nbttagcompound.getInteger("BurnTime");
@@ -121,7 +123,7 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
         }
     }
 
-    //inventory interface stuff
+    // inventory interface stuff
     @Override
     public int[] getAccessibleSlotsFromSide(int slot) {
         return inputSidesSlots;
@@ -160,7 +162,8 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
                 itemstack = this.getStackInSlot(slot);
                 this.setInventorySlotContents(slot, null);
             } else {
-                itemstack = this.getStackInSlot(slot).splitStack(decrement);
+                itemstack = this.getStackInSlot(slot)
+                    .splitStack(decrement);
 
                 if (this.getStackInSlot(slot).stackSize == 0) {
                     this.setInventorySlotContents(slot, null);
@@ -200,7 +203,8 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
 
     @Override
     public String getInventoryName() {
-        return this.hasCustomInventoryName() ? this.customName : StatCollector.translateToLocal("container." + UNLOCALE_SHADOW_ALCHEMY_FURNACE + ".title");
+        return this.hasCustomInventoryName() ? this.customName
+            : StatCollector.translateToLocal("container." + UNLOCALE_SHADOW_ALCHEMY_FURNACE + ".title");
     }
 
     @Override
@@ -215,7 +219,8 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.worldObj.getTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(xCoord, yCoord, zCoord) == this
+            && player.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64.0D;
     }
 
     @Override
@@ -275,12 +280,12 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
         this.ticks++;
 
         if (!this.worldObj.isRemote) {
-            //reset timers
+            // reset timers
             if (this.bellowsAmount <= 0) {
                 this.getBellows();
                 this.speedBurnMultiplier = 1;
             } else {
-                this.speedBurnMultiplier = (float) (this.bellowsAmount * processSpeedBellowsBonus);
+                this.speedBurnMultiplier = this.bellowsAmount * processSpeedBellowsBonus;
             }
             this.centiVisCharge();
             this.processResult();
@@ -288,35 +293,38 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
         }
     }
 
-    //centi vis system to the block
+    // centi vis system to the block
     private void centiVisCharge() {
-        if(this.ticks++ % 5 == 0) {
+        if (this.ticks++ % 5 == 0) {
             this.centiVisHeat = MathHelper.clamp_int(this.centiVisHeat, 0, this.maxCentivisUnit);
 
             if (this.centiVisHeat <= this.maxCentivisUnit) {
-                int data = this.centiVisHeat + VisNetHandler.drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, Aspect.FIRE, 50);
+                int data = this.centiVisHeat
+                    + VisNetHandler.drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, Aspect.FIRE, 50);
                 this.centiVisHeat = MathHelper.clamp_int(data, 0, this.maxCentivisUnit);
             }
 
             if (this.centiVisLiquidity <= this.maxCentivisUnit) {
-                int data = this.centiVisLiquidity + VisNetHandler.drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, Aspect.ENTROPY, 50);
+                int data = this.centiVisLiquidity
+                    + VisNetHandler.drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, Aspect.ENTROPY, 50);
                 this.centiVisLiquidity = MathHelper.clamp_int(data, 0, this.maxCentivisUnit);
             }
 
             if (this.centiVisDestruction <= this.maxCentivisUnit) {
-                int data = this.centiVisDestruction + VisNetHandler.drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, Aspect.WATER, 50);
+                int data = this.centiVisDestruction
+                    + VisNetHandler.drainVis(this.worldObj, this.xCoord, this.yCoord, this.zCoord, Aspect.WATER, 50);
                 this.centiVisDestruction = MathHelper.clamp_int(data, 0, this.maxCentivisUnit);
             }
         }
     }
 
-    //manages the burn and the processing of the furnace
+    // manages the burn and the processing of the furnace
     private void processResult() {
         ItemStack fuelItemStack = this.getStackInSlot(1);
         ItemStack itemStackToProcess = this.getStackInSlot(0);
         AspectList itemStackToProcessAspects = ThaumcraftCraftingManager.getObjectTags(itemStackToProcess);
 
-        if(this.centiVisHeat <= 0) {
+        if (this.centiVisHeat <= 0) {
             this.processByCombustion(fuelItemStack, itemStackToProcess, itemStackToProcessAspects);
         } else {
             this.setFurnaceBurnTime(1);
@@ -324,14 +332,18 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
         }
     }
 
-    private void processByCombustion(ItemStack fuelItemStack, ItemStack itemStackToProcess, AspectList itemStackToProcessAspects) {
-        if (this.furnaceBurnTime <= 0 && itemStackToProcess != null && fuelItemStack != null && TileEntityFurnace.isItemFuel(fuelItemStack)) {
+    private void processByCombustion(ItemStack fuelItemStack, ItemStack itemStackToProcess,
+        AspectList itemStackToProcessAspects) {
+        if (this.furnaceBurnTime <= 0 && itemStackToProcess != null
+            && fuelItemStack != null
+            && TileEntityFurnace.isItemFuel(fuelItemStack)) {
             this.setMaxFurnaceBurnTime(TileEntityFurnace.getItemBurnTime(fuelItemStack));
             this.setFurnaceBurnTime(this.getMaxFurnaceBurnTime());
             fuelItemStack.stackSize--;
 
             if (this.furnaceItemStacks[1].stackSize <= 0) {
-                this.furnaceItemStacks[1] = this.furnaceItemStacks[1].getItem().getContainerItem(this.furnaceItemStacks[1]);
+                this.furnaceItemStacks[1] = this.furnaceItemStacks[1].getItem()
+                    .getContainerItem(this.furnaceItemStacks[1]);
             }
 
             this.markDirty();
@@ -349,13 +361,15 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
 
             if (itemStackToProcess != null) {
                 if (itemStackToProcessAspects != null && this.furnaceBurnTime > 0) {
-                    AspectList metaVis = ThaumcraftCraftingManager.getBonusTags(itemStackToProcess, itemStackToProcessAspects);
+                    AspectList metaVis = ThaumcraftCraftingManager
+                        .getBonusTags(itemStackToProcess, itemStackToProcessAspects);
                     int visItemAmount = metaVis.visSize();
                     if (this.essentiaAmountVis + visItemAmount > this.essentiaMaxVis) {
                         return;
                     } else {
                         if (this.bellowsAmount > 1) {
-                            this.maxFurnaceCookTime = (int) ((float) (visItemAmount * 10) * (1.0F - 0.125F)) / (int) this.speedBurnMultiplier;
+                            this.maxFurnaceCookTime = (int) ((float) (visItemAmount * 10) * (1.0F - 0.125F))
+                                / (int) this.speedBurnMultiplier;
                         } else {
                             this.maxFurnaceCookTime = (int) ((float) (visItemAmount * 10) * (1.0F - 0.125F));
                         }
@@ -366,7 +380,8 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
                             itemStackToProcess.stackSize--;
 
                             if (this.furnaceItemStacks[0].stackSize <= 0) {
-                                this.furnaceItemStacks[0] = this.furnaceItemStacks[0].getItem().getContainerItem(this.furnaceItemStacks[0]);
+                                this.furnaceItemStacks[0] = this.furnaceItemStacks[0].getItem()
+                                    .getContainerItem(this.furnaceItemStacks[0]);
                             }
 
                             for (Aspect aspect : metaVis.getAspects()) {
@@ -389,13 +404,15 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
     }
 
     private void processByVis(ItemStack itemStackToProcess, AspectList itemStackToProcessAspects) {
-        if(itemStackToProcess != null && this.centiVisHeat > 0 && itemStackToProcessAspects != null) {
+        if (itemStackToProcess != null && this.centiVisHeat > 0 && itemStackToProcessAspects != null) {
             AspectList metaVis = ThaumcraftCraftingManager.getBonusTags(itemStackToProcess, itemStackToProcessAspects);
             int visItemAmount = metaVis.visSize();
             if (this.essentiaAmountVis + visItemAmount < this.essentiaMaxVis) {
-                if(visItemAmount <= this.centiVisHeat && visItemAmount <= this.centiVisLiquidity && visItemAmount <= this.centiVisDestruction) {
+                if (visItemAmount <= this.centiVisHeat && visItemAmount <= this.centiVisLiquidity
+                    && visItemAmount <= this.centiVisDestruction) {
                     if (this.bellowsAmount > 1) {
-                        this.maxFurnaceCookTime = (int) ((float) (visItemAmount * 10) * (1.0F - 0.125F)) / (int) this.speedBurnMultiplier;
+                        this.maxFurnaceCookTime = (int) ((float) (visItemAmount * 10) * (1.0F - 0.125F))
+                            / (int) this.speedBurnMultiplier;
                         this.centiVisHeat -= (int) (1 * this.speedBurnMultiplier);
                         this.centiVisLiquidity -= (int) (1 * this.speedBurnMultiplier);
                         this.centiVisDestruction -= (int) (1 * this.speedBurnMultiplier);
@@ -412,7 +429,8 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
                         itemStackToProcess.stackSize--;
 
                         if (this.furnaceItemStacks[0].stackSize <= 0) {
-                            this.furnaceItemStacks[0] = this.furnaceItemStacks[0].getItem().getContainerItem(this.furnaceItemStacks[0]);
+                            this.furnaceItemStacks[0] = this.furnaceItemStacks[0].getItem()
+                                .getContainerItem(this.furnaceItemStacks[0]);
                         }
 
                         for (Aspect aspect : metaVis.getAspects()) {
@@ -422,17 +440,17 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
                         this.essentiaAmountVis = this.visAspects.visSize();
                     }
                 } else {
-                    if(this.centiVisHeat <= 0) {
+                    if (this.centiVisHeat <= 0) {
                         this.setCentiVisHeat(0);
                     }
-                    if(this.centiVisLiquidity <= 0) {
+                    if (this.centiVisLiquidity <= 0) {
                         this.setCentiVisLiquidity(0);
                     }
-                    if(this.centiVisDestruction <= 0) {
+                    if (this.centiVisDestruction <= 0) {
                         this.setCentiVisDestruction(0);
                     }
 
-                    if(this.getFurnaceCookTime() > 0) {
+                    if (this.getFurnaceCookTime() > 0) {
                         this.furnaceCookTime--;
                     } else {
                         this.setFurnaceCookTime(0);
@@ -449,7 +467,7 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
         }
     }
 
-    //manages the transfer of essentia to the alembic or other stuff
+    // manages the transfer of essentia to the alembic or other stuff
     private void processEssentia() {
         int expulsionSpeed = visAlembicExpulsion;
         if (this.bellowsAmount > 0) {
@@ -469,7 +487,8 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
                 } else {
                     alembicTE = (TileAlembic) te;
 
-                    if (alembicTE.aspect != null && alembicTE.amount < alembicTE.maxAmount && this.visAspects.getAmount(alembicTE.aspect) > 0) {
+                    if (alembicTE.aspect != null && alembicTE.amount < alembicTE.maxAmount
+                        && this.visAspects.getAmount(alembicTE.aspect) > 0) {
                         this.takeFromContainer(alembicTE.aspect, 1);
                         alembicTE.addToContainer(alembicTE.aspect, 1);
                         aspectsAlembicDummy.merge(alembicTE.aspect, 1);
@@ -481,8 +500,7 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
 
             alembicHeight = 0;
 
-            refill:
-            while (true) {
+            refill: while (true) {
                 do {
                     if (alembicHeight >= this.alembicDistillationHeightLimit) {
                         break refill;
@@ -516,6 +534,7 @@ public class TileEntityShadowAlchemyFurnace extends TileThaumcraft implements IS
     }
 
     public void getBellows() {
-        this.bellowsAmount = TileBellows.getBellows(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.VALID_DIRECTIONS);
+        this.bellowsAmount = TileBellows
+            .getBellows(this.worldObj, this.xCoord, this.yCoord, this.zCoord, ForgeDirection.VALID_DIRECTIONS);
     }
 }

@@ -2,13 +2,14 @@ package com.gabid.ezaciancraft.client.renderer.models;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+
 import org.lwjgl.opengl.GL11;
 
 public class AlchemicalMixerModel extends ModelBase {
 
     private final float scaleModelRender = 0.0625f;
 
-    //fields
+    // fields
     public ModelRenderer Container;
     public ModelRenderer PipeOutput;
     public ModelRenderer PipeOutputConnected;

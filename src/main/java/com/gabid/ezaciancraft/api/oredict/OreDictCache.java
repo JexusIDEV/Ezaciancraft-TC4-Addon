@@ -1,18 +1,20 @@
 package com.gabid.ezaciancraft.api.oredict;
 
-import com.gabid.ezaciancraft.api.common.items.util.ItemInfo;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
+import static com.gabid.ezaciancraft.CoreMod.getModIdFromItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.gabid.ezaciancraft.CoreMod.getModIdFromItemStack;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
-//https://github.com/mekanism/Mekanism/blob/1.7.10/src/main/java/mekanism/common/OreDictCache.java
+import com.gabid.ezaciancraft.api.common.items.util.ItemInfo;
+
+// https://github.com/mekanism/Mekanism/blob/1.7.10/src/main/java/mekanism/common/OreDictCache.java
 public class OreDictCache {
+
     public static HashMap<ItemInfo, List<String>> cachedKeys = new HashMap<ItemInfo, List<String>>();
     public static HashMap<String, List<ItemStack>> oreDictStacks = new HashMap<String, List<ItemStack>>();
     public static HashMap<String, List<ItemStack>> modIDStacks = new HashMap<String, List<ItemStack>>();

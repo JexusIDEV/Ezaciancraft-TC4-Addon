@@ -1,18 +1,20 @@
 package com.gabid.ezaciancraft.client.renderer.items.blocks;
 
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceInput;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceOutput;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
+
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceInput;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityWirelessEssentiaInterfaceOutput;
+
 import thaumcraft.api.TileThaumcraft;
 
-//this is really for itemBlock...
+// this is really for itemBlock...
 public class WirelessEssentiaInterfaceBlockRender implements IItemRenderer {
 
-    public WirelessEssentiaInterfaceBlockRender() {
-    }
+    public WirelessEssentiaInterfaceBlockRender() {}
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
@@ -44,7 +46,7 @@ public class WirelessEssentiaInterfaceBlockRender implements IItemRenderer {
 
             GL11.glScaled(1.25f, 1.25f, 1.25f);
         }
-        if(type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
+        if (type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
             if (meta == 0) {
                 GL11.glRotatef(90f, 0f, -1f, -0.05f);
                 GL11.glTranslated(-0.05f, 0.185f, -0.65f);
@@ -55,7 +57,7 @@ public class WirelessEssentiaInterfaceBlockRender implements IItemRenderer {
             GL11.glScalef(1.25f, 1.25f, 1.25f);
         }
 
-        if(type == ItemRenderType.EQUIPPED) {
+        if (type == ItemRenderType.EQUIPPED) {
             if (meta == 0) {
                 GL11.glTranslated(-0.05f, -0.15f, -0.475f);
             } else if (meta == 1) {

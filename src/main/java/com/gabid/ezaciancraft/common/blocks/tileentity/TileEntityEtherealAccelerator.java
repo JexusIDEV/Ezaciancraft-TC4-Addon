@@ -1,20 +1,21 @@
 package com.gabid.ezaciancraft.common.blocks.tileentity;
 
-import com.pengu.thaumcraft.additions.tileentity.TileTileBooster;
-import com.pengu.util.ForgeDirectionHelper;
+import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.EA_ACCELERATION_SPEED;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import thaumcraft.api.TileThaumcraft;
 
-import static com.gabid.ezaciancraft.api.EzacianCraftNBTConstants.EA_ACCELERATION_SPEED;
+import com.pengu.thaumcraft.additions.tileentity.TileTileBooster;
+import com.pengu.util.ForgeDirectionHelper;
+
+import thaumcraft.api.TileThaumcraft;
 
 public class TileEntityEtherealAccelerator extends TileThaumcraft {
 
     private int accelerationSpeed = 1;
 
-    public TileEntityEtherealAccelerator() {
-    }
+    public TileEntityEtherealAccelerator() {}
 
     private void accelerateTEs() {
         if (this.worldObj.isRemote) return;
@@ -26,12 +27,17 @@ public class TileEntityEtherealAccelerator extends TileThaumcraft {
             int x = this.xCoord + ForgeDirectionHelper.getForgeDirectionXApplyed(dir);
             int y = this.yCoord + ForgeDirectionHelper.getForgeDirectionYApplyed(dir);
             int z = this.zCoord + ForgeDirectionHelper.getForgeDirectionZApplyed(dir);
-            TileEntity te = this.worldObj.getTileEntity(x, y, z) != null && !(this.worldObj.getTileEntity(x, y, z) instanceof TileEntityEtherealAccelerator || this.worldObj.getTileEntity(x, y, z) instanceof TileTileBooster) ? this.worldObj.getTileEntity(x, y, z) : null;
+            TileEntity te = this.worldObj.getTileEntity(x, y, z) != null
+                && !(this.worldObj.getTileEntity(x, y, z) instanceof TileEntityEtherealAccelerator
+                    || this.worldObj.getTileEntity(x, y, z) instanceof TileTileBooster)
+                        ? this.worldObj.getTileEntity(x, y, z)
+                        : null;
             if (te != null && te.canUpdate()) {
                 for (int h = 0; h < this.accelerationSpeed; ++i) {
                     te.updateEntity();
                     te.markDirty();
-                    te.getWorldObj().markBlockForUpdate(x,y,z);
+                    te.getWorldObj()
+                        .markBlockForUpdate(x, y, z);
                 }
             }
         }

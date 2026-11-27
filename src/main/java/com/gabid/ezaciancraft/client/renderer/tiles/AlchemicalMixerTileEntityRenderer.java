@@ -1,9 +1,10 @@
 package com.gabid.ezaciancraft.client.renderer.tiles;
 
-import com.gabid.ezaciancraft.client.renderer.models.AlchemicalMixerModel;
-import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAlchemicalMixer;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import static com.gabid.ezaciancraft.CoreMod.MODID;
+import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ALCHEMICAL_MIXER;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_LIGHTING;
+
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -12,25 +13,28 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.lwjgl.opengl.GL11;
+
+import com.gabid.ezaciancraft.client.renderer.models.AlchemicalMixerModel;
+import com.gabid.ezaciancraft.common.blocks.tileentity.TileEntityAlchemicalMixer;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.IEssentiaTransport;
 import thaumcraft.common.blocks.BlockJar;
 import thaumcraft.common.config.ConfigBlocks;
 
-import static com.gabid.ezaciancraft.CoreMod.MODID;
-import static com.gabid.ezaciancraft.api.EzacianCraftGeneralLang.UNLOCALE_ALCHEMICAL_MIXER;
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_LIGHTING;
-
 @SideOnly(Side.CLIENT)
 public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer {
 
-    private final ResourceLocation texturePath = new ResourceLocation(MODID, "textures/blocks/" + UNLOCALE_ALCHEMICAL_MIXER + "Atlas.png");
+    private final ResourceLocation texturePath = new ResourceLocation(
+        MODID,
+        "textures/blocks/" + UNLOCALE_ALCHEMICAL_MIXER + "Atlas.png");
     public AlchemicalMixerModel model = new AlchemicalMixerModel();
 
-    public AlchemicalMixerTileEntityRenderer() {
-    }
+    public AlchemicalMixerTileEntityRenderer() {}
 
     private void renderAlchemicalMixerTE(TileEntityAlchemicalMixer te, double x, double y, double z, float ticks) {
         int teDirection = te.metaFacing;
@@ -86,13 +90,16 @@ public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer
     }
 
     private void renderStoredEssentia(TileEntityAlchemicalMixer te) {
-        if (this.field_147501_a.field_147553_e != null && te.currentAspectForColor != null && te.getAspects().visSize() <= 0) {
+        if (this.field_147501_a.field_147553_e != null && te.currentAspectForColor != null
+            && te.getAspects()
+                .visSize() <= 0) {
             GL11.glPushMatrix();
             GL11.glEnable(GL_BLEND);
             GL11.glBlendFunc(770, 771);
             RenderBlocks renderBlocks = new RenderBlocks();
             GL11.glDisable(GL_LIGHTING);
-            int currentStored = te.getAspects().visSize();
+            int currentStored = te.getAspects()
+                .visSize();
             float levelStored = (float) currentStored / te.maxAspectCapacity;
             Tessellator tessellator = Tessellator.instance;
             renderBlocks.setRenderBounds(-.225, .275, -.225, .225, (.175 + .55 * levelStored), .225);
@@ -116,7 +123,8 @@ public class AlchemicalMixerTileEntityRenderer extends TileEntitySpecialRenderer
 
     private void renderIsDownConnected(TileEntityAlchemicalMixer te) {
         if (te.getWorldObj() != null) {
-            TileEntity down = ThaumcraftApiHelper.getConnectableTile(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord, ForgeDirection.DOWN);
+            TileEntity down = ThaumcraftApiHelper
+                .getConnectableTile(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord, ForgeDirection.DOWN);
             if (down instanceof IEssentiaTransport) {
                 if (down.getBlockType() instanceof BlockJar) {
                     this.model.renderConnected();
